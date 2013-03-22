@@ -6,8 +6,8 @@
 	<artifactId>uiCommonsLibrary</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>uiLibrary Module</name>
-	<description>UI Library that has common JS/CSS/HTML/templates/fragments etc.</description>
+	<name>uiCommonsLibrary Module</name>
+	<description>UI Common Library that has common JS/CSS/HTML/templates/fragments etc.</description>
 	<url>https://wiki.openmrs.org/display/docs/uiLibrary+Module+Module</url>
 	
 	<developers>
@@ -33,9 +33,10 @@
 	</modules>
 	
 	<properties>
-		<openMRSVersion>1.9.3</openMRSVersion>
+		<openMRSVersion>1.9.4-SNAPSHOT</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+        <uiframeworkVersion>2.5</uiframeworkVersion>
+    </properties>
 
 	<dependencyManagement>
 		<dependencies>
@@ -50,10 +51,20 @@
 				<scope>compile</scope>
 			</dependency>
 			-->
-			
-			
 
-			<!-- Begin OpenMRS core -->
+            <!--
+                This dependency is only added so that this module can setup UI Framework configuration and
+                thus the fragments inside it can be referred by UI Framework constructs like
+                    ui.includeCss("patientdashboardapp", "custom.css")
+            -->
+            <dependency>
+                <groupId>org.openmrs.module</groupId>
+                <artifactId>uiframework-api</artifactId>
+                <version>${uiframeworkVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Begin OpenMRS core -->
 			
 			<dependency>
 				<groupId>org.openmrs.api</groupId>

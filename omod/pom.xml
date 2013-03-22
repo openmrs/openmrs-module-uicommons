@@ -10,8 +10,8 @@
 
 	<artifactId>uiCommonsLibrary-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>uiLibrary Module OMOD</name>
-	<description>OMOD project for uiLibrary</description>
+	<name>uiCommonsLibrary Module OMOD</name>
+	<description>OMOD project for uiCommonsLibrary</description>
 
 	<dependencies>
 
@@ -30,9 +30,13 @@
 			<artifactId>${project.parent.artifactId}-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		
-				
-		<!-- End OpenMRS modules -->
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>uiframework-api</artifactId>
+        </dependency>
+
+        <!-- End OpenMRS modules -->
 		
 
 		<!-- Begin OpenMRS core -->

@@ -10,8 +10,8 @@
 
 	<artifactId>uiCommonsLibrary-api</artifactId>
 	<packaging>jar</packaging>
-	<name>uiLibrary Module API</name>
-	<description>API project for uiLibrary</description>
+	<name>uiCommonsLibrary Module API</name>
+	<description>API project for uiCommonsLibrary</description>
 
 	<dependencies>
 	
