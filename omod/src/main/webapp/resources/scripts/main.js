@@ -28,6 +28,8 @@ require.config({
         underscore: getMyUrl() + 'underscore-min',
         text: getMyUrl() + 'require/text',
 
+        uiCommons: getMyUrl(),
+
         // The resourceBaseUrl URL would typically end up being something like
         //      http://localhost:8080/openmrs/moduleResources
         //
@@ -35,7 +37,7 @@ require.config({
         //
         //      eg., require([resourceBaseUrl/myModuleName/my/path/to/my/resource])
         //
-        resourceBaseUrl: '../../',
+        resourceBaseUrl: getMyUrl() + '../../',
 
         // The main URL would be the main scripts directory in UI Commons Library,
         // so all module using it can refer to files inside it as
