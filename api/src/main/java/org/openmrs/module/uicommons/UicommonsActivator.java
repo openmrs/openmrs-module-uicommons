@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.uiCommonsLibrary;
+package org.openmrs.module.uicommons;
 
 
 import org.apache.commons.logging.Log; 
@@ -21,7 +21,7 @@ import org.openmrs.module.ModuleActivator;
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
-public class UiCommonsLibraryActivator implements ModuleActivator {
+public class UicommonsActivator implements ModuleActivator {
 	
 	protected Log log = LogFactory.getLog(getClass());
 		
@@ -29,42 +29,42 @@ public class UiCommonsLibraryActivator implements ModuleActivator {
 	 * @see ModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
-		log.info("Refreshing uiCommonsLibrary Module");
+		log.info("Refreshing uicommons Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#contextRefreshed()
 	 */
 	public void contextRefreshed() {
-		log.info("uiCommonsLibrary Module refreshed");
+		log.info("uicommons Module refreshed");
 	}
 	
 	/**
 	 * @see ModuleActivator#willStart()
 	 */
 	public void willStart() {
-		log.info("Starting uiCommonsLibrary Module");
+		log.info("Starting uicommons Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-		log.info("uiCommonsLibrary Module started");
+		log.info("uicommons Module started");
 	}
 	
 	/**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
-		log.info("Stopping uiCommonsLibrary Module");
+		log.info("Stopping uicommons Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
-		log.info("uiCommonsLibrary Module stopped");
+		log.info("uicommons Module stopped");
 	}
 		
 }

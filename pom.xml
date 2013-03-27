@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>uiCommonsLibrary</artifactId>
+	<artifactId>uicommons</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>uiCommonsLibrary Module</name>
+	<name>uicommons Module</name>
 	<description>UI Common Library that has common JS/CSS/HTML/templates/fragments etc.</description>
 	<url>https://wiki.openmrs.org/display/docs/uiLibrary+Module+Module</url>
 	

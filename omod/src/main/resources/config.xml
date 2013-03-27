@@ -17,7 +17,7 @@
 
 	
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.UiCommonsLibraryActivator</activator>
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.UicommonsActivator</activator>
 	
 	
 	<!-- Maps hibernate file's, if present -->

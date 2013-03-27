@@ -4,14 +4,14 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>uiCommonsLibrary</artifactId>
+		<artifactId>uicommons</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>uiCommonsLibrary-api</artifactId>
+	<artifactId>uicommons-api</artifactId>
 	<packaging>jar</packaging>
-	<name>uiCommonsLibrary Module API</name>
-	<description>API project for uiCommonsLibrary</description>
+	<name>uicommons Module API</name>
+	<description>API project for uicommons</description>
 
 	<dependencies>
 	

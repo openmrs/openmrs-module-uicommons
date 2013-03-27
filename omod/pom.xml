@@ -4,14 +4,14 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>uiCommonsLibrary</artifactId>
+		<artifactId>uicommons</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>uiCommonsLibrary-omod</artifactId>
+	<artifactId>uicommons-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>uiCommonsLibrary Module OMOD</name>
-	<description>OMOD project for uiCommonsLibrary</description>
+	<name>uicommons Module OMOD</name>
+	<description>OMOD project for uicommons</description>
 
 	<dependencies>
 

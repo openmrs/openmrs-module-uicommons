@@ -36,7 +36,12 @@ define( [
             return renderFunctions[extension.type]( extension, contextMap );
         }
 
+        this.registerRenderer = function( type, renderFunction ) {
+            renderFunctions[type] = renderFunction;
+        }
+
         this.renderExtensions = function ( appId, extensionPointId, domElementSelector, contextMap ) {
+            // TODO: Make these links dynamic
             var extensions = JSON.parse(
                 $.ajax( {
                     type: "GET",

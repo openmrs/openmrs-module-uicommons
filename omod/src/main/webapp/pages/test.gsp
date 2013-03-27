@@ -1,2 +1,0 @@
-Hello, <%= key %>!
-Hello2!

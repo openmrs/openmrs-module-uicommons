@@ -1,9 +1,9 @@
 <%
 //    emrContext.requireAuthentication()
 
-    ui.includeFragment("uiCommonsLibrary", "standardEmrIncludes")
+    ui.includeFragment("uicommons", "standardEmrIncludes")
 
-    def title = config.title ?: ui.message("uiCommonsLibrary.title")
+    def title = config.title ?: ui.message("uicommons.title")
 %>
 
 <%

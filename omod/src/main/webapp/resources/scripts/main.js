@@ -4,7 +4,7 @@ function getMyUrl() {
     var myUrl;
     var scripts = document.getElementsByTagName('script');
     for(var i = 0; i < scripts.length; i++) {
-        var match = scripts[i]['src'].match(/.*uiCommonsLibrary\/scripts\/main\.js/);
+        var match = scripts[i]['src'].match(/.*uicommons\/scripts\/main\.js/);
         if(match != null) {
             myUrl = match[0];
             break;
