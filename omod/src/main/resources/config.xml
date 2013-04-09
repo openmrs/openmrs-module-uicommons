@@ -7,12 +7,12 @@
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
 	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
-	<author>nutsiepully</author>
+	<author>OpenMRS</author>
 	<description>
 		${project.parent.description}
 	</description>
 	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
-    <require_version>1.9.4</require_version>
+    <require_version>1.9.3</require_version>
     <!-- / Module Properties -->
 
 	
