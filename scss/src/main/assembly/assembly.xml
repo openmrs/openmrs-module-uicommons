@@ -7,7 +7,7 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/src/main/resources/sass</directory>
+            <directory>${project.basedir}/src/main/resources/sass/reference</directory>
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>*.scss</include>
