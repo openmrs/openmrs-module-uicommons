@@ -1,4 +1,4 @@
-@import "../reference/variables";
+@import "../reference/reference";
 @import "compass/css3";
 
 .tabs {
@@ -154,21 +154,7 @@
 
     .visit-status {
       width: 98.4%;
-      color: $text;
-      font-size: 0.9em;
-      display: inline-block;
-      border: 1px solid #EAEAEA;
-      background: #f9f9f9;
-      padding: 5px;
-      margin: 5px 0;
-      @include box-shadow(1px 1px 1px white);
-      .status {
-        display: inline-block;
-        height: 5px;
-        width: 5px;
-        margin: 2px;
-        @include border-radius(20px);
-      }
+      @include visit-status('#f9f9f9');
     }
 
     .visit-actions {
