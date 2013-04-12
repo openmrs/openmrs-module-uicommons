@@ -76,7 +76,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!--execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/resources</execArgs-->
+                    <execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/resources</execArgs>
                 </configuration>
             </plugin>
         </plugins>
