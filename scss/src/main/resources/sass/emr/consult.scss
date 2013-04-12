@@ -49,7 +49,7 @@
 .preferred-name {
   margin-top: 5px;
   display: block;
-  font-family: "OpenSansLight";
+  font-family: $primaryLightFont;
   small {
     font-size: 1em;
     color: $darkerGrey;
@@ -58,7 +58,7 @@
 
 .code {
   float: right;
-  font-family: "OpenSansLight";
+  font-family: $primaryLightFont;
   font-size: 0.9em;
 }
 

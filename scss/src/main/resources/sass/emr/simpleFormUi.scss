@@ -111,10 +111,10 @@ ul#formBreadcrumb {
 }
 
 section, #confirmation {
-  display: none !important;
+  display: none;
 
   &.focused {
-    display: inline-block !important;
+    display: inline-block;
   }
 
   border-left: 3px solid #EEE;
@@ -145,12 +145,12 @@ section, #confirmation {
   }
 
   fieldset, #confirmationQuestion {
-    display: none !important;
-    border: none !important;
+    display: none;
+    border: none;
     padding: 0;
 
     &.focused {
-      display: block !important;
+      display: block;
     }
 
     legend { display: none }
