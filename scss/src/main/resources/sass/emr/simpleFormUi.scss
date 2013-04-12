@@ -22,7 +22,7 @@ ul#formBreadcrumb {
 
     span {
       padding: 5px;
-      font-family: "OpenSansBold";
+      font-family: $primaryBoldFont;
     }
 
     &:first-child {
@@ -44,7 +44,7 @@ ul#formBreadcrumb {
           span {
             padding-left: 32px;
             font-weight: normal;
-            font-family: "OpenSans";
+            font-family: $primaryFont;
           }
 
           border: none;
