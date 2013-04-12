@@ -1,5 +1,5 @@
 @import "colors";
-@import "compass";
+@import "../reference/reference.scss";
 
 .patient-header {
   position: relative;
@@ -33,16 +33,7 @@
        }
     }
     .gender-age {
-      display: inline-block;
-      vertical-align: text-bottom;
-      font-size: 0.9em;
-      span {
-        margin-right: 10px;
-        &:before {
-          content: "·";
-          padding-right: 5px;
-        }
-      }
+      @include horizontal-list;
     }
   }
   .identifiers {
