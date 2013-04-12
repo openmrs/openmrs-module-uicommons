@@ -1,5 +1,5 @@
-@import "colors";
-@import "compass";
+@import "../reference/variables";
+@import "compass/css3";
 
 form#retrospectiveCheckin {
   background: #F9F9F9 url(../images/aside-bg.png) repeat-y -20px;
