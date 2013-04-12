@@ -35,7 +35,7 @@
       padding: 10px;
     }
   }
-  
+
   &.medium {
     i {
       font-size: 34px;
@@ -118,7 +118,7 @@
   }
 }
 
-.button, button, input[type="submit"], input[type="button"], a.button {
+.button, button, input[type="submit"], input[type="button"], input[type="submit"], a.button {
   @include button;
 
   &.task {
@@ -134,6 +134,11 @@
   }
 
   &.cancel {
+    @include button($error, darken($error, 8%), white);
+    padding: 40px;
+  }
+
+  &.proceed {
     @include button($error, darken($error, 8%), white);
   }
 }
