@@ -135,7 +135,6 @@
 
   &.cancel {
     @include button($error, darken($error, 8%), white);
-    padding: 40px;
   }
 
   &.proceed {
