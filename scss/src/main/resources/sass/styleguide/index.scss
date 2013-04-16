@@ -55,11 +55,15 @@
     box-sizing: border-box;
     vertical-align: top;
     padding: 10px;
+
     article {
-      .example {
+      border-bottom: 1px dotted #DDD;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      .example, code {
         position: relative;
         margin: 15px 0;
-        padding: 39px 19px 14px;
+        padding: 40px 20px 15px;
         background-color: #fff;
         border: 1px solid #ddd;
         @include border-radius(2px);
@@ -71,9 +75,34 @@
           padding: 3px 7px;
           font-size: 12px;
           font-weight: bold;
-          background-color: #f5f5f5;
           border: 1px solid #ddd;
-          color: #9da0a4;
+          color: #969696;
+          background: #F9F9F9;
+        }
+      }
+      code {
+        display: block;
+        background: #F9F9F9;
+        padding: 0;
+        margin-top: 24px;
+        ol {
+          margin: 0 0 0 50px;
+          display: block;
+          background: #FFF;
+          li {
+            padding: 5px 10px;
+            color: #BBB;
+            line-height: 20px;
+            border-bottom: 1px solid #F9F9F9;
+            span {
+              color: $text;
+            }
+          }
+        }
+        &:after {
+          top: -24px;
+          font-family: "OpenSans";
+          content: "Code";
         }
       }
     }
