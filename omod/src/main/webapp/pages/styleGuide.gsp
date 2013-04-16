@@ -105,15 +105,38 @@
         </article>
 
         <article>
-            <h2>Breadcrumbs</h2>
+            <h2>Fonts</h2>
             <section>
-                <p>Every page should have breadcrumbs to indicate where the user is located and the steps he/she did to get there.</p>
+                <p>The default OpenMRS font family is Open Sans. You can change your application fonts by altering the following variables:</p>
             </section>
 
             <section>
-                <div class="example">
+                <code>
+                    <ol>
+                        <li>
+                            <span class="var">\$primaryFont</span>  <span>:</span>
+                            <span class="val">"OpenSans"</span><span>;</span>
+                        </li>
+                        <li>
+                            <span class="var">\$primaryBoldFont</span>  <span>:</span>
+                            <span class="val">"OpenSansBold"</span><span>;</span>
+                        </li>
+                        <li>
+                            <span class="var">\$primaryLightFont</span>  <span>:</span>
+                            <span class="val">"OpenSansLight"</span><span>;</span>
+                        </li>
+                        <li>
+                            <span class="var">\$primaryItalicFont</span>  <span>:</span>
+                            <span class="val">"OpenSansItalic"</span><span>;</span>
+                        </li>
+                        <li>
+                            <span class="var">\$iconFont</span>  <span>:</span>
+                            <span class="val">"FontAwesome"</span><span>;</span>
+                            <span class="comm">//This is for icons, not text.</span>
+                        </li>
+                    </ol>
 
-                </div>
+                </code>
             </section>
         </article>
 
