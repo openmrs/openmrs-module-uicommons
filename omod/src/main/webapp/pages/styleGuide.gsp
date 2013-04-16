@@ -61,6 +61,32 @@
                 <p>This is OpenMRS color palette. You can alter the following variables to add you own palette.</p>
             </section>
 
+            <section id="colors">
+                <h3>OpenMRS Colors</h3>
+                <ul>
+                    <li>
+                        <span style="background-color: #F26522"></span>
+                        <p>#F26522</p>
+                    </li>
+                    <li>
+                        <span style="background-color: #5B57A6"></span>
+                        <p>#5B57A6"</p>
+                    </li>
+                    <li>
+                        <span style="background-color: #EEA616"></span>
+                        <p>#EEA616</p>
+                    </li>
+                    <li>
+                        <span style="background-color: #009384"></span>
+                        <p>#009384</p>
+                    </li>
+                    <li>
+                        <span style="background-color: #231F20"></span>
+                        <p>#231F20</p>
+                    </li>
+                </ul>
+            </section>
+
             <section>
                 <code>
                     <ol>
@@ -75,12 +101,6 @@
                         </li>
                     </ol>
                 </code>
-            </section>
-
-            <section>
-                <div class="example">
-
-                </div>
             </section>
         </article>
 
