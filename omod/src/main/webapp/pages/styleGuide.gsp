@@ -284,10 +284,30 @@
                 <p>Customized buttons are additional classes you can use to indicate types of buttons in the interface:</p>
                 <ul class="list">
                     <li>For actions: <strong>.confirm</strong>, <strong>.cancel</strong></li>
-                    <li>For icon sizes: <strong>.big</strong>, <strong>.medium</strong></li>
-                    <li><strong>.disabled</strong></li>
-                    <li><strong>.app</strong></li>
-                    <li><strong>.task</strong></li>
+                    <li>
+                        For icon sizes: <strong>.big</strong>, <strong>.medium</strong>
+                        <ul>
+                            <li>This will affect the <em>icon</em> size, not the button itself, but should be applied to the button level.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>.disabled</strong>
+                        <ul>
+                            <li>Use it when a button in in an inactive mode, for example if the user needs to fill in an input to proceed.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>.app</strong>
+                        <ul>
+                            <li>To create the apps buttons, all sized the same. Must come together with the <em>.big</em> class.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>.task</strong>
+                        <ul>
+                            <li>For task buttons such as "Record Vitals". Usually used in the Patient Dashboard.</li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
 

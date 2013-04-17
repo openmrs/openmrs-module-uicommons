@@ -58,6 +58,9 @@ ul.list {
   li {
     list-style: circle;
     margin: 0 0 5px 30px;
+    ul li {
+      color: #666;
+    }
   }
 }
 
