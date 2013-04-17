@@ -139,7 +139,16 @@
         <article>
             <h2>Icons</h2>
             <section>
-                <p>Every page should have breadcrumbs to indicate where the user is located and the steps he/she did to get there.</p>
+                <p>Every icon in the OpenMRS Application comes from a font called <a href="http://fortawesome.github.io/Font-Awesome/" target="blank_">Font Awesome</a>.</p>
+                <p><strong>Some advantages of using a font for the icons are:</strong></p>
+                <ul class="list">
+                    <li>Easily style icon color, size, shadow, and anything that's possible with CSS.</li>
+                    <li>Scalable vector graphics means every icon looks awesome at any size.</li>
+                    <li>A font file is smaller than images.</li>
+                </ul>
+                <p>
+                    If you need more icons, you can create your own font-family and add it in the variables. A good option for creating an icon font is <a href="http://icomoon.io/" target="blank_">IconMoon</a>.
+                </p>
             </section>
 
             <section>
@@ -192,7 +201,19 @@
 
             <section>
                 <div class="example">
-
+                    <ul id="breadcrumbs">
+                        <li>
+                            <a href="#">
+                            <i class="icon-home small"></i></a>
+                        </li>
+                        <li>
+                            <i class="icon-chevron-right link"></i>
+                            <a href="#">Arsand, Natalia</a>
+                        </li>
+                        <li>
+                            <i class="icon-chevron-right link"></i>Visits
+                        </li>
+                    </ul>
                 </div>
             </section>
         </article>

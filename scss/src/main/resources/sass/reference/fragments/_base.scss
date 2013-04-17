@@ -53,6 +53,14 @@ ul {
   list-style: none;
 }
 
+ul.list {
+  margin-bottom: 10px;
+  li {
+    list-style: circle;
+    margin: 0 0 5px 30px;
+  }
+}
+
 hr {
   border: 0;
   border-bottom: 1px solid $white;
