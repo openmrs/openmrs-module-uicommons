@@ -90,6 +90,16 @@
             background: #F9F9F9;
           }
         }
+        .example {
+          ul.grid {
+            li {
+              display: inline-block;
+              text-align: center;
+              width: 200px;
+              margin: 10px;
+            }
+          }
+        }
         code {
           background: #F9F9F9;
           padding: 0;

@@ -218,5 +218,109 @@
             </section>
         </article>
 
+        <article>
+            <h2>Buttons</h2>
+            <section>
+                <p>There are <strong>4 ways</strong> to get a button style in the OpenMRS Application:</p>
+                <ul class="list">
+                    <li>By a class;</li>
+                    <li>By a submit input;</li>
+                    <li>By a button input;</li>
+                    <li>By a button tag.</li>
+                </ul>
+                <p>Customized buttons are additional classes </p>
+            </section>
+
+            <section>
+                <code>
+                    <ol>
+                        <li>
+                            <span class="comm">// By a class:</span>
+                        </li>
+                        <li>
+                            <span>&lt;a&nbsp;</span><span class="var">class=</span><span class="val">&quot;<strong>button</strong>&quot;&nbsp;</span><span class="var">href=</span><span class="val">&quot;#&quot;</span><span>&gt;</span>
+                        </li>
+                        <li>
+                            <span>&nbsp;&nbsp;&nbsp;This is a button</span>
+                        </li>
+                        <li>
+                            <span>&lt;/a&gt;</span>
+                        </li>
+                        <li></li>
+                        <li>
+                            <span class="comm">// By a submit input:</span>
+                        </li>
+                        <li>
+                            <span>&lt;<strong>input</strong></span>
+                            <span class="var">type=</span><span class="val">"<strong>submit</strong>"</span><span class="var"> value=</span><span class="val">"Submit Button"</span><span> /&gt;</span>
+                        </li>
+                        <li></li>
+                        <li>
+                            <span class="comm">// By a button input:</span>
+                        </li>
+                        <li>
+                            <span>&lt;<strong>input</strong></span>
+                            <span class="var">type=</span><span class="val">"<strong>button</strong>"</span><span class="var"> value=</span><span class="val">"Input Button"</span><span> /&gt;</span>
+                        </li>
+                        <li></li>
+                        <li>
+                            <span class="comm">// By a button tag:</span>
+                        </li>
+                        <li>
+                            <span>&lt;<strong>button</strong>&gt;</span>
+                        </li>
+                        <li>
+                            <span>&nbsp;&nbsp;&nbsp;This is a button</span>
+                        </li>
+                        <li>
+                            <span>&lt;/<strong>button</strong>&gt;</span>
+                        </li>
+                        <li></li>
+                    </ol>
+                </code>
+            </section>
+
+            <section>
+                <div class="example">
+                    <ul class="grid">
+                        <li>
+                            <a class="button" href="#">
+                                Simple button
+                            </a>
+                        </li>
+                        <li>
+                            <a class="button" href="#">
+                                <i class ="icon-medical"></i>
+                                Button with icon
+                            </a>
+                        </li>
+                        <li>
+                            <a class="button big " href="#">
+                                <i class ="icon-medical"></i>
+                                Big button with icon
+                            </a>
+                        </li>
+                        <li>
+                            <a class="button confirm" href="#">
+                                Confirm simple button
+                            </a>
+                        </li>
+                        <li>
+                            <a class="button cancel" href="#">
+                                <i class ="icon-medical"></i>
+                                Cancel button with icon
+                            </a>
+                        </li>
+                        <li>
+                            <a class="button big disabled" href="#">
+                                <i class ="icon-medical"></i>
+                                Big button with icon disabled
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </article>
+
     </div>
 </div>

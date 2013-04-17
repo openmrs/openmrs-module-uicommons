@@ -24,7 +24,8 @@
     font-size: 1.2em;
     margin: 0;
     padding: 0;
-    line-height: .5em;
+    line-height: .7em;
+    text-align: center;
   }
 
   &.big, &.medium {
@@ -118,7 +119,7 @@
   }
 }
 
-.button, button, input[type="submit"], input[type="button"], input[type="submit"], a.button {
+.button, button, input[type="button"], input[type="submit"], a.button {
   @include button;
 
   &.task {
