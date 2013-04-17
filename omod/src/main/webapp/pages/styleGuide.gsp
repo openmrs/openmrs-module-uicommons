@@ -107,35 +107,79 @@
         <article>
             <h2>Fonts</h2>
             <section>
-                <p>The default OpenMRS font family is Open Sans. You can change your application fonts by altering the following variables:</p>
+                <p>The default OpenMRS font family is <a href="http://www.google.com/fonts/specimen/Open+Sans" target="blank_"> Open Sans</a>. You can change your application fonts by altering the following variables.</p>
+                <p class="caution"><i class="icon-exclamation-sign small"></i>Deleting a variable may cause the application to crash.</p>
             </section>
 
             <section>
                 <code>
                     <ol>
                         <li>
-                            <span class="var">\$primaryFont</span>  <span>:</span>
+                            <span class="var">\$primaryFont</span><span>:</span>
                             <span class="val">"OpenSans"</span><span>;</span>
                         </li>
                         <li>
-                            <span class="var">\$primaryBoldFont</span>  <span>:</span>
+                            <span class="var">\$primaryBoldFont</span><span>:</span>
                             <span class="val">"OpenSansBold"</span><span>;</span>
                         </li>
                         <li>
-                            <span class="var">\$primaryLightFont</span>  <span>:</span>
+                            <span class="var">\$primaryLightFont</span><span>:</span>
                             <span class="val">"OpenSansLight"</span><span>;</span>
                         </li>
                         <li>
-                            <span class="var">\$primaryItalicFont</span>  <span>:</span>
+                            <span class="var">\$primaryItalicFont</span><span>:</span>
                             <span class="val">"OpenSansItalic"</span><span>;</span>
-                        </li>
-                        <li>
-                            <span class="var">\$iconFont</span>  <span>:</span>
-                            <span class="val">"FontAwesome"</span><span>;</span>
-                            <span class="comm">//This is for icons, not text.</span>
                         </li>
                     </ol>
 
+                </code>
+            </section>
+        </article>
+
+        <article>
+            <h2>Icons</h2>
+            <section>
+                <p>Every page should have breadcrumbs to indicate where the user is located and the steps he/she did to get there.</p>
+            </section>
+
+            <section>
+                <div class="example align-center">
+                    <i class="icon-user"></i><i class="icon-user-md"></i><i class="icon-folder-open"></i><i class="icon-barcode"></i><i class="icon-cog"></i><i class="icon-home"></i><i class="icon-time"></i><i class="icon-exclamation-sign"></i><i class="icon-beaker"></i><i class="icon-heart"></i><i class="icon-search"></i><i class="icon-inbox"></i><i class="icon-remove-sign"></i><i class="icon-edit"></i>
+                    <p><a href="/icons" target="blank_">Show all</a></p>
+                </div>
+            </section>
+
+            <section>
+                <code>
+                    <ol>
+                        <li>
+                            <span class="comm">// Bellow is the variable for the icon font</span>
+                        </li>
+                        <li>
+                            <span class="comm">// It is located in reference/_variable.scss.</span>
+                        </li>
+                        <li>
+                            <span class="var">\$iconFont</span><span>:</span>
+                            <span class="val">"FontAwesome"</span><span>;</span>
+                        </li>
+                        <li></li>
+                        <li>
+                            <span class="comm">// This is how you insert an icon:</span>
+                        </li>
+                        <li>
+                            <span>&lt;a&nbsp;</span><span class="var">class=</span><span class="val">&quot;button&quot;</span><span class="var">&nbsp;href=<span class="val">&quot;#&quot;</span><span>&gt;</span>
+                        </li>
+                        <li>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;</span><span class="var">class=</span><span class="val">&quot;icon-home&quot;</span><span>&gt;&lt;/i&gt;</span>
+                        </li>
+                    </li>
+                        <li>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button&nbsp;with&nbsp;a&nbsp;home&nbsp;icon</span>
+                        </li>
+                        <li>
+                            <span>&lt;/a&gt;</span>
+                        </li>
+                    </ol>
                 </code>
             </section>
         </article>
