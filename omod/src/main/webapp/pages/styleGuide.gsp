@@ -228,7 +228,6 @@
                     <li>By a button input;</li>
                     <li>By a button tag.</li>
                 </ul>
-                <p>Customized buttons are additional classes </p>
             </section>
 
             <section>
@@ -281,6 +280,18 @@
             </section>
 
             <section>
+                <h3>Customized buttons</h3>
+                <p>Customized buttons are additional classes you can use to indicate types of buttons in the interface:</p>
+                <ul class="list">
+                    <li>For actions: <strong>.confirm</strong>, <strong>.cancel</strong></li>
+                    <li>For icon sizes: <strong>.big</strong>, <strong>.medium</strong></li>
+                    <li><strong>.disabled</strong></li>
+                    <li><strong>.app</strong></li>
+                    <li><strong>.task</strong></li>
+                </ul>
+            </section>
+
+            <section>
                 <div class="example">
                     <ul class="grid">
                         <li>
@@ -295,9 +306,15 @@
                             </a>
                         </li>
                         <li>
+                            <a class="button medium " href="#">
+                                <i class ="icon-medical"></i>
+                                Button with medium icon
+                            </a>
+                        </li>
+                        <li>
                             <a class="button big " href="#">
                                 <i class ="icon-medical"></i>
-                                Big button with icon
+                                Button with big icon
                             </a>
                         </li>
                         <li>
@@ -314,7 +331,19 @@
                         <li>
                             <a class="button big disabled" href="#">
                                 <i class ="icon-medical"></i>
-                                Big button with icon disabled
+                                Disabled button with big icon
+                            </a>
+                        </li>
+                        <li>
+                            <a class="button big app" href="#">
+                                <i class ="icon-medical"></i>
+                                 App button with big icon
+                            </a>
+                        </li>
+                        <li>
+                            <a class="button task" href="#">
+                                <i class ="icon-medical"></i>
+                                Task button
                             </a>
                         </li>
                     </ul>
