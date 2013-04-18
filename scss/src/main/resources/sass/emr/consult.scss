@@ -31,6 +31,12 @@
         width: 89.5%;
         color: white;
         @include border-radius(5px);
+
+        .actions {
+          float: right;
+          font-size: 0.8em;
+          margin-top: 5px;
+        }
       }
       i {
         display: inline;
