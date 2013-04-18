@@ -18,7 +18,7 @@
             <section id="menu" >
                 <h3>Variables</h3>
                 <ul id="menu-list" class="nav">
-                    <li class="active">
+                    <li>
                         <a href="#colors">Colors</a>
                     </li>
                     <li>
