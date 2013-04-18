@@ -222,12 +222,6 @@
             <h2>Buttons</h2>
             <section>
                 <p>There are <strong>4 ways</strong> to get a button style in the OpenMRS Application:</p>
-                <ul class="list">
-                    <li>By a class;</li>
-                    <li>By a submit input;</li>
-                    <li>By a button input;</li>
-                    <li>By a button tag.</li>
-                </ul>
             </section>
 
             <section>
