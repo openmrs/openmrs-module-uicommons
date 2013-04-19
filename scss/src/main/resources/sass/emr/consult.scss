@@ -26,16 +26,30 @@
       margin-bottom: 10px;
       .diagnosis {
         display: inline-block;
-        background: lighten($text, 10%);
+        background: #4e4e4e;
+        border-left: 25px #4e4e4e solid;
         padding: 5px 10px;
-        width: 89.5%;
+        width: 82%;
         color: white;
         @include border-radius(5px);
+
+        &.primary {
+          border-left: 25px #31b31a solid;
+        }
 
         .actions {
           float: right;
           font-size: 0.8em;
           margin-top: 5px;
+
+          input {
+            float: none;
+            margin: 0px 0px 0px 10px;
+            font-size: 0.8em;
+          }
+          label {
+            display: inline;
+          }
         }
       }
       i {
