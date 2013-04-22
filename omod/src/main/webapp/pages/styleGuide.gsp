@@ -369,6 +369,22 @@
                                     Task button
                                 </a>
                             </li>
+                            <li>
+                                <a class="button arrow" href="#">
+                                    <i class="icon-medical"></i>
+                                    <span>Arrow Button</span>
+                                    <span id="arrow-border-button"></span>
+                                    <span id="arrow-button"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="button arrow disabled" disabled="" href="#">
+                                    <i class="icon-medical"></i>
+                                    <span>Arrow Button</span>
+                                    <span id="arrow-border-button"></span>
+                                    <span id="arrow-button"></span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </section>
