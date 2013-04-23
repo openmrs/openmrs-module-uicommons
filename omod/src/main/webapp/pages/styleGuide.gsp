@@ -43,6 +43,9 @@
                         <a href="#notifications">Notifications</a>
                     </li>
                     <li>
+                        <a href="#toast">Toast Messages</a>
+                    </li>
+                    <li>
                         <a href="#search-box">Search Box</a>
                     </li>
                     <li>
@@ -397,8 +400,13 @@
                 <section>
                 </section>
             </article>
-             <article id="notifications">
+            <article id="notifications">
                 <h2>Notifications</h2>
+                <section>
+                </section>
+            </article>
+            <article id="toast">
+                <h2>Toast Messages</h2>
                 <section>
                 </section>
             </article>
