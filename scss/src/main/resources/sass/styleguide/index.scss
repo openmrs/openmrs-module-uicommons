@@ -19,10 +19,11 @@
 }
 
 #body-wrapper.style-guide {
+  width: 1000px;
   padding: 0;
   box-sizing: border-box;
   aside {
-    width: 24%;
+    width: 240px;
     display: inline-block;
     box-sizing: border-box;
     vertical-align: top;
@@ -63,7 +64,7 @@
   }
 
   #content {
-    width: 74.6%;
+    width: 740px;
     display: inline-block;
     box-sizing: border-box;
     vertical-align: top;
@@ -175,4 +176,8 @@
       }
     }
   }
+}
+
+#dialogs .dialog {
+  margin-bottom: 40px;
 }

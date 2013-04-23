@@ -398,11 +398,97 @@
             <article id="dialogs">
                 <h2>Dialogs</h2>
                 <section>
+                    <div class="dialog">
+                        <div class="dialog-header">
+                            <i class="icon-folder-open"></i>
+                            <h3> Request Paper Record </h3>
+                        </div>
+                        <div class="dialog-content">
+                            <p>
+                                <em> Please confirm: </em>
+                            <ul>
+                                <li class="info">
+                                  <span> Patient </span>
+                                  <h5> Paul, Petter </h5>
+                                </li>
+                                <li class="info">
+                                  <span class="Location"></span>
+                                  <h5> ER </h5>
+                                </li>
+                            </ul>
+                            
+                            <span class="button confirm right"> Confirm </span>
+                            <span class="button cancel"> Cancel </span>
+                        </div>
+                    </div>
+                  
+                    <div class="dialog">
+                        <div class="dialog-header">
+                          <i class="icon-folder-open"></i>
+                          <h3> Send Paper Record </h3>
+                        </div>
+                        <div class="dialog-content">
+                            <p>
+                                <em> This paper record isn't in the queue. If you want to proceed please select a location: </em>
+                            <ul>
+                                <li class="info">
+                                  <span> Patient </span>
+                                  <h5> Paul, Petter </h5>
+                                </li>
+                                <li>
+                                    <span class="Location"></span>
+                                    <select size="4">
+                                        <option>Emergency Room</option>
+                                        <option>Antepartum ward</option>
+                                        <option>Labor and Delivery</option>
+                                        <option>Dental</option>
+                                        <option>Central Archives</option>
+                                    </select>
+                                </li>
+                            </ul>
+                           
+                            <span class="button confirm right"> Confirm </span>
+                            <span class="button cancel"> Cancel </span>
+                        </div>
+                    </div>
                 </section>
             </article>
             <article id="notifications">
                 <h2>Notifications</h2>
                 <section>
+                    <div id="error-message" class="note-container">
+                        <div class="note error">
+                            <div class="text">
+                                <i class="icon-remove medium"></i>
+                                
+                                    <p>Nom d'utilisateur ou mot de passe incorrect!</p>
+                                
+                            </div>
+                            <div class="close-icon"><i class="icon-remove"></i></div>
+                        </div>
+                    </div>
+                    <div id="error-message" class="note-container">
+                        <div class="note success">
+                            <div class="text">
+                                <i class="icon-remove medium"></i>
+                                
+                                    <p>Nom d'utilisateur ou mot de passe incorrect!</p>
+                                
+                            </div>
+                            <div class="close-icon"><i class="icon-remove"></i></div>
+                        </div>
+                    </div>
+                    <div id="error-message" class="note-container">
+                        <div class="note warning">
+                            <div class="text">
+                                <i class="icon-remove medium"></i>
+                                
+                                    <p>Nom d'utilisateur ou mot de passe incorrect!</p>
+                                
+                            </div>
+                            <div class="close-icon"><i class="icon-remove"></i></div>
+                        </div>
+                    </div>
                 </section>
             </article>
             <article id="toast">
