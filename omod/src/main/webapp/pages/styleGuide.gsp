@@ -1,5 +1,4 @@
 <%
-    ui.includeCss("uicommons", "reference/reference.css")
     ui.includeCss("uicommons", "styleguide/index.css")
 
     ui.includeJavascript("uicommons", "jquery-1.8.3.min.js");
