@@ -1,5 +1,6 @@
 <%
     ui.includeCss("uicommons", "styleguide/index.css")
+    ui.includeCss("uicommons", "styleguide/jquery.toastmessage.css")
 
     ui.includeJavascript("uicommons", "jquery-1.8.3.min.js");
     ui.includeJavascript("uicommons", "bootstrap-scrollspy.js");
@@ -52,7 +53,16 @@
                         <a href="#tabs">Tabs</a>
                     </li>
                     <li>
+                        <a href="#lists">Lists</a>
+                    </li>
+                    <li>
+                        <a href="#form">Form Navigator UI</a>
+                    </li>
+                    <li>
                         <a href="#visit-status">Visit status</a>
+                    </li>
+                    <li>
+                        <a href="#usage">Usage Examples</a>
                     </li>
                 </ul>
             </section>
@@ -494,11 +504,32 @@
             <article id="toast">
                 <h2>Toast Messages</h2>
                 <section>
+                    <p>http://akquinet.github.io/jquery-toastmessage-plugin/</p>
+                    <div class="toast-container">
+                        <div class="toast-item-wrapper">
+                            <div class="toast-item toast-type-success">
+                                <div class="toast-item-image toast-item-image-success"></div>
+                                <div class="toast-item-close"></div>
+                                <p>The selected record(s) have been assigned</p>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </article>
              <article id="search-box">
                 <h2>Search Box</h2>
                 <section>
+                    <form class="patient-search-form">
+                        <label>
+                            <i class="icon-search small"></i>
+                            Search for a patient (scan card, by ID or name):
+                        </label>
+                        <div class="search-input">
+                            <div class="scan-input">
+                                <input type="text" class="field-display ui-autocomplete-input" placeholder="Eg: Y2A4G4" size="40">
+                            </div>
+                        </div>
+                    </form>
                 </section>
             </article>
              <article id="tabs">

@@ -49,8 +49,11 @@
     font-size: 1.2em;
   }
 
-  #patient-search-field-search {
+  input {
     margin: 0 auto;
+  }
+
+  #patient-search-field-search {
     width: 500px;
   }
 }

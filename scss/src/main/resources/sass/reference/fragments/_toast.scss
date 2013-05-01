@@ -18,13 +18,14 @@
 }
 
 .toast-item-close {
+  @extend .icon-remove;
   font-size: 0.8em;
   background: 0;
   font-family: $iconFont;
   height: auto;
   width: auto;
   cursor: pointer;
-  @extend .icon-remove;
+  color: white;
 }
 
 .toast-item-image-success {
