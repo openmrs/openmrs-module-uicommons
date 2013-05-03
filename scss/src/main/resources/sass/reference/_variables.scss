@@ -7,36 +7,19 @@ $iconFont: "FontAwesome";
 $fontPath: "../../fonts";
 
 //colors
-$pihPrimaryPurple: #872175;
-$pihSecondaryGrey: #B9B299;
-$pihSecondaryGreen: #9FA615;
-$pihSecondaryBlue: #2BBED8;
-$pihSecondaryDarkBlue: #003F5E;
-$pihSecondaryYellow: #FFC220;
-$pihSecondaryOrange: #EB6E1F;
-$pihSecondaryRed: #C41230;
-$pihSecondaryBrown: #572600;
+$alertBackground: #FFFDF0;
+$bodyBackground: #EEE;
 
-$green: #9FA615;
-$blue: #0000FF;
-$lighterGrey: #EAEBF0;
-$lighterGray: #EAEBF0;
-$darkerGrey: #BBB;
-$darkerGray: #BBB;
-$backgroundColor: #FBFBFB;
 $white: #FFFFFF;
 $black: #000000;
-$successBackground: #CEED82;
-$alertBackground: #FFFDF0;
-$errorBackground: #F2B3B3;
+$darkerGrey: #BBB;
 
-$bodyBackground: #EEE;
-$contentBackground: #FFF;
+$highlight: darken(#009384, 20%);
+$text: darken(#5B57A6, 20%);
+
 $link: #007FFF;
-$purple: #800080;
-$text: #003F5E;
-$highlight: #501D3D;
 $focus: #FFFDF7;
+
 $success: #A1D030;
 $alert: #FFA000;
 $error: #C41230;
