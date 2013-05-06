@@ -167,7 +167,7 @@
                 <section>
                     <div class="example align-center">
                         <i class="icon-user"></i><i class="icon-user-md"></i><i class="icon-folder-open"></i><i class="icon-barcode"></i><i class="icon-cog"></i><i class="icon-home"></i><i class="icon-time"></i><i class="icon-exclamation-sign"></i><i class="icon-beaker"></i><i class="icon-heart"></i><i class="icon-search"></i><i class="icon-inbox"></i><i class="icon-remove-sign"></i><i class="icon-edit"></i>
-                        <p><a href="/icons" target="blank_">Show all</a></p>
+                        <p><a href="${ui.pageLink("uicommons", "icons")}" target="blank_">Show all</a></p>
                     </div>
                 </section>
                 <section>
