@@ -27,6 +27,9 @@
                     <li>
                         <a href="#icons">Icons</a>
                     </li>
+                     <li>
+                        <a href="#override">How to Override</a>
+                    </li>
                 </ul>
             
                 <h3>Fragments</h3>
@@ -67,11 +70,9 @@
                 </ul>
             </section>
         </aside>
-
         <div id="content">
-
             <article id ="colors">
-                <h2>Colors</h2>
+                <h1>Colors</h1>
                 <section>
                     <p>This is OpenMRS color palette. You can alter the following variables to add you own palette.</p>
                 </section>
@@ -101,31 +102,25 @@
                         </li>
                     </ul>
                 </section>
-
                 <section>
                     <code>
                         <ol>
                             <li>
-                                <span>\$var1: #30984</span>
+                                <span>\$highlight: #30984</span>
                             </li>
                             <li>
-                                <span>\$var1: #30984</span>
-                            </li>
-                            <li>
-                                <span>\$var1: #30984</span>
+                                <span>\$text: #30984</span>
                             </li>
                         </ol>
-                    </code>
+                    </code><br>
                 </section>
             </article>
-
             <article id="fonts">
-                <h2>Fonts</h2>
+                <h1>Fonts</h1>
                 <section>
                     <p>The default OpenMRS font family is <a href="http://www.google.com/fonts/specimen/Open+Sans" target="blank_"> Open Sans</a>. You can change your application fonts by altering the following variables.</p>
                     <p class="caution"><i class="icon-exclamation-sign small"></i>Deleting a variable may cause the application to crash.</p>
                 </section>
-
                 <section>
                     <code>
                         <ol>
@@ -150,24 +145,21 @@
                     </code>
                 </section>
             </article>
-
             <article id="icons">
-                <h2>Icons</h2>
+                <h1>Icons</h1>
                 <section>
-                    <p>Every icon in the OpenMRS Application comes from a font called <a href="http://fortawesome.github.io/Font-Awesome/" target="blank_">Font Awesome</a>.</p>
+                    <p>Every icon in the OpenMRS Application comes from a font called <a href="http://fortawesome.github.io/Font-Awesome/" target="blank_">Font Awesome</a>.</p><br>
                     <p><strong>Some advantages of using a font for the icons are:</strong></p>
                     <ul class="list">
                         <li>Easily style icon color, size, shadow, and anything that's possible with CSS.</li>
                         <li>Scalable vector graphics means every icon looks awesome at any size.</li>
                         <li>A font file is smaller than images.</li>
                     </ul>
+                    <br>
                     <p>
                         If you need more icons, you can create your own font-family and add it in the variables. A good option for creating an icon font is <a href="http://icomoon.io/" target="blank_">IconMoon</a>.
                     </p>
                 </section>
-
-            <article>
-                <h2>Buttons</h2>
                 <section>
                     <p>There are <strong>4 ways</strong> to get a button style in the OpenMRS Application:</p>
                 </section>
@@ -211,9 +203,50 @@
                     </code>
                 </section>
             </article>
-
+            <article id ="override">
+                <h1>How to override variables in your project</h1>
+                <section>
+                    <p>In order to override variables you need to add the file customVariables.scss to your project.</p>
+                    <p>The first thing you need to do is import the variables.scss file from RAP sass framework. After that you can start overwriting the variables you want.</p>
+                    <h3>customVariables.scss</h3>
+                    <code>
+                        <ol>
+                            <li>
+                                <span class="var">@import</span>
+                                <span class="val">"variables"</span><span>;</span>
+                            </li>
+                            <li></li>
+                            <li>
+                                <span>//override variables</span>
+                            </li>
+                            <li>
+                                <span class="var">\$text</span><span>:</span>
+                                <span class="val">#003F5E</span><span>;</span>
+                            </li>
+                            <li>
+                                <span class="var">\$highlight</span><span>:</span>
+                                <span class="val">#501D3D</span><span>;</span>
+                            </li>
+                        </ol>
+                    </code><br>
+                    <p>The next thing to do is to customVariables.scss to your project sass and after that import the RAP sass framework reference file.</p>
+                    <h3>yourProject.scss</h3>
+                    <code>
+                        <ol>
+                            <li>
+                                <span class="var">@import</span>
+                                <span class="val">"customVariables"</span><span>;</span>
+                            </li>
+                            <li>
+                                <span class="var">@import</span>
+                                <span class="val">"reference"</span><span>;</span>
+                            </li>
+                        </ol>
+                    </code>
+                </section>
+            </article>
             <article id="breadcrumbs">
-                <h2>Breadcrumbs</h2>
+                <h1>Breadcrumbs</h1>
                 <section>
                     <p>Every page should have breadcrumbs to indicate where the user is located and the steps he/she did to get there.</p>
                 </section>
@@ -236,9 +269,8 @@
                     </div>
                 </section>
             </article>
-
             <article id="buttons">
-                <h2>Buttons</h2>
+                <h1>Buttons</h1>
                 <section>
                     <p>There are <strong>4 ways</strong> to get a button style in the OpenMRS Application:</p>
                     <ul class="list">
@@ -248,7 +280,6 @@
                         <li>By a button tag.</li>
                     </ul>
                 </section>
-
                 <section>
                     <code>
                         <ol>
@@ -295,11 +326,10 @@
                             </li>
                             <li></li>
                         </ol>
-                    </code>
+                    </code><br>
                 </section>
-
                 <section>
-                    <h3>Customized buttons</h3>
+                    <h2>Customized buttons</h2>
                     <p>Customized buttons are additional classes you can use to indicate types of buttons in the interface:</p>
                     <ul class="list">
                         <li>For actions: <strong>.confirm</strong>, <strong>.cancel</strong></li>
@@ -327,9 +357,14 @@
                                 <li>For task buttons such as "Record Vitals". Usually used in the Patient Dashboard.</li>
                             </ul>
                         </li>
+                        <li>
+                            <strong>.arrow</strong>
+                            <ul>
+                                <li>For action buttons that needs a sense of direction. Usually used in the Archives room.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
-
                 <section>
                     <div class="example">
                         <ul class="grid">
@@ -406,7 +441,7 @@
                 </section>
             </article>
             <article id="dialogs">
-                <h2>Dialogs</h2>
+                <h1>Dialogs</h1>
                 <section>
                     <div class="dialog">
                         <div class="dialog-header">
@@ -464,7 +499,7 @@
                 </section>
             </article>
             <article id="notifications">
-                <h2>Notifications</h2>
+                <h1>Notifications</h1>
                 <section>
                     <div id="error-message" class="note-container">
                         <div class="note error">
@@ -502,7 +537,7 @@
                 </section>
             </article>
             <article id="toast">
-                <h2>Toast Messages</h2>
+                <h1>Toast Messages</h1>
                 <section>
                     <p>http://akquinet.github.io/jquery-toastmessage-plugin/</p>
                     <div class="toast-container">
@@ -514,10 +549,44 @@
                             </div>
                         </div>
                     </div>
+                    <div class="toast-container">
+                        <div class="toast-item-wrapper">
+                            <div class="toast-item toast-type-error">
+                                <div class="toast-item-image toast-item-image-error"></div>
+                                <div class="toast-item-close"></div>
+                                <p>The selected record(s) haven't been assigned</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="toast-container">
+                        <div class="toast-item-wrapper">
+                            <div class="toast-item toast-type-alert">
+                                <div class="toast-item-image toast-item-image-alert"></div>
+                                <div class="toast-item-close"></div>
+                                <p>The selected record(s) haven't been assigned</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toast-container">
+                        <div class="toast-item-wrapper">
+                            <div class="toast-item toast-type-success">
+                                <div class="toast-item-image toast-item-image-success icon-ok"></div>
+                                <div class="toast-item-close icon-remove"></div>
+                                <p>
+                                    <span class="toast-record-found">
+                                        Send to:
+                                        <span class="toast-record-location">Emergency</span>
+                                        Dossier id:
+                                        <span class="toast-record-id">A166009</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </article>
-             <article id="search-box">
-                <h2>Search Box</h2>
+            <article id="search-box">
+                <h1>Search Box</h1>
                 <section>
                     <form class="patient-search-form">
                         <label>
@@ -532,13 +601,28 @@
                     </form>
                 </section>
             </article>
-             <article id="tabs">
-                <h2>Tabs</h2>
+            <article id="tabs">
+                <h1>Tabs</h1>
                 <section>
                 </section>
             </article>
-             <article id="visit-status">
-                <h2>Visit Status</h2>
+            <article id="lists">
+                <h1>Lists</h1>
+                <section>
+                </section>
+            </article>
+            <article id="form">
+                <h1>Form Navigator UI</h1>
+                <section>
+                </section>
+            </article>
+            <article id="visit-status">
+                <h1>Visit Status</h1>
+                <section>
+                </section>
+            </article>
+            <article id="usage">
+                <h1>Usage Examples</h1>
                 <section>
                 </section>
             </article>
