@@ -24,3 +24,7 @@
     }
   }
 }
+
+.visit-status {
+  @include visit-status;
+}
