@@ -230,7 +230,7 @@
                             </li>
                         </ol>
                     </code><br>
-                    <p>The next thing to do is to customVariables.scss to your project sass and after that import the RAP sass framework reference file.</p>
+                    <p>The next thing to do is to import customVariables.scss to your sass and after that import the RAP sass framework.</p>
                     <h3>yourProject.scss</h3>
                     <code>
                         <ol>
