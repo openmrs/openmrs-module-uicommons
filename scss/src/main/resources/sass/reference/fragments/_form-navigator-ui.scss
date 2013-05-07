@@ -1,3 +1,12 @@
+form#retrospectiveCheckin {
+  background: #F9F9F9 url(../images/aside-bg.png) repeat-y -20px;
+
+  div#error-message {
+    display: none;
+    margin-left: 40px;
+  }
+}
+
 .simple-form-ui form {
   background: #F9F9F9 url(../images/aside-bg.png) repeat-y -20px;
 
@@ -7,7 +16,7 @@
 
   #confirmation {
     width: 730px;
-    
+
     ul > li > .label {
       text-align: right;
       width: 200px;
