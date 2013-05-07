@@ -2,9 +2,6 @@
 @import "vendor/normalize";
 @import "compass";
 
-//mixins
-@import "mixins";
-
 //fragments
 @import "fragments/base";
 @import "fragments/header";
@@ -17,6 +14,9 @@
 @import "fragments/buttons";
 @import "fragments/visit-status";
 @import "fragments/login";
+@import "fragments/checkboxes";
+@import "fragments/identifiers";
+@import "fragments/horizontal-list";
 
 //fonts
 @import "fonts/fonts";

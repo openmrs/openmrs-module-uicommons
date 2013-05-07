@@ -1,4 +1,4 @@
-@mixin breadcrumb {
+#breadcrumbs {
 	clear: both;
   font-size: 0.9em;
   border-bottom: 1px solid white;
@@ -23,8 +23,4 @@
       font-family: $primaryBoldFont;
     }
   }
-}
-
-#breadcrumbs {
-  @include breadcrumb;
 }
