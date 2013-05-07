@@ -57,9 +57,6 @@
                         <a href="#tabs">Tabs</a>
                     </li>
                     <li>
-                        <a href="#lists">Lists</a>
-                    </li>
-                    <li>
                         <a href="#form">Forms</a>
                     </li>
                     <li>
@@ -142,8 +139,27 @@
                                 <span class="val">"OpenSansItalic"</span><span>;</span>
                             </li>
                         </ol>
-
                     </code>
+                </section>
+                <section id="typography">
+                    <h1>Typography</h1>
+                    <div class="headers">
+                        <h1>Header 1</h1>
+                        <h2>Header 2</h2>
+                        <h3>Header 3</h3>
+                        <h4>Header 4</h4>
+                        <h5>Header 5</h5>
+                        <h6>Header 6</h6>
+                    </div>
+                    <div class="sizes">
+                        <h3 class="title">Title font weight</h3>
+                        <h3 class="body">Body font weight</h3>
+                        <h3 class="small">Small font weight</h3>
+                    </div>
+                    <p>Paragraph Paragraph Paragraph Paragraph Paragraph Paragraph</p>
+                    <em>Emphasized text Emphasized text Emphasized text </em><br>
+                    <strong>Strong text Strong text Strong text Strong text </strong><br>
+                    <small>Small text Small text Small text Small text Small </small>
                 </section>
             </article>
             <article id="icons">
@@ -544,7 +560,9 @@
             <article id="toast">
                 <h1>Toast Messages</h1>
                 <section>
-                    <p>http://akquinet.github.io/jquery-toastmessage-plugin/</p>
+                    <p>
+                        <a href="http://akquinet.github.io/jquery-toastmessage-plugin/">Jquery Toastmessage</a>
+                    </p>
                     <div class="example">
                         <div class="toast-container">
                             <div class="toast-item-wrapper">
@@ -613,7 +631,9 @@
             <article id="tabs">
                 <h1>Tabs</h1>
                 <section>
-                    <p>http://jqueryui.com/</p>
+                    <p>
+                        <a href="http://jqueryui.com/">Jquery UI</a>
+                    </p>
                     <div class="example">
                         <div class="ui-tabs">
                             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
@@ -635,15 +655,34 @@
                     <div>
                 </section>
             </article>
-            <article id="lists">
-                <h1>Lists</h1>
-                <section>
-                    <div class="example">
-                    </div>
-                </section>
-            </article>
             <article id="form">
                 <h1>Forms</h1>
+                <section>
+                    <blockquote>
+                        Everything inside tag &lt;form&gt; is auto styled to follow this styleguide rules.<br>
+                        The html structure is basically this:
+                        <code>&lt;form&gt;<br>
+                            &nbsp; &lt;fieldset&gt;<br>
+                             &nbsp;  &nbsp; &lt;legend&gt;<br>
+                              &nbsp;  &nbsp;  &nbsp; &lt;i class="icon-class-if-needed"&gt;&lt;/i&gt;<br>
+                               &nbsp;  &nbsp;  &nbsp; Fieldset title if needed<br>
+                               &nbsp;  &nbsp; &lt;/legend&gt;<br>
+                                &nbsp;  &nbsp; &lt;p class="input-position-class"&gt;<br>
+                                &nbsp;  &nbsp;  &nbsp; &lt;label name="input-id"&gt;Input label&lt;/label&gt;<br>
+                                 &nbsp;  &nbsp;  &nbsp; &lt;input id="input-id"/&gt;<br>
+                                &nbsp;  &nbsp; &lt;/p&gt;<br>
+                                 &nbsp; &lt;/fieldset&gt;<br>
+                                 &lt;/form&gt;</code>
+
+                        <h4>Obs.:</h4>
+                        <ol>
+                            <li>Always group a &lt;label&gt; and its &lt;input&gt; inside a &lt;p/&gt; tag;</li>
+                            <li>Always link the &lt;label&gt; name to its &lt;input&gt; id;</li>
+                            <li>Add class "left" for each &lt;p/&gt; tag if side-by-side inputs are needed;</li>
+                            <li>&lt;legend&gt; tag is only necessary if a fieldset title is needed; </li>
+                        </ol>
+                    </blockquote>
+                </section>
                 <section>
                     <h2>Form Elements</h2>
                     <form>
