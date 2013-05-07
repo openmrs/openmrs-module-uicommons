@@ -60,7 +60,7 @@
                         <a href="#lists">Lists</a>
                     </li>
                     <li>
-                        <a href="#form">Form Navigator UI</a>
+                        <a href="#form">Forms</a>
                     </li>
                     <li>
                         <a href="#visit-status">Visit status</a>
@@ -643,9 +643,110 @@
                 </section>
             </article>
             <article id="form">
-                <h1>Form Navigator UI</h1>
+                <h1>Forms</h1>
                 <section>
+                    <h2>Form Elements</h2>
+                    <form>
+                        <p>
+                            <input placeholder="Text Input" type="text"></input>
+                        </p>
+                        <p>
+                            <input placeholder="Email Input" type="email"></input>
+                        </p>
+                            <input placeholder="Password Input" type="password"></input>
+                        </p>
+                        <p>
+                            <input placeholder="Number Input" type="number"></input>
+                        </p>
+                        <p>
+                            <input placeholder="Search Input" type="search"></input>
+                        </p>
+                        <p>
+                            <textarea placeholder="Textarea."></textarea>
+                        </p>
+                        <p>  
+                            <select>
+                                <option>An Option</option>
+                                <option>An Option</option>
+                                <option>An Option</option>
+                                <option>An Option</option>
+                            </select>
+                        </p>
+                        <p>  
+                            <select disabled="">
+                                <option>An Option</option>
+                                <option>An Option</option>
+                                <option>An Option</option>
+                                <option>An Option</option>
+                            </select>
+                        </p>
+                        <p>
+                            <ul class="select">
+                                <li>An Option</li>
+                                <li>An Option</li>
+                                <li>An Option</li>
+                                <li>An Option</li>
+                                <li>An Option</li>
+                                <li>An Option</li>
+                                <li>An Option</li>
+                                <li>An Option</li>
+                                <li>An Option</li>
+                            </ul>
+                        </p>
+                        <br>
+                            <div class="checkboxes">
+                                <p>
+                                    <input type="checkbox"></input>
+                                    <label>A Checkbox</label>
+                                </p>
+                                <p>
+                                    <input checked="checked" type="checkbox"></input>
+                                    <label>A Checked Checkbox</label>
+                                </p>
+                            </div>
+                            <div class="radios">
+                                <p>
+                                    <input checked="checked" name="radiogroup" type="radio"></input>
+                                    <label>A Checked Radio</label>
+                                </p>
+                                <p>
+                                    <input name="radiogroup" type="radio"></input>
+                                    <label>A Radio</label>
+                                </p>
+                            </div>
+                        <input type="submit" value="Submit Input"></input>
+                    </form>
+                </sectiom>
+                <section>
+                    <h2>Form Entry UI</h2>
                     <div class="example">
+                        <div class="simple-form-ui">
+                            <form id="htmlform" method="post" action="/mirebalais/emr/htmlform/enterHtmlForm/submit.action?successUrl=%2Fmirebalais%2Femr%2Fhtmlform%2FenterHtmlFormWithSimpleUi.page%3Ftiming%3DREAL_TIME%26htmlFormId%3D1%26patientId%3D15%26" onsubmit="submitHtmlForm(); return false;"><ul id="formBreadcrumb" class="options"><li class="doing"><span>Vitals</span><ul><li class="question-legend focused"><i class="icon-ok"></i><span>Height</span></li><li class="question-legend"><i class="icon-ok"></i><span>Weight</span></li><li class="question-legend"><i class="icon-ok"></i><span>(Calculated) BMI</span></li><li class="question-legend"><i class="icon-ok"></i><span>Temperature</span></li><li class="question-legend"><i class="icon-ok"></i><span>Heart Rate</span></li><li class="question-legend"><i class="icon-ok"></i><span>Respiratory Rate</span></li><li class="question-legend"><i class="icon-ok"></i><span>Blood Pressure</span></li><li class="question-legend"><i class="icon-ok"></i><span>O2 Sat</span></li></ul></li><li><span>Confirm</span></li></ul>
+                                <htmlform formencountertype="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formname="Vitals" formuuid="68728aa6-4985-11e2-8815-657001b58a90" formversion="1.0">
+                                    <section class="section focused">
+                                        <fieldset class="focused">
+                                            <h3>Height</h3>
+                                                <p class="left">
+                                                    <span class="obs-field">
+                                                        <input class="number numeric-range inches focused" id="height_inches" max="89" min="4" size="5" type="text">
+                                                        <span class="append-to-value">in</span>
+                                                        <span class="error field-error" style="display: none"></span>
+                                                    </span>
+                                                </p>
+                                                <p class="left">
+                                                    or
+                                                </p>
+                                            <p class="left">
+                                                <span id="height_cm" class="obs-field"><input type="text" size="5" id="w10" name="w10" min="10.0" max="228.0" class="number numeric-range"><span class="append-to-value">cm</span> <span class="error field-error" style="display: none" id="w9"></span></span>
+                                            </p>
+                                        </fieldset>
+                                    </section>
+                                    <input type="button" class="submitButton" value="Enter Form" style="display: none;">
+                                </htmlform>    
+                            <div id="confirmation">        
+                            </div>
+                            </form>
+                        </div>
                     </div>
                 </section>
             </article>
