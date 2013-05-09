@@ -712,6 +712,14 @@
                             </select>
                         </p>
                         <p>  
+                            <select size="4">
+                                <option>An Option</option>
+                                <option>An Option</option>
+                                <option>An Option</option>
+                                <option>An Option</option>
+                            </select>
+                        </p>
+                        <p>  
                             <select disabled="">
                                 <option>An Option</option>
                                 <option>An Option</option>

@@ -7,11 +7,31 @@ form#retrospectiveCheckin {
   }
 }
 
-.simple-form-ui form {
+.simple-form-ui, .simple-form-ui form {
   background: #F9F9F9 url(../images/aside-bg.png) repeat-y -20px;
 
   input, select, textarea, ul.select {
     min-width: auto;
+  }
+
+  .field-error {
+    color: $error;
+    font-size: 1.1em;
+    display: block;
+  }
+
+  .inline {
+    select {
+      display: inline-block;
+    }
+  }
+
+  .small {
+    input[type="text"] {
+      min-width: 10%;
+      margin-right: 10px;
+      display: inline-block;
+    }
   }
 
   #confirmation {
@@ -57,12 +77,6 @@ form#retrospectiveCheckin {
           font-size: 0.8em;
           color: #999;
         }
-      }
-
-      .field-error {
-        color: $error;
-        font-size: 1.1em;
-        display: block;
       }
     }
 

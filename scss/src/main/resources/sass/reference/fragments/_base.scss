@@ -203,6 +203,12 @@ form {
       clear: both;
     }
 
+    &.radio {
+      label {
+        margin-top: 0;
+      }
+    }
+
     &.radio-btn {
       display: inline-block;
       vertical-align: middle;
