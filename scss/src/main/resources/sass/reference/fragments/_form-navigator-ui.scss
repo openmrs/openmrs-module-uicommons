@@ -173,6 +173,12 @@ ul#formBreadcrumb {
             display: inline;
           }
         }
+
+        &.focused {
+          .icon-ok {
+            color: white;
+          }
+        }
       }
     }
 
