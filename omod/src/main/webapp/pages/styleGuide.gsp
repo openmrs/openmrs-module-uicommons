@@ -704,23 +704,27 @@
                             <textarea placeholder="Textarea."></textarea>
                         </p>
                         <p>  
-                            <select>
-                                <option>An Option</option>
-                                <option>An Option</option>
-                                <option>An Option</option>
-                                <option>An Option</option>
-                            </select>
+                            <span class="select-arrow">
+                                <select>
+                                    <option>An Option</option>
+                                    <option>An Option</option>
+                                    <option>An Option</option>
+                                    <option>An Option</option>
+                                </select>
+                            </span>
+                        </p>
+                        <p>  
+                            <span class="select-arrow">
+                                <select disabled="">
+                                    <option>An Option</option>
+                                    <option>An Option</option>
+                                    <option>An Option</option>
+                                    <option>An Option</option>
+                                </select>
+                            </span>
                         </p>
                         <p>  
                             <select size="4">
-                                <option>An Option</option>
-                                <option>An Option</option>
-                                <option>An Option</option>
-                                <option>An Option</option>
-                            </select>
-                        </p>
-                        <p>  
-                            <select disabled="">
                                 <option>An Option</option>
                                 <option>An Option</option>
                                 <option>An Option</option>

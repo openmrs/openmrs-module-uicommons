@@ -166,6 +166,46 @@ form {
     background: #EEE;
     border: #CCC 1px solid;
     color: #CCC;
+    font-style: normal;
+  }
+
+  .select-arrow {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    &:after {
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      content: "\f0d7";
+      font-weight: normal;
+      font-style: normal;
+      display: inline-block;
+      text-decoration: inherit;
+      font-family: "FontAwesome";
+      pointer-events: none;
+      height: 34px;
+      top: 0;
+      margin-top: 2px;
+      padding-left: 5px;
+      line-height: 2.2em;
+    }
+
+    select {
+      @include appearance(none);
+      border-radius: 0;
+      background: white;
+      cursor: pointer;
+    }
+
+    select[disabled] {
+      background: #EEE;
+      border: #CCC 1px solid;
+      color: #CCC;
+      font-style: normal;
+      cursor: default;
+    }
   }
 
   ul.select {
