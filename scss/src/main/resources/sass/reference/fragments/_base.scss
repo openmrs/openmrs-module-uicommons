@@ -176,20 +176,20 @@ form {
 
     &:after {
       position: absolute;
-      top: 12px;
-      right: 10px;
+      display: inline-block;
+      right: 7px;
+      top: 0;
+      height: 34px;
       content: "\f0d7";
       font-weight: normal;
       font-style: normal;
-      display: inline-block;
       text-decoration: inherit;
       font-family: "FontAwesome";
       pointer-events: none;
-      height: 34px;
-      top: 0;
       margin-top: 2px;
       padding-left: 5px;
       line-height: 2.2em;
+      border-left: 1px solid #ccc;
     }
 
     select {
