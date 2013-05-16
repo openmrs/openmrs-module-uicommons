@@ -834,6 +834,7 @@
                             </p>
                         </fieldset>
                     </form>
+                    <p><a href="${ui.pageLink("uicommons", "test")}" target="blank_">Test page</a></p>
                 </section>
             </article>
         </div>

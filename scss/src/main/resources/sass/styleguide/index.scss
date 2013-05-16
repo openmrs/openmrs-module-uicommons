@@ -203,6 +203,16 @@
   margin-bottom: 40px;
 }
 
+.test-page {
+  .note, .toast-container, .dialog, .grid > li {
+    display: inline-block;
+  }
+
+  .small-div {
+    width: 700px;
+  }
+}
+
 .the-icons {
   li {
     width: 330px;
