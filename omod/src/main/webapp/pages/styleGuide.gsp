@@ -288,61 +288,44 @@
                 <section>
                     <div class="example">
                         <ul id="left-menu" class="left-menu">
-                            <li class="menu-item viewVisitDetails selected" visitid="54">
+                            <li class="menu-item selected" visitid="54">
                                 <span class="menu-date">
                                     <i class="icon-time"></i>
-                                    20 May 2013
-                                    
-                                        (active since 04:10 PM)
-                                    
+                                    20 May 2013 (active since 04:10 PM)
                                 </span>
                                 <span class="menu-title">
                                     <i class="icon-stethoscope"></i>
-                                    
                                         No diagnosis yet.
-                                    
                                 </span>
                                 <span class="arrow-border"></span>
                                 <span class="arrow"></span>
                             </li>
                         
-                            <li class="menu-item viewVisitDetails" visitid="53">
+                            <li class="menu-item" visitid="53">
                                 <span class="menu-date">
                                     <i class="icon-time"></i>
-                                    15 May 2013
-                                    
-                                        - 15 May 2013
-                                    
+                                    15 May 2013 - 15 May 2013
                                 </span>
                                 <span class="menu-title">
                                     <i class="icon-stethoscope"></i>
-                                    
                                         No diagnosis yet.
-                                    
                                 </span>
                                 <span class="arrow-border"></span>
                                 <span class="arrow"></span>
                             </li>
                         
-                            <li class="menu-item viewVisitDetails" visitid="19">
+                            <li class="menu-item" visitid="19">
                                 <span class="menu-date">
                                     <i class="icon-time"></i>
-                                    25 Feb 2013
-                                    
-                                        - 25 Feb 2013
-                                    
+                                    25 Feb 2013 - 25 Feb 2013
                                 </span>
                                 <span class="menu-title">
                                     <i class="icon-stethoscope"></i>
-                                    
                                         No diagnosis yet.
-                                    
                                 </span>
                                 <span class="arrow-border"></span>
                                 <span class="arrow"></span>
                             </li>
-                        
-                        
                     </ul>
                     </div>
                 </section>
