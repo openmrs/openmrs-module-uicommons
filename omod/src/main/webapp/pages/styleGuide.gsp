@@ -36,7 +36,7 @@
                 <h3>Fragments</h3>
                 <ul id="menu-list" class="nav">
                     <li>
-                        <a href="#breadcrumbs">Breadcrumbs</a>
+                        <a href="#navigation">Navigation</a>
                     </li>
                     <li>
                         <a href="#buttons">Buttons</a>
@@ -60,7 +60,7 @@
                         <a href="#form">Forms</a>
                     </li>
                     <li>
-                        <a href="#visit-status">Visit status</a>
+                        <a href="#status-container">Status Container</a>
                     </li>
                     <li>
                         <a href="#usage">Usage Examples</a>
@@ -262,8 +262,8 @@
                     </code>
                 </section>
             </article>
-            <article id="breadcrumbs">
-                <h1>Breadcrumbs</h1>
+            <article id="navigation">
+                <h1>Navigation</h1>
                 <section>
                     <p>Every page should have breadcrumbs to indicate where the user is located and the steps he/she did to get there.</p>
                 </section>
@@ -283,6 +283,67 @@
                                 <i class="icon-chevron-right link"></i>Visits
                             </li>
                         </ul>
+                    </div>
+                </section>
+                <section>
+                    <div class="example">
+                        <ul id="left-menu" class="left-menu">
+                            <li class="menu-item viewVisitDetails selected" visitid="54">
+                                <span class="menu-date">
+                                    <i class="icon-time"></i>
+                                    20 May 2013
+                                    
+                                        (active since 04:10 PM)
+                                    
+                                </span>
+                                <span class="menu-title">
+                                    <i class="icon-stethoscope"></i>
+                                    
+                                        No diagnosis yet.
+                                    
+                                </span>
+                                <span class="arrow-border"></span>
+                                <span class="arrow"></span>
+                            </li>
+                        
+                            <li class="menu-item viewVisitDetails" visitid="53">
+                                <span class="menu-date">
+                                    <i class="icon-time"></i>
+                                    15 May 2013
+                                    
+                                        - 15 May 2013
+                                    
+                                </span>
+                                <span class="menu-title">
+                                    <i class="icon-stethoscope"></i>
+                                    
+                                        No diagnosis yet.
+                                    
+                                </span>
+                                <span class="arrow-border"></span>
+                                <span class="arrow"></span>
+                            </li>
+                        
+                            <li class="menu-item viewVisitDetails" visitid="19">
+                                <span class="menu-date">
+                                    <i class="icon-time"></i>
+                                    25 Feb 2013
+                                    
+                                        - 25 Feb 2013
+                                    
+                                </span>
+                                <span class="menu-title">
+                                    <i class="icon-stethoscope"></i>
+                                    
+                                        No diagnosis yet.
+                                    
+                                </span>
+                                <span class="arrow-border"></span>
+                                <span class="arrow"></span>
+                            </li>
+                        
+                        
+                    </ul>
                     </div>
                 </section>
             </article>
@@ -801,11 +862,11 @@
                     </div>
                 </section>
             </article>
-            <article id="visit-status">
-                <h1>Visit Status</h1>
+            <article id="status-container">
+                <h1>Status Container</h1>
                 <section>
                     <div class="example">
-                        <div class="visit-status">
+                        <div class="status-container">
                             <span class="status active"></span> Vizit aktiv
                             <i class="icon-time small"></i>
                             Te kòmanse nan 06 May 2013 05:35 PM
