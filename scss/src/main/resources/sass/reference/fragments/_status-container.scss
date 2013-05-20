@@ -1,6 +1,6 @@
 @import "compass/css3";
 
-@mixin visit-status($background-color: white) {
+@mixin status-container($background-color: white) {
   color: $text;
 	background: $background-color;
   font-size: 0.9em;
@@ -25,6 +25,6 @@
   }
 }
 
-.visit-status {
-  @include visit-status;
+.status-container {
+  @include status-container;
 }

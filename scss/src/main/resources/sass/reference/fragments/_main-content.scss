@@ -6,9 +6,9 @@
   width: 76.6%;
   margin-left: -6px;
 
-  .visit-status {
+  .status-container {
     width: 98.4%;
-    @include visit-status(#f9f9f9);
+    @include status-container(#f9f9f9);
   }
 
   .visit-actions {
@@ -137,10 +137,10 @@
         }
 
         .icon-caret-right {
-            @include rotate(90deg); 
-            @include transition-property(all);
-            @include transition-duration(0.15s);
-            @include transition-timing-function(ease-in-out);
+          @include rotate(90deg); 
+          @include transition-property(all);
+          @include transition-duration(0.15s);
+          @include transition-timing-function(ease-in-out);
         }
       }
 
