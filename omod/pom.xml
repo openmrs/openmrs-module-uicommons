@@ -193,6 +193,11 @@
                         <source>${project.basedir}/src/main/webapp/resources/scripts/underscore-min.js</source>
                         <source>${project.basedir}/src/main/webapp/resources/scripts/jquery.toastmessage.js</source>
                     </preloadSources>
+                    <sourceExcludes>
+                        <exclude>**/main.js</exclude>
+                        <exclude>**/extensionRenderer.js</exclude>
+                        <exclude>**/script.js</exclude>
+                    </sourceExcludes>
                     <serverPort>7234</serverPort>
                     <skipTests>false</skipTests>
                 </configuration>
