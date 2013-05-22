@@ -497,6 +497,23 @@
                                     <span class="arrow-button"></span>
                                 </a>
                             </li>
+                            <li>
+                                <div class="dropdown">
+                                    <span class="dropdown-name">
+                                        <i class="icon-cog"></i>
+                                        Actions
+                                        <i class="icon-sort-down"></i>
+                                    </span>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-heart"></i>
+                                                Save
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </section>

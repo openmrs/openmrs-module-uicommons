@@ -121,7 +121,7 @@
 
         .example {
           ul.grid {
-            li {
+            & > li {
               display: inline-block;
               vertical-align: top;
               text-align: center;
