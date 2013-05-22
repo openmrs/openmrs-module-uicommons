@@ -159,7 +159,7 @@ form {
     border: 1px solid #DDD;
 
     &:focus {
-      outline: none;
+      outline: 2px solid $link;
       background: $focus;
     }
   }
