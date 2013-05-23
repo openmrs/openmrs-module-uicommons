@@ -6,6 +6,14 @@
     config.require("id", "label", "formFieldName", "useTime")
 
     def required = config.classes && config.classes.contains("required")
+
+    def date = "";
+    def dateFormatted = "";
+    if (config.defaultToday) {
+        def today = new Date();
+        date = new java.text.SimpleDateFormat("dd/MM/yyyy").format(today);
+        dateFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today);
+    }
 %>
 
 <p id="${config.id}">
@@ -13,10 +21,10 @@
         ${ ui.message(config.label) } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
     <span id="${ config.id }-wrapper" class="date">
-        <input type="text" id="${ config.id }-display" />
+        <input type="text" id="${ config.id }-display" value="${ date }" readonly />
         <span class="add-on"><i class="icon-calendar small"></i></span>
     </span>
-    <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }"
+    <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }" value="${ dateFormatted }"
         <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
         <% if (config.dependency || required) { %> data-bind="value: ${ config.observable }" <% } %> />
 
@@ -34,13 +42,16 @@
         language: "${ emrContext.getUserContext().getLocale() }",
         linkField: "${ config.id }-field",
         linkFormat: "yyyy-mm-dd hh:ii:ss"
-    });
-
+    })
     <% if (config.dependency || required) { %>
-        viewModel.${ config.observable } = ko.observable();
+        .on('hide', function() {
+            viewModel.${ config.observable }(jq('#${ config.id }-field').val());
+        });
+
+        viewModel.${ config.observable } = ko.observable("${ dateFormatted }");
         <% if (required) { %>
         viewModel.validations.push(function() {
-            return viewModel.${ config.observable }() !== undefined;
+            return viewModel.${ config.observable }() ? true : false;
         });
         <% } %>
     <% } %>
