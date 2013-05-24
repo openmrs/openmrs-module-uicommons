@@ -7,11 +7,12 @@
 
     def required = config.classes && config.classes.contains("required")
 
+    def today = new Date();
+    def todayString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(today);
     def date = "";
     def dateFormatted = "";
     if (config.defaultToday) {
-        def today = new Date();
-        date = new java.text.SimpleDateFormat("dd/MM/yyyy").format(today);
+        date = todayString;
         dateFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today);
     }
 %>
@@ -39,6 +40,12 @@
         autoclose: true,
         pickerPosition: "bottom-left",
         format: "dd/mm/yyyy",
+        <% if (config.startToday) { %>
+        startDate: "${ todayString }",
+        <% } %>
+        <% if (config.endToday) { %>
+        endDate: "${ todayString }",
+        <% } %>
         language: "${ emrContext.getUserContext().getLocale() }",
         linkField: "${ config.id }-field",
         linkFormat: "yyyy-mm-dd hh:ii:ss"
