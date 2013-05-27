@@ -732,6 +732,9 @@
                             <li>Use double visual emphasys for errors - Example: error message + red background in input</li>
                             <li>Use descriptive error messages bellow the input fields</li>
                             <li>if form is too long provide a summary of the errors on the top of the form</li>
+                            <li>If all your fields are either mandatory or optional, don't mark any</li>
+                            </li>Length of input fields should communicate the intended content.</li>
+                            <li>Fields don't need to all be the same length. Mix long and short field length according to the content it is used for</li>
                         </ul>
                     </p>
                 </section>
