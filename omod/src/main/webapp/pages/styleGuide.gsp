@@ -7,6 +7,10 @@
     ui.includeJavascript("uicommons", "bootstrap-scrollspy.js");
     ui.includeJavascript("uicommons", "script.js");
 %>
+
+<script>
+    var jq = jQuery;
+</script>
 <body data-spy="scroll" data-target="#menu">
     <header id="style-guide-header">
         <h1>OpenMRS RAP Style Guide</h1>
@@ -805,6 +809,8 @@
                                 <li>An Option</li>
                             </ul>
                         </p>
+                        ${ ui.includeFragment("uicommons", "field/datetimepicker", [ id: 'datetime', label: 'Date Picker', formFieldName: 'date picker', useTime: false ]) }
+                        ${ ui.includeFragment("uicommons", "field/datetimepicker", [ id: 'datetime2', label: 'Date Time Picker', formFieldName: 'date time picker', useTime: true ]) }
                         <br>
                             <div class="checkboxes">
                                 <p>

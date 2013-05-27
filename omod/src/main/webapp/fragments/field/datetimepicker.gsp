@@ -39,7 +39,11 @@
         <% } %>
         autoclose: true,
         pickerPosition: "bottom-left",
+        <% if (config.useTime) { %>
+        format: "dd/mm/yyyy hh:ii",
+        <% } else { %>
         format: "dd/mm/yyyy",
+        <% } %>
         <% if (config.startToday) { %>
         startDate: "${ todayString }",
         <% } %>
