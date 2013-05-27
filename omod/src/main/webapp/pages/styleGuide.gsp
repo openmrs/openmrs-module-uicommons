@@ -723,6 +723,19 @@
             <article id="form">
                 <h1>Forms</h1>
                 <section>
+                    <p>
+                        Guidelines for forms:
+                        <ul class="list">
+                            <li>Use top-aligned labels for input fields</li>
+                            <li>User (required) after a label for required fields if the majority of the fields is optional</li>
+                            <li>User (optional) after a label for optional fields if the majority of the fields is required</li>
+                            <li>Use double visual emphasys for errors - Example: error message + red background in input</li>
+                            <li>Use descriptive error messages bellow the input fields</li>
+                            <li>if form is too long provide a summary of the errors on the top of the form</li>
+                        </ul>
+                    </p>
+                </section>
+                <section>
                     <blockquote>
                         Everything inside tag &lt;form&gt; is auto styled to follow this styleguide rules.<br>
                         The html structure is basically this:
