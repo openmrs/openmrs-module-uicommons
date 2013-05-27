@@ -131,6 +131,7 @@ span.date input {
     font-family: "OpenSansBold";
     word-break: normal;
     background: none;
+    font-weight: normal;
 }
 .datetimepicker  td,
 .datetimepicker th {
