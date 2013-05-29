@@ -50,7 +50,7 @@
         <% if (config.endToday) { %>
         endDate: "${ todayString }",
         <% } %>
-        language: "${ emrContext.getUserContext().getLocale() }",
+        language: "${ org.openmrs.api.context.Context.getLocale() }",
         linkField: "${ config.id }-field",
         linkFormat: "yyyy-mm-dd hh:ii:ss"
     })
