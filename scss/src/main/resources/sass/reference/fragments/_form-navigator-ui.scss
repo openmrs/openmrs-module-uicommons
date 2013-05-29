@@ -7,8 +7,56 @@ form#retrospectiveCheckin {
   }
 }
 
-.simple-form-ui, .simple-form-ui form {
+.simple-form-ui form {
   background: #F9F9F9 url(../images/aside-bg.png) repeat-y -20px;
+}
+
+.simple-form-ui, .simple-form-ui form {
+  input.illegalValue, textarea.illegalValue {
+    border: 2px solid;
+    border-color: $error;
+  }
+
+  input.legalValue, textarea.legalValue {
+    border: 2px solid;
+    border-color: $success;
+  }
+
+  div.formEntrySection {
+    border: 1px gray solid;
+  }
+
+  .formEntrySectionTitle {
+    color: #444444;
+    text-decoration: underline;
+  }
+
+  .value {
+    color: #2200ff;
+    font-weight: bold;
+  }
+
+  .emptyValue {
+  }
+
+  #htmlFormEntryBanner {
+    background-color: #e0e0e0;
+    text-align: center;
+    border-bottom: 1px black solid;
+    border-top: 1px black solid;
+    padding: 0.25em;
+    height:30px;
+  }
+
+  .required {
+    color:red;
+  }
+
+  div.loading {
+    color:red;
+    font-weight: bolder;
+    font-size: 1.1em;
+  }
 
   input, select, textarea, ul.select {
     min-width: auto;

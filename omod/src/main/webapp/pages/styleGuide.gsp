@@ -723,22 +723,61 @@
             <article id="form">
                 <h1>Forms</h1>
                 <section>
-                    <p>
-                        Guidelines for forms:
+                    <p>                        
+                        <h3>Guidelines</h3>
                         <ul class="list">
                             <li>Use top-aligned labels for input fields.</li>
-                            <li>User (required) after a label for required fields if the majority of the fields is optional.</li>
-                            <li>User (optional) after a label for optional fields if the majority of the fields is required.</li>
+                            <li>Use (required) after a label for required fields if the majority of the fields are optional.</li>
+                            <li>Use (optional) after a label for optional fields if the majority of the fields are required.</li>
+                            <li>If all your fields are either mandatory or optional, don't mark any.</li>
+                            <li>Length of input fields should communicate the intended content.</li>
+                            <li>Fields don't need to all be the same length. Mix long and short field length according to the content it is used for.</li>
+                        </ul>
+                        <h3>Validation</h3>
+                         <ul class="list">   
                             <li>Use double visual emphasys for errors - Example: error message + red background in input.</li>
                             <li>Use descriptive error messages bellow the input fields.</li>
                             <li>if form is too long provide a summary of the errors on the top of the form.</li>
-                            <li>If all your fields are either mandatory or optional, don't mark any.</li>
-                            </li>Length of input fields should communicate the intended content.</li>
-                            <li>Fields don't need to all be the same length. Mix long and short field length according to the content it is used for.</li>
+
                         </ul>
+                        <h3>Validation Short Forms</h3>
+                        <span>For short form validation use double visual emphysis on the input.</span>
+                        <div class="example">
+                            <form class="simple-form-ui">
+                                <p>
+                                    <label for="validation-input">Input Validation</label>
+                                    <input class="illegalValue" type="text" id="validation-input"></input>
+                                    <span class="error field-error">Input is required</span>
+                                </p>
+                            </form>
+                        </div>
+                       
+                        <h3>Validation Long Forms</h3>
+                        <span>For long form validation use double visual emphysis on the input and also provide a summary error message on the top.</span>
+                        <div class="example">
+                            <form class="simple-form-ui">
+                                <div id="error-message" class="note-container">
+                                <div class="note error">
+                                    <div class="text">
+                                        <i class="icon-remove medium"></i>
+                                        
+                                            <p>First Name is required<br>Surname is required<br>Provider Type is required<br></p>
+                                        
+                                    </div>
+                                    <div class="close-icon"><i class="icon-remove"></i></div>
+                                </div>
+                            </div>
+                                <p>
+                                    <label for="validation-input2">Input Validation</label>
+                                    <input class="illegalValue" type="text" id="validation-input2"></input>
+                                    <span class="error field-error">Input is required</span>
+                                </p>
+                            </form>
+                        </div>
                     </p>
                 </section>
                 <section>
+                    <h3>Code</h3>
                     <blockquote>
                         Everything inside tag &lt;form&gt; is auto styled to follow this styleguide rules.<br>
                         The html structure is basically this:

@@ -77,8 +77,7 @@
 
     &.error {
       color: white;
-      background: lighten($error, 10%);
-      border-color: darken($error, 10%);
+      background: $error;
 
       .icon i {
         background: white;
