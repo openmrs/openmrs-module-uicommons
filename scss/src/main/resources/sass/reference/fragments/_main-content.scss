@@ -16,7 +16,9 @@
     padding: 10px 0;
     border: 1px solid #CCC;
     @include border-radius(4px);
+  }
 
+  .visit-actions, .spaced {
      a {
        margin-right: 4px;
        margin-bottom: 7px;

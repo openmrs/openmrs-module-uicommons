@@ -132,6 +132,10 @@ h6 {
 
 p {
   margin: 0;
+
+  &.spaced {
+    margin-bottom: 15px;
+  }
 }
 
 strong {
