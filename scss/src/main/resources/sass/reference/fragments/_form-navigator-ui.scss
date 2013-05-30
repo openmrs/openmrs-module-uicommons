@@ -15,6 +15,7 @@ form#retrospectiveCheckin {
   input.illegalValue, textarea.illegalValue {
     border: 2px solid;
     border-color: $error;
+    background: white;
   }
 
   input.legalValue, textarea.legalValue {
