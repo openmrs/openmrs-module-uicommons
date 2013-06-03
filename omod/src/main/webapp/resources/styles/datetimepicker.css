@@ -378,6 +378,10 @@ span.date input {
   width: 14px;
   height: 14px;
 }
+.add-on {
+  position: relative;
+  left: -31px;
+}
 .datetimepicker.dropdown-menu {
   position: absolute;
   top: 100%;
