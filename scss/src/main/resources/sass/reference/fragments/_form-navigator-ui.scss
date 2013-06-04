@@ -63,6 +63,10 @@ form#retrospectiveCheckin {
     min-width: auto;
   }
 
+  select {
+    min-width: 200px;
+  }
+
   .field-error {
     color: $error;
     font-size: 1.1em;
