@@ -138,13 +138,16 @@
 
   &.confirm {
     @include button($success, darken($success, 8%), white);
+    max-width: 250px;
   }
 
   &.cancel {
     @include button($error, darken($error, 8%), white);
+    max-width: 250px;
   }
 
   &.proceed {
     @include button($error, darken($error, 8%), white);
+    max-width: 250px;
   }
 }
