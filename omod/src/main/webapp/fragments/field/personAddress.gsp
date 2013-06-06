@@ -68,13 +68,16 @@
 	        			<% if (token.codeName == 'startDate' || token.codeName == 'endDate') { %> onfocus='showCalendar(this,60)' <% } %>
 	        			<% if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]) { %> onkeyup="validateFormat(this, '${addressTemplate.elementRegex[token.codeName]}','${token.codeName}' )" <% } %>
 	        			/>
-	        			<i name="formatMsg_${token.codeName}" style="font-weight: normal; font-size: xx-small; color: red; display: none">
-                                 <% if (addressTemplate.elementRegexFormats && addressTemplate.elementRegexFormats[token.codeName]) { %>
-                                    (${ ui.message("general.format") }: ${addressTemplate.elementRegexFormats[token.codeName]})
-                                <% } else { %>
-                                    ${ ui.message("general.invalid") }&nbsp;${ ui.message("general.format") }
-                                <% } %>
-                        </i>
+	        			
+	        			<% if (addressTemplate.elementRegexFormats && addressTemplate.elementRegex[token.codeName]) { %>
+		        			<i name="formatMsg_${token.codeName}" style="font-weight: normal; font-size: xx-small; color: red; display: none">
+	                                 <% if (addressTemplate.elementRegexFormats[token.codeName]) { %>
+	                                    (${ ui.message("general.format") }: ${addressTemplate.elementRegexFormats[token.codeName]})
+	                                <% } else { %>
+	                                    ${ ui.message("general.invalid") }&nbsp;${ ui.message("general.format") }
+	                                <% } %>
+	                        </i>
+                        <% } %>
 	        		</td>
 	            <% } %>
 	        <% } %>
