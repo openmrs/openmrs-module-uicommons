@@ -57,30 +57,29 @@
     def addressTemplate = config.addressTemplate;
 %>
 
-<table>
-	<% addressTemplate.lines.each { line -> %>
-		<tr>
-	        <% line.eachWithIndex { token, tokenIndex -> %>
-	            <% if (token.isToken == addressTemplate.layoutToken) { %>
-	        		<td>${ ui.message(token.displayText) }</td>
-	        		<td <% if (token == line.last() && tokenIndex < addressTemplate.maxTokens) { %> colspan="${addressTemplate.maxTokens - tokenIndex}" <% } %> >
-	        			<input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${ (addressTemplate.elementDefaults && addressTemplate.elementDefaults.get(token.codeName)) ? addressTemplate.elementDefaults.get(token.codeName) : '' }" size="${ token.displaySize }"
-	        			<% if (token.codeName == 'startDate' || token.codeName == 'endDate') { %> onfocus='showCalendar(this,60)' <% } %>
-	        			<% if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]) { %> onkeyup="validateFormat(this, '${addressTemplate.elementRegex[token.codeName]}','${token.codeName}' )" <% } %>
-	        			/>
-	        			
-	        			<% if (addressTemplate.elementRegexFormats && addressTemplate.elementRegex[token.codeName]) { %>
-		        			<i name="formatMsg_${token.codeName}" style="font-weight: normal; font-size: xx-small; color: red; display: none">
-	                                 <% if (addressTemplate.elementRegexFormats[token.codeName]) { %>
-	                                    (${ ui.message("general.format") }: ${addressTemplate.elementRegexFormats[token.codeName]})
-	                                <% } else { %>
-	                                    ${ ui.message("general.invalid") }&nbsp;${ ui.message("general.format") }
-	                                <% } %>
-	                        </i>
-                        <% } %>
-	        		</td>
-	            <% } %>
-	        <% } %>
-		</tr>
-	<% } %>
-</table>
+<% addressTemplate.lines.each { line -> %>
+        <% line.eachWithIndex { token, tokenIndex -> %>
+            <% if (token.isToken == addressTemplate.layoutToken) { %>
+            	 <p <% if (line.size() > 2 && tokenIndex == 1) { %> class="left clear" <% } else if (line.size() > 2) { %> class="left" <% } %> >
+					<label name="${ token.codeName }">
+	        			${ ui.message(token.displayText) }
+	        		</label>
+	        		
+        			<input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${ (addressTemplate.elementDefaults && addressTemplate.elementDefaults.get(token.codeName)) ? addressTemplate.elementDefaults.get(token.codeName) : '' }" size="${ token.displaySize }"
+        			<% if (token.codeName == 'startDate' || token.codeName == 'endDate') { %> onfocus='showCalendar(this,60)' <% } %>
+        			<% if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]) { %> onkeyup="validateFormat(this, '${addressTemplate.elementRegex[token.codeName]}','${token.codeName}' )" <% } %>
+        			/>
+        			
+        			<% if (addressTemplate.elementRegexFormats && addressTemplate.elementRegex[token.codeName]) { %>
+	        			<i name="formatMsg_${token.codeName}" style="font-weight: normal; font-size: xx-small; color: red; display: none">
+                                 <% if (addressTemplate.elementRegexFormats[token.codeName]) { %>
+                                    (${ ui.message("general.format") }: ${addressTemplate.elementRegexFormats[token.codeName]})
+                                <% } else { %>
+                                    ${ ui.message("general.invalid") }&nbsp;${ ui.message("general.format") }
+                                <% } %>
+                        </i>
+                    <% } %>
+	        	</p> 
+            <% } %>
+        <% } %>
+<% } %>
