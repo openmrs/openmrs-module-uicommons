@@ -4,6 +4,11 @@
 
 //fragments
 @import "fragments/base";
+@import "fragments/grid";
+
+//override grid system variables
+$total-width: 100%;
+
 @import "fragments/header";
 @import "fragments/search-box";
 @import "fragments/breadcrumbs";

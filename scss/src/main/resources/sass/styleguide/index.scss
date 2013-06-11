@@ -229,3 +229,76 @@
 #left-menu {
   border-left: 1px solid #ccc;
 }
+
+//grids test
+.grid-test {
+  margin-top: 15px;
+
+  .column {
+    background: #999;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    padding: 5.25em 0;
+    text-align: center;
+    color: white;
+  }
+
+  .example {
+    margin-top: 20px;
+    background: #ccc;
+    padding: 20px;
+    overflow: hidden;
+    display: block;  
+    border-radius: 3px;
+  }
+
+  .one {
+    @include column(9);
+  }
+
+  .two {
+    @include column(3);
+  }
+
+  .three {
+    @include column(9);
+  }
+
+  .four {
+    @include column(4, 9);
+    margin-bottom: 20px;
+  }
+
+  .five {
+    @include column(5, 9);
+  }
+
+  .six {
+    @include column(6, 9);
+  }
+
+  .seven {
+    @include column(3, 9);
+  }
+
+  .eight {
+    @include column(3);
+  }
+
+  .nine {
+    @include column(9);
+  }
+
+  .ten {
+    @include column(3);
+  }
+
+  @media screen and (max-width: 720px) {
+    .nine, .ten {
+      @include column(12);
+      margin-bottom: 1em;
+    }
+  }
+}

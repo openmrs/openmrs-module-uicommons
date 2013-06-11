@@ -956,7 +956,8 @@
                             </p>
                         </fieldset>
                     </form>
-                    <p><a href="${ui.pageLink("uicommons", "test")}" target="blank_">Test page</a></p>
+                    <p><a href="${ui.pageLink("uicommons", "grid")}" target="blank_">Grid Test Page</a></p>
+                    <p><a href="${ui.pageLink("uicommons", "test")}" target="blank_">Test Page</a></p>
                 </section>
             </article>
         </div>

@@ -19,7 +19,7 @@
               </li>
               <li>
                   <i class="icon-chevron-right link"></i>
-                  <a href="#">Arsand, Natalia</a>
+                  <a href="#">Ramos, Glauber</a>
               </li>
               <li>
                   <i class="icon-chevron-right link"></i>Visits
