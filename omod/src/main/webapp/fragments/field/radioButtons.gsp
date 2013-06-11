@@ -16,7 +16,7 @@
     <p class="radio-btn">
         <input type="radio" id="${ config.id }-${ idx }-field" name="${ config.formFieldName }" value="${ it.value }" <% if (checked) { %>checked="true"<% } %>
             <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
-            <% if (config.dependency || required) { %> data-bind="checked: ${ config.observable }" <% } %> />
+            <% if (config.dependency || required) { %> data-bind="checked: ${ config.id }" <% } %> />
         <label for="${ config.id }-${ idx }-field">${ it.label }</label>
     </p>
 <% } %>
@@ -25,10 +25,10 @@ ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldN
 
 <% if (config.dependency || required) { %>
 <script type="text/javascript">
-    viewModel.${ config.observable } = ko.observable();
+    viewModel.${ config.id } = ko.observable();
     <% if (required) { %>
     viewModel.validations.push(function() {
-        return viewModel.${ config.observable }() !== undefined;
+        return viewModel.${ config.id }() !== undefined;
     });
     <% } %>
 </script>

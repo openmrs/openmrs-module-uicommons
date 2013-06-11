@@ -7,13 +7,18 @@
 
     def required = config.classes && config.classes.contains("required")
 
-    def today = new Date();
-    def todayString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(today);
-    def date = "";
-    def dateFormatted = "";
+    def today = new Date()
+    def todayString;
+    if (config.useTime) {
+        todayString = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(today)
+    } else {
+        todayString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(today)
+    }
+    def date = ""
+    def dateFormatted = ""
     if (config.defaultToday) {
-        date = todayString;
-        dateFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today);
+        date = todayString
+        dateFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today)
     }
 %>
 
@@ -27,7 +32,7 @@
     </span>
     <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }" value="${ dateFormatted }"
         <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
-        <% if (config.dependency || required) { %> data-bind="value: ${ config.observable }" <% } %> />
+        <% if (config.dependency || required) { %> data-bind="value: ${ config.id }" <% } %> />
 
     ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
 </p>
@@ -56,13 +61,13 @@
     })
     <% if (config.dependency || required) { %>
         .on('hide', function() {
-            viewModel.${ config.observable }(jq('#${ config.id }-field').val());
+            viewModel.${ config.id }(jq('#${ config.id }-field').val());
         });
 
-        viewModel.${ config.observable } = ko.observable("${ dateFormatted }");
+        viewModel.${ config.id } = ko.observable("${ dateFormatted }");
         <% if (required) { %>
         viewModel.validations.push(function() {
-            return viewModel.${ config.observable }() ? true : false;
+            return viewModel.${ config.id }() ? true : false;
         });
         <% } %>
     <% } %>

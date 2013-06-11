@@ -12,7 +12,7 @@
         selectDataBind += "enable: ${ config.depends.variable }() == '${ config.depends.enable }'"
     }
     if (config.dependency || required) {
-        selectDataBind += ", value: ${ config.observable }"
+        selectDataBind += ", value: ${ config.id }"
     }
 %>
 
@@ -43,10 +43,10 @@
 
 <% if (config.dependency || required) { %>
 <script type="text/javascript">
-    viewModel.${ config.observable } = ko.observable();
+    viewModel.${ config.id } = ko.observable();
     <% if (required) { %>
     viewModel.validations.push(function() {
-        return jq('#${ config.id }-field').is(':disabled') || (viewModel.${ config.observable }() ? true : false);
+        return jq('#${ config.id }-field').is(':disabled') || (viewModel.${ config.id }() ? true : false);
     });
     <% } %>
 </script>
