@@ -16,6 +16,18 @@
     padding: 10px 0;
     border: 1px solid #CCC;
     @include border-radius(4px);
+
+    &.past-visit {
+      color: $alert;
+      background: $alertBackground;
+      border-color: $alert;
+    }
+
+    .label {
+      text-align: left;
+      padding: 0 0 10px 10px;
+    }
+
   }
 
   .visit-actions, .spaced {
