@@ -40,21 +40,26 @@
 <script type="text/javascript">
     jq("#${ config.id }-wrapper").datetimepicker({
         <% if (!config.useTime) { %>
-        minView: 2,
+            minView: 2,
         <% } %>
+
         autoclose: true,
         pickerPosition: "bottom-left",
+
         <% if (config.useTime) { %>
-        format: "dd/mm/yyyy hh:ii",
+            format: "dd/mm/yyyy hh:ii",
         <% } else { %>
-        format: "dd/mm/yyyy",
+            format: "dd/mm/yyyy",
         <% } %>
+
         <% if (config.startToday) { %>
-        startDate: "${ todayString }",
+            startDate: "${ todayString }",
         <% } %>
+
         <% if (config.endToday) { %>
-        endDate: "${ todayString }",
+            endDate: "${ todayString }",
         <% } %>
+
         language: "${ org.openmrs.api.context.Context.getLocale() }",
         linkField: "${ config.id }-field",
         linkFormat: "yyyy-mm-dd hh:ii:ss"
