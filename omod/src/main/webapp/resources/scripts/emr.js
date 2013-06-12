@@ -237,6 +237,16 @@ var emr = (function($) {
 
         isFeatureEnabled: function(key) {
             return featureToggles[key];
+        },
+
+        applyContextModel: function(input, contextModel) {
+            if (contextModel) {
+                $.each(contextModel, function(key, value) {
+                    var pattern = new RegExp('{{\\s*' + key + '\\s*}}', 'g');
+                    input = input.replace(pattern, value);
+                });
+            }
+            return input;
         }
     };
 
