@@ -13,5 +13,8 @@ $(document).ready(function() {
     	$('#menu-container').css('position', 'relative');
     	$('#content').css('margin-left', '0px');
   	}
-	});
+	}); 
+
+  var options = { source: ["Antepartum Ward", "Central Archives", "Clinic Registration", "Community Health", "Dental", "Emergency", "Emergency Reception", "ICU", "Isolation", "Labor and Delivery", "Main Laboratory", "Men's Internal Medicine", "NICU", "Operating Rooms", "Outpatient Clinic", "Pediatrics", "Post-op GYN", "Postpartum Ward", "Pre-op/PACU", "Radiology", "Surgical Ward", "Women's Clinic", "Women's Internal Medicine", "Women's Outpatient Laboratory", "Women's Triage"], items: 3 };
+  $('#typeahead').typeahead(options);
 });

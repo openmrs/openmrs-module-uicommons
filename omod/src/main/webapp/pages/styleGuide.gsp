@@ -5,6 +5,7 @@
 
     ui.includeJavascript("uicommons", "jquery-1.8.3.min.js");
     ui.includeJavascript("uicommons", "bootstrap-scrollspy.js");
+    ui.includeJavascript("uicommons", "typeahead.js");
     ui.includeJavascript("uicommons", "script.js");
 %>
 
@@ -821,7 +822,10 @@
                             <input placeholder="Search Input" type="search"></input>
                         </p>
                         <p>
-                            <textarea placeholder="Textarea."></textarea>
+                            <textarea placeholder="Text Area"></textarea>
+                        </p>
+                        <p>
+                            <input id="typeahead" data-provide="typeahead" placeholder="Auto Suggest" type="text"></input>
                         </p>
                         <p>  
                             <span class="select-arrow">
