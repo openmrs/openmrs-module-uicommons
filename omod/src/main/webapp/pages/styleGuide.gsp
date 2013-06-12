@@ -16,6 +16,13 @@
     <header id="style-guide-header">
         <h1>OpenMRS RAP Style Guide</h1>
         <h2>Customize your OpenMRS application with reusable fragments.</h2>
+        <nav>
+            <ul>
+                <li><a class="active" href="${ui.pageLink("uicommons", "styleGuide")}">Base Style</a></li>
+                <li><a href="${ui.pageLink("uicommons", "javascript")}">Javascript</a></li>
+                <li><a href="${ui.pageLink("uicommons", "testPage")}">Test Pages</a></li>
+            </ul>
+        </nav>
     </header>
     <div class="clear"></div>
 
@@ -960,8 +967,6 @@
                             </p>
                         </fieldset>
                     </form>
-                    <p><a href="${ui.pageLink("uicommons", "grid")}" target="blank_">Grid Test Page</a></p>
-                    <p><a href="${ui.pageLink("uicommons", "test")}" target="blank_">Test Page</a></p>
                 </section>
             </article>
         </div>

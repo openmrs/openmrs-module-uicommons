@@ -3,7 +3,6 @@
 
 #style-guide-header {
   font-size: 1.5em;
-  padding: 10px;
 
   h1, h2 {
     color: #FFF;
@@ -13,6 +12,7 @@
 
   h1 {
     font-family: "OpenSansBold";
+    margin-top: 10px;
   }
 
   h2 {
@@ -299,6 +299,31 @@
     .nine, .ten {
       @include column(12);
       margin-bottom: 1em;
+    }
+  }
+}
+
+#style-guide-header nav {
+  padding: 5px 10px;
+  background: #333;
+  border-top: 4px solid #eee;
+}
+
+#style-guide-header nav li {
+  display: inline-block;
+  font-size: 0.6em;
+  margin-right: 20px;
+
+  a {
+    color: #eee;
+    text-decoration: none;
+
+    &:hover {
+      color: $alert;
+    }
+
+    &.active {
+      color: $alert;
     }
   }
 }
