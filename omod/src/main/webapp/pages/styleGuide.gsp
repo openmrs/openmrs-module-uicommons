@@ -8,7 +8,6 @@
     ui.includeJavascript("uicommons", "typeahead.js");
     ui.includeJavascript("uicommons", "script.js");
 %>
-
 <script>
     var jq = jQuery;
 </script>

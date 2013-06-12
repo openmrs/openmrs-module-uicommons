@@ -5,7 +5,9 @@
     ui.includeJavascript("uicommons", "typeahead.js");
     ui.includeJavascript("uicommons", "script.js");
 %>
-
+<script>
+    var jq = jQuery;
+</script>
 <body data-spy="scroll" data-target="#menu">
   <header id="style-guide-header">
         <h1>OpenMRS RAP Style Guide</h1>
@@ -28,6 +30,9 @@
                   <li>
                       <a href="#suggest">Auto Suggest</a>
                   </li>
+                  <li>
+                      <a href="#date">Date Picker</a>
+                  </li>
               </ul>
           </section>
       </aside>
@@ -39,6 +44,15 @@
                   <p>
                     <input id="typeahead" data-provide="typeahead" placeholder="Auto Suggest" type="text"></input>
                   </p>
+                </form>
+              </section>
+          </article>
+          <article id="date">
+              <h1>Date Picker</h1>
+              <section>
+                <form>
+                  ${ ui.includeFragment("uicommons", "field/datetimepicker", [ id: 'datetime', label: 'Date Picker', formFieldName: 'date picker', useTime: false ]) }
+                  ${ ui.includeFragment("uicommons", "field/datetimepicker", [ id: 'datetime2', label: 'Date Time Picker', formFieldName: 'date time picker', useTime: true ]) }
                 </form>
               </section>
           </article>
