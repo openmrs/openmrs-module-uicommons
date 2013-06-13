@@ -14,11 +14,26 @@
     } else {
         todayString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(today)
     }
+
     def date = ""
     def dateFormatted = ""
     if (config.defaultToday) {
         date = todayString
         dateFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today)
+    }
+
+    def startDate
+    if (config.startToday) {
+        startDate = todayString
+    } else {
+        startDate = config.startDate
+    }
+
+    def endDate
+    if (config.endToday) {
+        endDate = todayString
+    } else {
+        endDate = config.endDate
     }
 %>
 
@@ -45,6 +60,7 @@
 
         autoclose: true,
         pickerPosition: "bottom-left",
+        todayHighlight: false,
 
         <% if (config.useTime) { %>
             format: "dd/mm/yyyy hh:ii",
@@ -52,12 +68,12 @@
             format: "dd/mm/yyyy",
         <% } %>
 
-        <% if (config.startToday) { %>
-            startDate: "${ todayString }",
+        <% if (startDate) { %>
+            startDate: "${ startDate }",
         <% } %>
 
-        <% if (config.endToday) { %>
-            endDate: "${ todayString }",
+        <% if (endDate) { %>
+            endDate: "${ endDate }",
         <% } %>
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
