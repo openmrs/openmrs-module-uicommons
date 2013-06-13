@@ -7,31 +7,37 @@
 
     def required = config.classes && config.classes.contains("required")
 
-    def today = new Date()
-    def todayString;
+    def defaultDateStringFormat
     if (config.useTime) {
-        todayString = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(today)
+        defaultDateStringFormat = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm")
     } else {
-        todayString = new java.text.SimpleDateFormat("dd/MM/yyyy").format(today)
+        defaultDateStringFormat = new java.text.SimpleDateFormat("dd/MM/yyyy")
     }
 
-    def date = ""
-    def dateFormatted = ""
+    def defaultDate
     if (config.defaultToday) {
-        date = todayString
-        dateFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(today)
+        defaultDate = new Date()
+    } else {
+        defaultDate = config.defaultDate
+    }
+
+    def defaultDateString = ""
+    def defaultDateISOFormatted = ""
+    if (defaultDate) {
+        defaultDateString = defaultDateStringFormat.format(defaultDate)
+        defaultDateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(defaultDate)
     }
 
     def startDate
     if (config.startToday) {
-        startDate = todayString
+        startDate = defaultDateString
     } else {
         startDate = config.startDate
     }
 
     def endDate
     if (config.endToday) {
-        endDate = todayString
+        endDate = defaultDateString
     } else {
         endDate = config.endDate
     }
@@ -42,10 +48,10 @@
         ${ ui.message(config.label) } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
     <span id="${ config.id }-wrapper" class="date">
-        <input type="text" id="${ config.id }-display" value="${ date }" readonly />
+        <input type="text" id="${ config.id }-display" value="${ defaultDateString }" readonly />
         <span class="add-on"><i class="icon-calendar small"></i></span>
     </span>
-    <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }" value="${ dateFormatted }"
+    <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }" value="${ defaultDateISOFormatted }"
         <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
         <% if (config.dependency || required) { %> data-bind="value: ${ config.id }" <% } %> />
 
@@ -85,7 +91,7 @@
             viewModel.${ config.id }(jq('#${ config.id }-field').val());
         });
 
-        viewModel.${ config.id } = ko.observable("${ dateFormatted }");
+        viewModel.${ config.id } = ko.observable("${ defaultDateISOFormatted }");
         <% if (required) { %>
         viewModel.validations.push(function() {
             return viewModel.${ config.id }() ? true : false;
