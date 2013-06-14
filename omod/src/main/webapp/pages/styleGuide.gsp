@@ -522,6 +522,30 @@
                                                 Save
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-edit"></i>
+                                                Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-check-in"></i>
+                                                Create
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-remove"></i>
+                                                Delete
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-ok"></i>
+                                                Add
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -943,6 +967,14 @@
                             Te kòmanse nan 06 May 2013 05:35 PM
                         </div>
                     </div>
+                </section>
+                <h1>Date Format Guidelines</h1>
+                <section>
+                    <p>There is two kinds of data formats for two different scenarios. One is specific for viewing date information and the other one is for editing a date on an input.
+                    <h3>Viewing date</h3>
+                    <p>06 May 2013 05:35 PM</P>
+                    <h3>Editing date</h3>
+                    <p>06/05/2013 05:35 PM</P>
                 </section>
             </article>
             <article id="usage">
