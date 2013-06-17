@@ -972,9 +972,9 @@
                 <section>
                     <p>There is two kinds of data formats for two different scenarios. One is specific for viewing date information and the other one is for editing a date on an input.
                     <h3>Viewing date</h3>
-                    <p>06 May 2013 05:35 PM</P>
+                    <p>6 May 2013 05:35 PM</P>
                     <h3>Editing date</h3>
-                    <p>06/05/2013 05:35 PM</P>
+                    <p>06-05-2013 17:35</P>
                 </section>
             </article>
             <article id="usage">
