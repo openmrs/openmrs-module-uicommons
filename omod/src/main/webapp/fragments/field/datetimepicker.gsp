@@ -9,9 +9,9 @@
 
     def defaultDateStringFormat
     if (config.useTime) {
-        defaultDateStringFormat = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm")
+        defaultDateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm")
     } else {
-        defaultDateStringFormat = new java.text.SimpleDateFormat("dd/MM/yyyy")
+        defaultDateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
     }
 
     def defaultDate
