@@ -69,9 +69,9 @@
         todayHighlight: false,
 
         <% if (config.useTime) { %>
-            format: "dd/mm/yyyy hh:ii",
+            format: "dd-mm-yyyy hh:ii",
         <% } else { %>
-            format: "dd/mm/yyyy",
+            format: "dd-mm-yyyy",
         <% } %>
 
         <% if (startDate) { %>
