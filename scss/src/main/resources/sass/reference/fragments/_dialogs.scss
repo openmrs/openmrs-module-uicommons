@@ -16,6 +16,13 @@
     padding-top: 5px;
     border-bottom: darken($highlight, 20%) 1px solid;
     @include border-top-radius(3px);
+
+    i {
+      font-size: 1.5em;
+      color: white;
+      vertical-align: middle;
+      display: inline-block;
+    }
   }
 
   .dialog-content {
@@ -44,18 +51,11 @@
     }
   }
 
-  i {
-    font-size: 1.5em;
-    color: white;
-    vertical-align: middle;
-    display: inline-block;
-  }
-
   h3 {
     display: inline-block;
     color: white;
     margin: 5px 0;
-    vertical-align: text-top;
+    vertical-align: top;
   }
 
   ul {
