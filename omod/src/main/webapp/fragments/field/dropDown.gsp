@@ -49,6 +49,11 @@
     viewModel.validations.push(function() {
         return jq('#${ config.id }-field').is(':disabled') || (viewModel.${ config.id }() ? true : false);
     });
+    <% } else { %>
+    viewModel.validations.push(function() {
+        viewModel.${ config.id }();
+        return true;
+    });
     <% } %>
 </script>
 <% } %>
