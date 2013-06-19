@@ -153,4 +153,8 @@
     max-width: 250px;
     margin-right: 10px;
   }
+
+  &.no-color {
+    @include button();
+  }
 }
