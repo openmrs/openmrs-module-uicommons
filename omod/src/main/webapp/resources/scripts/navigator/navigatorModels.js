@@ -104,6 +104,9 @@ FieldModel.prototype.value = function() {
     if(selectedOption.length > 0) {
         return selectedOption.text();
     }
+    if (this.element.attr('type') == 'radio') {
+    	return this.element.is(':checked') ? this.element.val() : " ";
+    }
     return this.element.val() ? this.element.val() : "";
 }
 FieldModel.prototype.displayValue = function() {
