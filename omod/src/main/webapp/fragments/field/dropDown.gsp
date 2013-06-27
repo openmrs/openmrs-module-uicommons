@@ -44,6 +44,9 @@
 
 <% if (config.dependency || required) { %>
 <script type="text/javascript">
+    var viewModel = viewModel || {};
+    viewModel.validations = viewModel.validations || [];
+
     viewModel.${ config.id } = ko.observable();
     <% if (required) { %>
     viewModel.validations.push(function() {
