@@ -385,3 +385,10 @@ table {
 .hidden {
   display: none;
 }
+
+.highlighted {
+  background-color: $highlight;
+  color: $white; 
+  padding: 5px;
+  margin: 5px
+ }
