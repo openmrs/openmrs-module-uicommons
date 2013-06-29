@@ -64,12 +64,18 @@
 					<label name="${ token.codeName }">
 	        			${ ui.message(token.displayText) }
 	        		</label>
-	        		
-        			<input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${ (addressTemplate.elementDefaults && addressTemplate.elementDefaults.get(token.codeName)) ? addressTemplate.elementDefaults.get(token.codeName) : '' }" size="${ token.displaySize }"
+	        		<%
+                    def initialFieldValue
+                    if(config.initialValue && config.initialValue[token.codeName])
+                        initialFieldValue = config.initialValue[token.codeName]
+                    else
+                        initialFieldValue = (addressTemplate.elementDefaults && addressTemplate.elementDefaults.get(token.codeName)) ? addressTemplate.elementDefaults.get(token.codeName) : ''
+	        		%>
+        			<input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${(initialFieldValue) ? initialFieldValue : ''}" size="${ token.displaySize }"
         			<% if (token.codeName == 'startDate' || token.codeName == 'endDate') { %> onfocus='showCalendar(this,60)' <% } %>
         			<% if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]) { %> onkeyup="validateFormat(this, '${addressTemplate.elementRegex[token.codeName]}','${token.codeName}' )" <% } %>
         			/>
-        			
+
         			<% if (addressTemplate.elementRegexFormats && addressTemplate.elementRegex[token.codeName]) { %>
 	        			<i name="formatMsg_${token.codeName}" style="font-weight: normal; font-size: xx-small; color: red; display: none">
                                  <% if (addressTemplate.elementRegexFormats[token.codeName]) { %>
