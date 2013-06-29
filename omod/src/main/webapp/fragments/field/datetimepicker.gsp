@@ -1,6 +1,8 @@
 <%
     ui.includeJavascript("uicommons", "datetimepicker/bootstrap-datetimepicker.min.js")
-    ui.includeJavascript("uicommons", "datetimepicker/locales/bootstrap-datetimepicker.${ org.openmrs.api.context.Context.getLocale() }.js")
+    if(org.openmrs.api.context.Context.getLocale() != Locale.ENGLISH){
+        ui.includeJavascript("uicommons", "datetimepicker/locales/bootstrap-datetimepicker.${ org.openmrs.api.context.Context.getLocale() }.js")
+    }
     ui.includeCss("uicommons", "datetimepicker.css")
 
     config.require("id", "label", "formFieldName", "useTime")
