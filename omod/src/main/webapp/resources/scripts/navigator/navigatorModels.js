@@ -42,7 +42,11 @@ function FieldModel(elem, parentQuestion, messagesContainer) {
     this.validators = [];
     this.exitHandlers = [];
 
-    var classes = this.element.attr("class");
+    // you can specify validators directly on the element, or the parent p or fieldset
+    var classes = this.element.attr("class") + " "
+                    + this.element.closest("p").attr("class") + " "
+                    + this.element.closest("fieldset").attr("class");
+
     if(classes) {
         _.each(classes.split(' '), function(klass) {
             Validators[klass] && this.validators.push(Validators[klass]);
