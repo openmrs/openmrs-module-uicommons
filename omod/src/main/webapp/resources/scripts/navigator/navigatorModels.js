@@ -106,15 +106,30 @@ FieldModel.prototype.onExit = function ()  {
 FieldModel.prototype.value = function() {
     var selectedOption = this.element.find('option:selected');
     if(selectedOption.length > 0) {
-        return selectedOption.text();
+        return selectedOption.val(); // return the actual value
     }
-    if (this.element.attr('type') == 'radio') {
+    else if (this.element.attr('type') == 'radio') {
     	return this.element.is(':checked') ? this.element.val() : " ";
     }
-    return this.element.val() ? this.element.val() : "";
+    else {
+        return this.element.val() ? this.element.val() : "";
+    }
 }
 FieldModel.prototype.displayValue = function() {
-    var value = this.value();
+
+    var value;
+
+    var selectedOption = this.element.find('option:selected');
+    if(selectedOption.length > 0) {
+        value = selectedOption.text(); // return the display text
+    }
+    else if (this.element.attr('type') == 'radio') {
+        value = this.element.is(':checked') ? this.element.val() : " ";
+    }
+    else {
+        value = this.element.val() ? this.element.val() : "";
+    }
+
     if (value) {
         var extra = _.map(this.element.parent().find(".append-to-value"), function(item) { return $(item).html() }).join(" ");
         return extra ? (value + " <span class='after-value'>" + extra + "</span>") : value;
