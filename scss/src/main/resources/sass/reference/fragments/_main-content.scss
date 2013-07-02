@@ -12,20 +12,21 @@
   }
 
   .visit-actions {
-    text-align: center;
+    text-align: left;
     padding: 10px 0;
+    padding-left: 10px;
+    padding-bottom: 0;
     border: 1px solid #CCC;
-    @include border-radius(4px);
+    @include border-radius(2px);
 
     &.past-visit {
       color: $alert;
-      background: $alertBackground;
-      border-color: $alert;
+      background: white;
     }
 
     .label {
       text-align: left;
-      padding: 0 0 10px 10px;
+      padding-bottom: 5px;
     }
 
   }
