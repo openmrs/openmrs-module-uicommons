@@ -21,7 +21,7 @@
     </p>
 <% } %>
 
-${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
+${ ui.includeFragment("uicommons", "fieldErrors", [ id: config.formFieldName+'-field-error', fieldName: config.formFieldName ]) }
 
 <% if (config.dependency || required) { %>
 <script type="text/javascript">

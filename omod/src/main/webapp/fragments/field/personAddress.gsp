@@ -66,16 +66,32 @@
 	        		</label>
 	        		<%
                     def initialFieldValue
-                    if(config.initialValue && config.initialValue[token.codeName])
+                    if(config.initialValue && config.initialValue[token.codeName]){
                         initialFieldValue = config.initialValue[token.codeName]
-                    else
+                    }else {
                         initialFieldValue = (addressTemplate.elementDefaults && addressTemplate.elementDefaults.get(token.codeName)) ? addressTemplate.elementDefaults.get(token.codeName) : ''
-	        		%>
-        			<input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${(initialFieldValue) ? initialFieldValue : ''}" size="${ token.displaySize }"
-        			<% if (token.codeName == 'startDate' || token.codeName == 'endDate') { %> onfocus='showCalendar(this,60)' <% } %>
-        			<% if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]) { %> onkeyup="validateFormat(this, '${addressTemplate.elementRegex[token.codeName]}','${token.codeName}' )" <% } %>
-        			/>
-
+                    }
+                    if (addressTemplate.elementRegexFormats && addressTemplate.elementRegexFormats[token.codeName]){
+                        elementRegexFormat = addressTemplate.elementRegexFormats[token.codeName]
+                    }
+                    if (token.codeName == 'startDate' || token.codeName == 'endDate') { %>
+                         ${ui.includeFragment("uicommons", "field/datetimepicker", [
+                                id: token.codeName,
+                                label: "",
+                                formFieldName: token.codeName,
+                                useTime: false,
+                                left: true,
+                                defaultDate: initialFieldValue,
+                                size: token.displaySize
+                        ])}
+                    <% } else {%>
+                        <input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${(initialFieldValue) ? initialFieldValue : ''}" size="${ token.displaySize }"
+                        <% if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]) { %> onkeyup="validateFormat(this, '${addressTemplate.elementRegex[token.codeName]}','${token.codeName}' )"
+                        <% }else if(token.codeName == "latitude" || token.codeName == "longitude"){%>
+                               class="number numeric-range degrees" min="${(token.codeName == "latitude") ? "-90" : "-180"}" max="${(token.codeName == "latitude") ? "90" : "180"}"
+                        <% } %>
+                        />
+                     <% } %>
         			<% if (addressTemplate.elementRegexFormats && addressTemplate.elementRegex[token.codeName]) { %>
 	        			<i name="formatMsg_${token.codeName}" style="font-weight: normal; font-size: xx-small; color: red; display: none">
                                  <% if (addressTemplate.elementRegexFormats[token.codeName]) { %>

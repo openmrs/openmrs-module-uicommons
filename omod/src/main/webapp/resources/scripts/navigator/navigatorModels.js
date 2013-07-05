@@ -109,7 +109,7 @@ FieldModel.prototype.value = function() {
         return selectedOption.val(); // return the actual value
     }
     else if (this.element.attr('type') == 'radio') {
-    	return this.element.is(':checked') ? this.element.val() : " ";
+    	return this.element.is(':checked') ? this.element.val() : "";
     }
     else {
         return this.element.val() ? this.element.val() : "";
@@ -150,7 +150,14 @@ function QuestionModel(elem, section, titleListElem) {
     this.parentSection = section;
     var fieldContainers = this.element.find("p").has("input, select");
     this.fields = _.map(fieldContainers, function(container) {
-        return new FieldModel($(container).find("input, select").first(), this, $(container).find("span.field-error").first());
+        var fieldErrorsElement = $(container).find("span.field-error").first();
+        //since radio buttons represent the same property/request param, we need
+        //to use the same error element for all radio buttons in the same group
+        var radioButtonElements = $(container).find("input:radio");
+        if(radioButtonElements && radioButtonElements.length > 0){
+            fieldErrorsElement = $('#'+radioButtonElements[0].name+'-field-error');
+        }
+        return new FieldModel($(container).find("input, select").first(), this, fieldErrorsElement);
     }, this);
     this.questionLegend = this.element.find('legend').first();
     this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i><span>' + this.questionLegend.text() + '</span></li>');

@@ -5,7 +5,21 @@ function FieldValidator() {};
 FieldValidator.prototype = {
     constructor: FieldValidator,
     validate: function(field) {
-        if(!this.isValid(field.value())) {
+        var value = field.value();
+        //For radios, check if there is a checked radio in the group in the fieldset
+        if (field.element.attr('type') == 'radio'){
+            var fieldName = field.element.attr('name');
+            var groupRadios = field.element.parent().parent().find("input:radio[name="+fieldName+"]");
+            _.each(groupRadios, function(groupRadio){
+                //ignore the radio that this validator was triggered for
+                if($(groupRadio).val() != field.element.val()){
+                    if($(groupRadio).is(':checked')){
+                        value = field.element.val();
+                    }
+                }
+            });
+        }
+        if(!this.isValid(value)) {
             return emrMessages[this.messageIdentifier];
         }
         return null;
@@ -24,22 +38,41 @@ RequiredFieldValidator.prototype.isValid = function(fieldValue) {
 
 function DateFieldValidator() {
     this.messageIdentifier = "dateField";
+    this.futureDateMessageIdentifier = "dateInFuture";
+
 }
 DateFieldValidator.prototype = new FieldValidator();
 DateFieldValidator.prototype.constructor = DateFieldValidator;
-DateFieldValidator.prototype.isValid = function(fieldValue) {
-    if(fieldValue && fieldValue.length > 0) {
-        var dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
-        var regexResult = dateRegex.exec(fieldValue);
-        if(!regexResult) {
-            return false;
-        }
-        var day=regexResult[1], month=regexResult[2], year=regexResult[3];
-        if(day < 1 || day > 31 || month < 1 || month > 12) return false;
-    }
-    return true;
-}
+DateFieldValidator.prototype.validate = function(field){
 
+    if(field.value() && $.trim(field.value()).length > 0) {
+        var fieldValue = $.trim(field.value());
+        var hasTime = field.element.hasClass('use-time');
+        var dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+        if (hasTime)
+            dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})\s(\d{1,2}):(\d{1,2})$/;
+
+        var regexResult = dateRegex.exec(fieldValue);
+        if(!regexResult)
+            return emrMessages[this.messageIdentifier];
+
+        var day=regexResult[1], month=regexResult[2], year=regexResult[3];
+        if(day < 1 || day > 31 || month < 1 || month > 12)
+            return emrMessages[this.messageIdentifier];
+
+        if(field.element.hasClass('no-future-date')){
+            var dateObject;
+            if(hasTime)
+                dateObject = new Date(year, month-1, day, regexResult[4], regexResult[5]);
+            else
+                dateObject = new Date(year, month-1, day);
+
+            if(dateObject > new Date())
+                return emrMessages[this.futureDateMessageIdentifier];
+        }
+    }
+    return null;
+}
 
 function IntegerFieldValidator() {
     this.messageIdentifier = "integerField";
