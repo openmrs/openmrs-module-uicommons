@@ -158,13 +158,13 @@ describe("Test for form validators", function() {
             });
 
             it("should validate correct date", function() {
-                field.value.andReturn("30/10/2010");
+                field.value.andReturn("30-10-2010");
 
                 var validationMessage = validator.validate(field);
                 expect(validationMessage).toBe(null);
             });
             it("should not validate incorrect date", function() {
-                field.value.andReturn("32/13/2010");
+                field.value.andReturn("32-13-2010");
 
                 var validationMessage = validator.validate(field);
                 expect(validationMessage).toBe('dateFieldMessage');

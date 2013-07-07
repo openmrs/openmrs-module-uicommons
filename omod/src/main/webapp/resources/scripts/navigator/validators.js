@@ -7,7 +7,7 @@ FieldValidator.prototype = {
     validate: function(field) {
         var value = field.value();
         //For radios, check if there is a checked radio in the group in the fieldset
-        if (field.element.attr('type') == 'radio'){
+        if ($(field.element).attr('type') == 'radio'){
             var fieldName = field.element.attr('name');
             var groupRadios = field.element.parent().parent().find("input:radio[name="+fieldName+"]");
             _.each(groupRadios, function(groupRadio){
@@ -47,7 +47,7 @@ DateFieldValidator.prototype.validate = function(field){
 
     if(field.value() && $.trim(field.value()).length > 0) {
         var fieldValue = $.trim(field.value());
-        var hasTime = field.element.hasClass('use-time');
+        var hasTime = $(field.element).hasClass('use-time');
         var dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
         if (hasTime)
             dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})\s(\d{1,2}):(\d{1,2})$/;
@@ -60,7 +60,7 @@ DateFieldValidator.prototype.validate = function(field){
         if(day < 1 || day > 31 || month < 1 || month > 12)
             return emrMessages[this.messageIdentifier];
 
-        if(field.element.hasClass('no-future-date')){
+        if($(field.element).hasClass('no-future-date')){
             var dateObject;
             if(hasTime)
                 dateObject = new Date(year, month-1, day, regexResult[4], regexResult[5]);
