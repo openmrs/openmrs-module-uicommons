@@ -81,12 +81,14 @@ form#retrospectiveCheckin {
 
     ul > li > .label {
       text-align: right;
-      width: 200px;
       display: inline-block;
+      margin-left: 25px;
+      margin-right: 10px;
+      width: auto;
     }
 
     ul > li > strong {
-      font-size: 2em;
+      font-size: 1.6em;
     }
 
     ul > li > strong .after-value {
