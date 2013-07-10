@@ -9,7 +9,7 @@
 	font-style: normal;
 }
 
-.icon-vitals:before, .icon-vitals-2:before, .icon-provider:before, .icon-medicine:before, .icon-diagnosis:before, .icon-x-ray:before, .icon-archives:before, .icon-medical:before, .icon-register:before, .icon-check-in:before, .icon-medicine-2:before, .icon-record:before, .icon-baby:before, .icon-admission:before {
+.icon-vitals:before, .icon-vitals-2:before, .icon-provider:before, .icon-medicine:before, .icon-diagnosis:before, .icon-x-ray:before, .icon-archives:before, .icon-medical:before, .icon-register:before, .icon-check-in:before, .icon-medicine-2:before, .icon-record:before, .icon-baby:before, .icon-admission:before, .icon-tomo:before {
 	font-family: 'icomoon';
 }
 .icon-vitals:before {
@@ -53,4 +53,7 @@
 }
 .icon-admission:before {
 	content: "\e00d";
+}
+.icon-tomo:before {
+	content: "\e00e";
 }
