@@ -48,7 +48,7 @@ form#retrospectiveCheckin {
   }
 
   input, select, textarea, ul.select {
-    min-width: auto;
+    min-width: 0;
   }
 
   select {
@@ -211,7 +211,7 @@ ul#formBreadcrumb {
         &.done {
           span {
             padding-left: 5px;
-            display: inline;
+            display: inline-block;
           }
            
           .icon-ok {
