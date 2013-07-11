@@ -125,13 +125,14 @@
             left: true])}
 
     <%
-        //This input is used to display the date in dd-MM-yyyy format since it what the
-        //date field validator and for displaying error messages after constructing the full date
-        //from the day, month year inputs and reponsible to force the user not to leave the date
-        //question in the section if the date is invalid
+        //This input is used to display the date in dd-MM-yyyy format since it what the date
+        //field validator uses and for displaying error messages after constructing the full date
+        //from the day, month year inputs and ensures the user does not leave the date question
+        //in the section if the date is invalid
     %>
-    <p>
-        <input id="${config.formFieldName}-validation-value" type="text" style="visibility: hidden" class="date ${ hiddenValidationFieldClasses.join(' ') }" />
+    <br/>
+    <p style="float: left">
+        <input id="${config.formFieldName}-validation-value" type="hidden" class="date ${ hiddenValidationFieldClasses.join(' ') }" />
         ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
     </p>
 
