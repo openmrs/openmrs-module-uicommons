@@ -1,25 +1,32 @@
 <%
-    config.require("id", "label", "formFieldName", "monthOptions")
+    config.require("id", "label", "formFieldName")
+
+    def defaultMonthOptions = [ [label: ui.message("uicommons.month.1"), value: 1],
+                                [label: ui.message("uicommons.month.2"), value: 2],
+                                [label: ui.message("uicommons.month.3"), value: 3],
+                                [label: ui.message("uicommons.month.4"), value: 4],
+                                [label: ui.message("uicommons.month.5"), value: 5],
+                                [label: ui.message("uicommons.month.6"), value: 6],
+                                [label: ui.message("uicommons.month.7"), value: 7],
+                                [label: ui.message("uicommons.month.8"), value: 8],
+                                [label: ui.message("uicommons.month.9"), value: 9],
+                                [label: ui.message("uicommons.month.10"), value: 10],
+                                [label: ui.message("uicommons.month.11"), value: 11],
+                                [label: ui.message("uicommons.month.12"), value: 12] ]
 
     def dateComponentClass = "date-component";
     def initialDay,initialMonth, initialYear
-    def dayClasses = [dateComponentClass, "number", "numeric-range"]
-    def monthClasses = [dateComponentClass]
-    def yearClasses = [dateComponentClass, "number"]
-    def hiddenValidationFieldClasses = []
+    def dayClasses = ["day", "number", "numeric-range", dateComponentClass]
+    def monthClasses = ["month", dateComponentClass]
+    def yearClasses = ["year", "number", dateComponentClass]
+    if(config.monthOptions)
+        defaultMonthOptions = config.monthOptions;
 
     if(config.classes){
         dayClasses.addAll(config.classes)
         monthClasses.addAll(config.classes)
         yearClasses.addAll(config.classes)
-        hiddenValidationFieldClasses.addAll(config.classes)
-        //The hidden field we use for validating the date shouldn't have the required
-        //class since it is already included for day,month,year individually inputs
-        //otherwise the user will see the error message but the field is invisible
-        if(hiddenValidationFieldClasses.contains("required"))
-            hiddenValidationFieldClasses.remove("required")
     }
-
 
     if(config.initialValue){
         Calendar cal = Calendar.getInstance()
@@ -31,19 +38,14 @@
 %>
 
 <script type="text/javascript">
-    var ${config.formFieldName}FieldModel;
     var ${config.formFieldName}Day = ${(initialDay) ? initialDay : "''"};
     var ${config.formFieldName}Month = ${(initialMonth) ? initialMonth : "''"};
     var ${config.formFieldName}Year = ${(initialYear) ? initialYear : "''"};
-    var ${config.formFieldName}FieldModel;
 
     jQuery(document).ready(function(){
         <% if(config.initialValue){ %>
-                jQuery('#${config.formFieldName}-validation-value').val('${initialDay}-${initialMonth}-${initialYear}');
                 jQuery('#${config.formFieldName}-value').val('${initialYear}-${initialMonth}-${initialDay}');
         <% } %>
-
-        ${config.formFieldName}FieldModel = new FieldModel(jQuery("#${config.formFieldName}-validation-value"), null, jQuery("#${config.formFieldName}-field-error"));
 
         _.each(jQuery('.${dateComponentClass}'), function(dateElement){
             jQuery(dateElement).blur(function(){
@@ -70,18 +72,6 @@
 
                 if(${config.formFieldName}Day.length > 0 && ${config.formFieldName}Month.length > 0
                         && ${config.formFieldName}Year.length > 0){
-
-                    jQuery('#${config.formFieldName}-validation-value').val(${config.formFieldName}Day+"-"+${config.formFieldName}Month+"-"+${config.formFieldName}Year);
-                    var dateErrorMessage = new DateFieldValidator().validate(${config.formFieldName}FieldModel);
-                    var errorsField = ${config.formFieldName}FieldModel.element.parent().find('span.field-error').first();
-                    if(dateErrorMessage) {
-                        errorsField.html(dateErrorMessage);
-                        errorsField.show();
-                        return;
-                    }
-
-                    errorsField.html('');
-                    errorsField.hide();
                     jQuery('#${config.formFieldName}-value').val(${config.formFieldName}Year+"-"+${config.formFieldName}Month+"-"+${config.formFieldName}Day);
                 }
             });
@@ -91,11 +81,10 @@
 </script>
 
 <p id="${config.id}">
-
-    <span id="${config.formFieldName}-date-field-error" class="field-error" style="display:none"></span>
+    ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
 
     ${ ui.includeFragment("uicommons", "field/text", [
-            label: ui.message("registrationapp.birthdate.day.label"),
+            label: ui.message("uicommons.multipleDateInputs.day.label"),
             id: config.formFieldName+"Day",
             formFieldName: config.formFieldName+"Day",
             initialValue: initialDay,
@@ -106,16 +95,15 @@
             maxLength: 2,
             left: true])}
     ${ ui.includeFragment("uicommons", "field/dropDown", [
-            label: ui.message("registrationapp.birthdate.month.label"),
+            label: ui.message("uicommons.multipleDateInputs.month.label"),
             id: config.formFieldName+"Month",
             formFieldName: config.formFieldName+"Month",
             initialValue: initialMonth,
             classes: monthClasses,
-            options: config.monthOptions,
-            maximumSize: 10,
+            options: defaultMonthOptions,
             left: true])}
     ${ ui.includeFragment("uicommons", "field/text", [
-            label: ui.message("registrationapp.birthdate.year.label"),
+            label: ui.message("uicommons.multipleDateInputs.year.label"),
             id: config.formFieldName+"Year",
             formFieldName: config.formFieldName+"Year",
             initialValue: initialYear,
@@ -124,21 +112,5 @@
             maxLength: 4,
             left: true])}
 
-    <%
-        //This input is used to display the date in dd-MM-yyyy format since it what the date
-        //field validator uses and for displaying error messages after constructing the full date
-        //from the day, month year inputs and ensures the user does not leave the date question
-        //in the section if the date is invalid
-    %>
-    <br/>
-    <p style="float: left">
-        <input id="${config.formFieldName}-validation-value" type="hidden" class="date ${ hiddenValidationFieldClasses.join(' ') }" />
-        ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
-    </p>
-
-    <%
-        //This input holds the actual date value in yyyy-MM-dd format that is submitted
-        //to the server after constructing the full date from the day, month year inputs
-    %>
     <input id="${config.formFieldName}-value" type="hidden" name="${config.formFieldName}" />
 </p>

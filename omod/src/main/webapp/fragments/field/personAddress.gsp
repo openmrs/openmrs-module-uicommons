@@ -81,7 +81,7 @@
                                 formFieldName: token.codeName,
                                 useTime: false,
                                 left: true,
-                                defaultDate: initialFieldValue,
+                                initialValue: initialFieldValue,
                                 size: token.displaySize
                         ])}
                     <% } else {%>

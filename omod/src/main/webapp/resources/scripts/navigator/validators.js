@@ -44,15 +44,18 @@ function DateFieldValidator() {
 DateFieldValidator.prototype = new FieldValidator();
 DateFieldValidator.prototype.constructor = DateFieldValidator;
 DateFieldValidator.prototype.validate = function(field){
+    return this.validateInternal(field.value(), field);
+}
+DateFieldValidator.prototype.validateInternal = function(value, field){
 
-    if(field.value() && $.trim(field.value()).length > 0) {
-        var fieldValue = $.trim(field.value());
+    if(value && $.trim(value).length > 0) {
+        value = $.trim(value);
         var hasTime = $(field.element).hasClass('use-time');
         var dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
         if (hasTime)
             dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})\s(\d{1,2}):(\d{1,2})$/;
 
-        var regexResult = dateRegex.exec(fieldValue);
+        var regexResult = dateRegex.exec(value);
         if(!regexResult)
             return emrMessages[this.messageIdentifier];
 
@@ -69,6 +72,32 @@ DateFieldValidator.prototype.validate = function(field){
 
             if(dateObject > new Date())
                 return emrMessages[this.futureDateMessageIdentifier];
+        }
+    }
+    return null;
+}
+
+function MultipleInputDateFieldValidator() {}
+MultipleInputDateFieldValidator.prototype = new FieldValidator();
+MultipleInputDateFieldValidator.prototype.constructor = MultipleInputDateFieldValidator;
+MultipleInputDateFieldValidator.prototype.validate = function(field){
+
+    var dayValue = $.trim(field.element.parent().parent().find('input.day').first().val());
+    var monthValue = $.trim(field.element.parent().parent().find('select.month').first().val());
+    var yearValue = $.trim(field.element.parent().parent().find('input.year').first().val());
+
+    var errorElement = field.element.parent().parent().find('span.field-error').first();
+    errorElement.html('');
+    errorElement.hide();
+
+    if(dayValue.length > 0 && monthValue.length > 0 && yearValue.length > 0){
+        var fullDate = dayValue+'-'+monthValue+'-'+yearValue;
+        var dateErrorMsg = new DateFieldValidator().validateInternal(fullDate, field);
+        if(dateErrorMsg){
+            errorElement.html(dateErrorMsg);
+            errorElement.show();
+            //ensures the user isn't allowed to leave the last entered date field
+            return ' ';
         }
     }
     return null;
@@ -132,5 +161,6 @@ var Validators = {
     date: new DateFieldValidator(),
     integer: new IntegerFieldValidator(),
     number: new NumberFieldValidator(),
-    "numeric-range": new NumericRangeFieldValidator()
+    "numeric-range": new NumericRangeFieldValidator(),
+    "date-component": new MultipleInputDateFieldValidator()
 }
