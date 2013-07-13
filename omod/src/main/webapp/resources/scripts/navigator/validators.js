@@ -78,7 +78,7 @@ DateFieldValidator.prototype.validateInternal = function(value, field){
 }
 
 function MultipleInputDateFieldValidator() {}
-MultipleInputDateFieldValidator.prototype = new FieldValidator();
+MultipleInputDateFieldValidator.prototype = new DateFieldValidator();
 MultipleInputDateFieldValidator.prototype.constructor = MultipleInputDateFieldValidator;
 MultipleInputDateFieldValidator.prototype.validate = function(field){
 
@@ -92,7 +92,7 @@ MultipleInputDateFieldValidator.prototype.validate = function(field){
 
     if(dayValue.length > 0 && monthValue.length > 0 && yearValue.length > 0){
         var fullDate = dayValue+'-'+monthValue+'-'+yearValue;
-        var dateErrorMsg = new DateFieldValidator().validateInternal(fullDate, field);
+        var dateErrorMsg = DateFieldValidator.prototype.validateInternal.call(this, fullDate, field);
         if(dateErrorMsg){
             errorElement.html(dateErrorMsg);
             errorElement.show();
