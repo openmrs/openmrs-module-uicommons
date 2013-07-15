@@ -84,7 +84,7 @@
     ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
 
     ${ ui.includeFragment("uicommons", "field/text", [
-            label: ui.message("uicommons.multipleDateInputs.day.label"),
+            label: ui.message("uicommons.multipleInputDate.day.label"),
             id: config.formFieldName+"Day",
             formFieldName: config.formFieldName+"Day",
             initialValue: initialDay,
@@ -95,7 +95,7 @@
             maxLength: 2,
             left: true])}
     ${ ui.includeFragment("uicommons", "field/dropDown", [
-            label: ui.message("uicommons.multipleDateInputs.month.label"),
+            label: ui.message("uicommons.multipleInputDate.month.label"),
             id: config.formFieldName+"Month",
             formFieldName: config.formFieldName+"Month",
             initialValue: initialMonth,
@@ -103,7 +103,7 @@
             options: defaultMonthOptions,
             left: true])}
     ${ ui.includeFragment("uicommons", "field/text", [
-            label: ui.message("uicommons.multipleDateInputs.year.label"),
+            label: ui.message("uicommons.multipleInputDate.year.label"),
             id: config.formFieldName+"Year",
             formFieldName: config.formFieldName+"Year",
             initialValue: initialYear,
