@@ -151,6 +151,16 @@ form#retrospectiveCheckin {
   }
 }
 
+#confirmation {
+  #dataCanvas {
+    margin-bottom: 20px;
+  }
+
+  .confirm.focused {
+    margin-left: 200px;
+  }
+}
+
 ul#formBreadcrumb {
   float: left;
   vertical-align: top;
