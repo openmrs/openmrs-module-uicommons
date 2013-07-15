@@ -164,3 +164,23 @@ var Validators = {
     "numeric-range": new NumericRangeFieldValidator(),
     "date-component": new MultipleInputDateFieldValidator()
 }
+
+/****************   QUESTION MODEL VALIDATORS   *****/
+
+function QuestionRequiredFieldValidator(){
+    this.messageIdentifier = "atleastOneFieldRequired";
+}
+QuestionRequiredFieldValidator.prototype = new RequiredFieldValidator();
+QuestionRequiredFieldValidator.prototype.constructor = QuestionRequiredFieldValidator;
+QuestionRequiredFieldValidator.prototype.validate = function(questionModel) {
+    var anyFieldHasValue =  _.any(questionModel.fields, function(field) {
+        return field.value() && $.trim(field.value()).length > 0;
+    });
+    if(!anyFieldHasValue)
+        return emrMessages[this.messageIdentifier];
+    return null;
+}
+
+var QuestionValidators = {
+    "required-question": new QuestionRequiredFieldValidator()
+}

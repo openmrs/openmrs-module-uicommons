@@ -13,7 +13,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         return false;
     }
     var switchActiveQuestions = function(previousFieldParentQuestion, currentFieldParentQuestion) {
-        if(previousFieldParentQuestion != currentFieldParentQuestion) {
+        if(previousFieldParentQuestion != currentFieldParentQuestion && previousFieldParentQuestion.isValid()) {
             previousFieldParentQuestion.toggleSelection();
             if(previousFieldParentQuestion.parentSection != currentFieldParentQuestion.parentSection) {
                 previousFieldParentQuestion.parentSection.toggleSelection();
@@ -33,7 +33,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                     field.toggleSelection();
                     switchActiveQuestions(field.parentQuestion, newField.parentQuestion);
                     newField.toggleSelection();
-                    return true;
+                    return (field.parentQuestion != newField.parentQuestion) ? field.parentQuestion.isValid() : true;
                 }
             }
         } else {
