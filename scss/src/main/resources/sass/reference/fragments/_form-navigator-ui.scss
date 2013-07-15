@@ -88,7 +88,7 @@ form#retrospectiveCheckin {
     }
 
     ul > li > strong {
-      font-size: 1.6em;
+      font-size: 1.4em;
     }
 
     ul > li > strong .after-value {
@@ -183,7 +183,8 @@ ul#formBreadcrumb {
 
         li {
           span {
-            padding-left: 32px;
+            padding-left: 27px;
+            padding-right: 0;
             font-weight: normal;
             font-family: $primaryFont;
           }
@@ -205,12 +206,13 @@ ul#formBreadcrumb {
           border: 2px solid;
           color: rgb(40, 201, 0);
           padding: 3px 2px;
-          margin-left: 6px;
+          margin-left: 4px;
         }
 
         &.done {
           span {
-            padding-left: 5px;
+            padding-left: 2px;
+            padding-right: 0;
             display: inline-block;
           }
            
