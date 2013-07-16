@@ -145,11 +145,9 @@ FieldModel.prototype.resetErrorMessages = function() {
 /*
  * Prototype for questions
  */
-function QuestionModel(elem, section, titleListElem, messagesContainer) {
+function QuestionModel(elem, section, titleListElem) {
     SelectableModel.apply(this, [elem]);
     this.parentSection = section;
-    this.messagesContainer = messagesContainer;
-    this.validators = [];
     var fieldContainers = this.element.find("p").has("input, select");
     this.fields = _.map(fieldContainers, function(container) {
         var fieldErrorsElement = $(container).find("span.field-error").first();
@@ -165,13 +163,6 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
     this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i><span>' + this.questionLegend.text() + '</span></li>');
     this.questionLi.appendTo(titleListElem);
     this.fieldSeparator = this.element.attr('field-separator') ? this.element.attr('field-separator') : ' ';
-
-    var classes = this.element.attr("class");
-    if(classes) {
-        _.each(classes.split(' '), function(klass) {
-            QuestionValidators[klass] && this.validators.push(QuestionValidators[klass]);
-        }, this);
-    }
 }
 QuestionModel.prototype = new SelectableModel();
 QuestionModel.prototype.constructor = QuestionModel;
@@ -206,31 +197,9 @@ QuestionModel.prototype.unselect = function() {
 
 }
 QuestionModel.prototype.isValid = function() {
-    var allFieldsAreValid =  _.reduce(this.fields, function(memo, field) {
+    return _.reduce(this.fields, function(memo, field) {
         return field.isValid() && memo;
     }, true);
-
-    if(!allFieldsAreValid)
-        return false;
-
-    var validationMessages = _.reduce(this.validators, function(memo, validator) {
-        var validationMessage = validator.validate(this);
-        if (validationMessage) {
-            memo.push(validationMessage);
-        }
-        return memo;
-    }, [], this);
-
-    this.messagesContainer.empty();
-    if(validationMessages.length > 0) {
-        _.each(validationMessages, function(message) {
-            this.messagesContainer.append(message);
-        }, this);
-        this.messagesContainer.show();
-        return false;
-    }
-
-    return true;
 }
 
 QuestionModel.prototype.onExit = function() {
@@ -241,10 +210,6 @@ QuestionModel.prototype.onExit = function() {
 
 QuestionModel.prototype.title = function() {
     return this.questionLegend;
-}
-
-QuestionModel.prototype.resetErrorMessages = function() {
-    this.messagesContainer.empty();
 }
 
 /*
@@ -285,7 +250,7 @@ function SectionModel(elem, formMenuElem) {
 
     this.title = newTitle;
     this.questions = _.map(this.element.find("fieldset"), function(questionElement) {
-        return new QuestionModel(questionElement, this, questionsTitlesList,$(questionElement).find("span.field-error").first());
+        return new QuestionModel(questionElement, this, questionsTitlesList);
     }, this);
 }
 SectionModel.prototype = new SelectableModel();
@@ -293,7 +258,6 @@ SectionModel.prototype.constructor = SectionModel;
 SectionModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
     this.title.addClass("doing");
-    _.each(this.questions, function(question) { question.resetErrorMessages(); });
 }
 SectionModel.prototype.unselect = function() {
     SelectableModel.prototype.unselect.apply(this);
