@@ -280,8 +280,8 @@ describe("Test for simple form models", function() {
     describe("Unit tests for SectionModel", function() {
        it("should select and unselect the section", function() {
            var menuElement = jasmine.createSpyObj('menu', ['append']);
-           var firstQuestion = jasmine.createSpyObj('firstQuestion', ['unselect']);
-           var secondQuestion = jasmine.createSpyObj('secondQuestion', ['unselect']);
+           var firstQuestion = jasmine.createSpyObj('firstQuestion', ['unselect', 'resetErrorMessages']);
+           var secondQuestion = jasmine.createSpyObj('secondQuestion', ['unselect', 'resetErrorMessages']);
 
            var sectionModel = new SectionModel(null, menuElement);
            sectionModel.title = jasmine.createSpyObj('title', ['addClass', 'removeClass']);

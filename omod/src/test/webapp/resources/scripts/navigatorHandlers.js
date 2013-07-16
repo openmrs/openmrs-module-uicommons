@@ -68,8 +68,9 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondField, 'toggleSelection');
                 firstField.isSelected = true;
 
-                var firstQuestion = jasmine.createSpyObj('firstQuestion', ['toggleSelection']);
+                var firstQuestion = jasmine.createSpyObj('firstQuestion', ['toggleSelection', 'isValid']);
                 firstQuestion.fields = [firstQuestion]; firstField.parentQuestion = firstQuestion;
+                firstQuestion.isValid.andReturn(true);
                 var secondQuestion = jasmine.createSpyObj('secondQuestion', ['toggleSelection']);
                 secondQuestion.fields = [secondQuestion]; secondField.parentQuestion = secondQuestion;
                 questionsKeyboardHandler.selectedQuestion.andReturn(firstQuestion);
@@ -141,8 +142,9 @@ describe("Tests for simple form navigation handlers", function() {
                 firstQuestion.fields = [firstField, secondField];
                 firstField.parentQuestion = firstQuestion;
                 secondField.parentQuestion = firstQuestion;
-                var secondQuestion = jasmine.createSpyObj('secondQuestion', ['toggleSelection']);
+                var secondQuestion = jasmine.createSpyObj('secondQuestion', ['toggleSelection', 'isValid']);
                 secondQuestion.fields = [thirdField];
+                secondQuestion.isValid.andReturn(true);
                 thirdField.parentQuestion = secondQuestion;
                 questionsKeyboardHandler.selectedQuestion.andReturn(secondQuestion);
 

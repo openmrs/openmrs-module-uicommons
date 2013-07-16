@@ -221,7 +221,8 @@ QuestionModel.prototype.isValid = function() {
         return memo;
     }, [], this);
 
-    this.messagesContainer.empty();
+    if(this.messagesContainer)
+        this.messagesContainer.empty();
     if(validationMessages.length > 0) {
         _.each(validationMessages, function(message) {
             this.messagesContainer.append(message);
