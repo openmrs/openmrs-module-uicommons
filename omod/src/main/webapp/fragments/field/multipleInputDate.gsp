@@ -96,6 +96,7 @@
             left: true])}
     ${ ui.includeFragment("uicommons", "field/dropDown", [
             label: ui.message("uicommons.multipleInputDate.month.label"),
+            emptyOptionLabel: "uicommons.select",
             id: config.formFieldName+"Month",
             formFieldName: config.formFieldName+"Month",
             initialValue: initialMonth,
