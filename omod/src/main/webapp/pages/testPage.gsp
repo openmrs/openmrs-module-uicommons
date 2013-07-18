@@ -24,6 +24,8 @@
       <p><a href="${ui.pageLink("uicommons", "fragments")}" target="blank_">Link to page</a></p>
       <h1>Icons Test Page</h1>
       <p><a href="${ui.pageLink("uicommons", "icons")}" target="blank_">Link to page</a></p>
+      <h1>Summary Dashboard Test Page</h1>
+      <p><a href="${ui.pageLink("uicommons", "dashboard")}" target="blank_">Link to page</a></p>
     </div>
   </div>
 </body>

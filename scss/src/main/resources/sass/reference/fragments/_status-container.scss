@@ -9,22 +9,22 @@
   padding: 5px;
   margin: 5px 0;
   @include box-shadow(1px 1px 1px white);
-  
-  .status {
-    display: inline-block;
-    height: 5px;
-    width: 5px;
-    margin: 2px;
-    @include border-radius(20px);
-    
-    &.active {
-      background: $success;
-      border: 1px solid darken($success, 5%);
-      @include box-shadow(0 0 5px $success);
-    }
-  }
 }
 
 .status-container {
   @include status-container;
+}
+
+.status {
+  display: inline-block;
+  height: 5px;
+  width: 5px;
+  margin: 2px 4px;
+  @include border-radius(20px);
+  
+  &.active {
+    background: $success;
+    border: 1px solid darken($success, 5%);
+    @include box-shadow(0 0 5px $success);
+  }
 }
