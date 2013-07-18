@@ -156,13 +156,26 @@ NumericRangeFieldValidator.prototype.validate = function(field) {
     return null;
 }
 
+function RegexFieldValidator(){
+    this.messageIdentifier = "invalid";
+}
+RegexFieldValidator.prototype = new FieldValidator();
+RegexFieldValidator.prototype.constructor = RegexFieldValidator;
+RegexFieldValidator.prototype.validate = function(field) {
+    var regex = field.element.attr('regex');
+    if(!new RegExp(regex).test(field.value()))
+        return emrMessages[this.messageIdentifier];
+    return null;
+}
+
 var Validators = {
     required: new RequiredFieldValidator(),
     date: new DateFieldValidator(),
     integer: new IntegerFieldValidator(),
     number: new NumberFieldValidator(),
     "numeric-range": new NumericRangeFieldValidator(),
-    "date-component": new MultipleInputDateFieldValidator()
+    "date-component": new MultipleInputDateFieldValidator(),
+    regex: new RegexFieldValidator()
 }
 
 /****************   QUESTION MODEL VALIDATORS   *****/

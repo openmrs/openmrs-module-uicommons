@@ -7,6 +7,7 @@
         numberField: "${ui.message('emr.formValidation.messages.numberField')}",
         numericRangeLow: "${ui.message('emr.formValidation.messages.numericRangeLow')}",
         numericRangeHigh: "${ui.message('emr.formValidation.messages.numericRangeHigh')}",
-        atleastOneFieldRequired: "${ui.message('emr.formValidation.messages.atleastOneFieldRequired')}"
+        atleastOneFieldRequired: "${ui.message('emr.formValidation.messages.atleastOneFieldRequired')}",
+        invalid: "${ui.message('emr.formValidation.messages.invalid')}"
     }
 </script>
