@@ -1,5 +1,5 @@
 /*
- * Base prototype for validators
+ * Base prototype for field validators
  */
 function FieldValidator() {};
 FieldValidator.prototype = {
@@ -26,6 +26,15 @@ FieldValidator.prototype = {
     }
 }
 
+/*
+ * Base prototype for question validators
+ */
+function QuestionValidator() {};
+QuestionValidator.prototype = {
+    constructor: QuestionValidator,
+    validate: function(question) {}
+}
+
 function RequiredFieldValidator() {
     this.messageIdentifier = "requiredField";
 }
@@ -44,13 +53,12 @@ function DateFieldValidator() {
 DateFieldValidator.prototype = new FieldValidator();
 DateFieldValidator.prototype.constructor = DateFieldValidator;
 DateFieldValidator.prototype.validate = function(field){
-    return this.validateInternal(field.value(), field);
+    return this.validateInternal(field.value(), $(field.element).hasClass('use-time'), $(field.element).hasClass('no-future-date'));
 }
-DateFieldValidator.prototype.validateInternal = function(value, field){
+DateFieldValidator.prototype.validateInternal = function(value, hasTime, rejectFutureDates){
 
     if(value && $.trim(value).length > 0) {
         value = $.trim(value);
-        var hasTime = $(field.element).hasClass('use-time');
         var dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
         if (hasTime)
             dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})\s(\d{1,2}):(\d{1,2})$/;
@@ -63,7 +71,7 @@ DateFieldValidator.prototype.validateInternal = function(value, field){
         if(day < 1 || day > 31 || month < 1 || month > 12)
             return emrMessages[this.messageIdentifier];
 
-        if($(field.element).hasClass('no-future-date')){
+        if(rejectFutureDates){
             var dateObject;
             if(hasTime)
                 dateObject = new Date(year, month-1, day, regexResult[4], regexResult[5]);
@@ -72,32 +80,6 @@ DateFieldValidator.prototype.validateInternal = function(value, field){
 
             if(dateObject > new Date())
                 return emrMessages[this.futureDateMessageIdentifier];
-        }
-    }
-    return null;
-}
-
-function MultipleInputDateFieldValidator() {}
-MultipleInputDateFieldValidator.prototype = new DateFieldValidator();
-MultipleInputDateFieldValidator.prototype.constructor = MultipleInputDateFieldValidator;
-MultipleInputDateFieldValidator.prototype.validate = function(field){
-
-    var dayValue = $.trim(field.element.parent().parent().find('input.day').first().val());
-    var monthValue = $.trim(field.element.parent().parent().find('select.month').first().val());
-    var yearValue = $.trim(field.element.parent().parent().find('input.year').first().val());
-
-    var errorElement = field.element.parent().parent().find('span.field-error').first();
-    errorElement.html('');
-    errorElement.hide();
-
-    if(dayValue.length > 0 && monthValue.length > 0 && yearValue.length > 0){
-        var fullDate = dayValue+'-'+monthValue+'-'+yearValue;
-        var dateErrorMsg = DateFieldValidator.prototype.validateInternal.call(this, fullDate, field);
-        if(dateErrorMsg){
-            errorElement.html(dateErrorMsg);
-            errorElement.show();
-            //ensures the user isn't allowed to leave the last entered date field
-            return ' ';
         }
     }
     return null;
@@ -174,18 +156,17 @@ var Validators = {
     integer: new IntegerFieldValidator(),
     number: new NumberFieldValidator(),
     "numeric-range": new NumericRangeFieldValidator(),
-    "date-component": new MultipleInputDateFieldValidator(),
     regex: new RegexFieldValidator()
 }
 
-/****************   QUESTION MODEL VALIDATORS   *****/
+/****************   QUESTION VALIDATORS   *****/
 
-function QuestionRequiredFieldValidator(){
+function RequireAtLeastOneFieldQuestionValidator(){
     this.messageIdentifier = "atleastOneFieldRequired";
 }
-QuestionRequiredFieldValidator.prototype = new RequiredFieldValidator();
-QuestionRequiredFieldValidator.prototype.constructor = QuestionRequiredFieldValidator;
-QuestionRequiredFieldValidator.prototype.validate = function(questionModel) {
+RequireAtLeastOneFieldQuestionValidator.prototype = new FieldValidator();
+RequireAtLeastOneFieldQuestionValidator.prototype.constructor = RequireAtLeastOneFieldQuestionValidator;
+RequireAtLeastOneFieldQuestionValidator.prototype.validate = function(questionModel) {
     var anyFieldHasValue =  _.any(questionModel.fields, function(field) {
         return field.value() && $.trim(field.value()).length > 0;
     });
@@ -194,6 +175,22 @@ QuestionRequiredFieldValidator.prototype.validate = function(questionModel) {
     return null;
 }
 
+function MultipleInputDateQuestionValidator(){}
+MultipleInputDateQuestionValidator.prototype = new QuestionValidator();
+MultipleInputDateQuestionValidator.prototype.constructor = MultipleInputDateQuestionValidator;
+MultipleInputDateQuestionValidator.prototype.validate = function(questionModel) {
+    var dayValue = $.trim(questionModel.element.find('input.day').first().val());
+    var monthValue = $.trim(questionModel.element.find('select.month').first().val());
+    var yearValue = $.trim(questionModel.element.find('input.year').first().val());
+    if(dayValue.length > 0 || monthValue.length > 0 || yearValue.length > 0){
+        var fullDate = dayValue+'-'+monthValue+'-'+yearValue;
+        var rejectFutureDates = questionModel.element.hasClass('no-future-date');
+        return new DateFieldValidator().validateInternal(fullDate, false, rejectFutureDates);
+    }
+    return null;
+}
+
 var QuestionValidators = {
-    "required-question": new QuestionRequiredFieldValidator()
+    requireOne: new RequireAtLeastOneFieldQuestionValidator(),
+    "multiple-input-date": new MultipleInputDateQuestionValidator()
 }
