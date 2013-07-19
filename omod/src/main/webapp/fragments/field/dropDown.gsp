@@ -20,7 +20,7 @@
     <% if (config.depends) { %> data-bind="visible: ${ config.depends.variable }() == '${ config.depends.value }'" <% } %>
     <% if (config.left) { %> class="left" <% } %>  >
 
-    <label for="${ config.id }-field">
+    <label for="${ config.id }-field" label="${ config.label }">
         ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
 

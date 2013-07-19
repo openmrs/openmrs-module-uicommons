@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var emrMessages = {
         requiredField: "${ui.message('emr.formValidation.messages.requiredField')}",
+        requiredFieldWithArg: "${ui.message('error.required')}",
         dateField: "${ui.message('emr.formValidation.messages.dateField')}",
         dateInFuture: "${ui.message('emr.formValidation.messages.dateInFuture')}",
         integerField: "${ui.message('emr.formValidation.messages.integerField')}",

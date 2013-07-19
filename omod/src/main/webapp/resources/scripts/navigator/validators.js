@@ -31,8 +31,29 @@ function RequiredFieldValidator() {
 }
 RequiredFieldValidator.prototype = new FieldValidator();
 RequiredFieldValidator.prototype.constructor = RequiredFieldValidator;
-RequiredFieldValidator.prototype.isValid = function(fieldValue) {
-    return fieldValue != null && fieldValue.length > 0;
+RequiredFieldValidator.prototype.validate = function(field) {
+    var value = $.trim(field.value());
+    if($(field.element).attr('type') == 'radio'){
+        var radios = $.find("input:radio[name="+field.element.attr('name')+"]");
+        var checkedRadio = _.find(radios, function(radio){return $(radio).is(':checked');});
+        if(checkedRadio)
+            value = $(checkedRadio).val();
+    }
+    if(value.length == 0){
+        var labelElement;
+        if($(field.element).attr('type') != 'radio')
+            labelElement = $(field.element).parent().find('label').first();
+        else
+            labelElement = field.element.parent().parent().find('label').first();
+        if(labelElement){
+            var errorMessagePrefix = labelElement.attr('label');
+            if(errorMessagePrefix && $.trim(errorMessagePrefix).length > 0){
+                return emrMessages['requiredFieldWithArg'].replace('{0}', errorMessagePrefix);
+            }
+        }
+        return emrMessages[this.messageIdentifier];
+    }
+    return null;
 }
 
 

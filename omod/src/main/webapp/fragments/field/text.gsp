@@ -10,7 +10,7 @@
 %>
 
 <p <% if (config.left) { %> class="left" <% } %> >
-    <label for="${ config.id }-field">
+    <label for="${ config.id }-field" label="${ config.label }">
         ${ config.label } <% if (config.classes && config.classes.contains("required")) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
     <input type="text" id="${ config.id }-field" name="${ config.formFieldName }" value="${ config.initialValue ?: '' }"

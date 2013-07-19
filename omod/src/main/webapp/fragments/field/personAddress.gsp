@@ -8,7 +8,7 @@
         <% line.eachWithIndex { token, tokenIndex -> %>
             <% if (token.isToken == addressTemplate.layoutToken) { %>
             	 <p <% if (line.size() > 1 && tokenIndex == 1) { %> class="left clear" <% } else if (line.size() > 1) { %> class="left" <% } %> >
-					<label name="${ token.codeName }">
+					<label name="${ token.codeName }" <%if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName] == "\\S+"){%>label="${ ui.message(addressTemplate.nameMappings[token.codeName]) }"<% } %>>
 	        			${ ui.message(token.displayText) }
 	        		</label>
 	        		<%
@@ -32,8 +32,12 @@
                             def classes = ""
                             def otherAttributes = ""
                             if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]){
-                                classes+="regex"
-                                otherAttributes+=("regex=\""+ addressTemplate.elementRegex[token.codeName]+"\"")
+                                if(addressTemplate.elementRegex[token.codeName] == '\\S+'){
+                                    classes+="required"
+                                }else{
+                                    classes+="regex"
+                                    otherAttributes+=("regex=\""+ addressTemplate.elementRegex[token.codeName]+"\"")
+                                }
                             }else if(token.codeName == "latitude" || token.codeName == "longitude"){
                                 classes+="number numeric-range"
                                 otherAttributes+=("min=\""+(token.codeName == "latitude" ? "-90" : "-180")+"\"")
