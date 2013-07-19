@@ -39,7 +39,7 @@ function KeyboardController(formElement) {
     handlerChainRoot.handleTabKey();
 
     $('body').keydown(function(key) {
-        switch(key.which) {
+        switch(key.keyCode ? key.keyCode : key.which) {
             case 38:
                 handlerChainRoot.handleUpKey() && key.preventDefault();
                 break;
