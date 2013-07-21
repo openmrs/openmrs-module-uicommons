@@ -162,7 +162,8 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
         return new FieldModel($(container).find("input, select").first(), this, fieldErrorsElement);
     }, this);
     this.questionLegend = this.element.find('legend').first();
-    this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i><span>' + this.questionLegend.text() + '</span></li>');
+    var spanId = this.questionLegend.attr('id') ? ' id="' + this.questionLegend.attr('id') + '"' : ' ';
+    this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i><span' + spanId + '>' + this.questionLegend.text() + '</span></li>');
     this.questionLi.appendTo(titleListElem);
     this.fieldSeparator = this.element.attr('field-separator') ? this.element.attr('field-separator') : ' ';
 
