@@ -5,7 +5,10 @@ describe("Test for form validators", function() {
         integerField: 'integerFieldMessage',
         numberField: 'numberFieldMessage',
         numericRangeLow: 'numericRangeLow {0}',
-        numericRangeHigh: 'numericRangeHigh {0}'
+        numericRangeHigh: 'numericRangeHigh {0}',
+        selectedMonthHas30Days: 'selectedMonthHas30DaysMessage',
+        februaryDaysOutOfRange: 'februaryDaysOutOfRangeMessage',
+        dateInFuture: 'dateInFutureMessage'
     };
     var validator, field;
 
@@ -174,6 +177,58 @@ describe("Test for form validators", function() {
 
                 var validationMessage = validator.validate(field);
                 expect(validationMessage).toBe('dateFieldMessage');
+            });
+            it("should allow 29th for february for a leap year", function() {
+                field.value.andReturn("29-02-2012");
+                expect(validator.validate(field)).toBe(null);
+            });
+            it("should allow 31st for a month with 31 days", function() {
+                field.value.andReturn("31-08-2012");
+                expect(validator.validate(field)).toBe(null);
+            });
+            it("should reject 31 for months with less than 31 days", function() {
+                var invalidDate = "31-04-2011";
+                field.value.andReturn(invalidDate);
+                var expectedErrorMessage = 'selectedMonthHas30DaysMessage';
+
+                var validationMessage = validator.validate(field);
+                expect(validationMessage).toBe(expectedErrorMessage);
+
+                invalidDate = "31-06-2011";
+                validationMessage = validator.validate(field);
+                expect(validationMessage).toBe(expectedErrorMessage);
+
+                invalidDate = "31-09-2011";
+                validationMessage = validator.validate(field);
+                expect(validationMessage).toBe(expectedErrorMessage);
+
+                invalidDate = "31-11-2011";
+                validationMessage = validator.validate(field);
+                expect(validationMessage).toBe(expectedErrorMessage);
+            });
+            it("should reject dates beyond 28th for february for a non leap year", function() {
+                var invalidDate = "29-02-2010";
+                field.value.andReturn(invalidDate);
+                var febErrorMessage = 'februaryDaysOutOfRangeMessage';
+
+                var validationMessage = validator.validate(field);
+                expect(validationMessage).toBe(febErrorMessage);
+
+                invalidDate = "30-02-2010";
+                validationMessage = validator.validate(field);
+                expect(validationMessage).toBe(febErrorMessage);
+
+                invalidDate = "31-02-2010";
+                validationMessage = validator.validate(field);
+                expect(validationMessage).toBe(febErrorMessage);
+            });
+            it("should reject future date", function() {
+                //set the year in the future by 1
+                var currentDate = new Date(new Date().getFullYear()+1, 10, 01);
+                var invalidDate = $.datepicker.formatDate('dd-mm-yy', currentDate);
+
+                var validationMessage = validator.validateInternal(invalidDate, false, true);
+                expect(validationMessage).toBe('dateInFutureMessage');
             });
         })
     });

@@ -48,7 +48,8 @@ RequiredFieldValidator.prototype.isValid = function(fieldValue) {
 function DateFieldValidator() {
     this.messageIdentifier = "dateField";
     this.futureDateMessageIdentifier = "dateInFuture";
-
+    this.selectedMonthHas30Days="selectedMonthHas30Days";
+    this.februaryDaysOutOfRange="februaryDaysOutOfRange";
 }
 DateFieldValidator.prototype = new FieldValidator();
 DateFieldValidator.prototype.constructor = DateFieldValidator;
@@ -68,8 +69,13 @@ DateFieldValidator.prototype.validateInternal = function(value, hasTime, rejectF
             return emrMessages[this.messageIdentifier];
 
         var day=regexResult[1], month=regexResult[2], year=regexResult[3];
-        if(day < 1 || day > 31 || month < 1 || month > 12)
+        if(day < 1 || day > 31 || month < 1 || month > 12){
             return emrMessages[this.messageIdentifier];
+        }else if(month == 2 && (day > 29 || (day > 28 && year % 4 != 0))){
+                return emrMessages[this.februaryDaysOutOfRange];
+        }else if(day > 30 && (month == 4 || month == 6 || month == 9 || month == 11)){
+            return emrMessages[this.selectedMonthHas30Days];
+        }
 
         if(rejectFutureDates){
             var dateObject;
