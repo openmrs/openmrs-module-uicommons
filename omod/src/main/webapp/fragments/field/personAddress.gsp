@@ -32,8 +32,12 @@
                             def classes = ""
                             def otherAttributes = ""
                             if (addressTemplate.elementRegex && addressTemplate.elementRegex[token.codeName]){
-                                classes+="regex"
-                                otherAttributes+=("regex=\""+ addressTemplate.elementRegex[token.codeName]+"\"")
+                                if(addressTemplate.elementRegex[token.codeName] == "\\S+"){
+                                    classes+="required"
+                                }else{
+                                    classes+="regex"
+                                    otherAttributes+=("regex=\""+ addressTemplate.elementRegex[token.codeName]+"\"")
+                                }
                             }else if(token.codeName == "latitude" || token.codeName == "longitude"){
                                 classes+="number numeric-range"
                                 otherAttributes+=("min=\""+(token.codeName == "latitude" ? "-90" : "-180")+"\"")
