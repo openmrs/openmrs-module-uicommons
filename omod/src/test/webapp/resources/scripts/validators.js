@@ -8,7 +8,8 @@ describe("Test for form validators", function() {
         numericRangeHigh: 'numericRangeHigh {0}',
         selectedMonthHas30Days: 'selectedMonthHas30DaysMessage',
         februaryDaysOutOfRange: 'februaryDaysOutOfRangeMessage',
-        dateInFuture: 'dateInFutureMessage'
+        dateInFuture: 'dateInFutureMessage',
+        requiredDateOrEstimatedDateField: 'requiredDateOrEstimatedDateFieldMessage'
     };
     var validator, field;
 

@@ -3,6 +3,7 @@
         requiredField: "${ui.message('emr.formValidation.messages.requiredField')}",
         dateField: "${ui.message('emr.formValidation.messages.dateField')}",
         dateInFuture: "${ui.message('emr.formValidation.messages.dateInFuture')}",
+        requiredDateOrEstimatedDateField: "${ui.message('uicommons.formValidation.messages.requiredDateOrEstimatedDateField')}",
         selectedMonthHas30Days: "${ui.message('emr.formValidation.messages.selectedMonthHas30Days')}",
         februaryDaysOutOfRange: "${ui.message('emr.formValidation.messages.februaryDaysOutOfRange')}",
         integerField: "${ui.message('emr.formValidation.messages.integerField')}",

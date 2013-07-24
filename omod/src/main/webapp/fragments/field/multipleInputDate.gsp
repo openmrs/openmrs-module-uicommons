@@ -15,10 +15,13 @@
                                 [label: ui.message("uicommons.month.12"), value: 12] ]
 
     def dateComponentClass = "date-component";
-    def initialDay,initialMonth, initialYear
+    def initialDay,initialMonth, initialYear, initialYears, initialMonths
     def dayClasses = ["day", "number", "numeric-range", dateComponentClass]
     def monthClasses = ["month", dateComponentClass]
     def yearClasses = ["year", "number", dateComponentClass]
+    def monthsClasses = ["months", "number", "numeric-range", dateComponentClass]
+    def yearsClasses = ["years", "number", "numeric-range", dateComponentClass]
+
     if(config.monthOptions)
         defaultMonthOptions = config.monthOptions;
 
@@ -26,6 +29,8 @@
         dayClasses.addAll(config.classes)
         monthClasses.addAll(config.classes)
         yearClasses.addAll(config.classes)
+        yearsClasses.addAll(config.classes)
+        monthsClasses.addAll(config.classes)
     }
 
     if(config.initialValue){
@@ -112,6 +117,34 @@
             size: 5,
             maxLength: 4,
             left: true])}
-
-    <input id="${config.formFieldName}-value" type="hidden" name="${config.formFieldName}" />
+    <div class="clear"/>
 </p>
+<% if (config.showEstimated) { %>
+<p>&nbsp;</p>
+<h3>${ ui.message("uicommons.or") }</h3>
+<p>
+    ${ ui.includeFragment("uicommons", "field/text", [
+            label: ui.message("uicommons.multipleInputDate.years.label"),
+            id: config.formFieldName + "Years",
+            formFieldName: config.formFieldName + "Years",
+            maxLength: 3,
+            min: 0,
+            max: 120,
+            classes: yearsClasses,
+            left: true
+    ])}
+
+    ${ ui.includeFragment("uicommons", "field/text", [
+            label: ui.message("uicommons.multipleInputDate.months.label"),
+            id: config.formFieldName + "Months",
+            formFieldName: config.formFieldName + "Months",
+            maxLength: 2,
+            min: 0,
+            max: 11,
+            classes: monthsClasses,
+            left: true
+    ])}
+</p>
+
+<input id="${config.formFieldName}-value" type="hidden" name="${config.formFieldName}" />
+<% } %>

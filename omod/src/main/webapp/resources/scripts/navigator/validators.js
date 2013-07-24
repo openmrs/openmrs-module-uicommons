@@ -188,10 +188,27 @@ MultipleInputDateQuestionValidator.prototype.validate = function(questionModel) 
     var dayValue = $.trim(questionModel.element.find('input.day').first().val());
     var monthValue = $.trim(questionModel.element.find('select.month').first().val());
     var yearValue = $.trim(questionModel.element.find('input.year').first().val());
+
+    var estimatedDateEnabled = (questionModel.element.find('input.years') != null);
+
+    var yearsValue = '';
+    var monthsValue = '';
+
+    if (estimatedDateEnabled) {
+        yearsValue = $.trim(questionModel.element.find('input.years').first().val());
+        monthsValue = $.trim(questionModel.element.find('input.months').first().val());
+    }
+
     if(dayValue.length > 0 || monthValue.length > 0 || yearValue.length > 0){
         var fullDate = dayValue+'-'+monthValue+'-'+yearValue;
         var rejectFutureDates = questionModel.element.hasClass('no-future-date');
         return new DateFieldValidator().validateInternal(fullDate, false, rejectFutureDates);
+    } else if (questionModel.element.hasClass('date-required') && yearsValue.length == 0 && monthsValue.length == 0) {
+        if (estimatedDateEnabled) {
+            return emrMessages['requiredDateOrEstimatedDateField'];
+        } else {
+            return emrMessages['requiredField'];
+        }
     }
     return null;
 }
