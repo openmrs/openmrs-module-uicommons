@@ -7,7 +7,7 @@
 <% addressTemplate.lines.each { line -> %>
         <% line.eachWithIndex { token, tokenIndex -> %>
             <% if (token.isToken == addressTemplate.layoutToken) { %>
-            	 <p <% if (line.size() > 1 && tokenIndex == 1) { %> class="left clear" <% } else if (line.size() > 1) { %> class="left" <% } %> >
+            	 <p <% if (line.size() > 1 && tokenIndex == 1) { %> class="clear" <% } else if (line.size() > 1) { %> class="left" <% } %> >
 					<label name="${ token.codeName }">
 	        			${ ui.message(token.displayText) }
 	        		</label>
