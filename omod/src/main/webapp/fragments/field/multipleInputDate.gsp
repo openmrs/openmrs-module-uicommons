@@ -75,7 +75,7 @@
                         ${config.formFieldName}Year = '';
                 }
 
-                if (${config.formFieldName}Year != '' || ${config.formFieldName}Month != '' || ${config.formFieldName}Day != '') {
+                if (${config.formFieldName}Year != '' && ${config.formFieldName}Month != '' && ${config.formFieldName}Day != '') {
                     jQuery('#${config.formFieldName}-value').val(${config.formFieldName}Year+"-"+${config.formFieldName}Month+"-"+${config.formFieldName}Day);
                 } else {
                     jQuery('#${config.formFieldName}-value').val('');
