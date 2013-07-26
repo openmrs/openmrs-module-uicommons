@@ -279,7 +279,8 @@ function SectionModel(elem, formMenuElem) {
     SelectableModel.apply(this, [elem]);
 
     var title = this.element.find("span.title").first();
-    var newTitle = $("<li><span>" + title.text() + "</span></li>");
+    var spanId = title.attr('id') ? ' id="' + title.attr('id') + '"' : ' ';
+    var newTitle = $("<li><span" + spanId + ">" + title.text() + "</span></li>");
     var questionsTitlesList = $("<ul></ul>");
     newTitle.append(questionsTitlesList);
     formMenuElem.append(newTitle);
@@ -320,7 +321,8 @@ function ConfirmationSectionModel(elem, formMenuElem, regularSections) {
     this.sections = regularSections;
 
     var title = this.element.find("span.title").first();
-    this.title = $("<li><span>" + title.text() + "</span></li>");
+    var spanId = title.attr('id') ? ' id="' + title.attr('id') + '"' : ' ';
+    this.title = $("<li><span" + spanId + ">" + title.text() + "</span></li>");
     formMenuElem.append(this.title);
     title.remove();
     this.dataCanvas = this.element.find('#dataCanvas');
