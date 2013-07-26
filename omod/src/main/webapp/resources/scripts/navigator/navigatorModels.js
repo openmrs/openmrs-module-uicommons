@@ -162,8 +162,12 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
         return new FieldModel($(container).find("input, select").first(), this, fieldErrorsElement);
     }, this);
     this.questionLegend = this.element.find('legend').first();
-    var spanId = this.questionLegend.attr('id') ? ' id="' + this.questionLegend.attr('id') + '"' : ' ';
-    this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i><span' + spanId + '>' + this.questionLegend.text() + '</span></li>');
+    var label = $('<span/>').html(this.questionLegend.text());
+    var spanId = this.questionLegend.attr('id');
+    if (spanId) {
+    	label.attr('id', spanId);
+    }
+    this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i></li>').append(label);
     this.questionLi.appendTo(titleListElem);
     this.fieldSeparator = this.element.attr('field-separator') ? this.element.attr('field-separator') : ' ';
 
@@ -279,8 +283,12 @@ function SectionModel(elem, formMenuElem) {
     SelectableModel.apply(this, [elem]);
 
     var title = this.element.find("span.title").first();
-    var spanId = title.attr('id') ? ' id="' + title.attr('id') + '"' : ' ';
-    var newTitle = $("<li><span" + spanId + ">" + title.text() + "</span></li>");
+    var label = $('<span/>').html(title.text());
+    var spanId = title.attr('id');
+    if (spanId) {
+    	label.attr('id', spanId);
+    }
+    var newTitle = $("<li/>").append(label);
     var questionsTitlesList = $("<ul></ul>");
     newTitle.append(questionsTitlesList);
     formMenuElem.append(newTitle);
