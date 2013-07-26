@@ -329,8 +329,12 @@ function ConfirmationSectionModel(elem, formMenuElem, regularSections) {
     this.sections = regularSections;
 
     var title = this.element.find("span.title").first();
-    var spanId = title.attr('id') ? ' id="' + title.attr('id') + '"' : ' ';
-    this.title = $("<li><span" + spanId + ">" + title.text() + "</span></li>");
+    var label = $('<span/>').html(title.text());
+    var spanId = title.attr('id');
+    if (spanId) {
+    	label.attr('id', spanId);
+    }
+    this.title = $("<li/>").append(label);
     formMenuElem.append(this.title);
     title.remove();
     this.dataCanvas = this.element.find('#dataCanvas');
