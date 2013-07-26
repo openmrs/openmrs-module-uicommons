@@ -75,9 +75,10 @@
                         ${config.formFieldName}Year = '';
                 }
 
-                if(${config.formFieldName}Day.length > 0 && ${config.formFieldName}Month.length > 0
-                        && ${config.formFieldName}Year.length > 0){
+                if (${config.formFieldName}Year != '' || ${config.formFieldName}Month != '' || ${config.formFieldName}Day != '') {
                     jQuery('#${config.formFieldName}-value').val(${config.formFieldName}Year+"-"+${config.formFieldName}Month+"-"+${config.formFieldName}Day);
+                } else {
+                    jQuery('#${config.formFieldName}-value').val('');
                 }
             });
         });
@@ -120,28 +121,67 @@
     <div class="clear"/>
 </p>
 <% if (config.showEstimated) { %>
+<script type="text/javascript">
+    jQuery(function() {
+        var yearsField = jQuery('#${config.formFieldName}Years-field');
+        var monthsField = jQuery('#${config.formFieldName}Months-field');
+
+        var skipField = function() {
+            e = jQuery.Event('keydown');
+            e.which = 13; // enter
+            yearsField.trigger(e);
+        };
+
+        var isExactDate = function() {
+            return jQuery('#${config.formFieldName}-value').val() != '';
+        }
+
+        var toggleEstimatedDate = function() {
+            if(isExactDate()) {
+                yearsField.val('');
+                yearsField.prop('disabled', true);
+                monthsField.val('');
+                monthsField.prop('disabled', true);
+            } else {
+                yearsField.prop('disabled', false);
+                monthsField.prop('disabled', false);
+            }
+        };
+
+        jQuery(yearsField).focus(function () {
+            toggleEstimatedDate();
+            if (isExactDate()) {
+                skipField();
+                skipField();
+            }
+        });
+        jQuery(monthsField).focus(toggleEstimatedDate);
+    });
+</script>
 <p>&nbsp;</p>
 <h3>${ ui.message("uicommons.or") }</h3>
 <p>
     ${ ui.includeFragment("uicommons", "field/text", [
-            label: ui.message("uicommons.multipleInputDate.years.label"),
+            label: ui.message("uicommons.multipleInputDate.estimatedYears.label"),
             id: config.formFieldName + "Years",
             formFieldName: config.formFieldName + "Years",
             maxLength: 3,
             min: 0,
             max: 120,
             classes: yearsClasses,
+            appendToValue: " " + ui.message("uicommons.multipleInputDate.years.label"),
             left: true
     ])}
 
     ${ ui.includeFragment("uicommons", "field/text", [
-            label: ui.message("uicommons.multipleInputDate.months.label"),
+            label: ui.message("uicommons.multipleInputDate.estimatedMonths.label"),
             id: config.formFieldName + "Months",
             formFieldName: config.formFieldName + "Months",
             maxLength: 2,
             min: 0,
             max: 11,
             classes: monthsClasses,
+            appendToValue: " " + ui.message("uicommons.multipleInputDate.months.label"),
             left: true
     ])}
 </p>

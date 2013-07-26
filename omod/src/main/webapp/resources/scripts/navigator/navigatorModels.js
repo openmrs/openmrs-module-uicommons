@@ -121,7 +121,9 @@ FieldModel.prototype.displayValue = function() {
 
     var selectedOption = this.element.find('option:selected');
     if(selectedOption.length > 0) {
-        value = selectedOption.text(); // return the display text
+        if (selectedOption.val() != '') { //if selected non empty value
+            value = selectedOption.text(); // return the display text
+        }
     }
     else if (this.element.attr('type') == 'radio') {
         value = this.element.is(':checked') ? this.element.val() : " ";

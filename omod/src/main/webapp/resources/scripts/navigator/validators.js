@@ -204,11 +204,7 @@ MultipleInputDateQuestionValidator.prototype.validate = function(questionModel) 
         var rejectFutureDates = questionModel.element.hasClass('no-future-date');
         return new DateFieldValidator().validateInternal(fullDate, false, rejectFutureDates);
     } else if (questionModel.element.hasClass('date-required') && yearsValue.length == 0 && monthsValue.length == 0) {
-        if (estimatedDateEnabled) {
-            return emrMessages['requiredDateOrEstimatedDateField'];
-        } else {
-            return emrMessages['requiredField'];
-        }
+        return emrMessages['requiredField'];
     }
     return null;
 }
