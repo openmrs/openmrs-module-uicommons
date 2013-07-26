@@ -9,11 +9,11 @@
 
     def required = config.classes && config.classes.contains("required")
 
-    def defaultDateStringFormat
+    def dateStringFormat
     if (config.useTime) {
-        defaultDateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm")
+        dateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm")
     } else {
-        defaultDateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+        dateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
     }
 
     def defaultDate
@@ -26,7 +26,7 @@
     def defaultDateString = ""
     def defaultDateISOFormatted = ""
     if (defaultDate) {
-        defaultDateString = defaultDateStringFormat.format(defaultDate)
+        defaultDateString = dateStringFormat.format(defaultDate)
         defaultDateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(defaultDate)
     }
 
@@ -81,11 +81,11 @@
         <% } %>
 
         <% if (startDate) { %>
-            startDate: "${ startDate }",
+            startDate: "${ startDate instanceof Date ? dateStringFormat.format(startDate) : startDate }",
         <% } %>
 
         <% if (endDate) { %>
-            endDate: "${ endDate }",
+            endDate: "${ endDate instanceof Date ? dateStringFormat.format(endDate) : endDate }",
         <% } %>
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
