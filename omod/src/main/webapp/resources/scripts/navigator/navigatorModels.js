@@ -29,6 +29,9 @@ SelectableModel.prototype = {
     onExit: function() {
         // override this to provide onExit functionality
         return true;
+    },
+    isDisabled: function() {
+        return this.element.is(":disabled");
     }
 }
 

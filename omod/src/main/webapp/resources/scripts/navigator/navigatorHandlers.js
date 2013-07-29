@@ -23,27 +23,42 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         }
     };
     var switchActiveField = function(fieldIndexUpdater, showFirstFieldIfNoneIsActive) {
-        var field = selectedModel(fields);
-        if(field) {
-            if (field.onExit()) {   // call any exit handler, and only continue if it returns true
-                var currentIndex = _.indexOf(fields, field);
-                var nextIndex = fieldIndexUpdater(currentIndex);
-                var newField = fields[nextIndex];
-                if(newField) {
-                    field.toggleSelection();
-                    switchActiveQuestions(field.parentQuestion, newField.parentQuestion);
-                    newField.toggleSelection();
-                    return (field.parentQuestion != newField.parentQuestion) ? field.parentQuestion.isValid() : true;
+        var currentIndex;
+        var newField = null;
+        while (newField == null || newField.isDisabled()) {
+            var field = selectedModel(fields);
+            if(field) {
+                if (field.onExit()) {   // call any exit handler, and only continue if it returns true
+                    currentIndex = _.indexOf(fields, field);
+                    var nextIndex = fieldIndexUpdater(currentIndex);
+                    newField = fields[nextIndex];
+
+                    if(newField) {
+                        if (field.parentQuestion != newField.parentQuestion) {
+                             if (!field.parentQuestion.isValid()) {
+                                 return false;
+                             }
+                        }
+
+                        field.toggleSelection();
+                        switchActiveQuestions(field.parentQuestion, newField.parentQuestion);
+                        newField.toggleSelection();
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                if(showFirstFieldIfNoneIsActive) {
+                    questionsHandler.selectedQuestion() || questionsHandler.handleDownKey();
+                    questionsHandler.selectedQuestion().fields[0].toggleSelection();
+                    return true;
                 }
             }
-        } else {
-            if(showFirstFieldIfNoneIsActive) {
-                questionsHandler.selectedQuestion() || questionsHandler.handleDownKey();
-                questionsHandler.selectedQuestion().fields[0].toggleSelection();
-                return true;
-            }
         }
-        return false;
+
+        return newField != null;
     };
 
 

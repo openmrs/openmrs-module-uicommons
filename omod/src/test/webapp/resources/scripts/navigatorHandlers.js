@@ -6,9 +6,9 @@ describe("Tests for simple form navigation handlers", function() {
         describe("Fields Keyboard handler", function() {
             var firstField, secondField, thirdField;
             beforeEach(function() {
-                firstField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', select: ''};
-                secondField = {isSelected: false, isValid: false, onExit: false, toggleSelection: ''};
-                thirdField = {isSelected: false, isValid: false, onExit: false, toggleSelection: ''};
+                firstField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', select: '', isDisabled: false};
+                secondField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
+                thirdField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 questionsKeyboardHandler = jasmine.createSpyObj('questionsHandler',
                         ['handleUpKey', 'handleDownKey', 'selectedQuestion']);
                 fieldsKeyboardHandler = new FieldsKeyboardHandler([firstField, secondField, thirdField], questionsKeyboardHandler);
@@ -52,6 +52,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstField, 'onExit').andReturn(true);
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
+                spyOn(secondField, 'isDisabled').andReturn(false);
                 firstField.isSelected = true;
                 questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
 
@@ -66,6 +67,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstField, 'onExit').andReturn(true);
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
+                spyOn(secondField, 'isDisabled').andReturn(false);
                 firstField.isSelected = true;
 
                 var firstQuestion = jasmine.createSpyObj('firstQuestion', ['toggleSelection', 'isValid']);
@@ -109,6 +111,7 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should switch selection to previous field within same question", function() {
                 spyOn(firstField, 'toggleSelection');
+                spyOn(firstField, 'isDisabled').andReturn(false);
                 spyOn(secondField, 'toggleSelection');
                 spyOn(secondField, 'onExit').andReturn(true);
                 secondField.isSelected = true;
@@ -134,6 +137,7 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should switch selection to next field within different question", function() {
                 spyOn(secondField, 'toggleSelection');
+                spyOn(secondField, 'isDisabled').andReturn(false);
                 spyOn(thirdField, 'toggleSelection');
                 spyOn(thirdField, 'onExit').andReturn(true);
                 thirdField.isSelected = true;

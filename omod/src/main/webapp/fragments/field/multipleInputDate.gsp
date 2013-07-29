@@ -148,13 +148,7 @@
             }
         };
 
-        jQuery(yearsField).focus(function () {
-            toggleEstimatedDate();
-            if (isExactDate()) {
-                skipField();
-                skipField();
-            }
-        });
+        jQuery(yearsField).focus(toggleEstimatedDate);
         jQuery(monthsField).focus(toggleEstimatedDate);
     });
 </script>
