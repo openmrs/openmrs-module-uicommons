@@ -10,10 +10,14 @@
     def required = config.classes && config.classes.contains("required")
 
     def dateStringFormat
+    def dateISOFormatted
+
     if (config.useTime) {
         dateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm")
+        dateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     } else {
         dateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+        dateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd")
     }
 
     def defaultDate
@@ -27,7 +31,7 @@
     def defaultDateISOFormatted = ""
     if (defaultDate) {
         defaultDateString = dateStringFormat.format(defaultDate)
-        defaultDateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(defaultDate)
+        defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
     }
 
     def startDate
