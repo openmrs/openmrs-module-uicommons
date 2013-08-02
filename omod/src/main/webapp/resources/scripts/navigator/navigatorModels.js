@@ -115,7 +115,7 @@ FieldModel.prototype.value = function() {
     	return this.element.is(':checked') ? this.element.val() : "";
     }
     else {
-        return this.element.val() ? this.element.val() : "";
+        return this.element.val() ? this.element.val().trim() : "";
     }
 }
 FieldModel.prototype.displayValue = function() {
