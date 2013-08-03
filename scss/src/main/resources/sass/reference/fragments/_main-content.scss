@@ -64,6 +64,16 @@
       top: 15px;
       padding: 0;
       margin: 0;
+
+      position: relative;
+      display: inline;
+      color: $darkerGrey;
+      font-size: 1em;
+      cursor: pointer;
+
+      &:hover {
+        color: $error;
+      }
     }
   }
 
