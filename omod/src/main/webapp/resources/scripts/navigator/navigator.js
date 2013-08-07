@@ -64,4 +64,24 @@ function KeyboardController(formElement) {
                 break;
         }
     });
+
+    Navigator.notifyOnCompletionListeners();
+}
+
+var Navigator = {
+    onCompletionListeners: [],
+    isReady: function(callback) {
+        this.onCompletionListeners.push(callback);
+        return this;//allow chaining
+    },
+    notifyOnCompletionListeners: function() {
+        _.each(this.onCompletionListeners, function(listener){
+            //one listener shouldn't crash everything
+            try{
+                listener();
+            }catch(e){
+                console.error("Error encountered in onCompletionListener:"+listener);
+            }
+        });
+    }
 }
