@@ -1,4 +1,6 @@
 <%
+    ui.decorateWith("uicommons", "html5")
+
     ui.includeCss("uicommons", "styleguide/index.css")
 %>
 

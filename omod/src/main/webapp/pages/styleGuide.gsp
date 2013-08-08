@@ -1,4 +1,6 @@
 <%
+    ui.decorateWith("uicommons", "html5")
+
     ui.includeCss("uicommons", "styleguide/index.css")
     ui.includeCss("uicommons", "styleguide/jquery.toastmessage.css")
     ui.includeCss("uicommons", "styleguide/jquery-ui-1.9.2.custom.min.css")

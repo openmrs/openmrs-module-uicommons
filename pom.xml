@@ -36,7 +36,7 @@
 	<properties>
 		<openMRSVersion>1.9.4-SNAPSHOT</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <uiframeworkVersion>2.5</uiframeworkVersion>
+        <uiframeworkVersion>3.0-SNAPSHOT</uiframeworkVersion>
     </properties>
 
     <dependencies>

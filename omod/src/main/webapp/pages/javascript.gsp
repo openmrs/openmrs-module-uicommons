@@ -1,4 +1,6 @@
 <%
+    ui.decorateWith("uicommons", "html5")
+
     ui.includeCss("uicommons", "styleguide/index.css")
     ui.includeJavascript("uicommons", "jquery-1.8.3.min.js");
     ui.includeJavascript("uicommons", "bootstrap-scrollspy.js");
