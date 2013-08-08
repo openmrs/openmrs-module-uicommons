@@ -11,7 +11,7 @@
             var OPENMRS_CONTEXT_PATH = '${ ui.contextPath() }';
         </script>
 
-        ${ ui.includeFragment("uicommons", "infoAndErrorMessage") }
+        <%= config.content %>
 
     </body>
 </html>
