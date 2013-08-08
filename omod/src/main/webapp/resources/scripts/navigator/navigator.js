@@ -1,4 +1,4 @@
-var nagivator = {isReady: false}
+var navigator = {isReady: false}
 
 function initFormModels(formEl) {
     var formElement = formEl;
@@ -67,5 +67,5 @@ function KeyboardController(formElement) {
         }
     });
 
-    nagivator.isReady = true;
+    navigator.isReady = true;
 }
