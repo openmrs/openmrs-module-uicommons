@@ -44,13 +44,13 @@
             var returnFormUrl = ${ config.formUrl };
             console.log("returnFormUrl= " + returnFormUrl);
             if( returnFormUrl && returnFormUrl.length > 0){
-                uicommons.navigateTo({
+                emr.navigateTo({
                     provider: '${ config.targetPageProvider }',
                     page: '${ config.targetPage }',
                     query: { patientId: patientId, formUrl: returnFormUrl }
                 });
             }else{
-                uicommons.navigateTo({
+                emr.navigateTo({
                     provider: '${ config.targetPageProvider }',
                     page: '${ config.targetPage }',
                     query: { patientId: patientId }
@@ -76,6 +76,7 @@
                 fragment: "findPatient",
                 action: "search",
                 maxResults: 10,
+                fragmentProvider: "coreapps",
                 itemValueProperty: "patientId",
                 itemLabelFunction: "findPatientLabelFunction",
                 onExactMatchFunction: "findPatientNavigateFunction"

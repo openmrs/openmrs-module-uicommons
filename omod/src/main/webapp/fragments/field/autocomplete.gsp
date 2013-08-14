@@ -4,7 +4,7 @@
     config.require("action")
     config.require("itemValueProperty")
     config.require("itemLabelFunction")
-    def fragmentProvider = config.fragmentProvider ?: "emr"
+    def fragmentProvider = config.fragmentProvider ?: "coreapps"
 %>
 
 <script type="text/javascript">
