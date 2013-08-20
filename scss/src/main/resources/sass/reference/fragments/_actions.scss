@@ -1,0 +1,12 @@
+.delete-item {
+  position: relative;
+  display: inline;
+  text-decoration: none;
+  color: $darkerGrey;
+  font-size: 1em;
+  cursor: pointer;
+
+  &:hover {
+    color: $error;
+  }
+}
