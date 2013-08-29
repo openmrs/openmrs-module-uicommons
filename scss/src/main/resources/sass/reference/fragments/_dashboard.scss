@@ -67,6 +67,8 @@
 
 		.tag {
 			float: right;
+			min-width: 66px;
+			text-align: center;
 		}
 	}
 
@@ -92,7 +94,7 @@
 		}
 
 		.button {
-			margin: 5px;
+			margin: 4px;
 			width: 58px;
 		}
 
