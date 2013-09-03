@@ -121,7 +121,7 @@
             
     <% if (config.showEstimatedCheckbox) { %>
 	     ${ ui.includeFragment("uicommons", "field/checkbox", [
-	            label: ui.message("uicommons.multipleInputDate.estimatedBirthdate.label"),
+	            label: ui.message("uicommons.multipleInputDate.estimated.label"),
 	            id: config.formFieldName+"Estimated",
 	            formFieldName: config.formFieldName+"Estimated",
 	            checked: config.estimated,
