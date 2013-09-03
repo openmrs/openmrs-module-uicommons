@@ -14,7 +14,7 @@ ul.left-menu {
     position: relative;
     @include box-shadow(inset 0px -1px 0px #BBB);
 
-    &:last-child {
+    &:last-of-type {
       border-bottom: none;
       @include box-shadow(none);
     }
