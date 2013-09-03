@@ -124,7 +124,7 @@
 	            label: ui.message("uicommons.multipleInputDate.estimatedBirthdate.label"),
 	            id: config.formFieldName+"Estimated",
 	            formFieldName: config.formFieldName+"Estimated",
-	            checked: config.birthDateEstimated,
+	            checked: config.estimated,
 	            left: true])}
 	<% } %>
 	
