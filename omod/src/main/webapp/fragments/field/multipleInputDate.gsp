@@ -189,6 +189,6 @@
             left: true
     ])}
 </p>
+<% } %>
 
 <input id="${config.formFieldName}-value" type="hidden" name="${config.formFieldName}" />
-<% } %>
