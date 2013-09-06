@@ -121,14 +121,38 @@
 		}
 	}
 
-	.vitals {
-		small {
-			width: 100px;
-			margin-right: 5px;
-			text-align: right;
-			display: inline-block;
-		}
-	}
+    .most-recent-encounter {
+
+        htmlform {
+            #calculated-bmi {
+                font-size: 1em;
+            }
+            p {
+                float: none;
+                display: inline-block;
+            }
+            span {
+              display: inline-block;
+            }
+            h3, label {
+                width: 120px;
+                font-size: 0.8em;
+                font-weight: normal;
+                display: inline-block;
+                margin: 3px 5px;
+                text-align: right;
+            }
+            fieldset {
+                border: 0;
+                padding: 0;
+                margin: 0;
+            }
+            legend {
+                display: none;
+            }
+        }
+
+    }
 }
 
 .tag {
