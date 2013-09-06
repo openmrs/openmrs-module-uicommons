@@ -132,13 +132,17 @@ FieldModel.prototype.displayValue = function() {
         value = this.element.is(':checked') ? this.element.val() : " ";
     }
     else if (this.element.attr('type') == 'checkbox') {
-    	//if one wants to display the checkbox value, they have to explicitly set
-    	//the value attribute, hence avoiding the default 'on', when none is set.
-    	if (this.element.is(':checked') && 'on' != this.element.attr('value')) {
-    		value = this.element.attr('value');
+    	if (this.element.is(':checked')) {
+    		if (this.element.attr('dataDisplayWhenChecked'))
+    			value = this.element.attr('dataDisplayWhenChecked');
+    		else
+    			value = this.element.attr('value');
     	}
     	else {
-    		value = "";
+    		if (this.element.attr('dataDisplayWhenUnchecked'))
+    			value = this.element.attr('dataDisplayWhenUnchecked');
+    		else
+    			value = "";
     	}
     }
     else {
