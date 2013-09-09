@@ -6,8 +6,8 @@
 <p class="left">
 	<label for="${ config.id }-field">${ config.label }</label>
     <input type="checkbox" id="${ config.id }-field" name="${ config.formFieldName }" <% if (config.checked) { %>checked='checked'<% } %> <% if (config.value) { %>value="${ config.value }"<% } %> 
-    <% config.dataAttributes.each { %>
-    	${ it.key } = "${ it.value }"
+    <% config.attributes.each { %>
+    	data-${ it.key } = "${ ui.escapeAttribute(it.value) }"
     <% } %>
     />
 	

@@ -125,7 +125,7 @@
 	            id: config.formFieldName+"Estimated",
 	            formFieldName: config.formFieldName+"Estimated",
 	            checked: config.estimated,
-	            dataAttributes: ["data-display-when-checked":"(" + ui.message("uicommons.multipleInputDate.estimated.label") + ")"],
+	            attributes: ["display-when-checked":"(" + ui.message("uicommons.multipleInputDate.estimated.label") + ")"],
 	            left: true])}
 	<% } %>
 	
