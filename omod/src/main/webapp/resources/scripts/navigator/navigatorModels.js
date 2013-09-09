@@ -133,14 +133,14 @@ FieldModel.prototype.displayValue = function() {
     }
     else if (this.element.attr('type') == 'checkbox') {
     	if (this.element.is(':checked')) {
-    		if (this.element.attr('dataDisplayWhenChecked'))
-    			value = this.element.attr('dataDisplayWhenChecked');
+    		if (this.element.attr('data-display-when-checked'))
+    			value = this.element.attr('data-display-when-checked');
     		else
     			value = this.element.attr('value');
     	}
     	else {
-    		if (this.element.attr('dataDisplayWhenUnchecked'))
-    			value = this.element.attr('dataDisplayWhenUnchecked');
+    		if (this.element.attr('data-display-when-unchecked'))
+    			value = this.element.attr('data-display-when-unchecked');
     		else
     			value = "";
     	}
