@@ -23,9 +23,10 @@
 
 #who-where-when-edit, #who-where-when-view {
   p, td {
-    min-width: 210px;
+    min-width: 200px;
   }
   p {
     display: inline-block;
+    margin-right: 10px;
   }
 }
