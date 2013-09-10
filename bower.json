@@ -11,8 +11,7 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests",
-    "sass/src/main/resources/sass/styleguide"
+    "tests"
   ],
   "homepage": "https://github.com/openmrs/openmrs-module-uicommons",
   "description": "Common SASS for OpenMrs Reference Application"
