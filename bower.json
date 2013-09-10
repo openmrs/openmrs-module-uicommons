@@ -2,22 +2,22 @@
   "name": "openmrs-uicommons",
   "version": "1.0",
   "main": [
-    "./sass/src/main/resources/sass/reference/*",
-    "./omod/src/main/webapp/resources/fonts/*"
+    "sass/src/main/resources/sass/reference/",
+    "omod/src/main/webapp/resources/fonts/"
   ],
   "ignore": [
     "**/.*",
     "README.md",
-    "./api/",
-    "./sass/",
-    "./omod/",
+    "api/",
+    "sass/",
+    "omod/",
     "pom.xml",
     "uicommons.iml",
     "bower.json",
-    "./node_modules",
-    "./bower_components",
-    "./test",
-    "./tests"
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
   ],
   "homepage": "https://github.com/openmrs/openmrs-module-uicommons",
   "description": "Common SASS for OpenMrs Reference Application"
