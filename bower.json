@@ -1,0 +1,10 @@
+{
+  "name": "openmrs-uicommons",
+  "version": "1.0",
+  "main": ["./sass/src/main/resources/sass/reference/*", "./omod/src/main/webapp/resources/fonts/"],
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+  }
+}
