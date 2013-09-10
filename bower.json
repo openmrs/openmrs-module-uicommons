@@ -2,15 +2,12 @@
   "name": "openmrs-uicommons",
   "version": "1.0",
   "main": [
-    "sass/src/main/resources/sass/reference/",
-    "omod/src/main/webapp/resources/fonts/"
+    "sass/src/main/resources/sass/reference/_reference.scss",
   ],
   "ignore": [
     "**/.*",
     "README.md",
-    "api/",
-    "sass/",
-    "omod/",
+    "api",
     "pom.xml",
     "uicommons.iml",
     "bower.json",
