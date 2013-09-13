@@ -26,6 +26,14 @@
  *     ../images/ - relative to this CSS file.
  */
 
+.datatables-info-and-pg {
+    font-size: 0.9em;
+}
+
+tr.search_table_row_highlight {
+    background-color: #007fff !important;
+    color: white;
+}
 
 /*
  * jQuery UI specific styling
