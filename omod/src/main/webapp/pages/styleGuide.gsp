@@ -73,6 +73,9 @@
                         <a href="#form">Forms</a>
                     </li>
                     <li>
+                        <a href="#tables">Tables</a>
+                    </li>
+                    <li>
                         <a href="#status-container">Status Container</a>
                     </li>
                     <li>
@@ -958,6 +961,41 @@
                         </div>
                     </div>
                 </section>
+            </article>
+            <article id="tables">
+              <h1>
+                Tables
+              </h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Table Header</th>
+                    <th>Table Header</th>
+                    <th>Table Header</th>
+                    <th>Table Header</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                  </tr>
+                  <tr>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                  </tr>
+                  <tr>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                    <td>Table Data</td>
+                  </tr>
+                </tbody>
+              </table>
             </article>
             <article id="status-container">
                 <h1>Status Container</h1>

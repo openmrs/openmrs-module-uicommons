@@ -346,10 +346,13 @@ table {
   }
   
   thead th {
-    border-bottom: 2px solid #DDD;
-    background: $bodyBackground;
+    border-bottom: 1px solid #DDD;
+    background: $lighterGrey;
     width: auto;
+    text-align: left;
     word-break: break-all;
+    font-weight: normal;
+    font-family: $primaryBoldFont;
   }
 }
 
