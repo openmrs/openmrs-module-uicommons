@@ -24,6 +24,13 @@
       display: inline-block;
       margin-bottom: 4px;
     }
+
+    h3 {
+      display: inline-block;
+      color: white;
+      margin: 5px 0;
+      vertical-align: middle;
+    }
   }
 
   .dialog-content {
@@ -46,13 +53,6 @@
         border-bottom: 1px solid #eee;
       }
     }
-  }
-
-  h3 {
-    display: inline-block;
-    color: white;
-    margin: 5px 0;
-    vertical-align: middle;
   }
 
   ul {
