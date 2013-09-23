@@ -43,6 +43,15 @@ var emr = (function($) {
             jqObject = jqueryInstanceToSet;
         },
 
+        translate: function(code) {
+            if (window.translations) {
+                var translated = window.translations[code];
+                return translated ? translated : code;
+            } else {
+                return code;
+            }
+        },
+
         navigateTo: function(opts) {
             var url = opts.url;
             if (opts.applicationUrl) {
