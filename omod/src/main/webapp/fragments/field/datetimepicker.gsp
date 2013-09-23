@@ -94,7 +94,11 @@
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
         linkField: "${ config.id }-field",
-        linkFormat: "yyyy-mm-dd hh:ii:ss"
+        <% if (config.useTime) { %>
+            linkFormat: "yyyy-mm-dd hh:ii:ss"
+        <% } else { %>
+            linkFormat: "yyyy-mm-dd"
+        <% } %>
     })
     <% if (config.dependency || required) { %>
         .on('hide', function() {
