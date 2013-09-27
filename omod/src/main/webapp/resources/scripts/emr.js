@@ -43,12 +43,12 @@ var emr = (function($) {
             jqObject = jqueryInstanceToSet;
         },
 
-        translate: function(code) {
-            if (window.translations) {
+        message: function(code, defaultText) {
+            if (window.messages) {
                 var translated = window.translations[code];
-                return translated ? translated : code;
+                return translated ? translated : (defaultText ? defaultText : code);
             } else {
-                return code;
+                return defaultText ? defaultText : code;
             }
         },
 
