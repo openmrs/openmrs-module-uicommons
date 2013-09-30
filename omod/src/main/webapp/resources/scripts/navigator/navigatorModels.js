@@ -169,7 +169,7 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
     this.parentSection = section;
     this.messagesContainer = messagesContainer;
     this.validators = [];
-    var fieldContainers = this.element.find("p").has("input, select");
+    var fieldContainers = this.element.find("p").has("input, select, button");
     this.fields = _.map(fieldContainers, function(container) {
         var fieldErrorsElement = $(container).find("span.field-error").first();
         //since radio buttons represent the same property/request param, we need
@@ -178,7 +178,7 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
         if(radioButtonElements && radioButtonElements.length > 0){
             fieldErrorsElement = $('#'+radioButtonElements[0].name+'-field-error');
         }
-        return new FieldModel($(container).find("input, select").first(), this, fieldErrorsElement);
+        return new FieldModel($(container).find("input, select, button").first(), this, fieldErrorsElement);
     }, this);
     this.questionLegend = this.element.find('legend').first();
     var label = $('<span/>').html(this.questionLegend.text());
