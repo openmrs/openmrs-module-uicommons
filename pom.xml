@@ -21,11 +21,11 @@
 		<url>http://openmrs.org</url>
 	</organization>
 
-	<scm>
-		<connection>scm:svn:https://svn.openmrs.org/openmrs-modules/uiLibrary/trunk/</connection>
-		<developerConnection>scm:svn:https://svn.openmrs.org/openmrs-modules/uiLibrary/trunk/</developerConnection>
-		<url>https://svn.openmrs.org/openmrs-modules/uiLibrary/trunk/</url>
-	</scm>
+    <scm>
+        <connection>scm:git:git@github.com:openmrs/openmrs-module-uicommons.git</connection>
+        <developerConnection>scm:git:git@github.com:openmrs/openmrs-module-uicommons.git</developerConnection>
+        <url>scm:git:git@github.com:openmrs/openmrs-module-uicommons.git</url>
+    </scm>
 
 	<modules>
 		<module>api</module>
