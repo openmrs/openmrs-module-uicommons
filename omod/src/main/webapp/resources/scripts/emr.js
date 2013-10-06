@@ -170,7 +170,7 @@ var emr = (function($) {
         },
 
         updateBreadcrumbs: function(extraBreadcrumbs) {
-            if (typeof breadcrumbs == 'undefined') {
+            if (typeof breadcrumbs == 'undefined' || !jq.isArray(breadcrumbs)) {
                 return;
             }
             var toUse = breadcrumbs;
