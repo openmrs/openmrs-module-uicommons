@@ -131,8 +131,17 @@
   &.task {
     @include button(lighten($text,20%), lighten($text, 20%), white);
 
+    padding: 5px 6px;
+    min-width: 221px;
+    font-size: 0.9em;
+
     &:visited {
       color: white;
+    }
+
+    i {
+      font-size: 1em;
+      margin: 0px 2px;
     }
   }
 
