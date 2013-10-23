@@ -21,8 +21,8 @@
 	</organization>
 
     <scm>
-        <connection>scm:git:git@github.com:openmrs/openmrs-module-uicommons</connection>
-        <developerConnection>scm:git:git@github.com:openmrs/openmrs-module-uicommons</developerConnection>
+        <connection>scm:git:https://github.com/openmrs/openmrs-module-uicommons</connection>
+        <developerConnection>scm:git:https://github.com/openmrs/openmrs-module-uicommons</developerConnection>
         <url>https://github.com/openmrs/openmrs-module-uicommons</url>
     </scm>
 
