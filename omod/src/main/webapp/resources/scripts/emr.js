@@ -45,7 +45,7 @@ var emr = (function($) {
 
         message: function(code, defaultText) {
             if (window.messages) {
-                var translated = window.translations[code];
+                var translated = window.messages[code];
                 return translated ? translated : (defaultText ? defaultText : code);
             } else {
                 return defaultText ? defaultText : code;
@@ -170,7 +170,7 @@ var emr = (function($) {
         },
 
         updateBreadcrumbs: function(extraBreadcrumbs) {
-            if (typeof breadcrumbs == 'undefined' || !jq.isArray(breadcrumbs)) {
+            if (typeof breadcrumbs == 'undefined') {
                 return;
             }
             var toUse = breadcrumbs;
