@@ -41,7 +41,7 @@
     }
   }
 
-  &.disabled {
+  &.disabled, &:disabled {
     background: #EEE;
     border: #CCC 1px solid;
     color: #CCC;
