@@ -1,3 +1,4 @@
+
 var selectedModel = function(items) {
     return _.find(items, function(i) { return i.isSelected; });
 }
@@ -12,16 +13,29 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         }
         return false;
     }
-    var switchActiveQuestions = function(previousFieldParentQuestion, currentFieldParentQuestion) {
-        if(previousFieldParentQuestion != currentFieldParentQuestion && previousFieldParentQuestion.isValid()) {
-            previousFieldParentQuestion.toggleSelection();
-            if(previousFieldParentQuestion.parentSection != currentFieldParentQuestion.parentSection) {
-                previousFieldParentQuestion.parentSection.toggleSelection();
-                currentFieldParentQuestion.parentSection.toggleSelection();
+
+    // TODO add gotoNextQuestin and gotoPrevious question method in question handler and delegate to that?
+    var switchActiveQuestions = function(currentQuestion, newQuestion) {
+        if(currentQuestion != newQuestion) {
+
+            // test the validator if we navigating forward
+            if (_.indexOf(questionsHandler.questions, currentQuestion) < _.indexOf(questionsHandler.questions, newQuestion)
+                && !currentQuestion.isValid()) {
+                return false;
             }
-            currentFieldParentQuestion.toggleSelection();
+
+            currentQuestion.toggleSelection();
+
+            if(currentQuestion.parentSection != newQuestion.parentSection) {
+                currentQuestion.parentSection.toggleSelection();
+                newQuestion.parentSection.toggleSelection();
+            }
+            newQuestion.toggleSelection();
         }
+
+        return true;
     };
+
     var switchActiveField = function(fieldIndexUpdater, showFirstFieldIfNoneIsActive) {
         var currentIndex;
         var newField = null;
@@ -30,19 +44,17 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
             if(field) {
                 if (field.onExit()) {   // call any exit handler, and only continue if it returns true
                     currentIndex = _.indexOf(fields, field);
-                    var nextIndex = fieldIndexUpdater(currentIndex);
+                    var nextIndex = fieldIndexUpdater(currentIndex, fields);
                     newField = fields[nextIndex];
 
                     if(newField) {
-                        if (field.parentQuestion != newField.parentQuestion) {
-                             if (!field.parentQuestion.isValid()) {
-                                 return false;
-                             }
-                        }
-
                         field.toggleSelection();
-                        switchActiveQuestions(field.parentQuestion, newField.parentQuestion);
-                        newField.toggleSelection();
+                        if(switchActiveQuestions(field.parentQuestion, newField.parentQuestion)) {
+                            newField.toggleSelection();
+                        }
+                        else {
+                            field.toggleSelection(); // kind of hacky, but we toggle the field back on if switching the question failed for some reason
+                        }
                     } else {
                         return true;
                     }
@@ -72,12 +84,12 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
     api.handleTabKey = function() {
         var currentField = selectedModel(fields);
         var isValid = (currentField ? currentField.isValid() : true);
-        var activeFieldSwitched = (isValid ? switchActiveField(function(i) { return i+1; }, true) : false);
+        var activeFieldSwitched = (isValid ? switchActiveField(findNextEnabledElement, true) : false);
         if (!activeFieldSwitched) { currentField.select(); }
         return true;
     };
     api.handleShiftTabKey = function() {
-        return switchActiveField(function(i) { return i-1; }, false);
+        return switchActiveField(findPreviousEnabledElement, false);
     };
     api.handleEnterKey = function() {
         var currentField = selectedModel(fields);
@@ -114,11 +126,15 @@ function QuestionsKeyboardHandler(questionModels) {
             }
             var idx = _.indexOf(questions, question);
             if(idx > 0) {
-                question.toggleSelection();
-                questions[idx-1].toggleSelection();
-                if(question.parentSection != questions[idx-1].parentSection) {
-                    question.parentSection.toggleSelection();
-                    questions[idx-1].parentSection.toggleSelection();
+                var previousIdx = findPreviousEnabledElement(idx, questions);
+
+                if (idx != previousIdx) {
+                    question.toggleSelection();
+                    questions[previousIdx].toggleSelection();
+                    if(question.parentSection != questions[previousIdx].parentSection) {
+                        question.parentSection.toggleSelection();
+                        questions[previousIdx].parentSection.toggleSelection();
+                    }
                 }
                 return true;
             }
@@ -138,11 +154,15 @@ function QuestionsKeyboardHandler(questionModels) {
         }
         var idx = _.indexOf(questions, question);
         if(idx < questions.length-1) {
-            question.toggleSelection();
-            questions[idx+1].toggleSelection();
-            if(question.parentSection != questions[idx+1].parentSection) {
-                question.parentSection.toggleSelection();
-                questions[idx+1].parentSection.toggleSelection();
+            var nextIdx = findNextEnabledElement(idx, questions);
+
+            if (idx != nextIdx) {
+                question.toggleSelection();
+                questions[nextIdx].toggleSelection();
+                if(question.parentSection != questions[nextIdx].parentSection) {
+                    question.parentSection.toggleSelection();
+                    questions[nextIdx].parentSection.toggleSelection();
+                }
             }
             return true;
         }
@@ -169,12 +189,13 @@ var clickedSectionHandler = function(sections, section, event) {
     var clickedSectionIndex = _.indexOf(sections, section);
     var shouldSelectClickedSection = true;
     if(clickedSectionIndex > currentSectionIndex) {
+        // only need to call validation if moving ahead
         for(var i=currentSectionIndex; i<clickedSectionIndex; i++) {
             shouldSelectClickedSection = sections[i].isValid() && shouldSelectClickedSection;
         }
     }
 
-    // call exit handler if validation has passed
+    // call exit handler no matter if we are moving forward or backwards
     shouldSelectClickedSection = shouldSelectClickedSection && currentSection.onExit();
 
     if(!shouldSelectClickedSection) {
@@ -263,3 +284,15 @@ var clickedFieldHandler = function(fields, field, event) {
     }
     event.preventDefault();
 };
+
+var findNextEnabledElement = function (i, elements) {
+    var nextEnabledElement = i + 1;
+    while (nextEnabledElement < elements.length && elements[nextEnabledElement].isDisabled()) { nextEnabledElement++; }
+    return nextEnabledElement != elements.length ? nextEnabledElement : i;  // if we reached the end without finding an enabled element, just return the passed-in indenx
+}
+
+var findPreviousEnabledElement = function (i, elements) {
+    var previousEnabledElement = i - 1;
+    while (previousEnabledElement >= 0 && elements[previousEnabledElement].isDisabled()) { previousEnabledElement--; }
+    return previousEnabledElement != -1 ? previousEnabledElement : i;  // if we reached the end without finding an enabled element, just return the passed-in indenx
+}

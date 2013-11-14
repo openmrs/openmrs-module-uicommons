@@ -1,10 +1,12 @@
 /*
  * Base prototype for selectable models
  */
+
 function SelectableModel(elem) {
     this.element = $(elem);
     this.isSelected = false;
     this.toggleSelection = this.select;
+    this.id = this.element.attr("id");
 }
 SelectableModel.prototype = {
     constructor: SelectableModel,
@@ -26,6 +28,16 @@ SelectableModel.prototype = {
         this.element.attr('disabled', 'true');
         this.element.addClass("disabled");
     },
+    show: function() {
+        this.enable();
+        if (this.isSelected) {
+            this.select();
+        }
+    },
+    hide: function() {
+        this.disable();
+        // TODO do we want to unselect here if selected? probably...
+    },
     onExit: function() {
         // override this to provide onExit functionality
         return true;
@@ -34,6 +46,8 @@ SelectableModel.prototype = {
         return this.element.is(":disabled");
     }
 }
+
+// TODO so it looks like exit handlers can only be applied to fields, but validators can be applied to fields and questions--is this correct?
 
 /*
  * Prototype for fields
@@ -59,6 +73,7 @@ function FieldModel(elem, parentQuestion, messagesContainer) {
 }
 FieldModel.prototype = new SelectableModel();
 FieldModel.prototype.constructor = FieldModel;
+
 FieldModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
     this.element.focus();
@@ -69,12 +84,9 @@ FieldModel.prototype.unselect = function() {
     this.element.blur();
 }
 
-FieldModel.prototype.enable = function() {
-    SelectableModel.prototype.enable.apply(this);
-}
-
 FieldModel.prototype.disable = function() {
     SelectableModel.prototype.disable.apply(this);
+    this.resetValue();
 }
 
 FieldModel.prototype.isValid = function() {
@@ -107,6 +119,9 @@ FieldModel.prototype.onExit = function ()  {
 }
 
 FieldModel.prototype.value = function() {
+
+    // TODO provide integration with the HFE property accessor functionality?
+
     var selectedOption = this.element.find('option:selected');
     if(selectedOption.length > 0) {
         return selectedOption.val(); // return the actual value
@@ -118,6 +133,28 @@ FieldModel.prototype.value = function() {
         return this.element.val() ? this.element.val().trim() : "";
     }
 }
+
+FieldModel.prototype.resetValue = function() {
+
+    // TODO provide integration with the HFE property accessor functionality?
+    // TODO support date widgets?
+
+    // handle the case of dropdown with a selected element
+    var selectedOption = this.element.find('option:selected');
+    if (selectedOption.length > 0) {
+        selectedOption.removeAttr('selected');
+    }
+    // handle the case of radio set with a checked item
+    else if (this.element.attr('type') == 'radio' && this.element.is(':checked')) {
+        this.element.removeAttr('checked');
+    }
+    // handle input field
+    else {
+        this.element.val("");
+    }
+
+}
+
 FieldModel.prototype.displayValue = function() {
 
     var value;
@@ -164,6 +201,7 @@ FieldModel.prototype.resetErrorMessages = function() {
 /*
  * Prototype for questions
  */
+
 function QuestionModel(elem, section, titleListElem, messagesContainer) {
     SelectableModel.apply(this, [elem]);
     this.parentSection = section;
@@ -199,6 +237,29 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
 }
 QuestionModel.prototype = new SelectableModel();
 QuestionModel.prototype.constructor = QuestionModel;
+
+QuestionModel.prototype.enable = function() {
+    SelectableModel.prototype.enable.apply(this);
+    _.each(this.fields, function(field) { field.enable(); });
+}
+
+QuestionModel.prototype.disable = function() {
+    SelectableModel.prototype.disable.apply(this);
+    _.each(this.fields, function(field) { field.disable(); });
+}
+
+QuestionModel.prototype.hide = function() {
+    SelectableModel.prototype.hide.apply(this);
+    this.questionLi.hide(); // hide the menu item as well
+    _.each(this.fields, function(field) { field.hide(); });
+}
+
+QuestionModel.prototype.show = function() {
+    SelectableModel.prototype.show.apply(this);
+    this.questionLi.show();  // show the menu item (regardless if the element has been selected or not)
+    _.each(this.fields, function(field) { field.show(); });
+}
+
 QuestionModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
     this.valueAsText = "";
@@ -229,6 +290,7 @@ QuestionModel.prototype.unselect = function() {
           this.questionLi.removeClass("done");
 
 }
+
 QuestionModel.prototype.isValid = function() {
     var allFieldsAreValid =  _.reduce(this.fields, function(memo, field) {
         return field.isValid() && memo;
@@ -320,6 +382,29 @@ function SectionModel(elem, formMenuElem) {
 }
 SectionModel.prototype = new SelectableModel();
 SectionModel.prototype.constructor = SectionModel;
+
+SectionModel.prototype.enable = function() {
+    SelectableModel.prototype.enable.apply(this);
+    _.each(this.questions, function(question) { question.enable(); });
+}
+
+SectionModel.prototype.disable = function() {
+    SelectableModel.prototype.disable.apply(this);
+    _.each(this.questions, function(question) { question.disable(); });
+}
+
+SectionModel.prototype.hide = function() {
+    SelectableModel.prototype.hide.apply(this);
+    this.title.hide(); // hide the title as well
+    _.each(this.questions, function(question) { question.hide(); });
+}
+
+SectionModel.prototype.show = function() {
+    SelectableModel.prototype.show.apply(this);
+    this.title.show();  // show the title (regardless of whether or not the section is selected)
+    _.each(this.questions, function(question) { question.show(); });
+}
+
 SectionModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
     this.title.addClass("doing");
@@ -376,7 +461,6 @@ ConfirmationSectionModel.prototype.select = function() {
         })
     })
 
-    // TODO: update the navigator to skip disabled fields
     if (!hasData) {
         this.questions[0].confirm.disable();
         this.element.find(".error").show();
@@ -390,8 +474,10 @@ ConfirmationSectionModel.prototype.select = function() {
     this.dataCanvas.append(listElement);
     _.each(this.sections, function(section) {
         _.each(section.questions, function(question) {
-            listElement.append("<li><span class='label'>" + question.title().text() + ":</span> <strong>"
-                + (question.valueAsText &&  !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</strong></li>");
+            if (!question.isDisabled()) {
+                listElement.append("<li><span class='label'>" + question.title().text() + ":</span> <strong>"
+                    + (question.valueAsText &&  !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</strong></li>");
+            }
         })
     });
 }

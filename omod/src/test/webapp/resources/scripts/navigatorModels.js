@@ -97,6 +97,99 @@ describe("Test for simple form models", function() {
             expect(exit).toBe(false);
         });
 
+        it("should disable a field", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['attr', 'addClass' ]);
+            fieldModel.element = element;
+            spyOn(fieldModel, "resetValue");
+
+            fieldModel.disable();
+            expect(element.attr).toHaveBeenCalledWith('disabled', 'true');
+            expect(element.addClass).toHaveBeenCalledWith('disabled');
+            expect(fieldModel.resetValue).toHaveBeenCalled();
+        })
+
+        it("should enable a field", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass' ]);
+            fieldModel.element = element;
+
+            fieldModel.enable();
+            expect(element.removeAttr).toHaveBeenCalledWith('disabled');
+            expect(element.removeClass).toHaveBeenCalledWith('disabled');
+        })
+
+        it("should hide a field", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['attr', 'addClass', 'hide' ]);
+            fieldModel.element = element;
+            spyOn(fieldModel, 'disable');
+
+            fieldModel.hide();
+            expect(fieldModel.disable).toHaveBeenCalled();
+        })
+
+        it("should show a field", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'addClass', 'focus']);
+            fieldModel.element = element;
+            fieldModel.isSelected = true;
+            spyOn(fieldModel, 'enable');
+            spyOn(fieldModel, 'select');
+
+            fieldModel.show();
+            expect(fieldModel.enable).toHaveBeenCalled();
+            expect(fieldModel.select).toHaveBeenCalled();
+        })
+
+        it("should show a field but not select it", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show' ]);
+            fieldModel.element = element;
+            fieldModel.isSelected = false;
+            spyOn(fieldModel, 'enable');
+            spyOn(fieldModel, 'select');
+
+            fieldModel.show();
+            expect(fieldModel.enable).toHaveBeenCalled();
+            expect(fieldModel.select).not.toHaveBeenCalled();
+        })
+
+        it("should reset the value of field", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'attr','is', 'find', 'val' ]);
+            fieldModel.element = element;
+            element.find = jasmine.createSpy('find() spy').andReturn([]);
+
+            fieldModel.resetValue();
+            expect(element.val).toHaveBeenCalledWith("");
+        })
+
+        it("should reset the value of dropdown field", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'attr','is', 'find', 'val' ]);
+            fieldModel.element = element;
+
+            var selectedOption = jasmine.createSpyObj('selectedOption', ['removeAttr', 'length']);
+            selectedOption.length = 1;
+            element.find = jasmine.createSpy('find() spy').andReturn(selectedOption);
+
+            fieldModel.resetValue();
+            expect(element.find).toHaveBeenCalledWith("option:selected");
+            expect(selectedOption.removeAttr).toHaveBeenCalledWith("selected");
+        })
+
+        it("should reset the value of radio set field", function() {
+            var fieldModel = new FieldModel();
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'attr','is', 'find', 'val' ]);
+            fieldModel.element = element;
+            element.find = jasmine.createSpy('find() spy').andReturn([]);
+            element.attr = jasmine.createSpy('attr() spy').andReturn('radio');
+            element.is = jasmine.createSpy('is() spy').andReturn(true);
+
+            fieldModel.resetValue();
+            expect(element.removeAttr).toHaveBeenCalledWith("checked");
+        })
 
     });
 
@@ -105,17 +198,21 @@ describe("Test for simple form models", function() {
         var questionModel;
         var firstField;
         var secondField;
+        var element;
 
         beforeEach(function() {
             questionModel = new QuestionModel();
-            firstField = jasmine.createSpyObj('firstField', ['unselect', 'resetErrorMessages', 'value', 'displayValue']);
-            secondField = jasmine.createSpyObj('secondField', ['unselect', 'resetErrorMessages', 'value', 'displayValue']);
+            firstField = jasmine.createSpyObj('firstField', ['unselect', 'resetErrorMessages', 'value', 'displayValue', 'enable', 'disable', 'hide', 'show']);
+            secondField = jasmine.createSpyObj('secondField', ['unselect', 'resetErrorMessages', 'value', 'displayValue', 'enable', 'disable', 'hide', 'show']);
             firstField.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);
             secondField.element  = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);
             questionModel.fields = [firstField, secondField];
-            questionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass']);
+            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'attr', 'removeAttr', 'hide', 'show']);
+            questionModel.element = element;
             spyOn(questionModel.questionLi, 'addClass');
             spyOn(questionModel.questionLi, 'removeClass');
+            spyOn(questionModel.questionLi, 'show');
+            spyOn(questionModel.questionLi, 'hide');
         });
 
 
@@ -212,6 +309,44 @@ describe("Test for simple form models", function() {
             expect(questionModel.questionLi.addClass).toHaveBeenCalledWith("done");
         });
 
+        it("should disable a question", function() {
+            questionModel.disable();
+
+            expect(firstField.disable).toHaveBeenCalled();
+            expect(secondField.disable).toHaveBeenCalled();
+            expect(element.attr).toHaveBeenCalledWith('disabled', 'true');
+            expect(element.addClass).toHaveBeenCalledWith('disabled');
+        });
+
+        it("should enable a question", function() {
+            questionModel.enable();
+
+            expect(firstField.enable).toHaveBeenCalled();
+            expect(secondField.enable).toHaveBeenCalled();
+            expect(element.removeAttr).toHaveBeenCalledWith('disabled');
+            expect(element.removeClass).toHaveBeenCalledWith('disabled');
+        });
+
+        it("should hide a question", function() {
+            spyOn(questionModel, "disable");
+            questionModel.hide();
+
+            expect(firstField.hide).toHaveBeenCalled();
+            expect(secondField.hide).toHaveBeenCalled();
+            expect(questionModel.questionLi.hide).toHaveBeenCalled();
+            expect(questionModel.disable).toHaveBeenCalled();
+        })
+
+        it("should show a question", function() {
+            spyOn(questionModel, "enable");
+            questionModel.show();
+
+            expect(firstField.show).toHaveBeenCalled();
+            expect(secondField.show).toHaveBeenCalled();
+            expect(questionModel.questionLi.show).toHaveBeenCalled();
+            expect(questionModel.enable).toHaveBeenCalled();
+        })
+
         it("should state the question is valid", function() {
             var firstField = jasmine.createSpyObj('firstField', ['isValid']);
             var secondField = jasmine.createSpyObj('firstField', ['isValid']);
@@ -275,18 +410,34 @@ describe("Test for simple form models", function() {
             expect(secondField.onExit).toHaveBeenCalled();
             expect(onExit).toBe(false);
         })
+
     });
 
     describe("Unit tests for SectionModel", function() {
-       it("should select and unselect the section", function() {
-           var menuElement = jasmine.createSpyObj('menu', ['append']);
-           var firstQuestion = jasmine.createSpyObj('firstQuestion', ['unselect', 'resetErrorMessages']);
-           var secondQuestion = jasmine.createSpyObj('secondQuestion', ['unselect', 'resetErrorMessages']);
 
-           var sectionModel = new SectionModel(null, menuElement);
+        var sectionModel;
+
+        var menuElement;
+        var firstQuestion;
+        var secondQuestion;
+        var element;
+
+
+        beforeEach(function() {
+            menuElement = jasmine.createSpyObj('menu', ['append']);
+            firstQuestion = jasmine.createSpyObj('firstQuestion', ['unselect', 'resetErrorMessages', 'isValid', 'onExit', 'disable', 'enable', 'hide', 'show']);
+            secondQuestion = jasmine.createSpyObj('secondQuestion', ['unselect', 'resetErrorMessages', 'isValid', 'onExit', 'disable', 'enable', 'hide', 'show']);
+            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'attr', 'removeAttr', 'hide', 'show']);
+
+            sectionModel = new SectionModel(null, menuElement);
+            sectionModel.element = element;
+            sectionModel.questions = [firstQuestion, secondQuestion];
+        })
+
+
+       it("should select and unselect the section", function() {
            sectionModel.title = jasmine.createSpyObj('title', ['addClass', 'removeClass']);
            sectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass']);
-           sectionModel.questions = [firstQuestion, secondQuestion];
 
            sectionModel.toggleSelection();
            expect(sectionModel.title.addClass).toHaveBeenCalledWith('doing');
@@ -302,14 +453,8 @@ describe("Test for simple form models", function() {
        });
 
         it("should state the section is valid", function() {
-            var menuElement = jasmine.createSpyObj('menu', ['append']);
-            var firstQuestion = jasmine.createSpyObj('firstQuestion', ['isValid']);
-            var secondQuestion = jasmine.createSpyObj('secondQuestion', ['isValid']);
             firstQuestion.isValid.andReturn(true);
             secondQuestion.isValid.andReturn(true);
-
-            var sectionModel = new SectionModel(null, menuElement);
-            sectionModel.questions = [firstQuestion, secondQuestion];
 
             var isValid = sectionModel.isValid();
 
@@ -320,14 +465,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should state the section is not valid", function() {
-            var menuElement = jasmine.createSpyObj('menu', ['append']);
-            var firstQuestion = jasmine.createSpyObj('firstQuestion', ['isValid']);
-            var secondQuestion = jasmine.createSpyObj('secondQuestion', ['isValid']);
             firstQuestion.isValid.andReturn(true);
             secondQuestion.isValid.andReturn(false);
-
-            var sectionModel = new SectionModel(null, menuElement);
-            sectionModel.questions = [firstQuestion, secondQuestion];
 
             var isValid = sectionModel.isValid();
 
@@ -338,14 +477,8 @@ describe("Test for simple form models", function() {
         });
 
         it(" should call exit handlers for question and return true if all handlers return true", function() {
-            var menuElement = jasmine.createSpyObj('menu', ['append']);
-            var firstQuestion = jasmine.createSpyObj('firstQuestion', ['onExit']);
-            var secondQuestion = jasmine.createSpyObj('secondQuestion', ['onExit']);
             firstQuestion.onExit.andReturn(true);
             secondQuestion.onExit.andReturn(true);
-
-            var sectionModel = new SectionModel(null, menuElement);
-            sectionModel.questions = [firstQuestion, secondQuestion];
 
             var onExit = sectionModel.onExit();
 
@@ -356,14 +489,8 @@ describe("Test for simple form models", function() {
         });
 
         it(" should call exit handlers for question and return false if any handler returns false", function() {
-            var menuElement = jasmine.createSpyObj('menu', ['append']);
-            var firstQuestion = jasmine.createSpyObj('firstQuestion', ['onExit']);
-            var secondQuestion = jasmine.createSpyObj('secondQuestion', ['onExit']);
             firstQuestion.onExit.andReturn(true);
             secondQuestion.onExit.andReturn(false);
-
-            var sectionModel = new SectionModel(null, menuElement);
-            sectionModel.questions = [firstQuestion, secondQuestion];
 
             var onExit = sectionModel.onExit();
 
@@ -372,6 +499,45 @@ describe("Test for simple form models", function() {
             expect(onExit).toBe(false);
 
         });
+
+        it("should disable a section", function() {
+            sectionModel.disable();
+
+            expect(firstQuestion.disable).toHaveBeenCalled();
+            expect(secondQuestion.disable).toHaveBeenCalled();
+            expect(element.attr).toHaveBeenCalledWith('disabled', 'true');
+            expect(element.addClass).toHaveBeenCalledWith('disabled');
+        });
+
+        it("should enable a section", function() {
+            sectionModel.enable();
+
+            expect(firstQuestion.enable).toHaveBeenCalled();
+            expect(secondQuestion.enable).toHaveBeenCalled();
+            expect(element.removeAttr).toHaveBeenCalledWith('disabled');
+            expect(element.removeClass).toHaveBeenCalledWith('disabled');
+        });
+
+
+        it("should hide a section", function() {
+            spyOn(sectionModel.title, "hide");
+
+            sectionModel.hide();
+
+            expect(firstQuestion.hide).toHaveBeenCalled();
+            expect(secondQuestion.hide).toHaveBeenCalled();
+            expect(sectionModel.title.hide).toHaveBeenCalled();
+        })
+
+        it("should show a section", function() {
+            spyOn(sectionModel.title, "show");
+
+            sectionModel.show();
+
+            expect(firstQuestion.show).toHaveBeenCalled();
+            expect(secondQuestion.show).toHaveBeenCalled();
+            expect(sectionModel.title.show).toHaveBeenCalled();
+        })
     });
 
 
