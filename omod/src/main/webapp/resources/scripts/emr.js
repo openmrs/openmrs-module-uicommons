@@ -19,7 +19,14 @@ var emr = (function($) {
         var ret = "?";
         if (options) {
             for (key in options) {
-                ret += key + '=' + encodeURIComponent(options[key]) + '&';
+                var val = options[key];
+                if ($.isArray(val)) {
+                    for (ind in val) {
+                        ret += key + '=' + encodeURIComponent(val[ind]) + '&';
+                    }
+                } else {
+                    ret += key + '=' + encodeURIComponent(val) + '&';
+                }
             }
         }
         return ret;
@@ -220,14 +227,19 @@ var emr = (function($) {
             }
 
             var dialogApi = {};
+            var dialogOpts = {
+                overlayClose: true,
+                overlayId: "modal-overlay",
+                opacity: 80,
+                persist: true,
+                closeClass: "cancel"
+            };
+            if (opts.dialogOpts) {
+                $.extend(dialogOpts, opts.dialogOpts);
+            }
+
             dialogApi.show = function() {
-                $(opts.selector).modal({
-                    overlayClose: true,
-                    overlayId: "modal-overlay",
-                    opacity: 80,
-                    persist: true,
-                    closeClass: "cancel"
-                });
+                $(opts.selector).modal(dialogOpts);
             };
             dialogApi.close = function() {
                 $.modal.close();
