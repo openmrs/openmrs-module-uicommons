@@ -11,7 +11,8 @@
 %>
 
 <% if (config.extension.type == 'link') { %>
-    <a href="/${ contextPath }/${ applyMoustacheTemplate(config.extension.url, config.contextModel) }">
-        ${ config.extension.label }
+    <a href="/${ contextPath }/${ applyMoustacheTemplate(config.extension.url, config.contextModel) }"
+        <% if (config.extension?.extensionParams?.linkId) { %> id="${ ui.escapeAttribute( config.extension.extensionParams.linkId) }" <% } %> >
+        ${ ui.message(config.extension.label) }
     </a>
 <% } %>
