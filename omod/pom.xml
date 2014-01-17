@@ -191,6 +191,7 @@
                         <source>${project.basedir}/src/main/webapp/resources/scripts/knockout-2.1.0.js</source>
                         <source>${project.basedir}/src/main/webapp/resources/scripts/underscore-min.js</source>
                         <source>${project.basedir}/src/main/webapp/resources/scripts/jquery.toastmessage.js</source>
+                        <source>${project.basedir}/src/main/webapp/resources/scripts/angular.min.js</source>
                     </preloadSources>
                     <sourceExcludes>
                         <exclude>**/main.js</exclude>
