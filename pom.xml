@@ -5,7 +5,7 @@
 	<artifactId>uicommons</artifactId>
 	<version>1.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>uicommons Module</name>
+	<name>UI Commons Module</name>
 	<description>UI Common Library that has common JS/CSS/HTML/templates/fragments etc.</description>
 	<url>https://wiki.openmrs.org/display/docs/uiLibrary+Module+Module</url>
 	
