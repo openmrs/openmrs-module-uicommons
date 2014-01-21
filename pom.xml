@@ -24,8 +24,8 @@
         <connection>scm:git:https://github.com/openmrs/openmrs-module-uicommons</connection>
         <developerConnection>scm:git:https://github.com/openmrs/openmrs-module-uicommons</developerConnection>
         <url>https://github.com/openmrs/openmrs-module-uicommons</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
 	<modules>
 		<module>api</module>
