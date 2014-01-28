@@ -340,6 +340,10 @@ table {
   tr.selected{
     background: $link;
     color: white;
+
+    a {
+      color: white
+    }
   }
   
   thead th {
