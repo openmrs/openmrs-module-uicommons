@@ -7,7 +7,7 @@
 <% addressTemplate.lines.each { line -> %>
         <% line.eachWithIndex { token, tokenIndex -> %>
             <% if (token.isToken == addressTemplate.layoutToken) { %>
-            	 <p <% if (line.size() > 1 && tokenIndex == 1) { %> class="clear" <% } else if (line.size() > 1) { %> class="left" <% } %> >
+            	 <p class="left">
 					<label name="${ token.codeName }">
 	        			${ ui.message(token.displayText) }
 	        		</label>
@@ -47,7 +47,8 @@
                         <input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${(initialFieldValue) ? initialFieldValue : ''}" size="${ token.displaySize }" class="${ classes }" ${ otherAttributes } />
                         ${ ui.includeFragment("uicommons", "fieldErrors", [fieldName: token.codeName]) }
                     <% } %>
-	        	</p> 
+	        	</p>
+	        	<% if (tokenIndex == line.size() - 1) { %> <p class="clear" ></p> <% } %>  
             <% } %>
         <% } %>
 <% } %>

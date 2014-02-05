@@ -49,7 +49,7 @@
     }
 %>
 
-<p id="${config.id}"
+<span id="${config.id}"
     <% if (config.depends) { %> data-bind="visible: ${ config.depends.variable }() == '${ config.depends.value }'" <% } %> >
     <label for="${ config.id }-display">
         ${ ui.message(config.label) } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
@@ -63,7 +63,7 @@
         <% if (config.dependency || required) { %> data-bind="value: ${ config.id }" <% } %> />
 
     ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
-</p>
+</span>
 
 <script type="text/javascript">
     var viewModel = viewModel || {};
