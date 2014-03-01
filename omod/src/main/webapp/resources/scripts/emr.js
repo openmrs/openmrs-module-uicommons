@@ -163,13 +163,17 @@ var emr = (function($) {
         },
 
         handleError: function(xhr) {
-            if (!emr.redirectOnAuthenticationFailure(xhr)) {
-                emr.errorAlert(jq.parseJSON(xhr.responseText).globalErrors[0]);
+            emr.handleParsedError(jq.parseJSON(xhr.responseText), xhr.status);
+        },
+
+        handleParsedError: function(data, status) {
+            if (!emr.redirectOnAuthenticationFailure(status)) {
+                emr.errorAlert(data.globalErrors[0]);
             }
         },
 
-        redirectOnAuthenticationFailure: function (xhr) {
-            if (xhr.status == 403) {
+        redirectOnAuthenticationFailure: function (status) {
+            if (status == 403) {
                 window.location = '/' + OPENMRS_CONTEXT_PATH;
                 return true;
             }
