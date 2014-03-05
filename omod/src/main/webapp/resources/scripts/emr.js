@@ -131,25 +131,25 @@ var emr = (function($) {
         successMessage: function(message) {
             jqObject.toastmessage( 'showToast', { type: 'success',
                                               position: 'top-right',
-                                              text:  message } );
+                                              text:  emr.message(message) } );
         },
 
         errorMessage: function(message) {
             jqObject.toastmessage( 'showToast', { type: 'error',
                                               position: 'top-right',
-                                              text:  message } );
+                                              text:  emr.message(message) } );
         },
 
         alertMessage: function(message) {
             jqObject.toastmessage( 'showToast', { type: 'alert',
                                               position: 'top-right',
-                                              text:  message } );
+                                              text:  emr.message(message) } );
         },
 
         successAlert: function(message, options) {
             jqObject.toastmessage( 'showToast', { type: 'success',
                 position: 'top-right',
-                text:  message,
+                text:  emr.message(message),
                 stayTime: 8000,
                 close: options && options.close ? options.close : null } );
         },
@@ -157,7 +157,7 @@ var emr = (function($) {
         errorAlert: function(message, options) {
             jqObject.toastmessage( 'showToast', { type: 'error',
                 position: 'top-right',
-                text:  message,
+                text:  emr.message(message),
                 stayTime: 8000,
                 close: options && options.close ? options.close : null } )
         },
