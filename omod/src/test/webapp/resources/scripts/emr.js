@@ -132,5 +132,56 @@ describe("Tests of emr functions", function() {
 
     });
 
+    it("should translate simple REST error response into display text", function() {
 
-});
+        var response = {
+            data: {
+                error: {
+                    message: "User not logged in",
+                    globalErrors: [],
+                    fieldErrors: {}
+                }
+            }
+        }
+
+        var messages = emr.formatRESTErrorResponseIntoDisplayMessages(response);
+
+        expect(messages.length).toBe(1);
+        expect(messages[0]).toBe("User not logged in");
+    })
+
+
+    it("should translate validation REST error response into display text", function() {
+
+        var response = {
+            data: {
+                error: {
+                    message: "Invalid submission",
+                    globalErrors: [
+                        { message: "First global error" },
+                        { message: "Second global error" }
+                    ],
+                    fieldErrors: {
+                        birthdate: [
+                            { message: "First birthdate error" },
+                            { message: "Second birthdate error" }
+                        ],
+                        identifier: [
+                            { message: "Identifier error"}
+                        ]
+                    }
+                }
+            }
+        }
+
+        var messages = emr.formatRESTErrorResponseIntoDisplayMessages(response);
+
+        expect(messages.length).toBe(5);
+        expect(messages[0]).toBe("First global error");
+        expect(messages[1]).toBe("Second global error");
+        expect(messages[2]).toBe("First birthdate error");
+        expect(messages[3]).toBe("Second birthdate error");
+        expect(messages[4]).toBe("Identifier error");
+
+    });
+})

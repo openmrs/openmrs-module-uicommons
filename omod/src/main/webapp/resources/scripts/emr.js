@@ -292,7 +292,53 @@ var emr = (function($) {
 					}
 				}
 			});
-		}
+		},
+
+        /**
+         * Given a standard OpenMRS REST error response object, return an array of the messages
+         * associated with the response (suitable, for instance, for display via an angular ng-repeat)
+         *
+         * If this response object has global or field level errors, it will add all those display messages to the array,
+         * otherwise it will add the top-level message
+         *
+         * Note that we do *not* add the top-level message if global or field-level errors are found; the idea
+         * is that in this case the global and field level errors are more specific, and what we want to display
+         * to the user
+         *
+         * @param response
+         * @returns {string}
+         */
+        formatRESTErrorResponseIntoDisplayMessages: function (response) {
+
+            var errorMessages = [];
+
+            if (!response || !response.data || !response.data.error) {
+                return;
+            }
+
+            if (response.data.error.globalErrors) {
+                $.each(response.data.error.globalErrors, function (key, globalError) {
+                    errorMessages.push(globalError.message)
+                })
+            }
+
+            if (response.data.error.fieldErrors) {
+                $.each(response.data.error.fieldErrors, function(key, field) {
+                    $.each(field, function(key, fieldError) {
+                        errorMessages.push(fieldError.message)
+                    })
+                })
+            }
+
+            if (errorMessages.length == 0) {
+                errorMessages.push(response.data.error.message);
+            }
+
+            return errorMessages;
+        }
+
+
+
     };
 
 })(jQuery);
