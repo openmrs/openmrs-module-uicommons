@@ -24,7 +24,7 @@ restUtils.factory("RESTErrorResponse", function() {
          * to the user
          *
          * @param response
-         * @returns {string}
+         * @returns Array
          */
         getDisplayMessages: function () {
 
