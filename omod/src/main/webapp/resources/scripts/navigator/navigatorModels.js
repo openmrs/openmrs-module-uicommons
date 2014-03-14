@@ -442,6 +442,12 @@ function ConfirmationSectionModel(elem, formMenuElem, regularSections) {
     formMenuElem.append(this.title);
     title.remove();
     this.dataCanvas = this.element.find('#dataCanvas');
+
+    // allows other elements to inject messages into the confirmation display
+    // all divs with class="confirmation-message" will be prepended to the confirmation page display
+    var messages = $('.confirmation-message')
+    this.element.find('#confirmation-messages').append(messages);
+
     this.questions = [ new ConfirmationQuestionModel(this.element.find("#confirmationQuestion"), this) ];
 }
 ConfirmationSectionModel.prototype = new SelectableModel();
