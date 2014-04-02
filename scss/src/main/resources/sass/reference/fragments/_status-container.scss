@@ -27,4 +27,11 @@
     border: 1px solid darken($success, 5%);
     @include box-shadow(0 0 5px $success);
   }
+
+  &.error {
+    background: $error;
+    border: 1px solid darken($error, 4%);
+    @include box-shadow(0 0 5px $error);
+  }
+
 }

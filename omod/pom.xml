@@ -185,6 +185,10 @@
                 </executions>
                 <configuration>
                     <jsSrcDir>${project.basedir}/src/main/webapp/resources/scripts</jsSrcDir>
+                    <sourceIncludes>
+                        <include>app.js</include>
+                        <include>**/*.js</include>
+                    </sourceIncludes>
                     <jsTestSrcDir>${project.basedir}/src/test/webapp/resources/scripts</jsTestSrcDir>
                     <preloadSources>
                         <source>${project.basedir}/src/main/webapp/resources/scripts/jquery-1.8.3.min.js</source>
