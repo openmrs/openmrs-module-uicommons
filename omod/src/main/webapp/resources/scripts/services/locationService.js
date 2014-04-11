@@ -19,7 +19,7 @@ angular.module('locationService', ['ngResource'])
                 return Location.query(params).$promise
                     .then(function(res) {
                         return res.results;
-                    });
+                    }, emr.handleNotLoggedIn);
             }
         }
     });

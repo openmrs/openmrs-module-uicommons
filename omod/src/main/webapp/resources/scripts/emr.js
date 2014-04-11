@@ -285,14 +285,16 @@ var emr = (function($) {
 				}
 			};
 
-			return jq.ajax(settings).fail(function(jqXHR) {
-				if (jqXHR.status == 401) {
-					if (confirm(emr.message("uicommons.notLoggedIn", "The operation cannot be completed, because you are no longer logged in. Do you want to go to login page?"))) {
-						window.location = "/" + OPENMRS_CONTEXT_PATH + "/login.htm";
-					}
-				}
-			});
-		}
+			return jq.ajax(settings).fail(emr.handleNotLoggedIn);
+		},
+
+        handleNotLoggedIn: function(jqXHR) {
+           if (jqXHR.status == 401) {
+               if (confirm(emr.message("uicommons.notLoggedIn", "The operation cannot be completed, because you are no longer logged in. Do you want to go to login page?"))) {
+                   window.location = "/" + OPENMRS_CONTEXT_PATH + "/login.htm";
+               }
+           }
+        }
 
     };
 
