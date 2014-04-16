@@ -168,7 +168,13 @@ var emr = (function($) {
 
         handleParsedError: function(data, status) {
             if (!emr.redirectOnAuthenticationFailure(status)) {
-                emr.errorAlert(data.globalErrors[0]);
+                if (data.globalErrors) {
+                    emr.errorAlert(data.globalErrors[0]);
+                } else if (data.error.message) {
+                    emr.errorAlert(data.error.message);
+                } else {
+                    emr.errorAlert("Error!");
+                }
             }
         },
 
