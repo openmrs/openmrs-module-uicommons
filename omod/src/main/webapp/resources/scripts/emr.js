@@ -295,7 +295,7 @@ var emr = (function($) {
 		},
 
         handleNotLoggedIn: function(jqXHR) {
-           if (jqXHR.status == 401) {
+           if (jqXHR.status == 401 || jqXHR.status == 404) {
                if (confirm(emr.message("uicommons.notLoggedIn", "The operation cannot be completed, because you are no longer logged in. Do you want to go to login page?"))) {
                    window.location = "/" + OPENMRS_CONTEXT_PATH + "/login.htm";
                }
