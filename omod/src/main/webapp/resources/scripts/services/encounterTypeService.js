@@ -1,5 +1,3 @@
-console.log("Defining encounterTypeService");
-
 angular.module('encounterTypeService', ['ngResource'])
     .factory('EncounterType', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/encountertype/:uuid", {
@@ -23,7 +21,5 @@ angular.module('encounterTypeService', ['ngResource'])
                         return res.results;
                     }, emr.handleNotLoggedIn);
             }
-
-
         }
     });
