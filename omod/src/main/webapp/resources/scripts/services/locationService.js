@@ -1,4 +1,8 @@
 angular.module('locationService', ['ngResource'])
+    .config(function ($httpProvider) {
+        // to prevent the browser from displaying a password pop-up in case of an authentication error
+        $httpProvider.defaults.headers.common['Disable-WWW-Authenticate'] = 'true';
+    })
     .factory('Location', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/location/:uuid", {
         },{
