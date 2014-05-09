@@ -201,6 +201,8 @@
                         <exclude>**/main.js</exclude>
                         <exclude>**/extensionRenderer.js</exclude>
                         <exclude>**/script.js</exclude>
+                        <exclude>**/angular.js</exclude>
+                        <exclude>**/angular.min.js</exclude>
                     </sourceExcludes>
                     <serverPort>7234</serverPort>
                     <skipTests>false</skipTests>
