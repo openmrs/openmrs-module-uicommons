@@ -777,7 +777,7 @@
 
                         </ul>
                         <h3>Validation Short Forms</h3>
-                        <span>For short form validation use double visual emphysis on the input.</span>
+                        <span>For short form validation use double visual emphasis on the input.</span>
                         <div class="example">
                             <form class="simple-form-ui">
                                 <p>
@@ -789,7 +789,7 @@
                         </div>
                        
                         <h3>Validation Long Forms</h3>
-                        <span>For long form validation use double visual emphysis on the input and also provide a summary error message on the top.</span>
+                        <span>For long form validation use double visual emphasis on the input and also provide a summary error message on the top.</span>
                         <div class="example">
                             <form class="simple-form-ui">
                                 <div id="error-message" class="note-container">
