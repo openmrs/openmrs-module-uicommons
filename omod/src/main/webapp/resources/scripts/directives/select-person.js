@@ -5,12 +5,12 @@ angular.module('uicommons.widgets')
         return {
             restrict: 'E',
             scope: {
-                ngModel: '=',
+                ngModel: '=', // the field whose value you want to set to the selected person
                 id: '@',
-                excludePerson: '@',
-                focusAfterSelect: '@'
+                excludePerson: '@' // a uuid
             },
             controller: function($scope) {
+                $scope.inputId = ($scope.id ? $scope.id : 'select-person-' + Math.floor(Math.random() * 10000)) + '-input';
                 $scope.search = function(term) {
                     var promise = PersonService.getPersons({ q: term });
                     if ($scope.excludePerson) {
@@ -25,7 +25,7 @@ angular.module('uicommons.widgets')
                     }
                 }
             },
-            template: '<input type="text" id="{{ id }}-input" ng-model="ngModel" ' +
+            template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ' +
                 'typeahead="person as person.display for person in search($viewValue) | filter:$viewValue" ' +
                 'typeahead-editable="false" autofocus />'
         };
