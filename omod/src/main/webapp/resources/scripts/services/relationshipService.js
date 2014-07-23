@@ -1,4 +1,4 @@
-angular.module('relationshipService', ['ngResource'])
+angular.module('relationshipService', ['ngResource', 'uicommons.common'])
     .factory('Relationship', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/relationship/:uuid", {
             uuid: '@uuid'

@@ -1,4 +1,4 @@
-angular.module('personService', ['ngResource'])
+angular.module('personService', ['ngResource', 'uicommons.common'])
     .factory('Person', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/person/:uuid", {
             uuid: '@uuid'

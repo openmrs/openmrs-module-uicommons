@@ -1,4 +1,4 @@
-angular.module('uicommons.common', [ '$httpProvider' ]).
+angular.module('uicommons.common', []).
 
     config(function($httpProvider) {
         var interceptor = ['$rootScope', '$q', function ($rootScope, $q) {
