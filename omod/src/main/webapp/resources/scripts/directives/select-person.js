@@ -1,4 +1,4 @@
-angular.module('uicommons.widgets')
+angular.module('uicommons.widget.select-person', [ 'personService', 'ui.bootstrap' ])
 
     .directive('selectPerson', ['PersonService', function(PersonService) {
 
