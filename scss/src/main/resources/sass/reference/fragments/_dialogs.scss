@@ -1,11 +1,12 @@
 @import "compass/css3";
 
-.dialog {
+.dialog, .ngdialog.ngdialog-theme-default .ngdialog-content {
   width: 450px;
   padding: 0 0 30px 0;
   text-align: left;
   background: white;
   margin: 0 auto;
+  max-width: 100%;
   @include border-radius(3px);
   @include box-shadow(2px 2px 15px #999, -2px -2px 15px #999);
 
@@ -78,5 +79,41 @@
     border: 1px solid #CCC;
     width: 60%;
     margin: 20px auto;
+  }
+}
+
+
+.ngdialog.ngdialog-theme-default {
+  padding-bottom: 160px;
+  padding-top: 160px;
+
+  .ngdialog-close {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .ngdialog-close:before {
+    background: transparent;
+    color: #bbb;
+    content: "\00D7";
+    font-size: 26px;
+    font-weight: 400;
+    height: 30px;
+    line-height: 26px;
+    position: absolute;
+    right: 3px;
+    text-align: center;
+    top: 3px;
+    width: 30px;
+  }
+
+  .ngdialog-close:hover:before, .ngdialog-close:active:before {
+    color: #777;
+  }
+
+  .ngdialog-message {
+    margin-bottom: .5em;
   }
 }
