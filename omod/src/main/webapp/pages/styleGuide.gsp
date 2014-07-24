@@ -194,9 +194,6 @@
                     </p>
                 </section>
                 <section>
-                    <p>There are <strong>4 ways</strong> to get a button style in the OpenMRS Application:</p>
-                </section>
-                <section>
                     <div class="example align-center">
                         <i class="icon-user"></i><i class="icon-user-md"></i><i class="icon-folder-open"></i><i class="icon-barcode"></i><i class="icon-cog"></i><i class="icon-home"></i><i class="icon-time"></i><i class="icon-exclamation-sign"></i><i class="icon-beaker"></i><i class="icon-heart"></i><i class="icon-search"></i><i class="icon-inbox"></i><i class="icon-remove-sign"></i><i class="icon-edit"></i>
                         <p><a href="${ui.pageLink("uicommons", "icons")}" target="blank_">Show all</a></p>
@@ -206,7 +203,7 @@
                     <code>
                         <ol>
                             <li>
-                                <span class="comm">// Bellow is the variable for the icon font</span>
+                                <span class="comm">// Below is the variable for the icon font</span>
                             </li>
                             <li>
                                 <span class="comm">// It is located in reference/_variable.scss.</span>
@@ -234,6 +231,109 @@
                             </li>
                         </ol>
                     </code>
+                </section>
+                <section>
+                    <p>Here are the icons that you should use for specific purposes, for consistency across the reference
+                    application</p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Usage</th>
+                            <th>Icon</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <i class="small icon-pencil"></i>
+                                <strong>Edit</strong>
+                                <br/>
+                                Modifying an existing piece of data
+                            </td>
+                            <td>
+                                icon-pencil
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="small icon-plus"></i>
+                                <strong>Add</strong>
+                                <br/>
+                                Add a new piece of data (e.g. to a list)
+                            </td>
+                            <td>
+                                icon-plus
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="small icon-remove"></i>
+                                <strong>Delete / Remove</strong>
+                                <br/>
+                                Delete an item or remove it from a list
+                            </td>
+                            <td>
+                                icon-remove
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="small icon-signin"></i>
+                                <strong>Admission</strong>
+                                <br/>
+                                Patient is admitted to inpatient care
+                            </td>
+                            <td>
+                                icon-signin
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="small icon-random"></i>
+                                <strong>Transfer</strong>
+                                <br/>
+                                Patient is transferred between two locations in the facility
+                            </td>
+                            <td>
+                                icon-random
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="small icon-signout"></i>
+                                <strong>Exit / Discharge</strong>
+                                <br/>
+                                Patient is discharged from inpatient care (may be okay to use for exits for reasons other than discharge)
+                            </td>
+                            <td>
+                                icon-signout
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="small icon-vitals"></i>
+                                <strong>Vital Signs</strong>
+                                <br/>
+                                Referring to or capturing a patient's vital signs
+                            </td>
+                            <td>
+                                icon-vitals
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="small icon-stethoscope"></i>
+                                <strong>Clinical encounter with provider</strong>
+                                <br/>
+                                Referring to or capturing encounters where providers record clinical data about the patient
+                                (e.g. writing visit notes, or consultation notes)
+                            </td>
+                            <td>
+                                icon-stethoscope
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </section>
             </article>
             <article id ="override">
@@ -963,39 +1063,63 @@
                 </section>
             </article>
             <article id="tables">
-              <h1>
-                Tables
-              </h1>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Table Header</th>
-                    <th>Table Header</th>
-                    <th>Table Header</th>
-                    <th>Table Header</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                  </tr>
-                  <tr>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                  </tr>
-                  <tr>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                    <td>Table Data</td>
-                  </tr>
-                </tbody>
-              </table>
+                <h1>
+                  Tables
+                </h1>
+                <section>
+                    <p>
+                        Tables in the application are automatically styled with zebra-striping. Make sure you use
+                        &lt;thead&gt; and &lt;tbody&gt; sections around your rows.
+                    </p>
+                    <p>
+                        If each of a table rows have multiple possible actions associated with them, use an
+                        "Actions" column with icons for those actions. You should describe the action with a tooltip
+                        via the title attribute, rather than repeating words in every row of the table.
+                    </p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Table Header</th>
+                            <th>Table Header</th>
+                            <th>Table Header</th>
+                            <th>Table Header</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>
+                                <i class="icon-pencil edit-action" title="Edit"></i>
+                                <i class="icon-remove delete-action" title="Delete"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>
+                                <i class="icon-pencil edit-action" title="Edit"></i>
+                                <i class="icon-remove delete-action" title="Delete"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>Table Data</td>
+                            <td>
+                                <i class="icon-pencil edit-action" title="Edit"></i>
+                                <i class="icon-remove delete-action" title="Delete"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
             </article>
             <article id="status-container">
                 <h1>Status Container</h1>
