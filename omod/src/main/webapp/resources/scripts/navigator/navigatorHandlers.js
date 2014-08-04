@@ -294,5 +294,5 @@ var findNextEnabledElement = function (i, elements) {
 var findPreviousEnabledElement = function (i, elements) {
     var previousEnabledElement = i - 1;
     while (previousEnabledElement >= 0 && elements[previousEnabledElement].isDisabled()) { previousEnabledElement--; }
-    return previousEnabledElement != -1 ? previousEnabledElement : i;  // if we reached the end without finding an enabled element, just return the passed-in indenx
+    return previousEnabledElement != -1 ? previousEnabledElement : i;  // if we reached the end without finding an enabled element, just return the passed-in index
 }

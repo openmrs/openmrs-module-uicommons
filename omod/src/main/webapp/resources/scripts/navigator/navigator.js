@@ -78,6 +78,8 @@ function KeyboardController(formElement) {
 
     var api = {};
 
+    // in an Html Form the Keyboard Controller is exposed as a "NavigatorController" global variable,
+    // so, for instance, we can access these API methods via NavigatorController.stepBackward();
     api.getFieldById = function(id) {
         return _.find(fields, function(element) {
             return element.id == id;
@@ -89,6 +91,17 @@ function KeyboardController(formElement) {
             return element.id == id;
         })
     }
+
+    // used to automatically step back and forward throughout the form; note that this just triggers the
+    // appropriate underlying key, so therefore all required validation must pass before it it allowed to step forward
+    api.stepBackward = function() {
+        handlerChainRoot.handleShiftTabKey();
+    }
+
+    api.stepForward = function() {
+        handlerChainRoot.handleTabKey();
+    }
+
 
     return api;
 }
