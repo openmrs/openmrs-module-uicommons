@@ -77,7 +77,6 @@ form#retrospectiveCheckin {
   }
 
   #confirmation {
-    width: 730px;
 
     ul > li > .label {
       text-align: right;
@@ -97,6 +96,7 @@ form#retrospectiveCheckin {
   }
 
   section, #confirmation {
+    width: 730px;
     display: none;
 
     &.focused {
