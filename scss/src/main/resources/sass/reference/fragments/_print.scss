@@ -32,12 +32,18 @@
   }
 
   .patient-header {
+    font-size: 0.9em;
     border-bottom: 1px solid black !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
 
-    .demographics .death-message, .status-container {
+    .contact-info-label, .add-id, .edit-info, .death-message, .status-container,
+    .active-visit-started-at-message, .active-visit-message {
       display: none !important;
+    }
+
+    #contactInfoContent {
+      display: block !important;
     }
   }
 
