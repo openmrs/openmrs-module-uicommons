@@ -101,11 +101,14 @@ describe("Test for simple form models", function() {
             var fieldModel = new FieldModel();
             var element = jasmine.createSpyObj('element', ['attr', 'addClass' ]);
             fieldModel.element = element;
+            var container = jasmine.createSpyObj('container', ['addClass']);
+            fieldModel.container = container;
             spyOn(fieldModel, "resetValue");
 
             fieldModel.disable();
             expect(element.attr).toHaveBeenCalledWith('disabled', 'true');
             expect(element.addClass).toHaveBeenCalledWith('disabled');
+            expect(container.addClass).toHaveBeenCalledWith('disabled');
             expect(fieldModel.resetValue).toHaveBeenCalled();
         })
 
@@ -113,26 +116,34 @@ describe("Test for simple form models", function() {
             var fieldModel = new FieldModel();
             var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass' ]);
             fieldModel.element = element;
+            var container = jasmine.createSpyObj('container', ['removeClass']);
+            fieldModel.container = container;
 
             fieldModel.enable();
             expect(element.removeAttr).toHaveBeenCalledWith('disabled');
             expect(element.removeClass).toHaveBeenCalledWith('disabled');
+            expect(container.removeClass).toHaveBeenCalledWith('disabled');
         })
 
         it("should hide a field", function() {
             var fieldModel = new FieldModel();
             var element = jasmine.createSpyObj('element', ['attr', 'addClass', 'hide' ]);
             fieldModel.element = element;
+            var container = jasmine.createSpyObj('container', ['hide']);
+            fieldModel.container = container;
             spyOn(fieldModel, 'disable');
 
             fieldModel.hide();
             expect(fieldModel.disable).toHaveBeenCalled();
+            expect(container.hide).toHaveBeenCalled();
         })
 
         it("should show a field", function() {
             var fieldModel = new FieldModel();
             var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'addClass', 'focus']);
             fieldModel.element = element;
+            var container = jasmine.createSpyObj('container', ['show']);
+            fieldModel.container = container;
             fieldModel.isSelected = true;
             spyOn(fieldModel, 'enable');
             spyOn(fieldModel, 'select');
@@ -140,12 +151,15 @@ describe("Test for simple form models", function() {
             fieldModel.show();
             expect(fieldModel.enable).toHaveBeenCalled();
             expect(fieldModel.select).toHaveBeenCalled();
+            expect(container.show).toHaveBeenCalled();
         })
 
         it("should show a field but not select it", function() {
             var fieldModel = new FieldModel();
             var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show' ]);
             fieldModel.element = element;
+            var container = jasmine.createSpyObj('container', ['show']);
+            fieldModel.container = container;
             fieldModel.isSelected = false;
             spyOn(fieldModel, 'enable');
             spyOn(fieldModel, 'select');
@@ -153,6 +167,7 @@ describe("Test for simple form models", function() {
             fieldModel.show();
             expect(fieldModel.enable).toHaveBeenCalled();
             expect(fieldModel.select).not.toHaveBeenCalled();
+            expect(container.show).toHaveBeenCalled();
         })
 
         it("should reset the value of field", function() {
