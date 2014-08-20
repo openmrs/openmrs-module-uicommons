@@ -52,8 +52,9 @@ SelectableModel.prototype = {
 /*
  * Prototype for fields
  */
-function FieldModel(elem, parentQuestion, messagesContainer) {
+function FieldModel(elem, container, parentQuestion, messagesContainer) {
     SelectableModel.apply(this, [elem]);
+    this.container = container;
     this.parentQuestion = parentQuestion;
     this.messagesContainer = messagesContainer;
     this.validators = [];
@@ -86,7 +87,23 @@ FieldModel.prototype.unselect = function() {
 
 FieldModel.prototype.disable = function() {
     SelectableModel.prototype.disable.apply(this);
+    this.container.addClass("disabled");
     this.resetValue();
+}
+
+FieldModel.prototype.enable = function() {
+    SelectableModel.prototype.enable.apply(this);
+    this.container.removeClass("disabled");
+}
+
+FieldModel.prototype.hide = function() {
+    SelectableModel.prototype.hide.apply(this);
+    this.container.hide();
+}
+
+FieldModel.prototype.show = function() {
+    SelectableModel.prototype.show.apply(this);
+    this.container.show();
 }
 
 FieldModel.prototype.isValid = function() {
@@ -207,16 +224,17 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
     this.parentSection = section;
     this.messagesContainer = messagesContainer;
     this.validators = [];
-    var fieldContainers = this.element.find("p").has("input, select, button");
+    var fieldContainers = this.element.find("p").has("input, textarea, select, button");
     this.fields = _.map(fieldContainers, function(container) {
-        var fieldErrorsElement = $(container).find("span.field-error").first();
+        var cnt = $(container);
+        var fieldErrorsElement = cnt.find("span.field-error").first();
         //since radio buttons represent the same property/request param, we need
         //to use the same error element for all radio buttons in the same group
-        var radioButtonElements = $(container).find("input:radio");
+        var radioButtonElements = cnt.find("input:radio");
         if(radioButtonElements && radioButtonElements.length > 0){
             fieldErrorsElement = $('#'+radioButtonElements[0].name+'-field-error');
         }
-        return new FieldModel($(container).find("input, select, button").first(), this, fieldErrorsElement);
+        return new FieldModel(cnt.find("input, textarea, select, button").first(), cnt, this, fieldErrorsElement);
     }, this);
     this.questionLegend = this.element.find('legend').first();
     var label = $('<span/>').html(this.questionLegend.text());
