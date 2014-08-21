@@ -3,6 +3,10 @@
     size: portrait;
   }
 
+  .no-print, .no-print * {
+    display: none;
+  }
+
   header, #breadcrumbs {
     display: none;
   }
