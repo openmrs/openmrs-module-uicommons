@@ -165,6 +165,10 @@ FieldModel.prototype.resetValue = function() {
     else if (this.element.attr('type') == 'radio' && this.element.is(':checked')) {
         this.element.removeAttr('checked');
     }
+    // handle checkbox
+    else if (this.element.attr('type') == 'checkbox') {
+        this.element.removeAttr('checked');
+    }
     // handle input field
     else {
         this.element.val("");
