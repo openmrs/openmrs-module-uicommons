@@ -191,10 +191,17 @@ FieldModel.prototype.displayValue = function() {
     }
     else if (this.element.attr('type') == 'checkbox') {
     	if (this.element.is(':checked')) {
-    		if (this.element.attr('data-display-when-checked'))
-    			value = this.element.attr('data-display-when-checked');
-    		else
-    			value = this.element.attr('value');
+    		if (this.element.attr('data-display-when-checked')) {
+                value = this.element.attr('data-display-when-checked');
+            }
+    		else {
+                var label = $('label[for="' + this.element.attr('id') + '"]');
+                if (label.length) {
+                    value = label.first().html();
+                } else {
+                    value = this.element.attr('value');
+                }
+            }
     	}
     	else {
     		if (this.element.attr('data-display-when-unchecked'))
@@ -249,6 +256,10 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
     this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i></li>').append(label);
     this.questionLi.appendTo(titleListElem);
     this.fieldSeparator = this.element.attr('field-separator') ? this.element.attr('field-separator') : ' ';
+    var displayTemplate = this.element.attr('display-template');
+    if (displayTemplate) {
+        this.displayTemplate = Handlebars.compile(displayTemplate);
+    }
 
     var classes = this.element.attr("class");
     if(classes) {
@@ -283,7 +294,16 @@ QuestionModel.prototype.show = function() {
     _.each(this.fields, function(field) { field.show(); });
 }
 QuestionModel.prototype.determineDisplayValue = function() {
-    this.valueAsText = _.map(this.fields, function(field) { return field.displayValue() }, this).join(this.fieldSeparator);
+    var fieldDisplayValues = _.map(this.fields, function (field) { return field.displayValue() }, this);
+    if (this.displayTemplate) {
+        this.valueAsText = this.displayTemplate({
+            fields: this.fields,
+            field: fieldDisplayValues
+        });
+    }
+    else {
+        this.valueAsText = fieldDisplayValues.join(this.fieldSeparator);
+    }
 }
 QuestionModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
