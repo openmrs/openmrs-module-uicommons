@@ -256,6 +256,7 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
             QuestionValidators[klass] && this.validators.push(QuestionValidators[klass]);
         }, this);
     }
+    this.determineDisplayValue();
 }
 QuestionModel.prototype = new SelectableModel();
 QuestionModel.prototype.constructor = QuestionModel;
@@ -281,7 +282,9 @@ QuestionModel.prototype.show = function() {
     this.questionLi.show();  // show the menu item (regardless if the element has been selected or not)
     _.each(this.fields, function(field) { field.show(); });
 }
-
+QuestionModel.prototype.determineDisplayValue = function() {
+    this.valueAsText = _.map(this.fields, function(field) { return field.displayValue() }, this).join(this.fieldSeparator);
+}
 QuestionModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
     this.valueAsText = "";
@@ -291,7 +294,7 @@ QuestionModel.prototype.select = function() {
 QuestionModel.prototype.unselect = function() {
     SelectableModel.prototype.unselect.apply(this);
 
-    this.valueAsText = _.map(this.fields, function(field) { return field.displayValue() }, this).join(this.fieldSeparator);
+    this.determineDisplayValue();
 
     _.each(this.fields, function(field) { field.unselect(); });
 
@@ -354,6 +357,10 @@ QuestionModel.prototype.title = function() {
 
 QuestionModel.prototype.resetErrorMessages = function() {
     this.messagesContainer.empty();
+}
+
+QuestionModel.prototype.showInConfirmation = function() {
+    return !this.element.hasClass('no-confirmation');
 }
 
 /*
@@ -502,7 +509,7 @@ ConfirmationSectionModel.prototype.select = function() {
     this.dataCanvas.append(listElement);
     _.each(this.sections, function(section) {
         _.each(section.questions, function(question) {
-            if (!question.isDisabled()) {
+            if (!question.isDisabled() && question.showInConfirmation()) {
                 listElement.append("<li><span class='label'>" + question.title().text() + ":</span> <strong>"
                     + (question.valueAsText &&  !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</strong></li>");
             }
