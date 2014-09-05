@@ -106,6 +106,10 @@ FieldModel.prototype.show = function() {
     this.container.show();
 }
 
+FieldModel.prototype.requireMouseExit = function() {
+    return this.element.hasClass("require-mouse-exit");
+}
+
 FieldModel.prototype.isValid = function() {
     var validationMessages = _.reduce(this.validators, function(memo, validator) {
         var validationMessage = validator.validate(this);
@@ -181,7 +185,13 @@ FieldModel.prototype.displayValue = function() {
     var value;
 
     var selectedOption = this.element.find('option:selected');
-    if(selectedOption.length > 0) {
+    if (this.element.attr('data-display-value')) {
+        value = this.element.attr('data-display-value');
+    }
+    else if (this.container.attr('data-display-value')) {
+        value = this.container.attr('data-display-value');
+    }
+    else if (selectedOption.length > 0) {
         if (selectedOption.val() != '') { //if selected non empty value
             value = selectedOption.text(); // return the display text
         }
@@ -322,7 +332,7 @@ QuestionModel.prototype.unselect = function() {
 
     // see if any of the fields for this question have a value
     var anyFieldHasValue =  _.any(this.fields, function(field) {
-        return field.value() ? true : false;
+        return field.displayValue() ? true : false;
     })
 
     // see if any fields marked as expected are missing a value

@@ -84,6 +84,10 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
     api.handleTabKey = function() {
         var currentField = selectedModel(fields);
         var isValid = (currentField ? currentField.isValid() : true);
+        if (currentField && currentField.requireMouseExit()) {
+            currentField.select();
+            return true;
+        }
         var activeFieldSwitched = (isValid ? switchActiveField(findNextEnabledElement, true) : false);
         if (!activeFieldSwitched) { currentField.select(); }
         return true;
