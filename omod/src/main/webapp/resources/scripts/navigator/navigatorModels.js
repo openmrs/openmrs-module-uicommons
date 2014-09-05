@@ -337,7 +337,7 @@ QuestionModel.prototype.unselect = function() {
 
     // see if any fields marked as expected are missing a value
     var expectedFieldMissingValue = _.any(this.fields, function(field) {
-        return field.element.hasClass("expected") ? (!field.value() ? true : false) : false;
+        return field.element.hasClass("expected") ? (!field.displayValue() ? true : false) : false;
     })
 
     // mark the question as done if at least one of the fields has a value, and all the expected fields have a value

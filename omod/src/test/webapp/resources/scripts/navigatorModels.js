@@ -248,8 +248,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question has done if first field has value", function() {
-            firstField.value.andReturn("1");
-            secondField.value.andReturn("");
+            firstField.displayValue.andReturn("1");
+            secondField.displayValue.andReturn("");
 
             // select the question
             questionModel.toggleSelection();
@@ -260,8 +260,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question has done if second field has value", function() {
-            firstField.value.andReturn("");
-            secondField.value.andReturn("1");
+            firstField.displayValue.andReturn("");
+            secondField.displayValue.andReturn("1");
 
             // select the question
             questionModel.toggleSelection();
@@ -272,8 +272,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question has done if both fields have value", function() {
-            firstField.value.andReturn("1");
-            secondField.value.andReturn("1");
+            firstField.displayValue.andReturn("1");
+            secondField.displayValue.andReturn("1");
 
             // select the question
             questionModel.toggleSelection();
@@ -284,8 +284,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should not mark question has done if neither fields have value", function() {
-            firstField.value.andReturn("");
-            secondField.value.andReturn("");
+            firstField.displayValue.andReturn("");
+            secondField.displayValue.andReturn("");
             questionModel.fields = [firstField, secondField];
 
             // select the question
@@ -297,9 +297,9 @@ describe("Test for simple form models", function() {
         });
 
         it("should not mark question as done if expected field does not have value", function() {
-            firstField.value.andReturn("1");
+            firstField.displayValue.andReturn("1");
             secondField.element.hasClass.andReturn('true');
-            secondField.value.andReturn("");
+            secondField.displayValue.andReturn("");
 
             // select the question
             questionModel.toggleSelection();
@@ -311,9 +311,9 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question as done if expected field has value", function() {
-            firstField.value.andReturn("");
+            firstField.displayValue.andReturn("");
             secondField.element.hasClass.andReturn('true');
-            secondField.value.andReturn("1");
+            secondField.displayValue.andReturn("1");
 
             // select the question
             questionModel.toggleSelection();
