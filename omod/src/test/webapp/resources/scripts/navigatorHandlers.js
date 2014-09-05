@@ -6,7 +6,7 @@ describe("Tests for simple form navigation handlers", function() {
         describe("Fields Keyboard handler", function() {
             var firstField, secondField, thirdField;
             beforeEach(function() {
-                firstField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', select: '', isDisabled: false };
+                firstField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', select: '', isDisabled: false, requireMouseExit: function() { return false } };
                 secondField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 thirdField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 questionsKeyboardHandler = jasmine.createSpyObj('questionsHandler',
