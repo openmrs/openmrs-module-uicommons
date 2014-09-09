@@ -187,7 +187,8 @@ var emr = (function($) {
         },
 
         updateBreadcrumbs: function(extraBreadcrumbs) {
-            if (typeof breadcrumbs == 'undefined') {
+            if (!Array.isArray(breadcrumbs)) {
+                // In case the page defines no JS var called breadcrumbs, but does have an html element with that id
                 return;
             }
             var toUse = breadcrumbs;
