@@ -14,6 +14,7 @@
 	var style = (document.body || document.documentElement).style;
 	var animationEndSupport = isDef(style.animation) || isDef(style.WebkitAnimation) || isDef(style.MozAnimation) || isDef(style.MsAnimation) || isDef(style.OAnimation);
 	var animationEndEvent = 'animationend webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend';
+	var forceBodyReload = false;
 
 	module.provider('ngDialog', function () {
 		var defaults = this.defaults = {
@@ -21,23 +22,52 @@
 			plain: false,
 			showClose: true,
 			closeByDocument: true,
-			closeByEscape: true
+			closeByEscape: true,
+			appendTo: false
+		};
+
+		this.setForceBodyReload = function (_useIt) {
+			forceBodyReload = _useIt || false;
+		};
+
+		this.setDefaults = function (newDefaults) {
+			angular.extend(defaults, newDefaults);
 		};
 
 		var globalID = 0, dialogsCount = 0, closeByDocumentHandler, defers = {};
 
-		this.$get = ['$document', '$templateCache', '$compile', '$q', '$http', '$rootScope', '$timeout',
-			function ($document, $templateCache, $compile, $q, $http, $rootScope, $timeout) {
+		this.$get = ['$document', '$templateCache', '$compile', '$q', '$http', '$rootScope', '$timeout', '$window', '$controller',
+			function ($document, $templateCache, $compile, $q, $http, $rootScope, $timeout, $window, $controller) {
 				var $body = $document.find('body');
+				if (forceBodyReload) {
+					$rootScope.$on('$locationChangeSuccess', function () {
+						$body = $document.find('body');
+					});
+				}
 
 				var privateMethods = {
 					onDocumentKeydown: function (event) {
 						if (event.keyCode === 27) {
-							publicMethods.close();
+							publicMethods.close('$escape');
 						}
 					},
 
-					closeDialog: function ($dialog) {
+					setBodyPadding: function (width) {
+						var originalBodyPadding = parseInt(($body.css('padding-right') || 0), 10);
+						$body.css('padding-right', (originalBodyPadding + width) + 'px');
+						$body.data('ng-dialog-original-padding', originalBodyPadding);
+					},
+
+					resetBodyPadding: function () {
+						var originalBodyPadding = $body.data('ng-dialog-original-padding');
+						if (originalBodyPadding) {
+							$body.css('padding-right', originalBodyPadding + 'px');
+						} else {
+							$body.css('padding-right', '');
+						}
+					},
+
+					closeDialog: function ($dialog, value) {
 						var id = $dialog.attr('id');
 						if (typeof window.Hammer !== 'undefined') {
 							window.Hammer($dialog[0]).off('tap', closeByDocumentHandler);
@@ -59,24 +89,28 @@
 								$dialog.remove();
 								if (dialogsCount === 0) {
 									$body.removeClass('ngdialog-open');
+									privateMethods.resetBodyPadding();
 								}
+								$rootScope.$broadcast('ngDialog.closed', $dialog);
 							}).addClass('ngdialog-closing');
 						} else {
 							$dialog.scope().$destroy();
 							$dialog.remove();
 							if (dialogsCount === 0) {
 								$body.removeClass('ngdialog-open');
+								privateMethods.resetBodyPadding();
 							}
+							$rootScope.$broadcast('ngDialog.closed', $dialog);
 						}
 						if (defers[id]) {
 							defers[id].resolve({
 								id: id,
+								value: value,
 								$dialog: $dialog,
 								remainingDialogs: dialogsCount
 							});
 							delete defers[id];
 						}
-						$rootScope.$broadcast('ngDialog.closed', $dialog);
 					}
 				};
 
@@ -110,7 +144,7 @@
 						defers[self.latestID] = defer = $q.defer();
 
 						var scope = angular.isObject(options.scope) ? options.scope.$new() : $rootScope.$new();
-						var $dialog;
+						var $dialog, $dialogParent;
 
 						$q.when(loadTemplate(options.template)).then(function (template) {
 							template = angular.isString(template) ?
@@ -127,26 +161,46 @@
 
 							self.$result = $dialog = $el('<div id="ngdialog' + globalID + '" class="ngdialog"></div>');
 							$dialog.html('<div class="ngdialog-overlay"></div><div class="ngdialog-content">' + template + '</div>');
+							
+							if (options.data && angular.isString(options.data)) {
+								var firstLetter = options.data.replace(/^\s*/, '')[0];
+								scope.ngDialogData = (firstLetter === '{' || firstLetter === '[') ? angular.fromJson(options.data) : options.data;
+							} else if (options.data && angular.isObject(options.data)) {
+								scope.ngDialogData = angular.fromJson(angular.toJson(options.data));
+							}
 
-							if (options.controller && angular.isString(options.controller)) {
-								$dialog.attr('ng-controller', options.controller);
+							if (options.controller && (angular.isString(options.controller) || angular.isArray(options.controller) || angular.isFunction(options.controller))) {
+								var controllerInstance = $controller(options.controller, {
+									$scope: scope,
+									$element: $dialog
+								});
+								$dialog.data('$ngDialogControllerController', controllerInstance);
 							}
 
 							if (options.className) {
 								$dialog.addClass(options.className);
 							}
 
-							if (options.data && angular.isString(options.data)) {
-								scope.ngDialogData = options.data.replace(/^\s*/, '')[0] === '{' ? angular.fromJson(options.data) : options.data;
+							if (options.appendTo && angular.isString(options.appendTo)) {
+								$dialogParent = angular.element(document.querySelector(options.appendTo));
+							} else {
+								$dialogParent = $body;
 							}
 
-							scope.closeThisDialog = function() {
-								privateMethods.closeDialog($dialog);
+							scope.closeThisDialog = function (value) {
+								privateMethods.closeDialog($dialog, value);
 							};
 
 							$timeout(function () {
 								$compile($dialog)(scope);
-								$body.addClass('ngdialog-open').append($dialog);
+
+								var widthDiffs = $window.innerWidth - $body.prop('clientWidth');
+								$body.addClass('ngdialog-open');
+								var scrollBarWidth = widthDiffs - ($window.innerWidth - $body.prop('clientWidth'));
+								if (scrollBarWidth > 0) {
+									privateMethods.setBodyPadding(scrollBarWidth);
+								}
+								$dialogParent.append($dialog);
 								$rootScope.$broadcast('ngDialog.opened', $dialog);
 							});
 
@@ -159,7 +213,7 @@
 								var isCloseBtn = $el(event.target).hasClass('ngdialog-close');
 
 								if (isOverlay || isCloseBtn) {
-									publicMethods.close($dialog.attr('id'));
+									publicMethods.close($dialog.attr('id'), isCloseBtn ? '$closeButton' : '$document');
 								}
 							};
 
@@ -177,8 +231,8 @@
 						return {
 							id: 'ngdialog' + globalID,
 							closePromise: defer.promise,
-							close: function() {
-								privateMethods.closeDialog($dialog);
+							close: function(value) {
+								privateMethods.closeDialog($dialog, value);
 							}
 						};
 
@@ -220,12 +274,15 @@
 						options.scope = angular.isObject(options.scope) ? options.scope.$new() : $rootScope.$new();
 						options.scope.confirm = function (value) {
 							defer.resolve(value);
-							openResult.close();
+							openResult.close(value);
 						};
 
 						var openResult = publicMethods.open(options);
-						openResult.closePromise.then(function () {
-							defer.reject();
+						openResult.closePromise.then(function (data) {
+							if (data) {
+								return defer.reject(data.value);
+							}
+							return defer.reject();
 						});
 
 						return defer.promise;
@@ -235,23 +292,23 @@
 					 * @param {String} id
 					 * @return {Object} dialog
 					 */
-					close: function (id) {
+					close: function (id, value) {
 						var $dialog = $el(document.getElementById(id));
 
 						if ($dialog.length) {
-							privateMethods.closeDialog($dialog);
+							privateMethods.closeDialog($dialog, value);
 						} else {
-							publicMethods.closeAll();
+							publicMethods.closeAll(value);
 						}
 
 						return publicMethods;
 					},
 
-					closeAll: function () {
+					closeAll: function (value) {
 						var $all = document.querySelectorAll('.ngdialog');
 
 						angular.forEach($all, function (dialog) {
-							privateMethods.closeDialog($el(dialog));
+							privateMethods.closeDialog($el(dialog), value);
 						});
 					}
 				};
