@@ -88,6 +88,8 @@ form#retrospectiveCheckin {
 
     ul > li > strong {
       font-size: 1.4em;
+      display: inline-block;
+      max-width: 540px;
     }
 
     ul > li > strong .after-value {
