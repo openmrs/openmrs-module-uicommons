@@ -12,4 +12,16 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-var ExitHandlers = {};
+var ExitHandlers = {
+
+    // a widget can dynamically set "do-not-exit" or "do-not-exit-once" classes on the field to indicate we should not
+    // exit the field. "do-not-exit-once" will be cleared after a single exit attempt.
+    'manual-exit': {
+        handleExit: function(fieldModel) {
+            var doNotExit = fieldModel.element.hasClass('do-not-exit') || fieldModel.element.hasClass('do-not-exit-once');
+            fieldModel.element.removeClass('do-not-exit-once');
+            return !doNotExit;
+        }
+    }
+
+};

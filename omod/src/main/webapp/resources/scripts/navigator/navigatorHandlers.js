@@ -84,10 +84,6 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
     api.handleTabKey = function() {
         var currentField = selectedModel(fields);
         var isValid = (currentField ? currentField.isValid() : true);
-        if (currentField && currentField.requireMouseExit()) {
-            currentField.select();
-            return true;
-        }
         var activeFieldSwitched = (isValid ? switchActiveField(findNextEnabledElement, true) : false);
         if (!activeFieldSwitched) { currentField.select(); }
         return true;
@@ -192,10 +188,17 @@ var clickedSectionHandler = function(sections, section, event) {
     var currentSectionIndex = _.indexOf(sections, currentSection);
     var clickedSectionIndex = _.indexOf(sections, section);
     var shouldSelectClickedSection = true;
+    var goToSectionInstead = null;
     if(clickedSectionIndex > currentSectionIndex) {
         // only need to call validation if moving ahead
         for(var i=currentSectionIndex; i<clickedSectionIndex; i++) {
             shouldSelectClickedSection = sections[i].isValid() && shouldSelectClickedSection;
+            if (!shouldSelectClickedSection) {
+                if (i > currentSectionIndex) {
+                    goToSectionInstead = sections[i];
+                }
+                break;
+            }
         }
     }
 
@@ -203,9 +206,16 @@ var clickedSectionHandler = function(sections, section, event) {
     shouldSelectClickedSection = shouldSelectClickedSection && currentSection.onExit();
 
     if(!shouldSelectClickedSection) {
-        var selectedQuestion = selectedModel(currentSection.questions);
-        var selectedField = selectedModel(selectedQuestion.fields);
-        selectedField && selectedField.select();
+        if (goToSectionInstead) {
+            currentSection.toggleSelection();
+            goToSectionInstead.toggleSelection();
+            goToSectionInstead.questions[0].toggleSelection();
+            goToSectionInstead.questions[0].fields[0].toggleSelection();
+        } else {
+            var selectedQuestion = selectedModel(currentSection.questions);
+            var selectedField = selectedModel(selectedQuestion.fields);
+            selectedField && selectedField.select();
+        }
     } else {
         currentSection.toggleSelection();
         section.toggleSelection();

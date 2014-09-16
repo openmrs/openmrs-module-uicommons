@@ -106,10 +106,6 @@ FieldModel.prototype.show = function() {
     this.container.show();
 }
 
-FieldModel.prototype.requireMouseExit = function() {
-    return this.element.hasClass("require-mouse-exit");
-}
-
 FieldModel.prototype.isValid = function() {
     var validationMessages = _.reduce(this.validators, function(memo, validator) {
         var validationMessage = validator.validate(this);
