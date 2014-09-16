@@ -203,7 +203,11 @@ var clickedSectionHandler = function(sections, section, event) {
     }
 
     // call exit handler no matter if we are moving forward or backwards
-    shouldSelectClickedSection = shouldSelectClickedSection && currentSection.onExit();
+    var exitCurrentSection = (shouldSelectClickedSection || goToSectionInstead) && currentSection.onExit();
+    if (!exitCurrentSection) {
+        shouldSelectClickedSection = false;
+        goToSectionInstead = false;
+    }
 
     if(!shouldSelectClickedSection) {
         if (goToSectionInstead) {

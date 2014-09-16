@@ -508,20 +508,29 @@ describe("Tests for simple form navigation handlers", function() {
                 expect(event.stopPropagation).toHaveBeenCalled();
                 expect(field.select).toHaveBeenCalled();
             });
-            it("should not switch selection to section ahead if section in between is not valid", function() {
+            it("should not go past an invalid section when trying to select a section ahead", function() {
                 spyOn(event, 'stopPropagation');
                 spyOn(firstSection, 'isValid').andReturn(true);
                 spyOn(firstSection, 'onExit').andReturn(true);
+                spyOn(firstSection, 'toggleSelection');
                 spyOn(secondSection, 'isValid').andReturn(false);
-                spyOn(field, 'select');
+                spyOn(secondSection, 'onExit');
+                spyOn(secondSection, 'toggleSelection');
+                spyOn(question, 'toggleSelection');
+                spyOn(field, 'toggleSelection');
                 firstSection.isSelected = true;
-                firstSection.questions = [question];
+                secondSection.questions = [question];
+                question.fields = [field];
 
                 clickedSectionHandler(sections, thirdSection, event);
 
-                expect(firstSection.onExit).not.toHaveBeenCalled();
                 expect(event.stopPropagation).toHaveBeenCalled();
-                expect(field.select).toHaveBeenCalled();
+                expect(firstSection.onExit).toHaveBeenCalled();
+                expect(firstSection.toggleSelection).toHaveBeenCalled();
+                expect(secondSection.onExit).not.toHaveBeenCalled();
+                expect(secondSection.toggleSelection).toHaveBeenCalled();
+                expect(question.toggleSelection).toHaveBeenCalled();
+                expect(field.toggleSelection).toHaveBeenCalled();
             });
             it("should switch selection to section ahead but not call exit handler for in between section", function() {
                 spyOn(event, 'stopPropagation');
