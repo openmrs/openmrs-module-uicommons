@@ -139,8 +139,14 @@ FieldModel.prototype.value = function() {
 
     // TODO provide integration with the HFE property accessor functionality?
 
+    if (this.element.attr('data-value-from')) {
+        return $(this.element.attr('data-value-from')).val();
+    } else if (this.container.attr('data-value-from')) {
+        return $(this.container.attr('data-value-from')).val();
+    }
+
     var selectedOption = this.element.find('option:selected');
-    if(selectedOption.length > 0) {
+    if (selectedOption.length > 0) {
         return selectedOption.val(); // return the actual value
     }
     else if (this.element.attr('type') == 'radio') {
