@@ -79,6 +79,12 @@
             <version>3.2.10</version>
             <type>gem</type>
         </dependency>
+
+         <!-- OpenMRS Modules -->
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>uiframework-api</artifactId>
+		</dependency>
     </dependencies>
 
 	<build>
