@@ -1,9 +1,12 @@
 {
   "name": "openmrs-uicommons",
-  "version": "1.0",
+  "version": "1.1",
   "main": "sass/src/main/resources/sass/reference/_reference.scss",
   "ignore": [
     "**/.*",
+    "*.java",
+    "*.gsp",
+    "*.xml",
     "README.md",
     "api",
     "pom.xml",
