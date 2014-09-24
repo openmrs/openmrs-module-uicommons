@@ -9,6 +9,7 @@
     "*.xml",
     "README.md",
     "api",
+    "java",
     "pom.xml",
     "uicommons.iml",
     "node_modules",
