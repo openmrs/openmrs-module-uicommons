@@ -267,6 +267,10 @@ var emr = (function($) {
             return ret;
         },
 
+        formatAsHtml: function(str) {
+            return str.replace(/\n/g,'<br/>')
+        },
+
         isFeatureEnabled: function(key) {
             return featureToggles[key];
         },
