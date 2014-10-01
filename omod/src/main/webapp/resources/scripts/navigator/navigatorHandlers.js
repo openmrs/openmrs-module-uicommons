@@ -213,8 +213,10 @@ var clickedSectionHandler = function(sections, section, event) {
         if (goToSectionInstead) {
             currentSection.toggleSelection();
             goToSectionInstead.toggleSelection();
-            goToSectionInstead.questions[0].toggleSelection();
-            goToSectionInstead.questions[0].fields[0].toggleSelection();
+            var goToQuestion = goToSectionInstead.firstInvalidQuestion() || goToSectionInstead.questions[0];
+            var goToField = goToQuestion.firstInvalidField() || goToQuestion.fields[0];
+            goToQuestion.toggleSelection();
+            goToField.toggleSelection();
         } else {
             var selectedQuestion = selectedModel(currentSection.questions);
             var selectedField = selectedModel(selectedQuestion.fields);

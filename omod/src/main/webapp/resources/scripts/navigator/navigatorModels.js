@@ -377,6 +377,12 @@ QuestionModel.prototype.isValid = function() {
     return true;
 }
 
+QuestionModel.prototype.firstInvalidField = function() {
+    return _.find(this.fields, function(field) {
+        return !field.isValid();
+    });
+}
+
 QuestionModel.prototype.onExit = function() {
     return _.reduce(this.fields, function(memo, field) {
         return field.onExit() && memo;
@@ -486,6 +492,12 @@ SectionModel.prototype.onExit = function() {
     return _.reduce(this.questions, function(memo, question) {
         return question.onExit() && memo;
     }, true);
+}
+
+SectionModel.prototype.firstInvalidQuestion = function() {
+    return _.find(this.questions, function(question) {
+        return !question.isValid();
+    });
 }
 
 

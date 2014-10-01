@@ -450,12 +450,12 @@ describe("Tests for simple form navigation handlers", function() {
             var sectionsMouseHandler, firstSection, secondSection, thirdSection, question, field, event, sections;
             beforeEach(function() {
                 firstSection = {isSelected: false, toggleSelection: '', isValid: '', onExit:'', title: $('<li></li>')};
-                secondSection = {isSelected: false, toggleSelection: '', isValid: '', onExit:'', title: $('<li></li>')};
+                secondSection = {isSelected: false, toggleSelection: '', isValid: '', onExit:'', title: $('<li></li>'), firstInvalidQuestion: ''};
                 thirdSection = {isSelected: false, toggleSelection: '', isValid: '', title: $('<li></li>')};
                 event = {stopPropagation: ''};
 
                 field = {isSelected: true, toggleSelection: '', select: ''};
-                question = {fields: [field], toggleSelection: '', isSelected: true};
+                question = {fields: [field], toggleSelection: '', isSelected: true, firstInvalidField: ''};
 
                 sections = [firstSection, secondSection, thirdSection];
             });
@@ -516,7 +516,9 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondSection, 'isValid').andReturn(false);
                 spyOn(secondSection, 'onExit');
                 spyOn(secondSection, 'toggleSelection');
+                spyOn(secondSection, 'firstInvalidQuestion').andReturn(question);
                 spyOn(question, 'toggleSelection');
+                spyOn(question, 'firstInvalidField').andReturn(field);
                 spyOn(field, 'toggleSelection');
                 firstSection.isSelected = true;
                 secondSection.questions = [question];
