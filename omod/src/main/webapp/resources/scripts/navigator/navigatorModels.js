@@ -43,7 +43,7 @@ SelectableModel.prototype = {
         return true;
     },
     isDisabled: function() {
-        return this.element.is(":disabled");
+        return this.element.is(":disabled") || this.element.hasClass("disabled");
     }
 }
 
@@ -107,7 +107,7 @@ FieldModel.prototype.show = function() {
 }
 
 FieldModel.prototype.isValid = function() {
-    var validationMessages = _.reduce(this.validators, function(memo, validator) {
+    var validationMessages = this.isDisabled() ? [] : _.reduce(this.validators, function(memo, validator) {
         var validationMessage = validator.validate(this);
         if (validationMessage) {
             memo.push(validationMessage);
@@ -349,12 +349,16 @@ QuestionModel.prototype.unselect = function() {
 }
 
 QuestionModel.prototype.isValid = function() {
+    if (this.isDisabled()) {
+        return true;
+    }
     var allFieldsAreValid =  _.reduce(this.fields, function(memo, field) {
         return field.isValid() && memo;
     }, true);
 
-    if(!allFieldsAreValid)
+    if(!allFieldsAreValid) {
         return false;
+    }
 
     var validationMessages = _.reduce(this.validators, function(memo, validator) {
         var validationMessage = validator.validate(this);
@@ -483,7 +487,7 @@ SectionModel.prototype.unselect = function() {
     _.each(this.questions, function(question) { question.unselect() });
 }
 SectionModel.prototype.isValid = function() {
-    return _.reduce(this.questions, function(memo, question) {
+    return this.isDisabled() || _.reduce(this.questions, function(memo, question) {
         return question.isValid() && memo;
     }, true);
 }

@@ -50,6 +50,7 @@ describe("Test for simple form models", function() {
             secondValidator.validate.andReturn(null);
 
             var fieldModel = new FieldModel();
+            fieldModel.isDisabled = function() { return false; }
             fieldModel.element = jasmine.createSpyObj('element', ['addClass']);
             fieldModel.messagesContainer = jasmine.createSpyObj('messagesContainer', ['empty', 'append', 'show']);
             fieldModel.validators = [firstValidator, secondValidator];
@@ -445,6 +446,7 @@ describe("Test for simple form models", function() {
             element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'attr', 'removeAttr', 'hide', 'show']);
 
             sectionModel = new SectionModel(null, menuElement);
+            sectionModel.isDisabled = function() { return false; };
             sectionModel.element = element;
             sectionModel.questions = [firstQuestion, secondQuestion];
         })
@@ -477,6 +479,16 @@ describe("Test for simple form models", function() {
             expect(secondQuestion.isValid).toHaveBeenCalled();
             expect(isValid).toBe(true);
 
+        });
+
+        it("should state that a disabled section is valid regardless of questions", function() {
+            sectionModel.isDisabled = function() { return true; }
+
+            var isValid = sectionModel.isValid();
+
+            expect(firstQuestion.isValid).not.toHaveBeenCalled();
+            expect(secondQuestion.isValid).not.toHaveBeenCalled();
+            expect(isValid).toBe(true);
         });
 
         it("should state the section is not valid", function() {
