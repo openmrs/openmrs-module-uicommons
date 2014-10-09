@@ -22,6 +22,22 @@ var ExitHandlers = {
             fieldModel.element.removeClass('do-not-exit-once');
             return !doNotExit;
         }
+    },
+
+    'leading-zeros': {
+        handleExit: function(fieldModel) {
+            var val = fieldModel.element.val();
+            if (val) { // if the field is blank, leave it alone
+                var maxLength = parseInt(fieldModel.element.attr('maxlength'));
+                if (maxLength > 0) {
+                    while (val.length < maxLength) {
+                        val = "0" + val;
+                    }
+                    fieldModel.element.val(val);
+                }
+            }
+            return true;
+        }
     }
 
 };
