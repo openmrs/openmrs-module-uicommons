@@ -22,7 +22,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                     if (term.slice(0, 1) === '"') {
                         term = term.slice(1);
                     }
-                    if (term.slice(term.length - 1, 1) != '"') {
+                    if (term.slice(term.length - 1, 1) === '"') {
                         term = term.slice(0, term.length - 1);
                     }
                     var extraParams = { v: "full" };
@@ -43,7 +43,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                             list.push({
                                 concept: null,
                                 conceptName: null,
-                                word: '"' + term + '"',
+                                word: term,
                                 transientWeight: Number.MAX_VALUE
                             });
                         }
@@ -67,7 +67,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                         return concept.display;
                     }
                     else {
-                        return result.word;
+                        return '"' + result.word + '"';
                     }
                 }
             },
