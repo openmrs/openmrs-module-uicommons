@@ -33,7 +33,6 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                         var list = [];
                         var exactMatch = false;
                         angular.forEach(results, function(item) {
-                            console.log(item);
                             list.push(item);
                             if (!exactMatch && isExactMatch(item, term)) {
                                 exactMatch = true;
