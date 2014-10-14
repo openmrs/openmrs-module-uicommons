@@ -12,9 +12,12 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
             scope: {
                 ngModel: '=', // the field whose value you want to set to the selected person
                 id: '@',
-                conceptClass: '@'
+                conceptClasses: '@',
+                selection: '@' // default behavior is "ConceptName", but specify "Concept" if you won't be keeping the specific chosen name
             },
             controller: function($scope) {
+                var conceptOnly = $scope.selection === "Concept";
+
                 $scope.inputId = ($scope.id ? $scope.id : 'coded-or-free-text-answer-' + Math.floor(Math.random() * 10000)) + '-input';
 
                 $scope.search = function(term) {
@@ -26,8 +29,8 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                         term = term.slice(0, term.length - 1);
                     }
                     var extraParams = { v: "full" };
-                    if ($scope.conceptClass) {
-                        extraParams.conceptClasses = $scope.conceptClass;
+                    if ($scope.conceptClasses) {
+                        extraParams.conceptClasses = $scope.conceptClasses.split(',');
                     }
                     var promise = ConceptSearchService.search(term, extraParams).then(function(results) {
                         var list = [];
@@ -59,19 +62,32 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                         if (result.conceptName.localePreferred) {
                             return result.conceptName.display;
                         } else {
-                            return result.conceptName.display + " (" + emr.message("coreapps.consult.synonymFor", "...") + " " + result.concept.display + ")";
+                            if (conceptOnly) {
+                                return result.conceptName.display + " → " + result.concept.display;
+                            } else {
+                                return result.conceptName.display + " (" + emr.message("coreapps.consult.synonymFor", "...") + " " + result.concept.display + ")";
+                            }
                         }
                     }
                     else if (result.concept) {
-                        return concept.display;
+                        return result.concept.display;
                     }
                     else {
                         return '"' + result.word + '"';
                     }
                 }
+
+                $scope.onSelect = function($item, $model, $label) {
+                    if (conceptOnly && $model.conceptName) {
+                        var withoutName = angular.extend({}, $model);
+                        withoutName.conceptName = null;
+                        withoutName.word = withoutName.concept.display;
+                        $scope.ngModel = withoutName;
+                    }
+                }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ' +
                 'typeahead="result as format(result) for result in search($viewValue) | filter:$viewValue" ' +
-                'typeahead-editable="false" autofocus />'
+                'typeahead-editable="false" typeahead-on-select="onSelect($item, $model, $label)" autofocus />'
         };
     }]);
