@@ -88,6 +88,6 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ' +
                 'typeahead="result as format(result) for result in search($viewValue) | filter:$viewValue" ' +
-                'typeahead-editable="false" typeahead-on-select="onSelect($item, $model, $label)" autofocus />'
+                'typeahead-editable="false" typeahead-on-select="onSelect($item, $model, $label)" autocomplete="off" />'
         };
     }]);
