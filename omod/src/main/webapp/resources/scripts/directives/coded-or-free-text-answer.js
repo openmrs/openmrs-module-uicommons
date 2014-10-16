@@ -4,7 +4,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
 
         function isExactMatch(candidate, query) {
             query = emr.stripAccents(query.toLowerCase());
-            return candidate.conceptName && emr.stripAccents(candidate.conceptName.name.toLowerCase()) === query;
+            return candidate.conceptName && emr.stripAccents(candidate.conceptName.display.toLowerCase()) === query;
         }
 
         return {
@@ -28,7 +28,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                     if (term.slice(term.length - 1, 1) === '"') {
                         term = term.slice(0, term.length - 1);
                     }
-                    var extraParams = { v: "full" };
+                    var extraParams = { };
                     if ($scope.conceptClasses) {
                         extraParams.conceptClasses = $scope.conceptClasses.split(',');
                     }
@@ -59,13 +59,13 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                         return "";
                     }
                     if (result.conceptName) {
-                        if (result.conceptName.localePreferred) {
+                        if (result.conceptName.display === result.concept.display) {
                             return result.conceptName.display;
                         } else {
                             if (conceptOnly) {
                                 return result.conceptName.display + " → " + result.concept.display;
                             } else {
-                                return result.conceptName.display + " (" + emr.message("coreapps.consult.synonymFor", "...") + " " + result.concept.display + ")";
+                                return result.conceptName.display + " (" + emr.message("uicommons.conceptSearch.synonymFor", "→") + " " + result.concept.display + ")";
                             }
                         }
                     }
@@ -88,6 +88,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ' +
                 'typeahead="result as format(result) for result in search($viewValue) | filter:$viewValue" ' +
-                'typeahead-editable="false" typeahead-on-select="onSelect($item, $model, $label)" autocomplete="off" />'
+                'typeahead-editable="false" typeahead-on-select="onSelect($item, $model, $label)" autocomplete="off" ' +
+                'typeahead-wait-ms="20" typeahead-min-length="2" style="min-width: 500px" />'
         };
     }]);
