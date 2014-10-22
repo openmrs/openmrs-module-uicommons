@@ -5,6 +5,7 @@ angular.module('locationService', ['ngResource'])
     })
     .factory('Location', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/location/:uuid", {
+            uuid: '@uuid'
         },{
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
         });
@@ -24,6 +25,21 @@ angular.module('locationService', ['ngResource'])
                     .then(function(res) {
                         return res.results;
                     }, emr.handleNotLoggedIn);
+            },
+
+            // if location has uuid property this will update, else it will create new
+            saveLocation: function(location) {
+                return new Location(location).$save();
+            },
+
+            retireLocation: function(location) {
+                var uuid = typeof location === "string" ? location : location.uuid;
+                return new Location({ uuid: uuid }).$delete();
+            },
+
+            unretireLocation: function(location) {
+                var uuid = typeof location === "string" ? location : location.uuid;
+                return new Location({ uuid: uuid, retired: false }).$save();
             }
         }
     });
