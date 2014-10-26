@@ -12,6 +12,7 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
             link: function($scope, element, attrs) {
                 $scope.required = attrs.hasOwnProperty('required'); // required attribute has no value
                 $scope.inputId = emr.domId($scope.id, 'sel-drug', 'input');
+                $scope.size = attrs.size ? attrs.size : 40;
 
                 $scope.search = function(term) {
                     return DrugService.getDrugs({ q: term });
@@ -26,7 +27,7 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
                 'typeahead="drug as drug.display for drug in search($viewValue) | filter:$viewValue" ' +
                 'typeahead-editable="false" autocomplete="off" placeholder="{{ placeholder }}" autocomplete="off" ' +
-                'ng-required="required" ' +
+                'ng-required="required" size="{{ size }}" ' +
                 'typeahead-wait-ms="20" typeahead-min-length="3" />'
         };
     }]);
