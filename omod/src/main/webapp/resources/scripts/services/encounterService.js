@@ -20,6 +20,11 @@ angular.module('encounterService', ['ngResource', 'uicommons.common'])
                 return Encounter.query(params).$promise.then(function(res) {
                     return res.results;
                 });
+            },
+
+            // if encounter has uuid property this will update, else it will create new
+            saveEncounter: function(encounter) {
+                return new Encounter(encounter).$save();
             }
         }
     });
