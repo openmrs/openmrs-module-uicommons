@@ -314,8 +314,9 @@ var emr = (function($) {
             return (prefix ? prefix : 'id-') + Math.floor(Math.random() * 10000) + (suffix ? suffix : '');
         },
 
-        compatibleLocaleForSession: function(locale) {
-            return window.sessionContext.locale.slice(0, 2) === locale;
+        isCompatibleWithSessionLocale: function(locale) {
+            return window.sessionContext.locale.slice(0, locale.length) === locale ||
+                locale.slice(0, window.sessionContext.locale.length) === window.sessionContext.locale;
         }
 
     };

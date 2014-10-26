@@ -132,4 +132,23 @@ describe("Tests of emr functions", function() {
 
     });
 
+    it("should say a more precise session locale is compatible", function() {
+        window.sessionContext = { locale: 'en_GB' };
+        expect(emr.isCompatibleWithSessionLocale('en')).toBe(true);
+    });
+
+    it("should say a less precise session locale is compatible", function() {
+        window.sessionContext = { locale: 'en' };
+        expect(emr.isCompatibleWithSessionLocale('en_GB')).toBe(true);
+    });
+
+    it("should say a different session locale is compatible", function() {
+        window.sessionContext = { locale: 'en_US' };
+        expect(emr.isCompatibleWithSessionLocale('en_GB')).toBe(false);
+    });
+
+    it("should say a completely different session locale is not compatible", function() {
+        window.sessionContext = { locale: 'en_GB' };
+        expect(emr.isCompatibleWithSessionLocale('fr')).toBe(false);
+    });
 })
