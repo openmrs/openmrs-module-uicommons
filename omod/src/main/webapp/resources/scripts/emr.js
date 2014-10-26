@@ -305,6 +305,17 @@ var emr = (function($) {
                    window.location = "/" + OPENMRS_CONTEXT_PATH + "/login.htm";
                }
            }
+        },
+
+        domId: function(useIfNotNull, prefix, suffix) {
+            if (useIfNotNull) {
+                return useIfNotNull;
+            }
+            return (prefix ? prefix : 'id-') + Math.floor(Math.random() * 10000) + (suffix ? suffix : '');
+        },
+
+        compatibleLocaleForSession: function(locale) {
+            return window.sessionContext.locale.slice(0, 2) === locale;
         }
 
     };
