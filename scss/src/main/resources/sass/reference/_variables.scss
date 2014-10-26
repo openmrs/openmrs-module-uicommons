@@ -19,6 +19,8 @@ $lighterGrey: #f3f3f3;
 //openMrs colors
 $highlight: darken(#009384, 15%);
 $text: darken(#5B57A6, 20%);
+$subtleText: darken($darkerGrey, 25%);
+$subtlerText: $darkerGrey;
 
 $link: #007FFF;
 $focus: #FFFDF7;
@@ -27,4 +29,3 @@ $success: #A1D030;
 $alert: #FFA000;
 $error: #ff6666;
 $successBackground: #ddffdd;
-$subtleText: darken($darkerGrey, 25%);
