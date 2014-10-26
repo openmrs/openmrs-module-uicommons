@@ -13,9 +13,8 @@ angular.module('uicommons.widget.select-concept-from-list', [ 'ui.bootstrap' ])
             },
             link: function($scope, element, attrs) {
                 $scope.required = attrs.hasOwnProperty('required'); // required attribute has no value
-                console.log(attrs);
-                console.log($scope.required);
                 $scope.inputId = emr.domId($scope.id, 'sel-concept', 'input');
+                $scope.size = attrs.size ? attrs.size : 40;
 
                 var options = [];
                 _.each($scope.concepts(), function(concept) {
@@ -43,7 +42,7 @@ angular.module('uicommons.widget.select-concept-from-list', [ 'ui.bootstrap' ])
                 }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
-                'ng-required="required" ' +
+                'ng-required="required" size="{{ size }}" ' +
                 'typeahead="opt.concept as opt.display for opt in options | filter:{searchOn:$viewValue}" ' +
                 'typeahead-editable="false" autocomplete="off" placeholder="{{ placeholder }}" />'
         };
