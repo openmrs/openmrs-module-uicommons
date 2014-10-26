@@ -19,7 +19,7 @@ angular.module('uicommons.widget.select-order-frequency', [ 'ui.bootstrap' ])
                 _.each($scope.frequencies(), function(frequency) {
                     var concept = frequency.concept;
                     _.each(concept.names, function(name) {
-                        if (emr.compatibleLocaleForSession(name.locale)) {
+                        if (emr.isCompatibleWithSessionLocale(name.locale)) {
                             var display = name.name === concept.display ?
                                 name.name :
                                 name.name + " &rarr; " + concept.display;
