@@ -14,6 +14,7 @@ angular.module('uicommons.widget.select-order-frequency', [ 'ui.bootstrap' ])
             link: function($scope, element, attrs) {
                 $scope.required = attrs.hasOwnProperty('required'); // required attribute has no value
                 $scope.inputId = emr.domId($scope.id, 'sel-freq', 'input');
+                $scope.size = attrs.size ? attrs.size : 20;
 
                 var options = [];
                 _.each($scope.frequencies(), function(frequency) {
@@ -42,7 +43,7 @@ angular.module('uicommons.widget.select-order-frequency', [ 'ui.bootstrap' ])
                 }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
-                'ng-required="required" ' +
+                'ng-required="required" size="{{ size }}" ' +
                 'typeahead="opt.frequency as opt.display for opt in options | filter:{searchOn:$viewValue}" ' +
                 'typeahead-editable="false" autocomplete="off" placeholder="{{ placeholder }}" />'
         };
