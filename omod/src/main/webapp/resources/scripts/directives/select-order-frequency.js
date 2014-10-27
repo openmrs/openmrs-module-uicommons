@@ -1,6 +1,6 @@
 angular.module('uicommons.widget.select-order-frequency', [ 'ui.bootstrap' ])
 
-    .directive('selectOrderFrequency', [ function() {
+    .directive('selectOrderFrequency', [ '$timeout', function($timeout) {
 
         return {
             restrict: 'E',
@@ -41,10 +41,21 @@ angular.module('uicommons.widget.select-order-frequency', [ 'ui.bootstrap' ])
                         $('#'+$scope.inputId).val('');
                     }
                 }
+
+                $scope.startsWith = function(actual, expected) {
+                    return emr.startsWithIgnoreCase(actual, expected);
+                }
+
+                $scope.onSelect = function($item, $model, $label) {
+                    $timeout(function() {
+                        emr.focusNextElement(element.closest('body'), element.find('#'+$scope.inputId));
+                    });
+                }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
                 'ng-required="required" size="{{ size }}" ' +
-                'typeahead="opt.frequency as opt.display for opt in options | filter:{searchOn:$viewValue}" ' +
+                'typeahead-on-select="onSelect($item, $model, $label)" ' +
+                'typeahead="opt.frequency as opt.display for opt in options | filter:{searchOn:$viewValue}:startsWith" ' +
                 'typeahead-editable="false" autocomplete="off" placeholder="{{ placeholder }}" />'
         };
     }]);

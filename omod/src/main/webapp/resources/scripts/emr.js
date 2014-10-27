@@ -317,6 +317,18 @@ var emr = (function($) {
         isCompatibleWithSessionLocale: function(locale) {
             return window.sessionContext.locale.slice(0, locale.length) === locale ||
                 locale.slice(0, window.sessionContext.locale.length) === window.sessionContext.locale;
+        },
+
+        focusNextElement: function(within, afterThisOne) {
+            var fields = within.find('button,input,textarea,select');
+            var index = fields.index(afterThisOne);
+            if (index > -1 && (index + 1) < fields.length) {
+                fields.eq(index + 1).focus();
+            }
+        },
+
+        startsWithIgnoreCase: function(string, lookFor) {
+            return string.toLowerCase().indexOf(lookFor.toLowerCase()) === 0;
         }
 
     };
