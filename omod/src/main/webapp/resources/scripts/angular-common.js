@@ -1,23 +1,18 @@
 angular.module('uicommons.common', []).
 
-    config(function($httpProvider) {
-        var interceptor = ['$rootScope', '$q', function ($rootScope, $q) {
-            function success(response) {
-                return response;
-            }
-
-            function error(response) {
+    factory('http-auth-interceptor', function($q, $rootScope) {
+        return {
+            responseError: function(response) {
                 if (response.status === 401 || response.status === 403) {
                     $rootScope.$broadcast('event:auth-loginRequired');
                 }
                 return $q.reject(response);
             }
+        }
+    }).
 
-            return function (promise) {
-                return promise.then(success, error);
-            }
-        }];
-        $httpProvider.responseInterceptors.push(interceptor);
+    config(function($httpProvider) {
+        $httpProvider.interceptors.push('http-auth-interceptor');
 
         // to prevent the browser from displaying a password pop-up in case of an authentication error
         $httpProvider.defaults.headers.common['Disable-WWW-Authenticate'] = 'true';
