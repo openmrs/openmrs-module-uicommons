@@ -169,6 +169,21 @@
 				</executions>
 			</plugin>
             <plugin>
+                <groupId>com.github.klieber</groupId>
+                <artifactId>phantomjs-maven-plugin</artifactId>
+                <version>0.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <version>1.9.2</version>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.github.searls</groupId>
                 <artifactId>jasmine-maven-plugin</artifactId>
                 <version>1.3.1.5</version>
@@ -200,9 +215,18 @@
                         <exclude>**/script.js</exclude>
                         <exclude>**/angular.js</exclude>
                         <exclude>**/angular.min.js</exclude>
+                        <exclude>**/require.js</exclude>
+                        <exclude>**/text.js</exclude>
                     </sourceExcludes>
                     <serverPort>7234</serverPort>
                     <skipTests>false</skipTests>
+                    <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
+                    <webDriverCapabilities>
+                        <capability>
+                            <name>phantomjs.binary.path</name>
+                            <value>${phantomjs.binary}</value>
+                        </capability>
+                    </webDriverCapabilities>
                 </configuration>
             </plugin>
         </plugins>
