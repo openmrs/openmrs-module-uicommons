@@ -9,6 +9,7 @@ angular.module('uicommons.widget.select-concept-from-list', [ 'ui.bootstrap' ])
                 id: '@',
                 locale: '@',
                 placeholder: '@',
+                requiredIf: '=',
                 concepts: '&'
             },
             link: function($scope, element, attrs) {
@@ -48,11 +49,11 @@ angular.module('uicommons.widget.select-concept-from-list', [ 'ui.bootstrap' ])
                 $scope.onSelect = function($item, $model, $label) {
                     $timeout(function() {
                         emr.focusNextElement(element.closest('body'), element.find('#'+$scope.inputId));
-                    });
+                    }, 10);
                 }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
-                'ng-required="required" size="{{ size }}" ' +
+                'ng-required="{{ required || requiredIf }}" size="{{ size }}" ' +
                 'typeahead-on-select="onSelect($item, $model, $label)" ' +
                 'typeahead="opt.concept as opt.display for opt in options | filter:{searchOn:$viewValue}:startsWith" ' +
                 'typeahead-editable="false" autocomplete="off" placeholder="{{ placeholder }}" />'

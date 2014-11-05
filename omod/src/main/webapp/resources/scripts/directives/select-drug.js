@@ -27,14 +27,14 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
                 $scope.onSelect = function($item, $model, $label) {
                     $timeout(function() {
                         emr.focusNextElement(element.closest('body'), element.find('#'+$scope.inputId));
-                    });
+                    }, 10);
                 }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
                 'typeahead="drug as drug.display for drug in search($viewValue) | filter:$viewValue" ' +
                 'typeahead-on-select="onSelect($item, $model, $label)" ' +
                 'typeahead-editable="false" autocomplete="off" placeholder="{{ placeholder }}" autocomplete="off" ' +
-                'ng-required="required" size="{{ size }}" ' +
+                'ng-required="{{ required }}" size="{{ size }}" ' +
                 'typeahead-wait-ms="20" typeahead-min-length="3" />'
         };
     }]);
