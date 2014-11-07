@@ -55,6 +55,9 @@
                         <a href="#buttons">Buttons</a>
                     </li>
                     <li>
+                        <a href="#buttongroups">Button Groups</a>
+                    </li>
+                    <li>
                         <a href="#dialogs">Dialogs</a>
                     </li>
                     <li>
@@ -655,6 +658,46 @@
                                 </div>
                             </li>
                         </ul>
+                    </div>
+                </section>
+            </article>
+            <article id="buttongroups">
+                <h1>Button Groups</h1>
+                <section>
+                    <p>
+                        Button groups can achieve the same purpose as radio buttons or checkboxes, but they are often
+                        user-friendlier in interfaces intended to be managed by touch or mouse (but not keyboard).
+                    </p>
+                    <p>
+                        The visual effect comes from marking one button with the "active" class. The actual behavior
+                        requires JavaScript, and works with AngularJS and ui-bootstrap.
+                    </p>
+                </section>
+                <section>
+                    <code>
+                        <ol>
+                            <li>
+                                <span>&lt;div class="button-group"&gt;</span>
+                            </li>
+                            <li>
+                                <span>&nbsp;&nbsp;&nbsp;&lt;label class="button" ng-model="propertyToSet" btn-radio="valueToSetItTo"&gt; Display &lt;/label&gt;</span>
+                            </li>
+                            <li>
+                                <span>&nbsp;&nbsp;&nbsp;&lt;label class="button" ng-model="propertyToSet" btn-radio="anotherValueToSetItTo"&gt; Another &lt;/label&gt;</span>
+                            </li>
+                            <li>
+                                <span>&lt;/div&gt;</span>
+                            </li>
+                        </ol>
+                    </code>
+                </section>
+                <section>
+                    <div class="example">
+                        <div class="button-group">
+                            <label class="button active"> One </label>
+                            <label class="button"> Two </label>
+                            <label class="button"> Three </label>
+                        </div>
                     </div>
                 </section>
             </article>
