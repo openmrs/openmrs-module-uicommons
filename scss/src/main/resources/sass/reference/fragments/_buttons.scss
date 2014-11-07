@@ -19,6 +19,11 @@
     border-color: darken($bcolor, 5%);
   }
 
+  &.active {
+    background: darken($bcolor, 2%);
+    border-color: darken($bcolor, 5%);
+  }
+
   i {
     font-size: 1.2em;
     margin: 0;
