@@ -119,7 +119,7 @@
             maxLength: 4,
             left: true])}
             
-    <% if (config.initialValue) { %>
+    <% if (config.showEstimated && config.initialValue) { %>
 	     ${ ui.includeFragment("uicommons", "field/checkbox", [
 	            label: ui.message("uicommons.multipleInputDate.estimated.label"),
 	            id: config.formFieldName+"Estimated",
