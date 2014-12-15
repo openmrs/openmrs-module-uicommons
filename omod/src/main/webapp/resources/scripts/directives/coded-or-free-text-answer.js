@@ -62,7 +62,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                     if (result.concept) {
                     	var key = "ui.i18n.Concept.name." + result.concept.uuid;
 	                    var value = emr.message(key);
-	                    if (value) {
+	                    if (value != key) {
 	                    	return value;
 	                    }
                     }
