@@ -104,6 +104,18 @@ function KeyboardController(formElement) {
         })
     }
 
+    api.getSections = function() {
+        return sections;
+    }
+
+    api.getQuestions = function() {
+        return questions;
+    }
+
+    api.getFields = function() {
+        return fields;
+    }
+
     // in an Html Form the Keyboard Controller is exposed as a "NavigatorController" global variable,
     // so, for instance, we can access these API methods via NavigatorController.stepBackward();
 
