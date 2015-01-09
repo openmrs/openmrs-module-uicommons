@@ -284,6 +284,12 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
 QuestionModel.prototype = new SelectableModel();
 QuestionModel.prototype.constructor = QuestionModel;
 
+QuestionModel.prototype.click = function() {
+    if(this.questionLi) {
+        this.questionLi.click();  // triggers click event that is handled by handler in navigatorHandlers.js
+    }
+}
+
 QuestionModel.prototype.enable = function() {
     SelectableModel.prototype.enable.apply(this);
     _.each(this.fields, function(field) { field.enable(); });
@@ -418,10 +424,13 @@ function ConfirmationQuestionModel(elem, section, titleListElem) {
         return field.element.hasClass('cancel');
     });
 
-    // return to beginning of form if user hits cancel
+    // return to beginning of form (by triggering on the first enabled section) if user hits cancel
     if (this.cancel) {
-        this.cancel.element.click(function() {
-            section.sections[0].title.click();
+        this.cancel.element.click(function () {
+            var sec =_.find(section.sections, function(s) {
+                return !s.isDisabled();
+            });
+            if (sec != null) { sec.click(); }
         });
     }
 }
@@ -453,6 +462,10 @@ function SectionModel(elem, formMenuElem) {
 }
 SectionModel.prototype = new SelectableModel();
 SectionModel.prototype.constructor = SectionModel;
+
+SectionModel.prototype.click = function() {
+    this.title.click();   // triggers click event which is handled in navigatorHandlers
+}
 
 SectionModel.prototype.enable = function() {
     SelectableModel.prototype.enable.apply(this);
