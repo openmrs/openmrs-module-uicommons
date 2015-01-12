@@ -275,6 +275,9 @@ var fieldsMouseHandlerInitializer = function(fields) {
         field.element.mousedown(function(event) {
             clickedFieldHandler(fields, field, event);
         });
+        field.element.click(function(event) {
+            clickedFieldHandler(fields, field, event);
+        });
     });
 };
 var clickedFieldHandler = function(fields, field, event) {

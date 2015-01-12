@@ -85,6 +85,12 @@ FieldModel.prototype.unselect = function() {
     this.element.blur();
 }
 
+FieldModel.prototype.click = function() {
+    if(this.element) {
+        this.element.click();  // triggers click event that is handled by handler in navigatorHandlers.js
+    }
+}
+
 FieldModel.prototype.disable = function() {
     SelectableModel.prototype.disable.apply(this);
     this.container.addClass("disabled");
