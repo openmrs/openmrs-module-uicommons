@@ -87,7 +87,7 @@ FieldModel.prototype.unselect = function() {
 
 FieldModel.prototype.click = function() {
     if(this.element) {
-        this.element.click();  // triggers click event that is handled by handler in navigatorHandlers.js
+        this.element.mousedown();  // triggers click event that is handled by handler in navigatorHandlers.js
     }
 }
 

@@ -268,18 +268,14 @@ var clickedQuestionHandler = function(questions, question, event) {
     }
 };
 
-
-
 var fieldsMouseHandlerInitializer = function(fields) {
     _.each(fields, function(field) {
         field.element.mousedown(function(event) {
             clickedFieldHandler(fields, field, event);
         });
-        field.element.click(function(event) {
-            clickedFieldHandler(fields, field, event);
-        });
     });
 };
+
 var clickedFieldHandler = function(fields, field, event) {
     var currentField = selectedModel(fields);
     if(currentField == field) {
