@@ -62,7 +62,9 @@ var emr = (function($) {
         navigateTo: function(opts) {
             var url = opts.url;
             if (opts.applicationUrl) {
-                url = '/' + OPENMRS_CONTEXT_PATH + '/' + opts.applicationUrl;
+                url = '/' + OPENMRS_CONTEXT_PATH
+                    + (opts.applicationUrl.charAt(0) == '/' ? '' : '/')
+                    + opts.applicationUrl;
             }
             if (opts.page) {
                 var provider = opts.provider;
