@@ -298,11 +298,13 @@ QuestionModel.prototype.click = function() {
 
 QuestionModel.prototype.enable = function() {
     SelectableModel.prototype.enable.apply(this);
+    this.questionLi.removeClass("disabled");
     _.each(this.fields, function(field) { field.enable(); });
 }
 
 QuestionModel.prototype.disable = function() {
     SelectableModel.prototype.disable.apply(this);
+    this.questionLi.addClass("disabled"); // disable the menu item as well
     _.each(this.fields, function(field) { field.disable(); });
 }
 
@@ -475,11 +477,13 @@ SectionModel.prototype.click = function() {
 
 SectionModel.prototype.enable = function() {
     SelectableModel.prototype.enable.apply(this);
+    this.title.removeClass("disabled");
     _.each(this.questions, function(question) { question.enable(); });
 }
 
 SectionModel.prototype.disable = function() {
     SelectableModel.prototype.disable.apply(this);
+    this.title.addClass("disabled");
     _.each(this.questions, function(question) { question.disable(); });
 }
 
