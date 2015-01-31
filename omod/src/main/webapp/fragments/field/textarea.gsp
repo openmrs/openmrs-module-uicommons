@@ -2,8 +2,6 @@
 	config.require("label")
 	config.require("formFieldName")
 
-	ui.decorateWith("adminui", "labeledField", config)
-
 	def rows = config.rows ?: 5;
 	def cols = config.cols ?: 60;
 %>
