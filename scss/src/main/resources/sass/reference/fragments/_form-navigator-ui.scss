@@ -81,9 +81,9 @@ form#retrospectiveCheckin {
     ul > li > .label {
       text-align: right;
       display: inline-block;
-      margin-left: 25px;
-      margin-right: 10px;
+      margin: 7px 10px 0 25px;
       width: 150px;
+      vertical-align: top;
     }
 
     ul > li > strong {
