@@ -20,6 +20,11 @@ angular.module('personService', ['ngResource', 'uicommons.common'])
                 return Person.query(params).$promise.then(function(res) {
                     return res.results;
                 });
-            }
+            },
+            getPersonByUUID: function(params) {
+                return Person.query(params).$promise.then(function(res) {
+                    return res;
+                });
+            }            
         }
     });
