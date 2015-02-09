@@ -443,7 +443,7 @@ describe("Test for simple form models", function() {
             menuElement = jasmine.createSpyObj('menu', ['append']);
             firstQuestion = jasmine.createSpyObj('firstQuestion', ['unselect', 'resetErrorMessages', 'isValid', 'onExit', 'disable', 'enable', 'hide', 'show']);
             secondQuestion = jasmine.createSpyObj('secondQuestion', ['unselect', 'resetErrorMessages', 'isValid', 'onExit', 'disable', 'enable', 'hide', 'show']);
-            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'attr', 'removeAttr', 'hide', 'show']);
+            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass', 'attr', 'removeAttr', 'hide', 'show']);
 
             sectionModel = new SectionModel(null, menuElement);
             sectionModel.isDisabled = function() { return false; };
@@ -454,7 +454,6 @@ describe("Test for simple form models", function() {
 
        it("should select and unselect the section", function() {
            sectionModel.title = jasmine.createSpyObj('title', ['addClass', 'removeClass']);
-           sectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass']);
 
            sectionModel.toggleSelection();
            expect(sectionModel.title.addClass).toHaveBeenCalledWith('doing');
