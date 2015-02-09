@@ -506,7 +506,9 @@ SectionModel.prototype.select = function() {
 }
 SectionModel.prototype.unselect = function() {
     SelectableModel.prototype.unselect.apply(this);
-    this.title.removeClass("doing");
+    if(!this.element.hasClass('nonCollapsible')) {
+        this.title.removeClass("doing");
+    }
     _.each(this.questions, function(question) { question.unselect() });
 }
 SectionModel.prototype.isValid = function() {

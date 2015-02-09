@@ -265,6 +265,10 @@ var clickedQuestionHandler = function(questions, question, event) {
         currentQuestion.toggleSelection();
         question.toggleSelection();
         question.fields[0].toggleSelection();
+        if(currentQuestion.parentSection != question.parentSection) {
+            currentQuestion.parentSection.toggleSelection();
+            question.parentSection.toggleSelection();
+        }
     }
 };
 
