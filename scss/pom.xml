@@ -14,6 +14,12 @@
     <description>SCSS that can be shared with other OpenMRS modules that want to build styling based on uicommons</description>
     <packaging>pom</packaging>
 
+    <!-- by default rubygems are installed in the target directory, which we don't want, because then they'd need to be reinstalled after every clean -->
+    <properties>
+        <gem.home>${basedir}/.rubygems</gem.home>
+        <gem.path>${basedir}/.rubygems</gem.path>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>rubygems</groupId>
@@ -76,7 +82,7 @@
                 </executions>
                 <configuration>
                     <jrubyVersion>1.7.10</jrubyVersion>
-                    <execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/resources</execArgs>
+                    <execArgs>${gem.home}/bin/compass compile ${basedir}/src/main/resources</execArgs>
                 </configuration>
             </plugin>
         </plugins>
@@ -101,7 +107,7 @@
                         </executions>
                         <configuration>
                             <jrubyVersion>1.7.10</jrubyVersion>
-                            <execArgs>${project.build.directory}/rubygems/bin/compass watch ${basedir}/src/main/resources</execArgs>
+                            <execArgs>${gem.home}/bin/compass watch ${basedir}/src/main/resources</execArgs>
                         </configuration>
                     </plugin>
                 </plugins>

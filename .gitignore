@@ -65,3 +65,10 @@ nb-configuration.xml
 !.travis.yml
 *~
 #############
+
+### Rubygems build directories ###
+omod/.rubygems
+omod/.rubygems-provided
+####################
+
+
