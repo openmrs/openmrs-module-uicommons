@@ -464,6 +464,9 @@ function SectionModel(elem, formMenuElem) {
     title.remove();
 
     this.title = newTitle;
+    if(this.element.hasClass('non-collapsible')) {
+        this.title.addClass("doing");
+    }
     this.questions = _.map(this.element.find("fieldset"), function(questionElement) {
         return new QuestionModel(questionElement, this, questionsTitlesList,$(questionElement).find("span.field-error").first());
     }, this);
@@ -506,7 +509,7 @@ SectionModel.prototype.select = function() {
 }
 SectionModel.prototype.unselect = function() {
     SelectableModel.prototype.unselect.apply(this);
-    if(!this.element.hasClass('nonCollapsible')) {
+    if(!this.element.hasClass('non-collapsible')) {
         this.title.removeClass("doing");
     }
     _.each(this.questions, function(question) { question.unselect() });
