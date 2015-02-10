@@ -14,32 +14,39 @@ SelectableModel.prototype = {
         this.isSelected = true;
         this.element.addClass("focused");
         this.toggleSelection = this.unselect;
+        this.element.triggerHandler("select", this);
     },
     unselect: function() {
         this.isSelected = false;
         this.element.removeClass("focused");
         this.toggleSelection = this.select;
+        this.element.triggerHandler("unselect", this);
     },
     enable: function() {
         this.element.removeAttr('disabled');
         this.element.removeClass("disabled");
+        this.element.triggerHandler("enable", this);
     },
     disable: function() {
         this.element.attr('disabled', 'true');
         this.element.addClass("disabled");
+        this.element.triggerHandler("disable", this);
     },
     show: function() {
         this.enable();
         if (this.isSelected) {
             this.select();
         }
+        this.element.triggerHandler("show", this);
     },
     hide: function() {
         this.disable();
         // TODO do we want to unselect here if selected? probably...
+        this.element.triggerHandler("hide", this);
     },
     onExit: function() {
         // override this to provide onExit functionality
+        this.element.triggerHandler("exit", this);
         return true;
     },
     isDisabled: function() {
