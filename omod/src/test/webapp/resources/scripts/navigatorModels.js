@@ -11,7 +11,7 @@ describe("Test for simple form models", function() {
 
         it("should select and unselect the field", function() {
             var fieldModel = new FieldModel();
-            fieldModel.element = jasmine.createSpyObj('element', ['focus', 'blur', 'addClass', 'removeClass']);
+            fieldModel.element = jasmine.createSpyObj('element', ['focus', 'blur', 'addClass', 'removeClass', 'triggerHandler']);
 
             fieldModel.toggleSelection();
             expect(fieldModel.element.focus).toHaveBeenCalled();
@@ -100,7 +100,7 @@ describe("Test for simple form models", function() {
 
         it("should disable a field", function() {
             var fieldModel = new FieldModel();
-            var element = jasmine.createSpyObj('element', ['attr', 'addClass' ]);
+            var element = jasmine.createSpyObj('element', ['attr', 'addClass', 'triggerHandler' ]);
             fieldModel.element = element;
             var container = jasmine.createSpyObj('container', ['addClass']);
             fieldModel.container = container;
@@ -115,7 +115,7 @@ describe("Test for simple form models", function() {
 
         it("should enable a field", function() {
             var fieldModel = new FieldModel();
-            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass' ]);
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'triggerHandler' ]);
             fieldModel.element = element;
             var container = jasmine.createSpyObj('container', ['removeClass']);
             fieldModel.container = container;
@@ -128,7 +128,7 @@ describe("Test for simple form models", function() {
 
         it("should hide a field", function() {
             var fieldModel = new FieldModel();
-            var element = jasmine.createSpyObj('element', ['attr', 'addClass', 'hide' ]);
+            var element = jasmine.createSpyObj('element', ['attr', 'addClass', 'hide', 'triggerHandler' ]);
             fieldModel.element = element;
             var container = jasmine.createSpyObj('container', ['hide']);
             fieldModel.container = container;
@@ -141,7 +141,7 @@ describe("Test for simple form models", function() {
 
         it("should show a field", function() {
             var fieldModel = new FieldModel();
-            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'addClass', 'focus']);
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'triggerHandler', 'show', 'addClass', 'focus']);
             fieldModel.element = element;
             var container = jasmine.createSpyObj('container', ['show']);
             fieldModel.container = container;
@@ -157,7 +157,7 @@ describe("Test for simple form models", function() {
 
         it("should show a field but not select it", function() {
             var fieldModel = new FieldModel();
-            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show' ]);
+            var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'triggerHandler', 'show' ]);
             fieldModel.element = element;
             var container = jasmine.createSpyObj('container', ['show']);
             fieldModel.container = container;
@@ -223,7 +223,7 @@ describe("Test for simple form models", function() {
             firstField.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);
             secondField.element  = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);
             questionModel.fields = [firstField, secondField];
-            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'attr', 'removeAttr', 'hide', 'show']);
+            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'triggerHandler', 'attr', 'removeAttr', 'hide', 'show']);
             questionModel.element = element;
             spyOn(questionModel.questionLi, 'addClass');
             spyOn(questionModel.questionLi, 'removeClass');
@@ -443,7 +443,7 @@ describe("Test for simple form models", function() {
             menuElement = jasmine.createSpyObj('menu', ['append']);
             firstQuestion = jasmine.createSpyObj('firstQuestion', ['unselect', 'resetErrorMessages', 'isValid', 'onExit', 'disable', 'enable', 'hide', 'show']);
             secondQuestion = jasmine.createSpyObj('secondQuestion', ['unselect', 'resetErrorMessages', 'isValid', 'onExit', 'disable', 'enable', 'hide', 'show']);
-            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass', 'attr', 'removeAttr', 'hide', 'show']);
+            element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass', 'triggerHandler', 'attr', 'removeAttr', 'hide', 'show']);
 
             sectionModel = new SectionModel(null, menuElement);
             sectionModel.isDisabled = function() { return false; };
@@ -574,7 +574,7 @@ describe("Test for simple form models", function() {
            var menuElement = jasmine.createSpyObj('menu', ['append']);
            var confirmationQuestionModel = jasmine.createSpyObj('confirmationQuestion', ['confirm', 'cancel']);
            var confirmationSectionModel = new ConfirmationSectionModel( confirmationQuestionModel, menuElement);
-           confirmationSectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass']);
+           confirmationSectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'triggerHandler']);
            confirmationSectionModel.element.find = function () {  // stub out the find method to simply remove an empty jq call
                return jq();
            };
