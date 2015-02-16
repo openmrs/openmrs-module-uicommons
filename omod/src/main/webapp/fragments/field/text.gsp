@@ -19,6 +19,7 @@
            <% if (config.maxLength) { %> maxlength="${ config.maxLength }" <% } %>
            <% if (config.classes && config.classes.contains("regex")) { %> regex="${ config.regex }" <% } %>
            <% if (config.classes && config.classes.contains("numeric-range")) { %> min="${ config.min }" max="${ config.max }" <% } %> />
+    <% if (config.appendToValueDisplayed) { %><span class="append-to-value">${config.appendToValueDisplayed}</span><% } %>
     ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
     <% if (config.appendToValue) { %><span class="append-to-value hidden">${config.appendToValue}</span><% } %>
     <% if (config.optional) { %>
