@@ -56,7 +56,7 @@
             jQuery(dateElement).blur(function(){
                 var elementValue = '';
                 if(this.value && jQuery.trim(this.value).length > 0)
-                    elementValue = jQuery.trim(this.value)
+                    elementValue = jQuery.trim(this.value);
 
                 if(this.id == '${config.formFieldName}Day-field'){
                     if(elementValue.length > 0)
@@ -144,7 +144,8 @@
         };
 
         var isExactDate = function() {
-            return jQuery('#${config.formFieldName}-value').val() != '';
+            var isEstimatedChecked = jQuery('#${config.formFieldName}Estimated-field').is(':checked');
+            return (jQuery('#${config.formFieldName}-value').val() != '' && !isEstimatedChecked);
         }
 
         var toggleEstimatedDate = function() {
@@ -158,6 +159,49 @@
                 monthsField.prop('disabled', false);
             }
         };
+
+        var clearExactDateFields = function() {
+            ${config.formFieldName}Day = '';
+            ${config.formFieldName}Month = '';
+            ${config.formFieldName}Year = '';
+            jQuery('#${config.formFieldName}Day-field').val('');
+            jQuery('#${config.formFieldName}Month-field').val('');
+            jQuery('#${config.formFieldName}Year-field').val('');
+
+            if (${config.formFieldName}Year != '' && ${config.formFieldName}Month != '' && ${config.formFieldName}Day != '') {
+                jQuery('#${config.formFieldName}-value').val(${config.formFieldName}Year+"-"+${config.formFieldName}Month+"-"+${config.formFieldName}Day);
+            } else {
+                jQuery('#${config.formFieldName}-value').val('');
+            }
+        }
+
+        jQuery(yearsField).blur(function() {
+            var elementValue = '';
+            if(this.value && jQuery.trim(this.value).length > 0)
+                elementValue = jQuery.trim(this.value);
+
+            if(elementValue.length > 0) {
+                ${config.formFieldName}Years = elementValue;
+                clearExactDateFields();
+            }else {
+                ${config.formFieldName}Years = '';
+            }
+
+        });
+
+        jQuery(monthsField).blur(function() {
+            var elementValue = '';
+            if(this.value && jQuery.trim(this.value).length > 0)
+                elementValue = jQuery.trim(this.value);
+
+            if(elementValue.length > 0) {
+                ${config.formFieldName}Months = elementValue;
+                clearExactDateFields();
+            }else {
+                ${config.formFieldName}Months = '';
+            }
+
+        });
 
         jQuery(yearsField).focus(toggleEstimatedDate);
         jQuery(monthsField).focus(toggleEstimatedDate);
