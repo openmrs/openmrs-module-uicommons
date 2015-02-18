@@ -136,6 +136,7 @@
     jQuery(function() {
         var yearsField = jQuery('#${config.formFieldName}Years-field');
         var monthsField = jQuery('#${config.formFieldName}Months-field');
+        var estimatedField = jQuery('#${config.formFieldName}Estimated-field');
 
         var skipField = function() {
             e = jQuery.Event('keydown');
@@ -174,6 +175,10 @@
                 jQuery('#${config.formFieldName}-value').val('');
             }
         }
+
+        jQuery(estimatedField).change(function() {
+            toggleEstimatedDate();
+        });
 
         jQuery(yearsField).blur(function() {
             var elementValue = '';
