@@ -16,9 +16,10 @@
 
     def dateComponentClass = "date-component";
     def initialDay,initialMonth, initialYear, initialYears, initialMonths
+    def minYear, maxYear
     def dayClasses = ["day", "number", "numeric-range", dateComponentClass]
     def monthClasses = ["month", dateComponentClass]
-    def yearClasses = ["year", "number", dateComponentClass]
+    def yearClasses = ["year", "number", "numeric-range", dateComponentClass]
     def monthsClasses = ["months", "number", "numeric-range", dateComponentClass]
     def yearsClasses = ["years", "number", "numeric-range", dateComponentClass]
 
@@ -39,6 +40,16 @@
         initialDay = cal.get(Calendar.DAY_OF_MONTH)
         initialMonth = cal.get(Calendar.MONTH)+1
         initialYear = cal.get(Calendar.YEAR)
+    }
+    if(config.minYear) {
+        minYear = config.minYear
+    } else {
+        minYear = ''
+    }
+    if(config.maxYear) {
+        maxYear = config.maxYear
+    } else {
+        maxYear = ''
     }
 %>
 
@@ -117,6 +128,8 @@
             classes: yearClasses,
             size: 5,
             maxLength: 4,
+            min: minYear,
+            max: maxYear,
             left: true])}
             
     <% if (config.showEstimated && config.initialValue) { %>
