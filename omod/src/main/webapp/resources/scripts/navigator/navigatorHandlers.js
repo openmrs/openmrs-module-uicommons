@@ -19,8 +19,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         if(currentQuestion != newQuestion) {
 
             // test the validator if we navigating forward
-            if (_.indexOf(questionsHandler.questions, currentQuestion) < _.indexOf(questionsHandler.questions, newQuestion)
-                && !currentQuestion.isValid()) {
+            if (questionsHandler.isAfterSelectedQuestion(newQuestion) && !currentQuestion.isValid()) {
                 return false;
             }
 
@@ -115,6 +114,10 @@ function QuestionsKeyboardHandler(questionModels) {
     var questions = questionModels;
 
     var api = {};
+
+    api.isAfterSelectedQuestion = function(newQuestion) {
+        return (_.indexOf(questions, selectedModel(questions)) < _.indexOf(questions, newQuestion) ) ? true : false;
+    };
     api.selectedQuestion = function() {
         return selectedModel(questions);
     };

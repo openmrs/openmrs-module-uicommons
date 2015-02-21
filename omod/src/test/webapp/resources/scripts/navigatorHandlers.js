@@ -10,7 +10,7 @@ describe("Tests for simple form navigation handlers", function() {
                 secondField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 thirdField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 questionsKeyboardHandler = jasmine.createSpyObj('questionsHandler',
-                        ['handleUpKey', 'handleDownKey', 'selectedQuestion']);
+                        ['handleUpKey', 'handleDownKey', 'isAfterSelectedQuestion', 'selectedQuestion']);
                 fieldsKeyboardHandler = new FieldsKeyboardHandler([firstField, secondField, thirdField], questionsKeyboardHandler);
             });
 
@@ -77,7 +77,7 @@ describe("Tests for simple form navigation handlers", function() {
                 var secondQuestion = jasmine.createSpyObj('secondQuestion', ['toggleSelection']);
                 secondQuestion.fields = [secondQuestion]; secondField.parentQuestion = secondQuestion;
                 questionsKeyboardHandler.selectedQuestion.andReturn(firstQuestion);
-
+                questionsKeyboardHandler.isAfterSelectedQuestion.andReturn(true);
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
                 expect(firstField.onExit).toHaveBeenCalled();
