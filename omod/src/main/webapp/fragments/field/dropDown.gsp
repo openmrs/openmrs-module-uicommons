@@ -14,6 +14,10 @@
     if (config.dependency || required) {
         selectDataBind += ", value: ${ config.id }"
     }
+
+    def cleanup = {
+        return (it instanceof org.codehaus.jackson.node.TextNode) ? it.textValue : it;
+    }
 %>
 
 <p id="${ config.id }"
@@ -35,7 +39,7 @@
         <% config.options.each {
             def selected = it.selected || it.value == config.initialValue
         %>
-            <option value="${ it.value }"  <% if (selected) { %>selected<% } %>/>${ it.label }</option>
+            <option value="${ cleanup(it.value) }"  <% if (selected) { %>selected<% } %>/>${ ui.message(cleanup(it.label)) }</option>
         <% } %>
     </select>
 
