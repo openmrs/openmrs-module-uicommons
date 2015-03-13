@@ -30,7 +30,7 @@
 
     <select id="${ config.id }-field" name="${ config.formFieldName}"
             <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
-            <% if (config.maximumSize) { %> size="${ [config.maximumSize, config.options.size()].min() }" <% } %>
+            <% if (config.expanded || config.maximumSize) { %> size="${ [config?.maximumSize, config.options.size() + (config.hideEmptyLabel ? 0 : 1)].min() }" <% } %>
             <% if (selectDataBind) { %> data-bind="${ selectDataBind }" <% } %> >
 
         <% if(!config.hideEmptyLabel) { %>
