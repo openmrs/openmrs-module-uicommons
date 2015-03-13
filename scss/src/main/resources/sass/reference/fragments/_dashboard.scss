@@ -38,7 +38,36 @@
 		padding: 5px;
 		color: $text;
 
-		li {
+        p {
+          float: none;
+          display: inline-block;
+        }
+
+        span {
+          display: inline-block;
+        }
+
+        h3, label {
+          width: 120px;
+          font-size: 0.8em;
+          font-weight: normal;
+          display: inline-block;
+          margin: 3px 5px;
+          text-align: right;
+          vertical-align: top;
+        }
+
+        fieldset {
+          border: 0;
+          padding: 0;
+          margin: 0;
+        }
+
+        legend {
+          display: none;
+        }
+
+        li {
 			line-height: 1.1em;
 			border-bottom: 1px solid #eee;
 			margin-bottom: 5px;
@@ -70,7 +99,12 @@
 			min-width: 66px;
 			text-align: center;
 		}
-	}
+
+        #calculated-bmi {
+          font-size: 1em;
+        }
+
+    }
 
 	.visit-link {
 		color: $text;
@@ -120,39 +154,6 @@
 			font-size: 0.9em;
 		}
 	}
-
-    .most-recent-encounter {
-
-        htmlform {
-            #calculated-bmi {
-                font-size: 1em;
-            }
-            p {
-                float: none;
-                display: inline-block;
-            }
-            span {
-              display: inline-block;
-            }
-            h3, label {
-                width: 120px;
-                font-size: 0.8em;
-                font-weight: normal;
-                display: inline-block;
-                margin: 3px 5px;
-                text-align: right;
-            }
-            fieldset {
-                border: 0;
-                padding: 0;
-                margin: 0;
-            }
-            legend {
-                display: none;
-            }
-        }
-
-    }
 }
 
 .tag {
