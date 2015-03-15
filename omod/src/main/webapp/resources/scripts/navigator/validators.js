@@ -156,13 +156,27 @@ RegexFieldValidator.prototype.validate = function(field) {
     return null;
 }
 
+function PhoneFieldValidator() {
+    this.messageIdentifier = "phoneField";
+}
+PhoneFieldValidator.prototype = new FieldValidator();
+PhoneFieldValidator.prototype.constructor = PhoneFieldValidator;
+PhoneFieldValidator.prototype.isValid = function(fieldValue) {
+    var phoneRegex = /^\+?[\d \-\(\)]+$/;
+    if (fieldValue && fieldValue.length > 0) {
+        return phoneRegex.test(fieldValue);
+    }
+    return true;
+}
+
 var Validators = {
     required: new RequiredFieldValidator(),
     date: new DateFieldValidator(),
     integer: new IntegerFieldValidator(),
     number: new NumberFieldValidator(),
     "numeric-range": new NumericRangeFieldValidator(),
-    regex: new RegexFieldValidator()
+    regex: new RegexFieldValidator(),
+    phone: new PhoneFieldValidator()
 }
 
 /****************   QUESTION VALIDATORS   *****/
