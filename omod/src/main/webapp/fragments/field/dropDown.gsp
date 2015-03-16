@@ -34,7 +34,7 @@
             <% if (selectDataBind) { %> data-bind="${ selectDataBind }" <% } %> >
 
         <% if(!config.hideEmptyLabel) { %>
-            <option value="">${ ui.message(config.emptyOptionLabel ?: '&nbsp;') }</option>  <!-- the &nbsp seems to be import for rendering select list at the right height when using the "expanded" option -->
+            <option value="">${ ui.message(config.emptyOptionLabel ?: '') }</option>
         <% } %>
         <% config.options.each {
             def selected = it.selected || it.value == config.initialValue
