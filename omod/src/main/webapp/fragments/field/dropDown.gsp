@@ -34,7 +34,7 @@
             <% if (selectDataBind) { %> data-bind="${ selectDataBind }" <% } %> >
 
         <% if(!config.hideEmptyLabel) { %>
-            <option value="">${ ui.message(config.emptyOptionLabel ?: '') }</option>
+            <option value="">${ ui.message(config.emptyOptionLabel ?: '&nbsp;') }</option>
         <% } %>
         <% config.options.each {
             def selected = it.selected || it.value == config.initialValue
