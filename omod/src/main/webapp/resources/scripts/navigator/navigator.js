@@ -66,8 +66,7 @@ function KeyboardController(formElement) {
                 key.preventDefault();
                 break;
             case 13:
-                handlerChainRoot.handleEnterKey();
-                key.preventDefault();
+                handlerChainRoot.handleEnterKey() && key.preventDefault();
             default:
                 break;
         }

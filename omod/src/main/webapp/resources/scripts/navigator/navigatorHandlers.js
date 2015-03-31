@@ -95,8 +95,14 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         var fieldType = currentField.element.attr("type");
         if(fieldType && fieldType.match(/submit|button/)) {
             currentField.element.click();
-        } else {
-            api.handleTabKey();
+            return true;
+        }
+        else if (currentField.element.is('textarea')) {
+            // don't prevent default behaviour when within a text area
+            return false;
+        }
+        else {
+            return api.handleTabKey();
         }
     };
     api.handleEscKey = function() {
