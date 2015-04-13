@@ -85,16 +85,6 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         var isValid = (currentField ? currentField.isValid() : true);
         var activeFieldSwitched = (isValid ? switchActiveField(findNextEnabledElement, true) : false);
         if (!activeFieldSwitched) { currentField.select(); }
-        
-        if (!activeFieldSwitched) {
-	        /*var fieldType = currentField.element.attr("type");
-	        if(fieldType && fieldType.match(/submit|button/)) {
-	            currentField.element.click();
-	            return true;
-	        }*/
-        	alert('not switched');
-        }
-        
         return true;
     };
     api.handleShiftTabKey = function() {
