@@ -58,7 +58,7 @@ function KeyboardController(formElement) {
                 handlerChainRoot.handleEscKey() && key.preventDefault();
                 break;
             case 9:
-                if(event.shiftKey) {
+                if(key.shiftKey) {
                     handlerChainRoot.handleShiftTabKey();
                 } else {
                     handlerChainRoot.handleTabKey();
