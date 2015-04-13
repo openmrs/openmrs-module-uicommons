@@ -85,6 +85,16 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         var isValid = (currentField ? currentField.isValid() : true);
         var activeFieldSwitched = (isValid ? switchActiveField(findNextEnabledElement, true) : false);
         if (!activeFieldSwitched) { currentField.select(); }
+        
+        if (!activeFieldSwitched) {
+	        /*var fieldType = currentField.element.attr("type");
+	        if(fieldType && fieldType.match(/submit|button/)) {
+	            currentField.element.click();
+	            return true;
+	        }*/
+        	alert('not switched');
+        }
+        
         return true;
     };
     api.handleShiftTabKey = function() {
@@ -320,7 +330,7 @@ var clickedFieldHandler = function(fields, field, event) {
 var findNextEnabledElement = function (i, elements) {
     var nextEnabledElement = i + 1;
     while (nextEnabledElement < elements.length && elements[nextEnabledElement].isDisabled()) { nextEnabledElement++; }
-    return nextEnabledElement != elements.length ? nextEnabledElement : i;  // if we reached the end without finding an enabled element, just return the passed-in index
+    return nextEnabledElement != elements.length ? nextEnabledElement : 0;  // if we reached the end without finding an enabled element, just return the first index
 }
 
 var findPreviousEnabledElement = function (i, elements) {
