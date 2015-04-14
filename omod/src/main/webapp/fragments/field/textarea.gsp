@@ -6,7 +6,7 @@
 	def cols = config.cols ?: 60;
 %>
 
-<p>
+<p <% if (config.left) { %> class="left" <% } %> >
     <label for="${ config.id }-field">
         ${ config.label } <% if (config.classes && config.classes.contains("required")) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
