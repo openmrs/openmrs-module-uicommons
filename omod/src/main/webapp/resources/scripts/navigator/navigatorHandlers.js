@@ -44,7 +44,13 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                 if (field.onExit()) {   // call any exit handler, and only continue if it returns true
                     currentIndex = _.indexOf(fields, field);
                     var nextIndex = fieldIndexUpdater(currentIndex, fields);
-                    newField = fields[nextIndex];
+                    
+                    if (nextIndex == currentIndex) {
+                    	newField = field.parentQuestion.parentSection.questions[0].fields[0];
+                    }
+                    else {
+                    	newField = fields[nextIndex];
+                    }
 
                     if(newField) {
                         field.toggleSelection();
