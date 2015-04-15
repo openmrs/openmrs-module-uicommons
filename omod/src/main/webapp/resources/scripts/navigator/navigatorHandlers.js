@@ -45,7 +45,8 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                     currentIndex = _.indexOf(fields, field);
                     var nextIndex = fieldIndexUpdater(currentIndex, fields);
                     
-                    if (nextIndex == currentIndex) {
+                    //If we have reached the end of form, just cycle through fields on this section.
+                    if (nextIndex == currentIndex && field.parentQuestion.parentSection) {
                     	newField = field.parentQuestion.parentSection.questions[0].fields[0];
                     }
                     else {
