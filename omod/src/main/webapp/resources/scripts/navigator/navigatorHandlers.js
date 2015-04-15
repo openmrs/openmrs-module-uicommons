@@ -320,7 +320,7 @@ var clickedFieldHandler = function(fields, field, event) {
 var findNextEnabledElement = function (i, elements) {
     var nextEnabledElement = i + 1;
     while (nextEnabledElement < elements.length && elements[nextEnabledElement].isDisabled()) { nextEnabledElement++; }
-    return nextEnabledElement != elements.length ? nextEnabledElement : 0;  // if we reached the end without finding an enabled element, just return the first index
+    return nextEnabledElement != elements.length ? nextEnabledElement : i;  // if we reached the end without finding an enabled element, just return the passed-in index
 }
 
 var findPreviousEnabledElement = function (i, elements) {
