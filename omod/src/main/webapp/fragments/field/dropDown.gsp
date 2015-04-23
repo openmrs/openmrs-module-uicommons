@@ -37,7 +37,7 @@
             <option value="">${ ui.message(config.emptyOptionLabel ?: '&nbsp;') }</option>
         <% } %>
         <% config.options.each {
-            def selected = it.selected || it.value == config.initialValue
+            def selected = it.selected || it.value == config.initialValue || cleanup(it.value) == config.initialValue
         %>
             <option value="${ cleanup(it.value) }"  <% if (selected) { %>selected<% } %>/>${ ui.message(cleanup(it.label)) }</option>
         <% } %>
