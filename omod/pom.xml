@@ -217,6 +217,10 @@
                         <exclude>**/angular.min.js</exclude>
                         <exclude>**/require.js</exclude>
                         <exclude>**/text.js</exclude>
+						<exclude>**/moment.min.js</exclude>
+						<exclude>**/moment.js</exclude>
+						<exclude>**/moment-timezone.min.js</exclude>
+						<exclude>**/moment-timezone.js</exclude>
                     </sourceExcludes>
                     <serverPort>7234</serverPort>
                     <skipTests>false</skipTests>
