@@ -50,6 +50,34 @@ var emr = (function($) {
             jqObject = jqueryInstanceToSet;
         },
 
+        loadMessages: function(codes, callback) {
+            if (!window.messages) {
+                window.messages = {};
+            }
+            emr.getFragmentActionWithCallback("uicommons", "messages", "get", { codes: codes }, function(response) {
+                for (var code in response) {
+                    window.messages[code] = response[code];
+                }
+                if (callback) {
+                    callback(window.messages);
+                }
+            });
+        },
+
+        loadGlobalProperties: function(properties, callback) {
+            if (!window.globalProperties) {
+                window.globalProperties = {};
+            }
+            emr.getFragmentActionWithCallback("uicommons", "globalProperties", "get", {properties: properties}, function(response) {
+                for (var property in response) {
+                    window.globalProperties[property] = response[property];
+                }
+                if (callback) {
+                    callback(window.globalProperties);
+                }
+            });
+        },
+
         message: function(code, defaultText) {
             if (window.messages) {
                 var translated = window.messages[code];
@@ -139,6 +167,7 @@ var emr = (function($) {
         errorMessage: function(message) {
             jqObject.toastmessage( 'showToast', { type: 'error',
                                               position: 'top-right',
+                                              sticky: true,
                                               text:  emr.message(message) } );
         },
 
