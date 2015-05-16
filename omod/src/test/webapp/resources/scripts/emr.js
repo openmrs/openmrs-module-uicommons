@@ -26,7 +26,7 @@ describe("Tests of emr functions", function() {
 
         emr.errorMessage("some error message");
 
-        expect(jqueryWithSpy.toastmessage).toHaveBeenCalledWith('showToast', { type : 'error', position : 'top-right', text : 'some error message' });
+        expect(jqueryWithSpy.toastmessage).toHaveBeenCalledWith('showToast', { type : 'error', position : 'top-right', sticky: true, text : 'some error message' });
 
     });
 
@@ -82,7 +82,7 @@ describe("Tests of emr functions", function() {
 
         emr.errorMessage("error.message.code");
 
-        expect(jqueryWithSpy.toastmessage).toHaveBeenCalledWith('showToast', { type : 'error', position : 'top-right', text : 'some error message' });
+        expect(jqueryWithSpy.toastmessage).toHaveBeenCalledWith('showToast', { type : 'error', position : 'top-right', sticky: true, text : 'some error message' });
 
     });
 
