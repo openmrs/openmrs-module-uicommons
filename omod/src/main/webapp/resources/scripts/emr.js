@@ -360,6 +360,21 @@ var emr = (function($) {
 
         startsWithIgnoreCase: function(string, lookFor) {
             return string.toLowerCase().indexOf(lookFor.toLowerCase()) === 0;
+        },
+
+        hasMapping: function(concept, sourceName, code) {
+            if (concept.mappings) {
+                // this quick hack implementation presumes the concept mapping's display property is like "CIEL: 1513"
+                var lookForDisplay = sourceName + ": " + code;
+                return _.findWhere(concept.mappings, {display: lookForDisplay})
+            }
+            return null;
+        },
+
+        findConceptWithMapping: function(conceptArray, sourceName, code) {
+            return _.find(conceptArray, function(concept) {
+                return emr.hasMapping(concept, sourceName, code);
+            });
         }
 
     };
