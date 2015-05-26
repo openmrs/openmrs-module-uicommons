@@ -6,9 +6,12 @@ angular.module('uicommons.filters').
      */
     filter('serverDate', ['$filter', function($filter) {
         return function(isoString, format) {
+            if (!isoString) {
+                return null;
+            }
             if (isoString.length > 23) {
                 isoString = isoString.substring(0, 23);
             }
-            return $filter('date')(isoString, format || "dd/MM/yyyy H:mm");
+            return $filter('date')(isoString, format || "dd-MMM-yyyy H:mm");
         }
     }])
