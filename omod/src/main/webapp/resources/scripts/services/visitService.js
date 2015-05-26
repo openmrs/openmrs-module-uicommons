@@ -6,7 +6,7 @@ angular.module('visitService', ['ngResource', 'uicommons.common'])
             query: { method:'GET', isArray:false } // OpenMRS RESTWS returns { "results": [] }
         });
     })
-    .factory('VisitService', function(Visit) {
+    .factory('VisitService', function(Visit, $resource) {
 
         return {
 
@@ -25,6 +25,15 @@ angular.module('visitService', ['ngResource', 'uicommons.common'])
             // if visit has uuid property this will update, else it will create new
             saveVisit: function(visit) {
                 return new Visit(visit).$save();
+            },
+
+            visitAttributeResourceFor: function(visit) {
+                return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/visit/:visitUuid/attribute/:uuid", {
+                    visitUuid: visit.uuid,
+                    uuid: '@uuid'
+                },{
+                    query: { method:'GET', isArray:false } // OpenMRS RESTWS returns { "results": [] }
+                });
             }
         }
     });
