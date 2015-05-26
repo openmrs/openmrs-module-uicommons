@@ -16,6 +16,9 @@ angular.module('session', ['ngResource'])
                 }
                 return cached;
             },
+            hasPrivilege: function(privilege) {
+                return new OpenMRS.UserModel(this.get().user).hasPrivilege(privilege);
+            },
             logout: function() {
                 Session.delete();
             }
