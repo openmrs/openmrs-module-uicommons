@@ -7,7 +7,8 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
             scope: {
                 ngModel: '=',
                 id: '@',
-                placeholder: '@'
+                placeholder: '@',
+                onSelectCallback: '&'
             },
             link: function($scope, element, attrs) {
                 $scope.required = attrs.hasOwnProperty('required'); // required attribute has no value
@@ -25,9 +26,13 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
                 }
 
                 $scope.onSelect = function($item, $model, $label) {
-                    $timeout(function() {
-                        emr.focusNextElement(element.closest('body'), element.find('#'+$scope.inputId));
-                    }, 10);
+                    if (attrs.onSelectCallback) {
+                        $scope.onSelectCallback({ '$item':$item, '$model':$model, '$label':$label });
+                    } else {
+                        $timeout(function() {
+                            emr.focusNextElement(element.closest('body'), element.find('#'+$scope.inputId));
+                        }, 10);
+                    }
                 }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
