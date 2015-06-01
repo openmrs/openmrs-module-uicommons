@@ -21,10 +21,13 @@
         </require_module>
     </require_modules>
 
+    <aware_of_modules>
+        <aware_of_module version="${addresshierarchyVersion}">org.openmrs.module.addresshierarchy</aware_of_module>
+    </aware_of_modules>
+
     <!-- Module Activator -->
 	<activator>${project.parent.groupId}.${project.parent.artifactId}.UicommonsActivator</activator>
-	
-	
+
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
 				
