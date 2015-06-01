@@ -1,4 +1,4 @@
-package org.openmrs.module.registrationapp.fragment.controller.field;
+package org.openmrs.module.uicommons.fragment.controller.field;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.openmrs.PersonAddress;
