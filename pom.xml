@@ -74,13 +74,6 @@
             <type>pom</type>
         </dependency>
 
-        <!-- for PersonWithAddressHierarchyWidget -->
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>addresshierarchy-api</artifactId>
-            <version>2.6</version>
-        </dependency>
-
          <dependency>
             <groupId>rubygems</groupId>
             <artifactId>sass</artifactId>
