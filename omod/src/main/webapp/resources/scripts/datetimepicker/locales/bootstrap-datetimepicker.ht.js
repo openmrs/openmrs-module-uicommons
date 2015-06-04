@@ -4,11 +4,11 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ht'] = {
-		days: ["Dimanch", "Lendi", "Madi", "Mèkredi", "Jedi", "Vandredi", "Samdi", "Dimanch"],
-		daysShort: ["Dim", "Len", "Mad", "Mek", "Jed", "Van", "Sam", "Dim"],
-		daysMin: ["D", "L", "Ma", "Me", "J", "V", "S", "D"],
-		months: ["Janvye", "Fevriye", "Mas", "Avril", "Me", "Jen", "Jiyè", "Out", "Septanm", "Oktòb", "Novanm", "Desanm"],
-		monthsShort: ["Jan", "Fev", "Mas", "Avr", "Me", "Jen", "Jiy", "Out", "Sep", "Okt", "Nov", "Des"],
+		days: ["dimanch", "lendi", "madi", "mèkredi", "jedi", "vandredi", "samdi", "dimanch"],
+		daysShort: ["dim", "len", "mad", "mek", "jed", "van", "sam", "dim"],
+		daysMin: ["d", "l", "ma", "me", "j", "v", "s", "d"],
+		months: ["janvye", "fevriye", "mas", "avril", "me", "jen", "jiyè", "out", "septanm", "oktòb", "novanm", "desanm"],
+		monthsShort: ["jan", "fev", "mas", "avr", "me", "jen", "jiy", "out", "sep", "okt", "nov", "des"],
 		today: "Jodi a",
 		suffix: [],
 		meridiem: ["am", "pm"],
