@@ -13,10 +13,10 @@
     def dateISOFormatted
 
     if (config.useTime) {
-        dateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm")
+        dateStringFormat = new java.text.SimpleDateFormat("dd MMM yyyy HH:mm", org.openmrs.api.context.Context.getLocale())
         dateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     } else {
-        dateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+        dateStringFormat = new java.text.SimpleDateFormat("dd MMM yyyy", org.openmrs.api.context.Context.getLocale())
         dateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd")
     }
 
@@ -79,9 +79,9 @@
         todayHighlight: false,
 
         <% if (config.useTime) { %>
-            format: "dd-mm-yyyy hh:ii",
+            format: "dd M yyyy hh:ii",
         <% } else { %>
-            format: "dd-mm-yyyy",
+            format: "dd M yyyy",
         <% } %>
 
         <% if (startDate) { %>
