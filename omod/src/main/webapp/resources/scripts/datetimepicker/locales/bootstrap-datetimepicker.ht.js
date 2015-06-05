@@ -1,8 +1,7 @@
 /**
- * French translation for bootstrap-datetimepicker
- * Nico Mollet <nico.mollet@gmail.com>
+ * Creole translation for bootstrap-datetimepicker>
  */
-;(function($){
+/*(function($){
 	$.fn.datetimepicker.dates['ht'] = {
 		days: ["dimanch", "lendi", "madi", "mèkredi", "jedi", "vandredi", "samdi", "dimanch"],
 		daysShort: ["dim", "len", "mad", "mek", "jed", "van", "sam", "dim"],
@@ -15,4 +14,4 @@
 		weekStart: 1,
 		format: "dd/mm/yyyy"
 	};
-}(jQuery));
+}(jQuery));*/
