@@ -122,22 +122,42 @@
                   		<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
 					</configuration>
 				</plugin>
-                <plugin>
-                    <groupId>org.jasig.maven</groupId>
-                    <artifactId>sass-maven-plugin</artifactId>
-                    <version>1.1.1</version>
-                    <configuration>
-                        <sassSourceDirectory>${basedir}/src/main/webapp</sassSourceDirectory>
-                        <outputDirectory>${basedir}/src/main/webapp/resources/styles</outputDirectory>
-                        <baseOutputDirectory>${basedir}/src/main/webapp/resources/styles</baseOutputDirectory>
-                        <skin>scss</skin>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>de.saumya.mojo</groupId>
-                    <artifactId>gem-maven-plugin</artifactId>
-                    <version>1.0.0-rc4</version>
-                </plugin>
+                		<plugin>
+                    			<groupId>org.jasig.maven</groupId>
+                    			<artifactId>sass-maven-plugin</artifactId>
+                    			<version>1.1.1</version>
+                    			<configuration>
+                        			<sassSourceDirectory>${basedir}/src/main/webapp</sassSourceDirectory>
+                        			<outputDirectory>${basedir}/src/main/webapp/resources/styles</outputDirectory>
+                        			<baseOutputDirectory>${basedir}/src/main/webapp/resources/styles</baseOutputDirectory>
+                        			<skin>scss</skin>
+                    			</configuration>
+                		</plugin>
+                		<plugin>
+                    			<groupId>de.saumya.mojo</groupId>
+                    			<artifactId>gem-maven-plugin</artifactId>
+                    			<version>1.0.0-rc4</version>
+                		</plugin>
+				<plugin>
+					<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+					<artifactId>maven-java-formatter-plugin</artifactId>
+					<version>0.3</version>
+					<configuration>
+						<compilerSource>${javaCompilerVersion}</compilerSource>
+						<compilerCompliance>${javaCompilerVersion}</compilerCompliance>
+						<compilerTargetPlatform>${javaCompilerVersion}</compilerTargetPlatform>
+						<configFile>eclipse/OpenMRSFormatter.xml</configFile>
+						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
+						<lineEnding>CRLF</lineEnding>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.openmrs.tools</groupId>
+							<artifactId>openmrs-tools</artifactId>
+							<version>${project.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
