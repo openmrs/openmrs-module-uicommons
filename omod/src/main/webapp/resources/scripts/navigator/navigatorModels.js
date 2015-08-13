@@ -260,7 +260,14 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
     this.parentSection = section;
     this.messagesContainer = messagesContainer;
     this.validators = [];
-    var fieldContainers = this.element.find("p").has("input, textarea, select, button");
+    var fieldContainers;
+
+    // we allow delimiting fields using a <p> or a custom <field> tag
+    fieldContainers = this.element.find("field");
+    if (!fieldContainers || fieldContainers.length == 0) {
+        fieldContainers = this.element.find("p").has("input, textarea, select, button");
+    }
+
     this.fields = _.map(fieldContainers, function(container) {
         var cnt = $(container);
         var fieldErrorsElement = cnt.find("span.field-error").first();
