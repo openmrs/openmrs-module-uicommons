@@ -64,12 +64,13 @@ function FieldModel(elem, container, parentQuestion, messagesContainer) {
     this.container = container;
     this.parentQuestion = parentQuestion;
     this.messagesContainer = messagesContainer;
-    this.validators = [];
-    this.exitHandlers = [];
+    this.validators = [];this.exitHandlers = [];
+    this.label = $('label[for="' + this.element.attr('id') + ', "], label[for="' + this.element.parent().attr('id') + '"]').text().trim();
 
     // you can specify validators directly on the element, or the parent p or fieldset
     var classes = this.element.attr("class") + " "
                     + this.element.closest("p").attr("class") + " "
+                    + this.element.closest("field").attr("class") + " "
                     + this.element.closest("fieldset").attr("class");
 
     if(classes) {
@@ -240,8 +241,9 @@ FieldModel.prototype.displayValue = function() {
     }
 
     if (value) {
-        var extra = _.map(this.element.parent().find(".append-to-value"), function(item) { return $(item).html() }).join(" ");
-        return extra ? (value + " <span class='after-value'>" + extra + "</span>") : value;
+        // see if there are units to append
+        var append = _.map(this.element.parent().find(".append-to-value, .units").first(), function(item) { return $(item).html() }).join(" ");
+        return value + (append ? " <span class='after-value'>" + append + "</span>" : "");
     } else {
         return "";
     }
@@ -287,7 +289,7 @@ function QuestionModel(elem, section, titleListElem, messagesContainer) {
     }
     this.questionLi = $('<li class="question-legend"><i class="icon-ok"></i></li>').append(label);
     this.questionLi.appendTo(titleListElem);
-    this.fieldSeparator = this.element.attr('field-separator') ? this.element.attr('field-separator') : ' ';
+    this.fieldSeparator = this.element.attr('field-separator') ? this.element.attr('field-separator') : ', ';
     var displayTemplate = this.element.attr('display-template');
     if (displayTemplate) {
         this.displayTemplate = Handlebars.compile(displayTemplate);
@@ -432,6 +434,13 @@ QuestionModel.prototype.resetErrorMessages = function() {
 QuestionModel.prototype.showInConfirmation = function() {
     return !this.element.hasClass('no-confirmation');
 }
+
+QuestionModel.prototype.multiLineInConfirmation = function() {
+    return this.element.hasClass('multi-line-confirmation');
+}
+
+
+//QuestionModel.prototype.
 
 /*
  * Specific model for the Yes/No confirmation question
@@ -595,14 +604,39 @@ ConfirmationSectionModel.prototype.select = function() {
         this.element.find(".error").hide();
     }
 
-    var listElement = $("<ul></ul>");
-    this.dataCanvas.append(listElement);
+    // createt the div that shows the summary of entered information
+    var summaryDiv = $("<div></div>");
+    this.dataCanvas.append(summaryDiv);
     _.each(this.sections, function(section) {
         _.each(section.questions, function(question) {
             if (!question.isDisabled() && question.showInConfirmation()) {
-                listElement.append("<li><span class='label'>" + question.title().text() + ":</span> <strong>"
-                    + (question.valueAsText &&  !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</strong></li>");
+
+                // question title is header, line per labeled field
+                if (question.multiLineInConfirmation()) {
+                    summaryDiv.append("<h3>" + question.title().text() + "</h3>");
+                    var displayLines = [];
+                    _.each(question.fields, function(field) {
+                        if (!field.isDisabled() && field.displayValue()) {
+                            if (field.label) {
+                                displayLines.push(field.label + ": " + field.displayValue());
+                            }
+                            else {
+                                displayLines[displayLines.length - 1] += question.fieldSeparator + field.displayValue();
+                            }
+                        }
+                    });
+                    _.each(displayLines, function(line) {
+                        summaryDiv.append("<p>" + line + "</p>");
+                    });
+                }
+                // question title is label, all fields on single line
+                else {
+                    summaryDiv.append("<p><span class='label'>" + question.title().text() + ": </span>"
+                    + (question.valueAsText &&  !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</p>");
+
+                }
             }
+
         })
     });
 }
