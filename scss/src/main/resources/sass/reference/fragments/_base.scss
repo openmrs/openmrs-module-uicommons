@@ -407,3 +407,11 @@ table {
 .disabled {
   color: $disabled;
 }
+
+td.retired, td.voided {
+  text-decoration: line-through;
+}
+
+input.ng-touched.ng-invalid {
+  background: #ff8888; border: 1px red solid;
+}
