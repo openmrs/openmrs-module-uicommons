@@ -215,6 +215,10 @@
                         <exclude>**/script.js</exclude>
                         <exclude>**/angular.js</exclude>
                         <exclude>**/angular.min.js</exclude>
+                        <exclude>**/angular-translate.js</exclude>
+                        <exclude>**/angular-translate.min.js</exclude>
+                        <exclude>**/angular-translate-loader-url.js</exclude>
+                        <exclude>**/angular-translate-loader-url.min.js</exclude>
                         <exclude>**/require.js</exclude>
                         <exclude>**/text.js</exclude>
 						<exclude>**/moment.min.js</exclude>
