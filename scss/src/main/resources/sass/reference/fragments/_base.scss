@@ -415,3 +415,7 @@ td.retired, td.voided {
 input.ng-touched.ng-invalid {
   background: #ff8888; border: 1px red solid;
 }
+
+.invisible {
+  visibility: hidden;
+}
