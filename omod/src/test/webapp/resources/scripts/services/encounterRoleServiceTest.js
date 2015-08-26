@@ -28,10 +28,4 @@ describe('EncounterRoleService tests', function() {
         encounterRoleService = _EncounterRoleService_;
         q = $q;
     }));
-
-    it('should call EncounterRole resource with query value', function() {
-        encounterRoleService.getEncounterRoles({ 'q': 'abc' });
-        expect(mockEncounterRole.query).toHaveBeenCalledWith({ 'q': 'abc' });
-    });
-
 });

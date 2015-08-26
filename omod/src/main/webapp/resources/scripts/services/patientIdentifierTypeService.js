@@ -5,22 +5,4 @@ angular.module('patientIdentifierTypeService', ['ngResource'])
         },{
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
         });
-    })
-    .factory('PatientIdentifierTypeService', function(PatientIdentifierType) {
-
-        return {
-
-            /**
-             * Fetches PatientIdentifierTypes
-             *
-             * @param params to search against
-             * @returns $promise of array of matching PatientIdentifierTypes (REST ref representation by default)
-             */
-            getPatientIdentifierTypes: function(params) {
-                return PatientIdentifierType.query(params).$promise
-                    .then(function(res) {
-                        return res.results;
-                    }, emr.handleNotLoggedIn);
-            }
-        }
     });

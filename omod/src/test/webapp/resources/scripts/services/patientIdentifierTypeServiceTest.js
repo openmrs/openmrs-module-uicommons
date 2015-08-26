@@ -28,10 +28,4 @@ describe('PatientIdentifierTypeService tests', function() {
     	patientIdentifierTypeService = _PatientIdentifierTypeService_;
         q = $q;
     }));
-
-    it('should call PatientIdentifierType resource with query value', function() {
-    	patientIdentifierTypeService.getPatientIdentifierTypes({ 'q': 'abc' });
-        expect(mockPatientIdentifierType.query).toHaveBeenCalledWith({ 'q': 'abc' });
-    });
-
 });
