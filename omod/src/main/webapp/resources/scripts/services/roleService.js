@@ -1,15 +1,5 @@
-angular.module('roleService', ['ngResource'])
+angular.module('roleService', ['ngResource', 'uicommons.common'])
 	.config(function ($httpProvider) {
-	    // to prevent the browser from displaying a password pop-up in case of an authentication error
-	    $httpProvider.defaults.headers.common['Disable-WWW-Authenticate'] = 'true';
-
-	    // IE GET cache problem
-        if (!$httpProvider.defaults.headers.get) {
-            $httpProvider.defaults.headers.common = {};
-        }
-        $httpProvider.defaults.headers.common["Cache-Control"] = "no-cache";
-        $httpProvider.defaults.headers.common.Pragma = "no-cache";
-        $httpProvider.defaults.headers.common["If-Modified-Since"] = "0";
 	})
     .factory('Role', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/role/:uuid", {
