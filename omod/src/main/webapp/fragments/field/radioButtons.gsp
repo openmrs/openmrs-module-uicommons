@@ -4,6 +4,12 @@
     config.require("options")
 
     def required = config.classes && config.classes.contains("required");
+    def otherAttributes = ''
+    if (config.otherAttributes){
+        config.otherAttributes.each{ attr, val ->
+            otherAttributes += (' ' + attr + '="' + val + '"')
+        }
+    }
 %>
 
 
@@ -16,7 +22,7 @@
     <p class="radio-btn">
         <input type="radio" id="${ config.id }-${ idx }-field" name="${ config.formFieldName }" value="${ it.value }" <% if (checked) { %>checked="true"<% } %>
             <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
-            <% if (config.dependency || required) { %> data-bind="checked: ${ config.id }" <% } %> />
+            <% if (config.dependency || required) { %> data-bind="checked: ${ config.id }" <% } %> ${otherAttributes} />
         <label for="${ config.id }-${ idx }-field">${ it.label }</label>
     </p>
 <% } %>
