@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * Integrates with Angular Translate, simply initialize as follows:
@@ -30,25 +29,24 @@ public class MessagesController {
     @Autowired
     private MessageSourceService messageSourceService;
 
-    private static Map<Locale, Map<String,String>> messages;
+    private Map<Locale, Map<String,String>> messages;
 
-    private static Set<String> codes;
+    private Set<String> codes;
 
-    private static String eTag;
+    private Map<Locale, Integer> eTags;
 
     @RequestMapping(value = "/module/uicommons/messages/messages.json", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Map<String,String>> getMessages(@RequestParam("lang") String lang, WebRequest webRequest) {
 
         // TODO zip?
-        // TODO how do we do a refresh on context refreshed (or are controllers refreshed by default?) would this include static methods
 
         Locale locale = new Locale(lang);
 
         // create the translation map if we haven't already
         if (messages == null) {
             messages = new HashMap<Locale, Map<String, String>>();
-            eTag = UUID.randomUUID().toString();
+            eTags = new HashMap<Locale, Integer>();
             initializeKeySet();
         }
 
@@ -60,13 +58,13 @@ public class MessagesController {
         String eTagFromClient = webRequest.getHeader("If-None-Match");
 
         // see if this client already has the right version cached, if so send back not modified
-        if (eTagFromClient != null && eTagFromClient.contains(eTag)) {
+        if (eTagFromClient != null && eTagFromClient.contains(eTags.get(locale).toString())) {
             return new ResponseEntity<Map<String, String>>(new HashMap<String, String>(), HttpStatus.NOT_MODIFIED);
         }
         // otherwise set eTag and return the codes requested
         else {
             HttpHeaders headers = new HttpHeaders();
-            headers.setETag(eTag);
+            headers.setETag(eTags.get(locale).toString());
             return new ResponseEntity<Map<String, String>>(messages.get(locale), headers, HttpStatus.OK);
         }
 
@@ -79,12 +77,13 @@ public class MessagesController {
         }
     }
 
-    private void generateMessagesForLocale(Locale locale) {
+    private void  generateMessagesForLocale(Locale locale) {
         Map<String,String> m = new HashMap<String, String>();
         for (String code : codes) {
             m.put(code, messageSourceService.getMessage(code, null, locale));
         }
         messages.put(locale, m);
+        eTags.put(locale, m.hashCode());
     }
 
 }
