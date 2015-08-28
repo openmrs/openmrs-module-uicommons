@@ -604,7 +604,7 @@ ConfirmationSectionModel.prototype.select = function() {
         this.element.find(".error").hide();
     }
 
-    // createt the div that shows the summary of entered information
+    // create the div that shows the summary of entered information
     var summaryDiv = $("<div></div>");
     this.dataCanvas.append(summaryDiv);
     _.each(this.sections, function(section) {
