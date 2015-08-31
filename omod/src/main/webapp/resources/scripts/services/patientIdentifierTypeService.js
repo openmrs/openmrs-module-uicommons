@@ -1,4 +1,4 @@
-angular.module('patientIdentifierTypeService', ['ngResource'])
+angular.module('patientIdentifierTypeService', ['ngResource', 'uicommons.common'])
     .factory('PatientIdentifierType', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/patientidentifiertype/:uuid", {
             uuid: '@uuid'
