@@ -1,4 +1,4 @@
-angular.module('providerService', ['ngResource'])
+angular.module('providerService', ['ngResource','uicommons.common'])
     .factory('Provider', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/provider/:uuid", {
         },{
