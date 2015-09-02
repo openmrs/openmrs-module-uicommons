@@ -18,6 +18,13 @@
     def cleanup = {
         return (it instanceof org.codehaus.jackson.node.TextNode) ? it.textValue : it;
     }
+
+    def otherAttributes = ''
+    if (config.otherAttributes){
+        config.otherAttributes.each{ attr, val ->
+            otherAttributes += (' ' + attr + '="' + val + '"')
+        }
+    }
 %>
 
 <p id="${ config.id }"
@@ -31,7 +38,7 @@
     <select id="${ config.id }-field" name="${ config.formFieldName}"
             <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
             <% if (config.expanded || config.maximumSize) { %> size="${ [config?.maximumSize, config.options.size() + (config.hideEmptyLabel ? 0 : 1)].min() }" <% } %>
-            <% if (selectDataBind) { %> data-bind="${ selectDataBind }" <% } %> >
+            <% if (selectDataBind) { %> data-bind="${ selectDataBind }" <% } %> ${otherAttributes}>
 
         <% if(!config.hideEmptyLabel) { %>
             <option value="">${ ui.message(config.emptyOptionLabel ?: '&nbsp;') }</option>
@@ -39,7 +46,7 @@
         <% config.options.each {
             def selected = it.selected || it.value == config.initialValue || cleanup(it.value) == config.initialValue
         %>
-            <option value="${ cleanup(it.value) }"  <% if (selected) { %>selected<% } %>/>${ ui.message(cleanup(it.label)) }</option>
+            <option value="${ cleanup(it.value) }"  <% if (selected) { %>selected<% } %>>${ ui.message(cleanup(it.label)) }</option>
         <% } %>
     </select>
 

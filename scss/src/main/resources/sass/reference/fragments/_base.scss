@@ -408,7 +408,7 @@ table {
   color: $disabled;
 }
 
-td.retired, td.voided {
+.retired, .voided {
   text-decoration: line-through;
 }
 
