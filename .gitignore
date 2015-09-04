@@ -72,3 +72,6 @@ omod/.rubygems-provided
 ####################
 
 phantomjsdriver.log
+
+## CSS ##
+*.css
