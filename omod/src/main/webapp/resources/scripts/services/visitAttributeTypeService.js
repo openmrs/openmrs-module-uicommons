@@ -1,6 +1,7 @@
 angular.module('visitAttributeTypeService', ['ngResource', 'uicommons.common'])
     .factory('VisitAttributeType', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/visitattributetype/:uuid", {
+        	uuid: "@uuid"
         },{
             query: { method:'GET', isArray:false }
         });
