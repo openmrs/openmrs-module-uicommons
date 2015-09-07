@@ -11,7 +11,7 @@
     <% } %>
     />
 	
-	<% if (!config.valueIsId) { %>
+	<% if (!config.valueIsNotBoolean) { %>
 		<% /* This hidden input ensures that a value of false is posted to the server when there is no selection */ %>
 		<input type="hidden" name="${ config.formFieldName }" value="false">
 	<% } %>
