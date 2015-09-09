@@ -10,6 +10,46 @@ angular.module('uicommons.common', []).
             }
         }
     }).
+    
+    factory("RestService", function($q) {
+    	return {
+    		getAllResults: function getAllResults(resource, params, deferred, results) {
+    			if (!deferred) {
+    				deferred = $q.defer();
+    			}
+    			
+    			resource.query(params).$promise.then(function(res) {
+    				if (results) {
+    					results = results.concat(res.results);
+    				} else {
+    					results = res.results;
+    				}
+    				
+    				fetchedAll = true;
+    				
+    				if (res.links) {
+    					for (i = 0; i < res.links.length; i++) {
+    						if (res.links[i].rel == "next") {
+    							var startIndexRe = /startIndex=([0-9]*)/;
+    							var startIndex = startIndexRe.exec(res.links[i].uri);
+    							
+    							params["startIndex"] = startIndex[1];
+    							fetchedAll = false;
+    							getAllResults(resource, params, deferred, results);
+    							break;
+    						}
+    					}
+    				}
+    				
+    				if (fetchedAll) {
+    					deferred.resolve(results);
+    				}
+    			});
+    			
+    			return deferred.promise;
+    		}
+    	}
+    }).
 
     config(function($httpProvider) {
         $httpProvider.interceptors.push('http-auth-interceptor');

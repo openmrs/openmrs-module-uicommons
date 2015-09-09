@@ -5,4 +5,11 @@ angular.module('systemSettingService', ['ngResource', 'uicommons.common'])
         },{
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
         });
-    });
+    })
+    .factory('SystemSettingService', function(SystemSetting, RestService) {
+    	return {
+    		getSystemSettings: function(params) {
+    			return RestService.getAllResults(SystemSetting, params);
+    		}
+    	}
+	})
