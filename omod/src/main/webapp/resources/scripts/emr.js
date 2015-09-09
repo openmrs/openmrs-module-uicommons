@@ -87,6 +87,22 @@ var emr = (function($) {
             }
         },
 
+        serverErrorMessage: function(response) {
+        	var errorMessgae = response.data.error.message;
+        	if (response.data.error.globalErrors != null) {
+            	response.data.error.globalErrors.forEach(function (val, idx){
+            		errorMessgae += " \n" + val.message;
+                }); 
+        	}
+        	if (response.data.error.fieldErrors != null 
+        		&& response.data.error.fieldErrors.name != null) {
+            	response.data.error.fieldErrors.name.forEach(function (val, idx){
+            		errorMessgae += " \n" + val.message;
+                }); 
+        	}
+        	return errorMessgae;
+        },
+
         navigateTo: function(opts) {
             var url = opts.url;
             if (opts.applicationUrl) {
