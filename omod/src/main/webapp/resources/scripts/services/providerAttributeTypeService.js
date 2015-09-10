@@ -5,4 +5,11 @@ angular.module('providerAttributeTypeService', ['ngResource', 'uicommons.common'
         },{
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
         });
+    })
+    .factory("ProviderAttributeTypeService", function(ProviderAttributeType, RestService) {
+    	return {
+    		getProviderAttributeTypes: function(params) {
+    			return RestService.getAllResults(ProviderAttributeType, params);
+    		}
+    	}
     });

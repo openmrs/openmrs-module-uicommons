@@ -5,4 +5,11 @@ angular.module('patientIdentifierTypeService', ['ngResource', 'uicommons.common'
         },{
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
         });
+    })
+    .factory("PatientIdentifierTypeService", function(PatientIdentifierType, RestService){
+    	return {
+    		getPatientIdentifierTypes: function(params) {
+    			return RestService.getAllResults(PatientIdentifierType, params);
+    		}
+    	}
     });

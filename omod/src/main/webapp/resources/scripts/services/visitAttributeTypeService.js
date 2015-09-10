@@ -6,7 +6,7 @@ angular.module('visitAttributeTypeService', ['ngResource', 'uicommons.common'])
             query: { method:'GET', isArray:false }
         });
     })
-    .factory('VisitAttributeTypeService', function(VisitAttributeType) {
+    .factory('VisitAttributeTypeService', function(VisitAttributeType, RestService) {
 
         return {
         	
@@ -17,10 +17,7 @@ angular.module('visitAttributeTypeService', ['ngResource', 'uicommons.common'])
              * @returns $promise of array of matching EncounterTypes (REST ref representation by default)
              */
             getVisitAttributeTypes: function(params) {
-                return VisitAttributeType.query(params).$promise
-                    .then(function(res) {
-                        return res.results;
-                    }, emr.handleNotLoggedIn);
+                return RestService.getAllResults(VisitAttributeType, params);
             }
         }
     });
