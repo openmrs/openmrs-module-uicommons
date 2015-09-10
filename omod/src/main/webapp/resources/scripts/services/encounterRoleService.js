@@ -5,4 +5,11 @@ angular.module('encounterRoleService', ['ngResource', 'uicommons.common'])
         },{
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
         });
+    })
+    .factory("EncounterRoleService", function(EncounterRole, RestService) {
+    	return {
+    		getEncounterRoles: function(params) {
+    			return RestService.getAllResults(EncounterRole, params);
+    		}
+    	}
     });

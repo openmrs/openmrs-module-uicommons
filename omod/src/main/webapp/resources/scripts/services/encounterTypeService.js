@@ -6,7 +6,7 @@ angular.module('encounterTypeService', ['ngResource','uicommons.common'])
             query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
         });
     })
-    .factory('EncounterTypeService', function(EncounterType) {
+    .factory('EncounterTypeService', function(EncounterType, RestService) {
 
         return {
 
@@ -17,10 +17,7 @@ angular.module('encounterTypeService', ['ngResource','uicommons.common'])
              * @returns $promise of array of matching EncounterTypes (REST ref representation by default)
              */
             getEncounterTypes: function(params) {
-                return EncounterType.query(params).$promise
-                    .then(function(res) {
-                        return res.results;
-                    }, emr.handleNotLoggedIn);
+            	return RestService.getAllResults(EncounterType, params);
             }
         }
     });
