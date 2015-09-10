@@ -336,7 +336,13 @@ QuestionModel.prototype.show = function() {
     _.each(this.fields, function(field) { field.show(); });
 }
 QuestionModel.prototype.determineDisplayValue = function() {
-    var fieldDisplayValues = _.map(this.fields, function (field) { return field.displayValue() }, this);
+
+    var fieldDisplayValues = _.map(_.filter(this.fields, function (field) {
+            return field.displayValue()
+        }), function (field) {
+            return field.displayValue()
+        }, this);
+
     if (this.displayTemplate) {
         this.valueAsText = this.displayTemplate({
             fields: this.fields,
@@ -631,7 +637,7 @@ ConfirmationSectionModel.prototype.select = function() {
                 }
                 // question title is label, all fields on single line
                 else {
-                    summaryDiv.append("<p><span class='label'>" + question.title().text() + ": </span>"
+                    summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
                     + (question.valueAsText &&  !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</p>");
 
                 }
