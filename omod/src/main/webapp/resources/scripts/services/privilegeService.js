@@ -1,4 +1,4 @@
-angular.module('privilegeService', ['ngResource', 'uicommons.common'])
+angular.module('privilegeService', ['ngResource', 'uicommons.common', 'uicommons.common.error'])
 	.factory('Privilege', function($resource) {
 	    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/privilege/:uuid", {
 	        uuid: '@uuid'

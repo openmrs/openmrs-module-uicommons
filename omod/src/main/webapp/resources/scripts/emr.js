@@ -87,6 +87,22 @@ var emr = (function($) {
             }
         },
 
+        serverValidationErrorMessage: function(response) {
+        	var errorMessage = "";
+        	if (response.data != null && response.data.error != null) {
+        		errorMessage = response.data.error.message;
+        	}
+        	return errorMessage;
+        },
+
+        serverGeneralErrorMessage: function(response) {
+        	var errorMessage = "";
+        	if (response.data != null && response.data.error != null) {
+        		errorMessage = this.message("uicommons.generalError.message", "An error has occurred");
+        	}
+        	return errorMessage;
+        },
+
         navigateTo: function(opts) {
             var url = opts.url;
             if (opts.applicationUrl) {
