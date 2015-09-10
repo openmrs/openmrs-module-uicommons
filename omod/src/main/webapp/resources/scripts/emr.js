@@ -375,6 +375,13 @@ var emr = (function($) {
             return _.find(conceptArray, function(concept) {
                 return emr.hasMapping(concept, sourceName, code);
             });
+        },
+
+        // given a JS Date object, an existing Moment object, or ISO 8601 string,
+        // returns a String properly formatted for a OpenMRS REST request
+        // ** requires moment.js to be included on the page **
+        formatDatetimeForREST: function(date) {
+            return moment(date).format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
         }
 
     };
