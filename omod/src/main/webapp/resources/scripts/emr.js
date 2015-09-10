@@ -87,6 +87,37 @@ var emr = (function($) {
             }
         },
 
+        serverValidationErrorMessage: function(response) {
+    		var errorMessage = this.message("uicommons.generalError.message", "An error has occurred");
+        	if (response.data != null && response.data.error != null) {
+        		if (response.data.error.message != null) {
+	        		errorMessage = response.data.error.message;
+	            	if (response.data.error.globalErrors != null) {
+	                	response.data.error.globalErrors.forEach(function (val, idx){
+	                		errorMessage += " \n" + val.message;
+	                    }); 
+	            	}
+	            	if (response.data.error.fieldErrors != null) {
+	                	response.data.error.fieldErrors.forEach(function (val, idx){
+	                		errorMessage += " \n" + val.key;
+	                		errorMessage += " " + val.value.message;
+	                    }); 
+	            	}
+        		}
+        	}
+        	return errorMessage;
+        },
+
+        serverGeneralErrorMessage: function(response) {
+    		var errorMessage = this.message("uicommons.generalError.message", "An error has occurred");
+        	if (response.data != null && response.data.error != null) {
+        		if (response.data.error.message != null) {
+            		errorMessage = response.data.error.message;
+        		}
+        	}
+        	return errorMessage;
+        },
+
         navigateTo: function(opts) {
             var url = opts.url;
             if (opts.applicationUrl) {
