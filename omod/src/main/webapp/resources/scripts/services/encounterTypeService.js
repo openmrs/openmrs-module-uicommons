@@ -1,4 +1,4 @@
-angular.module('encounterTypeService', ['ngResource','uicommons.common'])
+angular.module('encounterTypeService', ['ngResource','uicommons.common', 'uicommons.common.error'])
     .factory('EncounterType', function($resource) {
         return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/encountertype/:uuid", {
             uuid: '@uuid'
