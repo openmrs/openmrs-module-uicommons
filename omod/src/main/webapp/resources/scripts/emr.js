@@ -88,34 +88,50 @@ var emr = (function($) {
         },
 
         serverValidationErrorMessage: function(response) {
-    		var errorMessage = this.message("uicommons.generalError.message", "An error has occurred");
-        	if (response.data != null && response.data.error != null) {
-        		if (response.data.error.message != null) {
-	        		errorMessage = response.data.error.message;
-	            	if (response.data.error.globalErrors != null) {
-	                	response.data.error.globalErrors.forEach(function (val, idx){
-	                		errorMessage += " \n" + val.message;
-	                    }); 
-	            	}
-	            	if (response.data.error.fieldErrors != null) {
-	                	response.data.error.fieldErrors.forEach(function (val, idx){
-	                		errorMessage += " \n" + val.key;
-	                		errorMessage += " " + val.value.message;
-	                    }); 
-	            	}
-        		}
-        	}
-        	return errorMessage;
+            var errorMessages = [];
+            if (response.data && response.data.error) {
+                var errors = response.data.error;
+                errorMessages.push(errors.message);
+                if (errors.globalErrors) {
+                    jq.each(errors.globalErrors, function(i, ele){
+                        errorMessages.push(ele.message);
+                    });
+                }
+
+                if (errors.fieldErrors) {
+                    jq.map(errors.fieldErrors, function(fErrors, fName){
+                        jq.each(fErrors, function(i, ele){
+                            errorMessages.push(ele.message);
+                        });
+                    });
+                }
+            }
+
+            var foundMessage = false;
+            if(errorMessages.length > 0){
+                jq.each(errorMessages, function(i, errMessage){
+                    if(errMessage && jq.trim(errMessage) != ''){
+                        if(foundMessage == false){
+                            foundMessage = true;
+                        }
+                        emr.errorMessage(errMessage);
+                    }
+                });
+            }
+
+            if(foundMessage == false) {
+                emr.errorMessage(this.message("uicommons.generalError.message", "An error has occurred"));
+            }
         },
 
         serverGeneralErrorMessage: function(response) {
-    		var errorMessage = this.message("uicommons.generalError.message", "An error has occurred");
-        	if (response.data != null && response.data.error != null) {
-        		if (response.data.error.message != null) {
-            		errorMessage = response.data.error.message;
-        		}
-        	}
-        	return errorMessage;
+    		if (response.data && response.data.error && response.data.error.message
+                    && jq.trim(response.data.error.message) != '') {
+
+                emr.errorMessage(response.data.error.message);
+        	} else {
+                emr.errorMessage(this.message("uicommons.generalError.message", "An error has occurred"));
+            }
         },
 
         navigateTo: function(opts) {

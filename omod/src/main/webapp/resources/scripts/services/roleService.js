@@ -1,4 +1,4 @@
-angular.module('roleService', ['ngResource', 'uicommons.common', 'uicommons.common.error'])
+angular.module('roleService', ['ngResource', 'uicommons.common'])
 	.factory('Role', function($resource) {
 	    return $resource("/" + OPENMRS_CONTEXT_PATH  + "/ws/rest/v1/role/:uuid", {
 	        uuid: '@uuid'
