@@ -124,14 +124,8 @@ var emr = (function($) {
             }
         },
 
-        serverGeneralErrorMessage: function(response) {
-    		if (response.data && response.data.error && response.data.error.message
-                    && jq.trim(response.data.error.message) != '') {
-
-                emr.errorMessage(response.data.error.message);
-        	} else {
-                emr.errorMessage(this.message("uicommons.generalError.message", "An error has occurred"));
-            }
+        serverGeneralErrorMessage: function() {
+            emr.errorMessage(this.message("uicommons.generalError.message", "An error has occurred"));
         },
 
         navigateTo: function(opts) {

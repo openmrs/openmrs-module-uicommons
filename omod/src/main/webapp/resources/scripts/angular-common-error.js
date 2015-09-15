@@ -7,7 +7,7 @@ angular.module('uicommons.common.error', []).
 	                $rootScope.$broadcast('event:server-validation-error', response);
 	            }
 	            else if (response.status !== 401 && response.status !== 403) {
-	                $rootScope.$broadcast('event:server-general-error', response);
+	                $rootScope.$broadcast('event:server-general-error');
 	            }
 	            return $q.reject(response);
 	        }
@@ -22,7 +22,7 @@ angular.module('uicommons.common.error', []).
         $rootScope.$on('event:server-validation-error', function (event, response) {
             emr.serverValidationErrorMessage(response);
         });
-        $rootScope.$on('event:server-general-error', function (event, response) {
-            emr.serverGeneralErrorMessage(response);
+        $rootScope.$on('event:server-general-error', function () {
+            emr.serverGeneralErrorMessage();
         });
     }]);
