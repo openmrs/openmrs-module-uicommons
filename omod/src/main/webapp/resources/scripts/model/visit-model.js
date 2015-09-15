@@ -18,6 +18,10 @@
         getAttributeValue: function(attributeTypeRefOrUuid) {
             var found = this.getAttribute(attributeTypeRefOrUuid);
             return found ? found.value : null;
+        },
+
+        active: function() {
+            return (this.stopDatetime == null);
         }
     }
 
