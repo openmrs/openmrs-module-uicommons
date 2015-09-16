@@ -5,4 +5,11 @@ angular.module('privilegeService', ['ngResource', 'uicommons.common'])
 	    },{
 	        query: { method:'GET' }     // override query method to specify that it isn't an array that is returned
 	    });
-	});
+	})
+    .factory("PrivilegeService", function(Privilege, RestService) {
+        return {
+            getPrivileges: function(params) {
+                return RestService.getAllResults(Privilege, params);
+            }
+        }
+    });
