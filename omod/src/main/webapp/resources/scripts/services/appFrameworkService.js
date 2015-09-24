@@ -1,7 +1,7 @@
 angular.module('appFramework', ['ngResource'])
 
     .factory('ExtensionResource', [ "$resource", function($resource) {
-        return $resource("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/appframework-extension", {
+        return $resource("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/extension", {
             uuid: '@uuid'
         },{
             query: { method:'GET', isArray:false, cache:true } // OpenMRS RESTWS returns { "results": [] }
@@ -9,7 +9,7 @@ angular.module('appFramework', ['ngResource'])
     }])
 
     .factory('AppResource', [ "$resource", function($resource) {
-        return $resource("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/appframework-app", {
+        return $resource("/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/app", {
             uuid: '@uuid'
         },{
             query: { method:'GET', isArray:false, cache:true } // OpenMRS RESTWS returns { "results": [] }
