@@ -22,6 +22,13 @@
 
         active: function() {
             return (this.stopDatetime == null);
+        },
+
+        // only returns the first encounter of a certain type, or null if not found
+        getEncounterByType: function(encounterTypeUuid) {
+            return _.find(this.encounters, function(it) {
+                return it.encounterType.uuid == encounterTypeUuid;
+            })
         }
     }
 
