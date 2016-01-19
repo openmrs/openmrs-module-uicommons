@@ -349,8 +349,15 @@ var emr = (function($) {
 
         applyContextModel: function(input, contextModel) {
             if (contextModel) {
+
                 $.each(contextModel, function(key, value) {
                     var pattern = new RegExp('{{\\s*' + key + '\\s*}}', 'g');
+                    input = input.replace(pattern, value);
+                });
+
+                // handle substitions for patterns that have already been escaped
+                $.each(contextModel, function(key, value) {
+                    var pattern = new RegExp('%7B%7Bs*' + key + 's*%7D%7D', 'g');
                     input = input.replace(pattern, value);
                 });
             }
