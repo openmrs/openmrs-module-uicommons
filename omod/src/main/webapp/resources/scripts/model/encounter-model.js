@@ -1,4 +1,6 @@
 (function($, _, OpenMRS) {
+
+    // you should always wrap a full REST representation of the encounter (not a ref or default) if you plan to use the participatedIn or createdBy functionality
     OpenMRS.EncounterModel = function(obj) {
         $.extend(this, obj);
     }
@@ -14,6 +16,7 @@
             return userModel.hasPrivilege("Task: emr.patient.encounter.edit");
         },
 
+        // you should always wrap a full REST representation of the encounter (or a custom rep that includes creator) if you plan to use the createdBy functionality
         createdBy: function(userModel) {
 
             var creator;
@@ -32,6 +35,8 @@
             return creator && creator.uuid == userModel.uuid;
         },
 
+        // you should always wrap a full REST representation of the encounter (or a custom rep that includes at least a default rep of encounterProviders)
+        // if you plan to use the participatedIn functionality
         participatedIn: function(provider) {
             if (!provider.uuid) {
                 return false;
