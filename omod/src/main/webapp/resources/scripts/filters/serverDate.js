@@ -15,3 +15,9 @@ angular.module('uicommons.filters').
             return $filter('date')(isoString, format || "dd-MMM-yyyy H:mm");
         }
     }])
+
+    .filter('serverDateForRESTSubmit', ['$filter', function($filter) {
+        return function(isoString) {
+            return $filter('serverDate')(isoString, "YYYY-MM-DDTHH:mm:ss.SSS");
+        }
+    }])
