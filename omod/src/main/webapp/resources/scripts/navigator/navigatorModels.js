@@ -65,7 +65,7 @@ function FieldModel(elem, container, parentQuestion, messagesContainer) {
     this.parentQuestion = parentQuestion;
     this.messagesContainer = messagesContainer;
     this.validators = [];this.exitHandlers = [];
-    this.label = $('label[for="' + this.element.attr('id') + ', "], label[for="' + this.element.parent().attr('id') + '"]').text().trim();
+    this.label = $('label[for="' + this.element.attr('id') + ' "], label[for="' + this.element.parent().attr('id') + '"]').text().trim();
 
     // you can specify validators directly on the element, or the parent p or fieldset
     var classes = this.element.attr("class") + " "
