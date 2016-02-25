@@ -602,11 +602,13 @@ ConfirmationSectionModel.prototype.select = function() {
     })
 
     if (!hasData) {
-        this.questions[0].confirm.disable();
+        jQuery('#submit').addClass('disabled');
+        jQuery('#submit').attr('disabled','disabled');
         this.element.find(".error").show();
     }
     else {
-        this.questions[0].confirm.enable();
+        jQuery('#submit').removeClass('disabled');
+        jQuery('#submit').removeAttr('disabled');
         this.element.find(".error").hide();
     }
 
