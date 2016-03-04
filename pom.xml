@@ -3,7 +3,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>uicommons</artifactId>
-	<version>1.8-SNAPSHOT</version>
+	<version>1.8</version>
 	<packaging>pom</packaging>
 	<name>UI Commons Module</name>
 	<description>UI Common Library that has common JS/CSS/HTML/templates/fragments etc.</description>
