@@ -26,9 +26,10 @@
 
         // only returns the first encounter of a certain type, or null if not found
         getEncounterByType: function(encounterTypeUuid) {
-            return _.find(this.encounters, function(it) {
+            var encounter = _.find(this.encounters, function(it) {
                 return it.encounterType.uuid == encounterTypeUuid;
             })
+            return encounter ? encounter : null;  // otherwise will return undefined
         }
     }
 
