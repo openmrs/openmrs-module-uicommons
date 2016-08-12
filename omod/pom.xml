@@ -171,7 +171,7 @@
             <plugin>
                 <groupId>com.github.klieber</groupId>
                 <artifactId>phantomjs-maven-plugin</artifactId>
-                <version>0.7</version>
+                <version>0.4</version>
                 <executions>
                     <execution>
                         <goals>
@@ -180,7 +180,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <version>2.0.0</version>
+                    <version>1.9.2</version>
                 </configuration>
             </plugin>
             <plugin>
