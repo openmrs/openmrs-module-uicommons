@@ -6,7 +6,7 @@ angular.module('uicommons.filters').
      * If no translation is found, just return input.
      * (If input is an array, these rules will be applied to each element, and they'll be joined with ", ".)
      */
-    filter('omrs.display', function() {
+    filter('omrsDisplay', function() {
         var displayOne = function(input, prefix) {
             if (input && input.display) {
                 return input.display;
