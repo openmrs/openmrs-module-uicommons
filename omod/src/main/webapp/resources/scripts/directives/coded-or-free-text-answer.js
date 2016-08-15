@@ -102,7 +102,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                 }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
-                'typeahead="result as format(result) for result in search($viewValue) | filter:$viewValue" ' +
+                'typeahead="result as format(result) for result in search($viewValue)" ' +
                 'typeahead-editable="false" typeahead-on-select="onSelect($item, $model, $label)" autocomplete="off" ' +
                 'typeahead-wait-ms="20" typeahead-min-length="2" style="min-width: 500px" />'
         };
