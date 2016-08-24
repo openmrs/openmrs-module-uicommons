@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/openmrs/openmrs-module-uicommons.svg?branch=master)](https://travis-ci.org/openmrs/openmrs-module-uicommons)
+
 openmrs-module-uicommons
 ========================
 
