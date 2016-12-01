@@ -24,7 +24,7 @@ require.config({
     },
 
     paths: {
-        jquery: getMyUrl() + 'jquery-1.8.3.min',
+        jquery: getMyUrl() + 'jquery-1.12.4.min',
         underscore: getMyUrl() + 'underscore-min',
         text: getMyUrl() + 'require/text',
 
