@@ -240,6 +240,9 @@ FieldModel.prototype.displayValue = function() {
         value = this.element.val() ? this.element.val() : "";
     }
 
+    // Fix issues w/reflected XSS by sanitizing value (issue: RA-452)
+    value = $("<div>").text(value).html();
+
     if (value) {
         // see if there are units to append
         var append = _.map(this.element.parent().find(".append-to-value, .units").first(), function(item) { return $(item).html() }).join(" ");
