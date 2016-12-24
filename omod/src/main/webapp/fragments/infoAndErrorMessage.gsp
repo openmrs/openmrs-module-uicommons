@@ -4,10 +4,10 @@
 
 <script type="text/javascript">
      <% if (infoMessage && toastMessage) { %>
-        emr.successMessage("${ ui.encodeHtmlContent(ui.message(infoMessage))}");
+        emr.successMessage("${ ui.message(infoMessage)}");      
     <% } %>
     <% if (errorMessage && toastMessage) { %>
-           emr.errorMessage("${ ui.encodeHtmlContent(ui.message(errorMessage))}");
+           emr.errorMessage("${ ui.message(errorMessage)}");      
     <% } %>
 </script>
 
@@ -16,7 +16,7 @@
         <div class="text">
             <i class="icon-remove medium"></i>
             <% if (errorMessage) { %>
-                <p>${ ui.encodeHtmlContent(ui.message(errorMessage)) }</p>
+                <p>${ ui.message(errorMessage) }</p>
             <% } %>
         </div>
         <div class="close-icon"><i class="icon-remove"></i></div>
@@ -28,7 +28,7 @@
         <div class="text">
             <i class="icon-ok medium"></i>
             <% if (infoMessage) { %>
-            <p>${ ui.encodeHtmlContent(ui.message(infoMessage)) }</p>
+            <p>${ ui.message(infoMessage) }</p>
             <placeholder></placeholder>
             <% } %>
         </div>
