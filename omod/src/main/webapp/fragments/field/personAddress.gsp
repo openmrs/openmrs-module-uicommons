@@ -44,7 +44,7 @@
                                 otherAttributes+=("max=\""+(token.codeName == "latitude" ? "90" : "180")+"\"")
                             }
                     %>
-                        <input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${(initialFieldValue) ? initialFieldValue : ''}" size="${ token.displaySize }" class="${ classes }" ${ otherAttributes } />
+                        <input type="text" id="${ token.codeName }" name="${ token.codeName }" value="${(initialFieldValue) ? ui.encodeHtmlAttribute(initialFieldValue) : ''}" size="${ token.displaySize }" class="${ classes }" ${ otherAttributes } />
                         ${ ui.includeFragment("uicommons", "fieldErrors", [fieldName: token.codeName]) }
                     <% } %>
 	        	</p>
