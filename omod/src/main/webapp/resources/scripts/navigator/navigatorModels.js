@@ -196,6 +196,9 @@ FieldModel.prototype.resetValue = function() {
 
 }
 
+// fwiw, if we ever want to refactor this, the personRelationship widget in the registration app module directly overrides
+// this method on a FieldModel instance as a hack around incompatibility with the navigator and angular
+// see: https://github.com/openmrs/openmrs-module-registrationapp/commit/3e89927c6993cbc6544ae57ebff4baca3ae8bbb5
 FieldModel.prototype.displayValue = function() {
 
     var value;
