@@ -602,7 +602,7 @@ ConfirmationSectionModel.prototype.select = function() {
     var hasData =_.some(this.sections, function (section) {
         return _.some(section.questions, function (question) {
             return _.some(question.fields, function (field) {
-                return (field.value() && field.value().length > 0)
+                return (field.value() && field.value().length > 1)
             })
         })
     })
