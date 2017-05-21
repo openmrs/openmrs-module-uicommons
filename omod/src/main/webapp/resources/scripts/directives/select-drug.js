@@ -16,7 +16,9 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
                 $scope.size = attrs.size ? attrs.size : 40;
 
                 $scope.search = function(term) {
-                    return DrugService.getDrugs({ q: term });
+                    return DrugService.getDrugs({ q: term }).then(function(result){
+                        return result;
+                    });
                 }
 
                 $scope.verify = function() {
@@ -36,7 +38,7 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
                 }
             },
             template: '<input type="text" id="{{ inputId }}" ng-model="ngModel" ng-blur="verify()" ' +
-                'typeahead="drug as drug.display for drug in search($viewValue) | filter:$viewValue" ' +
+            	'typeahead="drug as drug.display for drug in search($viewValue)" ' +
                 'typeahead-on-select="onSelect($item, $model, $label)" ' +
                 'typeahead-editable="false" autocomplete="off" placeholder="{{ placeholder }}" autocomplete="off" ' +
                 'ng-required="{{ required }}" size="{{ size }}" ' +
