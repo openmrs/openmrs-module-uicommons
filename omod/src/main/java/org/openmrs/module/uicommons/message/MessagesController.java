@@ -64,7 +64,7 @@ public class MessagesController {
         // otherwise set eTag and return the codes requested
         else {
             HttpHeaders headers = new HttpHeaders();
-            headers.setETag(eTags.get(locale).toString());
+            headers.setETag("\"" + eTags.get(locale).toString() + "\"");
             return new ResponseEntity<Map<String, String>>(messages.get(locale), headers, HttpStatus.OK);
         }
 
