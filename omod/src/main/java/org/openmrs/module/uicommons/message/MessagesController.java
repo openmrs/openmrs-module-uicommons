@@ -37,11 +37,11 @@ public class MessagesController {
 
     @RequestMapping(value = "/module/uicommons/messages/messages.json", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Map<String,String>> getMessages(@RequestParam("lang") String lang, WebRequest webRequest) {
+    public ResponseEntity<Map<String,String>> getMessages(@RequestParam("localeKey") String localeKey, WebRequest webRequest) {
 
         // TODO zip?
 
-        Locale locale = new Locale(lang);
+        Locale locale = new Locale(localeKey);
 
         // create the translation map if we haven't already
         if (messages == null) {
