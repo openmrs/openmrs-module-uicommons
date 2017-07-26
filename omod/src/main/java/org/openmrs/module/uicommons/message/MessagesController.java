@@ -1,8 +1,10 @@
 package org.openmrs.module.uicommons.message;
 
+import org.openmrs.api.AdministrationService;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.messagesource.PresentationMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,36 +31,45 @@ public class MessagesController {
     @Autowired
     private MessageSourceService messageSourceService;
 
-    private Map<Locale, Map<String,String>> messages;
+    @Qualifier("adminService")
+    @Autowired
+    private AdministrationService adminService;
+
+    private Map<String, Map<String,String>> messages;
 
     private Set<String> codes;
 
-    private Map<Locale, Integer> eTags;
+    private Map<String, Integer> eTags;
+
+    private boolean initialized = false;
+
+    private Object lock = new Object();
 
     @RequestMapping(value = "/module/uicommons/messages/messages.json", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Map<String,String>> getMessages(@RequestParam("localeKey") String localeKey, WebRequest webRequest) {
 
-        // TODO zip?
+        // TODO zip to compress?
 
-        Locale locale = new Locale(localeKey);
-
-        // create the translation map if we haven't already
-        if (messages == null) {
-            messages = new HashMap<Locale, Map<String, String>>();
-            eTags = new HashMap<Locale, Integer>();
-            initializeKeySet();
+        // I tried to handle this in a @PostConstruct method but ran into issues--it seems like some of the resources required weren't actually available yet?
+        synchronized (lock) {
+            if (!initialized) {
+                initializeKeySet();
+                initializeLocales();
+                initialized = true;
+            }
         }
 
-        // see if we have this locale
-        if (!messages.containsKey(locale)) {
-            generateMessagesForLocale(locale);
-        }
+        // currently only supporting referencing the language component of a locale
+        String locale = new Locale(localeKey).getLanguage();
 
         String eTagFromClient = webRequest.getHeader("If-None-Match");
 
+        if (!messages.containsKey(locale)) {
+            return new ResponseEntity<Map<String, String>>(new HashMap<String, String>(), HttpStatus.BAD_REQUEST);
+        }
         // see if this client already has the right version cached, if so send back not modified
-        if (eTagFromClient != null && eTagFromClient.contains(eTags.get(locale).toString())) {
+        else if (eTagFromClient != null && eTagFromClient.contains(eTags.get(locale).toString())) {
             return new ResponseEntity<Map<String, String>>(new HashMap<String, String>(), HttpStatus.NOT_MODIFIED);
         }
         // otherwise set eTag and return the codes requested
@@ -77,13 +88,22 @@ public class MessagesController {
         }
     }
 
+    private void initializeLocales() {
+        messages = new HashMap<String, Map<String,String>>();
+        eTags = new HashMap<String, Integer>();
+        for (Locale locale : adminService.getPresentationLocales()) {
+            generateMessagesForLocale(locale);
+        }
+    }
+
     private void  generateMessagesForLocale(Locale locale) {
         Map<String,String> m = new HashMap<String, String>();
         for (String code : codes) {
             m.put(code, messageSourceService.getMessage(code, null, locale));
         }
-        messages.put(locale, m);
-        eTags.put(locale, m.hashCode());
+        // currently only supporting referencing the language component of a locale
+        messages.put(locale.getLanguage(), m);
+        eTags.put(locale.getLanguage(), m.hashCode());
     }
 
 }
