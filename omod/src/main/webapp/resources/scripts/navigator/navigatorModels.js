@@ -593,6 +593,18 @@ function ConfirmationSectionModel(elem, formMenuElem, regularSections) {
 ConfirmationSectionModel.prototype = new SelectableModel();
 ConfirmationSectionModel.prototype.constructor = ConfirmationSectionModel;
 ConfirmationSectionModel.prototype.select = function() {
+})
+ if (!hasData) {
+     jQuery('#submit').addClass('disabled');
+     jQuery('#submit').attr('disabled','disabled');
+     this.element.find(".error").show();
+      }
+      else {
+        this.questions[0].confirm.enable();
+        jQuery('#submit').removeClass('disabled');
+        jQuery('#submit').removeAttr('disabled');
+        this.element.find(".error").hide();
+      }
     SelectableModel.prototype.select.apply(this);
     this.title.addClass("doing");
 
