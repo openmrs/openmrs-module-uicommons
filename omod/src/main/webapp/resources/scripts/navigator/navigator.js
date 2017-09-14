@@ -18,7 +18,7 @@ function KeyboardController(formElement) {
             return new SectionModel(s, breadcrumb);
         });
 
-        var confirmationSection = new ConfirmationSectionModel($('#confirmation'), breadcrumb, _.clone(sections));
+        var confirmationSection = new ConfirmationSectionModel($('#confirmation'), breadcrumb, _.clone(sections), formElement.hasClass('skip-confirmation-section'));
         sections.push(confirmationSection);
 
         var questions = _.flatten( _.map(sections, function(s) { return s.questions; }), true);
