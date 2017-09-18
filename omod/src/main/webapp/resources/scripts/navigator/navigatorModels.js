@@ -463,22 +463,36 @@ function ConfirmationQuestionModel(elem, section, titleListElem) {
     this.confirm = _.find(this.fields, function (field) {
         return field.element.hasClass('confirm');
     });
-    this.cancel =_.find(this.fields, function (field) {
+    this.cancel = _.find(this.fields, function (field) {
         return field.element.hasClass('cancel');
     });
+    this.skipConfirmation = section.skipConfirmation ? section.skipConfirmation : false;
 
     // return to beginning of form (by triggering on the first enabled section) if user hits cancel
     if (this.cancel) {
         this.cancel.element.click(function () {
-            var sec =_.find(section.sections, function(s) {
+            var sec = _.find(section.sections, function (s) {
                 return !s.isDisabled();
             });
-            if (sec != null) { sec.click(); }
+            if (sec != null) {
+                sec.click();
+            }
         });
     }
 }
+
 ConfirmationQuestionModel.prototype = new QuestionModel();
 ConfirmationQuestionModel.prototype.constructor = ConfirmationQuestionModel;
+ConfirmationQuestionModel.prototype.select = function() {
+    // if we are in "skip confirmation", then selecting the confirmation question should just trigger a submit
+    // otherwise, defer to the standard Question select functionality
+    if (this.skipConfirmation) {
+        this.confirm.element.click();
+    }
+    else {
+        QuestionModel.prototype.select.apply(this);
+    }
+}
 
 /*
  * Prototype for sections
@@ -568,9 +582,10 @@ SectionModel.prototype.firstInvalidQuestion = function() {
 }
 
 
-function ConfirmationSectionModel(elem, formMenuElem, regularSections) {
+function ConfirmationSectionModel(elem, formMenuElem, regularSections, skipConfirmation) {
     SelectableModel.apply(this, [elem]);
     this.sections = regularSections;
+    this.skipConfirmation = skipConfirmation ? skipConfirmation : false;
 
     var title = this.element.find("span.title").first();
     var label = $('<span/>').html(title.text());
@@ -579,7 +594,10 @@ function ConfirmationSectionModel(elem, formMenuElem, regularSections) {
     	label.attr('id', spanId);
     }
     this.title = $("<li/>").append(label);
-    formMenuElem.append(this.title);
+
+    if (!this.skipConfirmation) {
+        formMenuElem.append(this.title);
+    }
     title.remove();
     this.dataCanvas = this.element.find('#dataCanvas');
 
@@ -596,61 +614,63 @@ ConfirmationSectionModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
     this.title.addClass("doing");
 
-    // scan through the form and confirm that at least one of the fields has a value
-    // TODO: move all this out into a separate validator at some point? is the assumption that all forms must have data true?
-    // TODO: makes sure this works for radio buttons and checkboxes (once we add them)
-    var hasData =_.some(this.sections, function (section) {
-        return _.some(section.questions, function (question) {
-            return _.some(question.fields, function (field) {
-                return (field.value() && field.value().length > 0)
+    if (!this.skipConfirmation) {
+        // scan through the form and confirm that at least one of the fields has a value
+        // TODO: move all this out into a separate validator at some point? is the assumption that all forms must have data true?
+        // TODO: makes sure this works for radio buttons and checkboxes (once we add them)
+        var hasData = _.some(this.sections, function (section) {
+            return _.some(section.questions, function (question) {
+                return _.some(question.fields, function (field) {
+                    return (field.value() && field.value().length > 0)
+                })
             })
         })
-    })
 
-    if (!hasData) {
-        this.questions[0].confirm.disable();
-        this.element.find(".error").show();
-    }
-    else {
-        this.questions[0].confirm.enable();
-        this.element.find(".error").hide();
-    }
+        if (!hasData) {
+            this.questions[0].confirm.disable();
+            this.element.find(".error").show();
+        }
+        else {
+            this.questions[0].confirm.enable();
+            this.element.find(".error").hide();
+        }
 
-    // create the div that shows the summary of entered information
-    var summaryDiv = $("<div></div>");
-    this.dataCanvas.append(summaryDiv);
-    _.each(this.sections, function(section) {
-        _.each(section.questions, function(question) {
-            if (!question.isDisabled() && question.showInConfirmation()) {
+        // create the div that shows the summary of entered information
+        var summaryDiv = $("<div></div>");
+        this.dataCanvas.append(summaryDiv);
+        _.each(this.sections, function (section) {
+            _.each(section.questions, function (question) {
+                if (!question.isDisabled() && question.showInConfirmation()) {
 
-                // question title is header, line per labeled field
-                if (question.multiLineInConfirmation()) {
-                    summaryDiv.append("<h3>" + question.title().text() + "</h3>");
-                    var displayLines = [];
-                    _.each(question.fields, function(field) {
-                        if (!field.isDisabled() && field.displayValue()) {
-                            if (field.label) {
-                                displayLines.push(field.label + ": " + field.displayValue());
+                    // question title is header, line per labeled field
+                    if (question.multiLineInConfirmation()) {
+                        summaryDiv.append("<h3>" + question.title().text() + "</h3>");
+                        var displayLines = [];
+                        _.each(question.fields, function (field) {
+                            if (!field.isDisabled() && field.displayValue()) {
+                                if (field.label) {
+                                    displayLines.push(field.label + ": " + field.displayValue());
+                                }
+                                else {
+                                    displayLines[displayLines.length - 1] += question.fieldSeparator + field.displayValue();
+                                }
                             }
-                            else {
-                                displayLines[displayLines.length - 1] += question.fieldSeparator + field.displayValue();
-                            }
-                        }
-                    });
-                    _.each(displayLines, function(line) {
-                        summaryDiv.append("<p>" + line + "</p>");
-                    });
-                }
-                // question title is label, all fields on single line
-                else {
-                    summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
-                    + (question.valueAsText &&  !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</p>");
+                        });
+                        _.each(displayLines, function (line) {
+                            summaryDiv.append("<p>" + line + "</p>");
+                        });
+                    }
+                    // question title is label, all fields on single line
+                    else {
+                        summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
+                            + (question.valueAsText && !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</p>");
 
+                    }
                 }
-            }
 
-        })
-    });
+            })
+        });
+    }
 }
 ConfirmationSectionModel.prototype.unselect = function() {
     SelectableModel.prototype.unselect.apply(this);
