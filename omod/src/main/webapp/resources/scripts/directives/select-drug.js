@@ -1,6 +1,11 @@
 angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ])
-
-    .directive('selectDrug', [ 'DrugService', '$timeout', function(DrugService, $timeout) {
+    .constant('UICOMMONS_NON_CODED', 'uicommons.nonCoded')
+    .config(function(UICOMMONS_NON_CODED) {
+        emr.loadMessages([UICOMMONS_NON_CODED], function(messages) {
+            localStorage.setItem(UICOMMONS_NON_CODED, messages[UICOMMONS_NON_CODED]);
+        });
+    })
+    .directive('selectDrug', [ 'DrugService', '$timeout', 'UICOMMONS_NON_CODED',function(DrugService, $timeout, UICOMMONS_NON_CODED) {
 
         return {
             restrict: 'E',
@@ -15,9 +20,21 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
                 $scope.inputId = emr.domId($scope.id, 'sel-drug', 'input');
                 $scope.size = attrs.size ? attrs.size : 40;
 
+                var translatedMessage = localStorage.getItem(UICOMMONS_NON_CODED);
                 $scope.search = function(term) {
-                    return DrugService.getDrugs({ q: term });
-                }
+                    return DrugService.getDrugs({ q: term }).then(function(results) {
+                        // Corresponding html attribute is support-free-text if one wants to support non coded
+                        // the directive would be like <select-drug support-free-text ...other attributes></select-drug>
+                        if(attrs.hasOwnProperty('supportFreeText') && results.length == 0) {
+                            return [{
+                                uuid: null,
+                                display: '"' + term + '" (' + translatedMessage + ')',
+                                nonCodedValue: term
+                            }];
+                        }
+                        return results;
+                    });
+                };
 
                 $scope.verify = function() {
                     if(!$scope.ngModel) {
