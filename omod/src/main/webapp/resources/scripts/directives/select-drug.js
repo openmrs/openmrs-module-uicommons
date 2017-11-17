@@ -16,8 +16,19 @@ angular.module('uicommons.widget.select-drug', [ 'drugService', 'ui.bootstrap' ]
                 $scope.size = attrs.size ? attrs.size : 40;
 
                 $scope.search = function(term) {
-                    return DrugService.getDrugs({ q: term });
-                }
+                    return DrugService.getDrugs({ q: term }).then(function(results) {
+                        // Corresponding html attribute is support-free-text if one wants to support non coded
+                        // the directive would be like <select-drug support-free-text ...other attributes></select-drug>
+                        if(attrs.hasOwnProperty('supportFreeText') && results.length == 0) {
+                            return [{
+                                uuid: null,
+                                display: '"' + term + '"' + ' (NON CODED)',
+                                nonCodedValue: term
+                            }];
+                        }
+                        return results;
+                    });
+                };
 
                 $scope.verify = function() {
                     if(!$scope.ngModel) {
