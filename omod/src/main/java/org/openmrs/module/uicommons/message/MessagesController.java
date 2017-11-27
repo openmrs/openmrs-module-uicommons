@@ -47,7 +47,7 @@ public class MessagesController {
 
     @RequestMapping(value = "/module/uicommons/messages/messages.json", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Map<String,String>> getMessages(@RequestParam("localeKey") String localeKey, WebRequest webRequest) {
+    public ResponseEntity<Map<String,String>> getMessages(@RequestParam("localeKey") Locale localeKey, WebRequest webRequest) {
 
         // TODO zip to compress?
 
@@ -61,7 +61,7 @@ public class MessagesController {
         }
 
         // currently only supporting referencing the language component of a locale
-        String locale = new Locale(localeKey).getLanguage();
+        String locale = localeKey.getLanguage();
 
         String eTagFromClient = webRequest.getHeader("If-None-Match");
 
