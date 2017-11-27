@@ -97,13 +97,18 @@ public class MessagesController {
     }
 
     private void  generateMessagesForLocale(Locale locale) {
-        Map<String,String> m = new HashMap<String, String>();
-        for (String code : codes) {
-            m.put(code, messageSourceService.getMessage(code, null, locale));
-        }
         // currently only supporting referencing the language component of a locale
-        messages.put(locale.getLanguage(), m);
-        eTags.put(locale.getLanguage(), m.hashCode());
+        Map<String, String> messagesForLanguage = messages.get(locale.getLanguage());
+        if (messagesForLanguage == null) {
+            messagesForLanguage = new HashMap<String, String>();
+            messages.put(locale.getLanguage(), messagesForLanguage);
+        }
+
+        for (String code : codes) {
+            messagesForLanguage.put(code, messageSourceService.getMessage(code, null, locale));
+        }
+
+        eTags.put(locale.getLanguage(), messagesForLanguage.hashCode());
     }
 
 }
