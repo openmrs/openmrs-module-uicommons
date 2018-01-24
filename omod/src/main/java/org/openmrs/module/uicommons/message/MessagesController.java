@@ -56,7 +56,12 @@ public class MessagesController {
             if (!initialized) {
                 initializeKeySet();
                 initializeLocales();
-                initialized = true;
+
+                // we were running into some odd, tranistory cases where the messages weren't being initialized;
+                // so we only flag as initialized if something has been populated, see RA-1463
+                if (codes != null && codes.size() > 0 && messages != null && messages.size() > 0) {
+                    initialized = true;
+                }
             }
         }
 
@@ -91,7 +96,7 @@ public class MessagesController {
     private void initializeLocales() {
         messages = new HashMap<String, Map<String,String>>();
         eTags = new HashMap<String, Integer>();
-        for (Locale locale : adminService.getPresentationLocales()) {
+        for (Locale locale : adminService.getAllowedLocales()) {
             generateMessagesForLocale(locale);
         }
     }
