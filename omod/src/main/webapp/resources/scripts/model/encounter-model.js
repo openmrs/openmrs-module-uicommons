@@ -38,7 +38,7 @@
         // you should always wrap a full REST representation of the encounter (or a custom rep that includes at least a default rep of encounterProviders)
         // if you plan to use the participatedIn functionality
         participatedIn: function(provider) {
-            if (!provider.uuid) {
+            if (!provider || !provider.uuid) {
                 return false;
             }
             return _.find(this.encounterProviders, function(p) {
