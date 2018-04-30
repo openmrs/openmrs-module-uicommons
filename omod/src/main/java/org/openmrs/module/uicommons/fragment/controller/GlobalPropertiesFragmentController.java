@@ -20,8 +20,7 @@ public class GlobalPropertiesFragmentController {
             if (gp == null) {
                 ret.put(propertyName, null);
             } else {
-                SimpleObject simple = new SimpleObject();
-                simple.put("propertyValue", gp.getPropertyValue());
+                ret.put(propertyName, gp.getPropertyValue());
                 // TODO make this module depend on webservices.rest and also return a REST representation of the typed value
             }
         }
