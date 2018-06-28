@@ -90,6 +90,8 @@
                     jQuery('#${config.formFieldName}-value').val(${config.formFieldName}Year+"-"+${config.formFieldName}Month+"-"+${config.formFieldName}Day);
                 } else {
                     jQuery('#${config.formFieldName}-value').val('');
+                    jQuery('#${config.formFieldName}Years-field').prop('disabled', false);
+                    jQuery('#${config.formFieldName}Months-field').prop('disabled', false);
                 }
             });
         });
