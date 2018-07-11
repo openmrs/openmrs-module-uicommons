@@ -1,3 +1,4 @@
+
 describe("Test for simple form models", function() {
 
     // override feature toggling so that every feature is on
@@ -570,7 +571,8 @@ describe("Test for simple form models", function() {
 
 
     describe("Unit tests for ConfirmationSectionModel", function() {
-       it("should select and unselect the confirmation section",function() {
+
+       it("should select and unselect the confirmation section", function() {
            var menuElement = jasmine.createSpyObj('menu', ['append']);
            var confirmationQuestionModel = jasmine.createSpyObj('confirmationQuestion', ['confirm', 'cancel']);
            var confirmationSectionModel = new ConfirmationSectionModel( confirmationQuestionModel, menuElement);
@@ -589,6 +591,270 @@ describe("Test for simple form models", function() {
            confirmationSectionModel.toggleSelection();
            expect(confirmationSectionModel.element.removeClass).toHaveBeenCalledWith('focused');
            expect(confirmationSectionModel.isSelected).toBe(false);
+       });
+
+	   function _setupSingleQuestion(){
+		   const menuElement = jasmine.createSpyObj('menu', ['append']);
+
+		   const fieldParent = $("<div>");
+
+		   const firstField = new FieldModel();
+		   firstField.container = jasmine.createSpyObj('container', ['attr']);
+		   firstField.element = $("<div>");
+		   fieldParent.append(firstField);
+
+		   const secondField = new FieldModel();
+		   secondField.container = jasmine.createSpyObj('container', ['attr']);
+		   secondField.element = $("<div>");
+		   fieldParent.append(secondField);
+
+		   const thirdField = new FieldModel();
+		   thirdField.container = jasmine.createSpyObj('container', ['attr']);
+		   thirdField.element = $("<div>");
+		   fieldParent.append(thirdField);
+
+		   const sectionQuestion = new QuestionModel();
+		   sectionQuestion.fields = [firstField, secondField, thirdField];
+
+		   const sectionModel = new SectionModel(null, menuElement);
+		   sectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);;
+		   sectionModel.questions = [sectionQuestion];
+
+		   const confirmationQuestionModel = jasmine.createSpyObj('confirmationQuestion', ['confirm', 'cancel']);
+
+		   const confirmationQuestion =  jasmine.createSpyObj('question', ['confirm', 'unselect']);
+		   confirmationQuestion.confirm = jasmine.createSpyObj('confirm', ['disable', 'enable']);
+
+		   const confirmationSectionModel = new ConfirmationSectionModel( confirmationQuestionModel, menuElement, sectionModel);
+		   confirmationSectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'triggerHandler']);
+		   confirmationSectionModel.questions = [ confirmationQuestion ];
+		   confirmationSectionModel.sections = [ sectionModel ];
+		   confirmationSectionModel.element.find = function(){ return jq(); };
+
+		   return {
+			   confirmationSectionModel: confirmationSectionModel,
+			   sectionQuestion: sectionQuestion,
+			   firstField: firstField,
+			   secondField: secondField,
+			   thirdField: thirdField,
+		   };
+	   }
+
+	   it("should concat a single line question's multiple answers correctly where no fields are filled", function() {
+
+		   const setup = _setupSingleQuestion();
+
+		   const dataCanvas = $("<div>");
+		   setup.confirmationSectionModel.dataCanvas = dataCanvas;
+
+		   const questionTitle = "Test"
+		   const firstFieldValue = " ";
+		   const secondFieldValue = "";
+		   const thirdFieldValue = " ";
+
+		   setup.sectionQuestion.questionLegend.text = function(){ return questionTitle; };
+		   setup.firstField.element.val = function(){ return firstFieldValue; };
+		   setup.secondField.element.val = function(){ return secondFieldValue; };
+		   setup.thirdField.element.val = function(){ return thirdFieldValue; };
+
+		   setup.sectionQuestion.determineDisplayValue();
+           setup.confirmationSectionModel.select();
+		   expect(dataCanvas.text()).toBe(questionTitle + ": --");
+       });
+
+	   it("should concat a single line question's multiple answers correctly where two fields are filled", function() {
+
+		   const setup = _setupSingleQuestion();
+
+		   const dataCanvas = $("<div>");
+		   setup.confirmationSectionModel.dataCanvas = dataCanvas;
+
+		   const questionTitle = "Test"
+		   const firstFieldValue = "firstField";
+		   const secondFieldValue = " ";
+		   const thirdFieldValue = "thirdField";
+
+		   setup.sectionQuestion.questionLegend.text = function(){ return questionTitle; };
+		   setup.firstField.element.val = function(){ return firstFieldValue; };
+		   setup.secondField.element.val = function(){ return secondFieldValue; };
+		   setup.thirdField.element.val = function(){ return thirdFieldValue; };
+
+		   setup.sectionQuestion.determineDisplayValue();
+           setup.confirmationSectionModel.select();
+		   expect(dataCanvas.text()).toBe(questionTitle + ": " + firstFieldValue + ", " + thirdFieldValue);
+       });
+
+	   it("should concat a multi-line question's multiple answers correctly where two fields are filled", function() {
+
+		   const setup = _setupSingleQuestion();
+
+		   const dataCanvas = $("<div>");
+		   setup.confirmationSectionModel.dataCanvas = dataCanvas;
+
+		   const questionTitle = "Test"
+
+		   const firstFieldLabel = "First Field";
+		   const firstFieldValue = "firstField";
+
+		   const secondFieldLabel = " ";
+		   const secondFieldValue = " ";
+
+		   const thirdFieldLabel = "Thrid Field";
+		   const thirdFieldValue = "thirdField";
+
+		   setup.sectionQuestion.questionLegend.text = function(){ return questionTitle; };
+		   setup.sectionQuestion.multiLineInConfirmation = function(){ return true; };
+
+		   setup.firstField.label = firstFieldLabel;
+		   setup.firstField.element.val = function(){ return firstFieldValue; };
+
+		   setup.secondField.label = secondFieldLabel;
+		   setup.secondField.element.val = function(){ return secondFieldValue; };
+
+		   setup.thirdField.label = thirdFieldLabel;
+		   setup.thirdField.element.val = function(){ return thirdFieldValue; };
+
+		   setup.sectionQuestion.determineDisplayValue();
+           setup.confirmationSectionModel.select();
+		   const confirmationLines = $(dataCanvas.children().eq(0).children());
+		   expect(confirmationLines.eq(0).text()).toBe(questionTitle);
+		   expect(confirmationLines.eq(1).text()).toBe(firstFieldLabel + ": " + firstFieldValue);
+		   expect(confirmationLines.eq(2).text()).toBe(thirdFieldLabel + ": " + thirdFieldValue);
+       });
+
+	   function _setupDoubleQuestion(){
+		   const menuElement = jasmine.createSpyObj('menu', ['append']);
+
+
+		   const firstFieldParent = $("<div>");
+
+		   const firstQuestionFirstField = new FieldModel();
+		   firstQuestionFirstField.container = jasmine.createSpyObj('container', ['attr']);
+		   firstQuestionFirstField.element = $("<div>");
+		   firstFieldParent.append(firstQuestionFirstField);
+
+		   const firstQuestionSecondField = new FieldModel();
+		   firstQuestionSecondField.container = jasmine.createSpyObj('container', ['attr']);
+		   firstQuestionSecondField.element = $("<div>");
+		   firstFieldParent.append(firstQuestionSecondField);
+
+		   const firstQuestionThirdField = new FieldModel();
+		   firstQuestionThirdField.container = jasmine.createSpyObj('container', ['attr']);
+		   firstQuestionThirdField.element = $("<div>");
+		   firstFieldParent.append(firstQuestionThirdField);
+
+		   const firstQuestion = new QuestionModel();
+		   firstQuestion.fields = [firstQuestionFirstField, firstQuestionSecondField, firstQuestionThirdField];
+
+		   const secondFieldParent = $("<div>");
+
+		   const secondQuestionFirstField = new FieldModel();
+		   secondQuestionFirstField.container = jasmine.createSpyObj('container', ['attr']);
+		   secondQuestionFirstField.element = $("<div>");
+		   secondFieldParent.append(secondQuestionFirstField);
+
+		   const secondQuestionSecondField = new FieldModel();
+		   secondQuestionSecondField.container = jasmine.createSpyObj('container', ['attr']);
+		   secondQuestionSecondField.element = $("<div>");
+		   secondFieldParent.append(secondQuestionSecondField);
+
+		   const secondQuestionThirdField = new FieldModel();
+		   secondQuestionThirdField.container = jasmine.createSpyObj('container', ['attr']);
+		   secondQuestionThirdField.element = $("<div>");
+		   secondFieldParent.append(secondQuestionThirdField);
+
+		   const secondQuestion = new QuestionModel();
+		   secondQuestion.fields = [secondQuestionFirstField, secondQuestionSecondField, secondQuestionThirdField];
+
+		   const sectionModel = new SectionModel(null, menuElement);
+		   sectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);;
+		   sectionModel.questions = [firstQuestion, secondQuestion];
+
+		   const confirmationQuestionModel = jasmine.createSpyObj('confirmationQuestion', ['confirm', 'cancel']);
+
+		   const confirmationQuestion =  jasmine.createSpyObj('question', ['confirm', 'unselect']);
+		   confirmationQuestion.confirm = jasmine.createSpyObj('confirm', ['disable', 'enable']);
+
+		   const confirmationSectionModel = new ConfirmationSectionModel( confirmationQuestionModel, menuElement, sectionModel);
+		   confirmationSectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'triggerHandler']);
+		   confirmationSectionModel.questions = [ confirmationQuestion ];
+		   confirmationSectionModel.sections = [ sectionModel ];
+		   confirmationSectionModel.element.find = function(){ return jq(); };
+
+		   return {
+			   confirmationSectionModel: confirmationSectionModel,
+			   firstQuestion: firstQuestion,
+			   firstQuestionFirstField: firstQuestionFirstField,
+			   firstQuestionSecondField: firstQuestionSecondField,
+			   firstQuestionThirdField: firstQuestionThirdField,
+			   secondQuestion: secondQuestion,
+			   secondQuestionFirstField: secondQuestionFirstField,
+			   secondQuestionSecondField: secondQuestionSecondField,
+			   secondQuestionThirdField: secondQuestionThirdField,
+		   };
+	   }
+
+	   it("should concat multiple multi-line and single line questions' multiple answers correctly where two fields and one fields are filled, respectively", function() {
+
+		   const setup = _setupDoubleQuestion();
+
+		   const dataCanvas = $("<div>");
+		   setup.confirmationSectionModel.dataCanvas = dataCanvas;
+
+		   const firstQuestionTitle = "Test Question 1"
+
+		   const firstQuestionFirstFieldLabel = "First Question First Field";
+		   const firstQuestionFirstFieldValue = "firstQuestionfirstField";
+
+		   const firstQuestionSecondFieldLabel = " ";
+		   const firstQuestionSecondFieldValue = " ";
+
+		   const firstQuestionThirdFieldLabel = "First Question Thrid Field";
+		   const firstQuestionThirdFieldValue = "firstQuestionThirdField";
+
+		   const secondQuestionTitle = "Test Question 2"
+
+		   const secondQuestionFirstFieldLabel = " ";
+		   const secondQuestionFirstFieldValue = " ";
+
+		   const secondQuestionSecondFieldLabel = "Second Question Second Field";
+		   const secondQuestionSecondFieldValue = "secondQuestionSecondField";
+
+		   const secondQuestionThirdFieldLabel = " ";
+		   const secondQuestionThirdFieldValue = " ";
+
+		   setup.firstQuestion.questionLegend.text = function(){ return firstQuestionTitle; };
+		   setup.firstQuestion.multiLineInConfirmation = function(){ return true; };
+
+		   setup.firstQuestionFirstField.label = firstQuestionFirstFieldLabel;
+		   setup.firstQuestionFirstField.element.val = function(){ return firstQuestionFirstFieldValue; };
+
+		   setup.firstQuestionSecondField.label = firstQuestionSecondFieldLabel;
+		   setup.firstQuestionSecondField.element.val = function(){ return firstQuestionSecondFieldValue; };
+
+		   setup.firstQuestionThirdField.label = firstQuestionThirdFieldLabel;
+		   setup.firstQuestionThirdField.element.val = function(){ return firstQuestionThirdFieldValue; };
+
+		   setup.secondQuestion.questionLegend.text = function(){ return secondQuestionTitle; };
+		   setup.secondQuestion.multiLineInConfirmation = function(){ return false; };
+
+		   setup.secondQuestionFirstField.label = secondQuestionFirstFieldLabel;
+		   setup.secondQuestionFirstField.element.val = function(){ return secondQuestionFirstFieldValue; };
+
+		   setup.secondQuestionSecondField.label = secondQuestionSecondFieldLabel;
+		   setup.secondQuestionSecondField.element.val = function(){ return secondQuestionSecondFieldValue; };
+
+		   setup.secondQuestionThirdField.label = secondQuestionThirdFieldLabel;
+		   setup.secondQuestionThirdField.element.val = function(){ return secondQuestionThirdFieldValue; };
+
+		   setup.firstQuestion.determineDisplayValue();
+		   setup.secondQuestion.determineDisplayValue();
+           setup.confirmationSectionModel.select();
+		   const confirmationLines = $(dataCanvas.children().eq(0).children());
+		   expect(confirmationLines.eq(0).text()).toBe(firstQuestionTitle);
+		   expect(confirmationLines.eq(1).text()).toBe(firstQuestionFirstFieldLabel + ": " + firstQuestionFirstFieldValue);
+		   expect(confirmationLines.eq(2).text()).toBe(firstQuestionThirdFieldLabel + ": " + firstQuestionThirdFieldValue);
+		   expect(confirmationLines.eq(3).text()).toBe(secondQuestionTitle + ": " + secondQuestionSecondFieldValue);
        });
     });
 })

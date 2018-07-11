@@ -354,9 +354,8 @@ QuestionModel.prototype.determineDisplayValue = function() {
             fields: this.fields,
             field: fieldDisplayValues
         });
-    }
-    else {
-        this.valueAsText = fieldDisplayValues.join(this.fieldSeparator);
+    } else {
+		this.valueAsText = fieldDisplayValues.filter( function(value){return !/^\s*$/.test(value)} ).join(this.fieldSeparator);
     }
 }
 QuestionModel.prototype.select = function() {
@@ -621,7 +620,7 @@ ConfirmationSectionModel.prototype.select = function() {
         var hasData = _.some(this.sections, function (section) {
             return _.some(section.questions, function (question) {
                 return _.some(question.fields, function (field) {
-                    return (field.value() && field.value().length > 0)
+                    return (field.value() && field.value().length > 0);
                 })
             })
         })
@@ -643,15 +642,16 @@ ConfirmationSectionModel.prototype.select = function() {
                 if (!question.isDisabled() && question.showInConfirmation()) {
 
                     // question title is header, line per labeled field
+
                     if (question.multiLineInConfirmation()) {
                         summaryDiv.append("<h3>" + question.title().text() + "</h3>");
                         var displayLines = [];
                         _.each(question.fields, function (field) {
                             if (!field.isDisabled() && field.displayValue()) {
-                                if (field.label) {
+                                if (!/^\s*$/.test(field.label)) {
                                     displayLines.push(field.label + ": " + field.displayValue());
                                 }
-                                else {
+                                else if(!/^\s*$/.test(field.displayValue())) {
                                     displayLines[displayLines.length - 1] += question.fieldSeparator + field.displayValue();
                                 }
                             }
@@ -663,7 +663,7 @@ ConfirmationSectionModel.prototype.select = function() {
                     // question title is label, all fields on single line
                     else {
                         summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
-                            + (question.valueAsText && !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</p>");
+                            + ((question.valueAsText && !/^\s*$/.test(question.valueAsText)) ? question.valueAsText : "--") + "</p>");
 
                     }
                 }
