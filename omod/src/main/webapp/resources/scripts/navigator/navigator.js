@@ -1,3 +1,24 @@
+/**
+ * Navigator
+ *
+ * Given HTML in a specific format, the Navigator transforms the the HTML into a keyboard-friendly,
+ * one-question-per-screen format, with a left-hand navigation bar
+ *
+ * The form is broken up as follows:
+ *
+ * Sections: the form is broken up into sections, designated by the <section> tag
+ *
+ * Questions: within each section, the form is broken up into questions, with each question designated by the <fieldset> tag
+ *
+ * Fields: within each question, the broken into fields, a field being designed by either:
+ *          1) a <p> tag containing a input, textarea, select, or button
+ *          2) a <field> tag
+ *
+ * An example of an form that uses tha Navigator can be found here:
+ *
+ * https://github.com/openmrs/openmrs-module-registrationapp/blob/master/omod/src/main/webapp/pages/registerPatient.gsp#L153
+ */
+
 
 // TODO we may want to remove this global variable as some point; not sure if it is still used in ref app somewhere
 var Navigator = {isReady: false}
