@@ -1,3 +1,10 @@
 language: java
 jdk:
- - oraclejdk8
+ - openjdk8
+addons: 
+  firefox: "43.0"
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2    
+script: mvn clean install -q
