@@ -69,7 +69,7 @@
     var viewModel = viewModel || {};
     viewModel.validations = viewModel.validations || [];
 
-    jq("#${ config.id }-wrapper").datetimepicker({
+    jQuery("#${ config.id }-wrapper").datetimepicker({
         <% if (!config.useTime) { %>
             minView: 2,
         <% } %>
