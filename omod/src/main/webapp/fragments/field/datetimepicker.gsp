@@ -11,8 +11,14 @@
 
     def dateStringFormat
     def dateISOFormatted
+    def dateStringFormat2
+    def useTime = config.useTime
 
-    if (config.useTime) {
+    if (useTime instanceof String) {
+        useTime = Boolean.parseBoolean(useTime)
+    }
+
+    if (useTime) {
         dateStringFormat = new java.text.SimpleDateFormat("dd MMM yyyy HH:mm", org.openmrs.api.context.Context.getLocale())
         dateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     } else {
@@ -39,6 +45,14 @@
         startDate = defaultDateString
     } else {
         startDate = config.startDate
+        if (startDate instanceof String) {
+            try {
+                startDate = dateStringFormat.parse(startDate)
+            } catch(Exception e) {
+                dateStringFormat2 = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
+                startDate = dateStringFormat2.parse(startDate)
+            }
+        }
     }
 
     def endDate
@@ -46,6 +60,14 @@
         endDate = defaultDateString
     } else {
         endDate = config.endDate
+        if (endDate instanceof String) {
+            try {
+                endDate = dateStringFormat.parse(endDate)
+            } catch(Exception e) {
+                dateStringFormat2 = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
+                endDate = dateStringFormat2.parse(endDate)
+            }
+        }
     }
 %>
 
@@ -55,7 +77,7 @@
         ${ ui.message(config.label) } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
     <span id="${ config.id }-wrapper" class="date">
-        <input type="text" id="${ config.id }-display" value="${ defaultDateString }" size="${config.size}" readonly <% if (config.classes) { %>class="date${(config.useTime) ? ' use-time': ''} ${ config.classes.join(' ')}" <% } %> <% if ( config.ngModel ) { %>ng-model="${config.ngModel}" <% } %> />
+        <input type="text" id="${ config.id }-display" value="${ defaultDateString }" size="${config.size}" readonly <% if (config.classes) { %>class="date${(useTime) ? ' use-time': ''} ${ config.classes.join(' ')}" <% } %> <% if ( config.ngModel ) { %>ng-model="${config.ngModel}" <% } %> />
         <span class="add-on"><i class="icon-calendar small"></i></span>
     </span>
     <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }" value="${ defaultDateISOFormatted }"
@@ -69,16 +91,15 @@
     var viewModel = viewModel || {};
     viewModel.validations = viewModel.validations || [];
 
-    jq("#${ config.id }-wrapper").datetimepicker({
-        <% if (!config.useTime) { %>
+    jQuery("#${ config.id }-wrapper").datetimepicker({
+        <% if (!useTime) { %>
             minView: 2,
         <% } %>
-
         autoclose: true,
         pickerPosition: "bottom-left",
         todayHighlight: false,
 
-        <% if (config.useTime) { %>
+        <% if (useTime) { %>
             format: "dd M yyyy hh:ii",
         <% } else { %>
             format: "dd M yyyy",
@@ -94,7 +115,7 @@
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
         linkField: "${ config.id }-field",
-        <% if (config.useTime) { %>
+        <% if (useTime) { %>
             linkFormat: "yyyy-mm-dd hh:ii:ss"
         <% } else { %>
             linkFormat: "yyyy-mm-dd"
