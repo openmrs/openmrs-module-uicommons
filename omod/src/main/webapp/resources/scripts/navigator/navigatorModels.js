@@ -357,6 +357,7 @@ QuestionModel.prototype.determineDisplayValue = function() {
     }
     else {
         this.valueAsText = fieldDisplayValues.join(this.fieldSeparator);
+        this.valueAsTextNoSeparator = fieldDisplayValues.join(" ");
     }
 }
 QuestionModel.prototype.select = function() {
@@ -662,9 +663,14 @@ ConfirmationSectionModel.prototype.select = function() {
                     }
                     // question title is label, all fields on single line
                     else {
-                        summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
+                        if (question.title().text() == "Name") {
+                            summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
+                            + (question.valueAsTextNoSeparator) + "</p>");
+                        }
+                        else {
+                            summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
                             + (question.valueAsText && !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</p>");
-
+                        }
                     }
                 }
 
