@@ -48,10 +48,14 @@
         if (startDate instanceof String) {
             try {
                 startDate = dateStringFormat.parse(startDate)
-            } catch(Exception e) {
+            } catch(Exception e1) {
             	// parses date strings like (new Date().toString())
                 fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
-                startDate = fallbackDateStringFormat.parse(startDate)
+                try {
+                	startDate = fallbackDateStringFormat.parse(startDate)
+                } catch(Exception e2) {
+                	// pass
+                }
             }
         }
     }
@@ -64,10 +68,14 @@
         if (endDate instanceof String) {
             try {
                 endDate = dateStringFormat.parse(endDate)
-            } catch(Exception e) {
+            } catch(Exception e1) {
             	// parses date strings like (new Date().toString())
                 fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
-                endDate = fallbackDateStringFormat.parse(endDate)
+                try {
+                	endDate = fallbackDateStringFormat.parse(endDate)
+                } catch(Exception e2) {
+                	// pass
+                }
             }
         }
     }
