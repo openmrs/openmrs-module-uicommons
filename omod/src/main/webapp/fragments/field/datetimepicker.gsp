@@ -47,15 +47,11 @@
         startDate = config.startDate
         if (startDate instanceof String) {
             try {
-                startDate = dateStringFormat.parse(startDate)
-            } catch(Exception e1) {
             	// parses date strings like (new Date().toString())
-                fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
-                try {
-                	startDate = fallbackDateStringFormat.parse(startDate)
-                } catch(Exception e2) {
-                	// pass
-                }
+            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
+                startDate = fallbackDateStringFormat.parse(startDate)
+            } catch(Exception e) {
+            	// pass
             }
         }
     }
@@ -67,15 +63,11 @@
         endDate = config.endDate
         if (endDate instanceof String) {
             try {
-                endDate = dateStringFormat.parse(endDate)
-            } catch(Exception e1) {
             	// parses date strings like (new Date().toString())
-                fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
-                try {
-                	endDate = fallbackDateStringFormat.parse(endDate)
-                } catch(Exception e2) {
-                	// pass
-                }
+            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
+                endDate = fallbackDateStringFormat.parse(endDate)
+            } catch(Exception e) {
+            	// pass
             }
         }
     }
