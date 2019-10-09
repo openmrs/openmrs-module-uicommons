@@ -349,10 +349,16 @@ QuestionModel.prototype.determineDisplayValue = function() {
             return field.displayValue()
         }, this);
 
+      // add all the field values, including empty values
+      var allValues = _.map(this.fields, function (field) {
+        return field.displayValue()
+      }, this);
+
     if (this.displayTemplate) {
         this.valueAsText = this.displayTemplate({
             fields: this.fields,
-            field: fieldDisplayValues
+            field: fieldDisplayValues,
+            values: allValues
         });
     }
     else {
