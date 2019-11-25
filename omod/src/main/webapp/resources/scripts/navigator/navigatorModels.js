@@ -343,26 +343,20 @@ QuestionModel.prototype.show = function() {
 }
 QuestionModel.prototype.determineDisplayValue = function() {
 
-    var fieldDisplayValues = _.map(_.filter(this.fields, function (field) {
-            return field.displayValue()
-        }), function (field) {
-            return field.displayValue()
-        }, this);
-
-      // add all the field values, including empty values
-      var allValues = _.map(this.fields, function (field) {
+      var fieldDisplayValues = _.map(this.fields, function (field) {
         return field.displayValue()
       }, this);
 
     if (this.displayTemplate) {
         this.valueAsText = this.displayTemplate({
             fields: this.fields,
-            field: fieldDisplayValues,
-            values: allValues
+            field: fieldDisplayValues
         });
     }
     else {
-        this.valueAsText = fieldDisplayValues.join(this.fieldSeparator);
+        this.valueAsText = _.filter(fieldDisplayValues, function (fieldDisplayValue) {
+            return fieldDisplayValue
+        }).join(this.fieldSeparator);
     }
 }
 QuestionModel.prototype.select = function() {
