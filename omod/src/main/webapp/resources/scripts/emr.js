@@ -322,7 +322,7 @@ var emr = (function($) {
             }
 
             dialogApi.show = function() {
-                $(opts.selector).modal(dialogOpts);
+                $.modal($(opts.selector),dialogOpts);
             };
             dialogApi.close = function() {
                 $.modal.close();
