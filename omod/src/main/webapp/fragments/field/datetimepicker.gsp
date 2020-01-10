@@ -18,13 +18,16 @@
         useTime = Boolean.parseBoolean(useTime)
     }
 
-    if (useTime) {
-        dateStringFormat = new java.text.SimpleDateFormat("dd MMM yyyy HH:mm", org.openmrs.api.context.Context.getLocale())
-        dateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    } else {
-        dateStringFormat = new java.text.SimpleDateFormat("dd MMM yyyy", org.openmrs.api.context.Context.getLocale())
-        dateISOFormatted = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    def stringDateFormat = config.stringDateFormat
+    def isoDateFormat = config.isoDateFormat
+    if (!stringDateFormat){
+        stringDateFormat = useTime ? "dd MMM yyyy HH:mm" : "dd MMM yyyy"
     }
+    if(!isoDateFormat){
+        isoDateFormat = useTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd"
+    }
+    dateStringFormat = new java.text.SimpleDateFormat(stringDateFormat, org.openmrs.api.context.Context.getLocale())
+    dateISOFormatted = new java.text.SimpleDateFormat(isoDateFormat)
 
     def defaultDate
     if (config.defaultToday) {
@@ -71,6 +74,19 @@
             }
         }
     }
+
+    def minuteStep = config.minuteStep
+    def datePickerFormat = config.datePickerFormat
+    def datePickerLinkFormat = config.datePickerLinkFormat
+    if(!minuteStep){
+        minuteStep = 5
+    }
+    if(!datePickerFormat){
+        datePickerFormat = useTime ? "dd M yyyy hh:ii" : "dd M yyyy"
+    }
+    if(!datePickerLinkFormat){
+        datePickerLinkFormat = useTime ? "yyyy-mm-dd hh:ii:ss" : "yyyy-mm-dd"
+    }
 %>
 
 <span id="${config.id}"
@@ -100,12 +116,8 @@
         autoclose: true,
         pickerPosition: "bottom-left",
         todayHighlight: false,
-
-        <% if (useTime) { %>
-            format: "dd M yyyy hh:ii",
-        <% } else { %>
-            format: "dd M yyyy",
-        <% } %>
+        minuteStep: ${minuteStep} ,
+        format: "${datePickerFormat}",
 
         <% if (startDate) { %>
             startDate: "${ startDate instanceof Date ? dateStringFormat.format(startDate) : startDate }",
@@ -117,11 +129,7 @@
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
         linkField: "${ config.id }-field",
-        <% if (useTime) { %>
-            linkFormat: "yyyy-mm-dd hh:ii:ss"
-        <% } else { %>
-            linkFormat: "yyyy-mm-dd"
-        <% } %>
+        linkFormat: "${datePickerLinkFormat}"
     })
     <% if (config.dependency || required) { %>
         .on('hide', function() {
