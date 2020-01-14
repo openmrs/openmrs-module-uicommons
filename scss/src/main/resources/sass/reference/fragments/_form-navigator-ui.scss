@@ -31,7 +31,7 @@ form#retrospectiveCheckin {
     color: #444444;
     text-decoration: underline;
   }
-  
+
   #htmlFormEntryBanner {
     background-color: #e0e0e0;
     text-align: center;
@@ -106,7 +106,7 @@ form#retrospectiveCheckin {
     }
 
     border-left: 3px solid #EEE;
-    
+
     text-align: left;
     padding: 10px;
     background: #F9F9F9;
@@ -219,7 +219,6 @@ ul#formBreadcrumb {
           color: rgb(40, 201, 0);
           padding: 3px 2px;
           margin-left: 4px;
-          width: 22px;
         }
 
         &.done {
@@ -228,10 +227,9 @@ ul#formBreadcrumb {
             padding-right: 0;
             display: inline-block;
           }
-           
+
           .icon-ok {
             display: inline-block;
-            width: 22px;
           }
         }
 
@@ -248,7 +246,7 @@ ul#formBreadcrumb {
       font-size: 1em;
       border: 3px solid;
       @include border-radius(50%);
-      
+
       span {
         font-style: normal;
         font-weight: 700;
@@ -271,5 +269,5 @@ ul#formBreadcrumb {
     ul {
       display: none;
     }
-  } 
+  }
 }
