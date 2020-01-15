@@ -1,3 +1,8 @@
+
+#content {
+  padding: 10px
+}
+
 #login-form {
   p {
     margin-right: 20px;
@@ -6,7 +11,7 @@
     input[type=text], input[type=password] {
       margin-bottom: 20px;
     }
-    
+
     input[type=submit] {
       padding: 8px 40px;
     }
@@ -46,4 +51,4 @@
   #login-form ul {
     font-size: 1.0em;
   }
-} 
+}
