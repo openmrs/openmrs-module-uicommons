@@ -38,6 +38,16 @@ var ExitHandlers = {
             }
             return true;
         }
+    },
+    
+    'escape-for-html': {
+    	handleExit: function(fieldModel) {
+            var val = fieldModel.element.val();
+            if (val) {
+            	fieldModel.element.val(_.escape(val));
+            }
+        	return true;
+        }
     }
 
 };

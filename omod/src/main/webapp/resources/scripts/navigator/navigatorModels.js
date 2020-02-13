@@ -72,6 +72,9 @@ function FieldModel(elem, container, parentQuestion, messagesContainer) {
                     + this.element.closest("p").attr("class") + " "
                     + this.element.closest("field").attr("class") + " "
                     + this.element.closest("fieldset").attr("class");
+    
+    // by default, all field values must be html encoded to prevent xss vulnerabilities 
+    classes += " " + "escape-for-html";
 
     if(classes) {
         _.each(classes.split(' '), function(klass) {
