@@ -147,7 +147,7 @@
 	            left: true])}
 	<% } %>
 	
-    <div class="clear"/>
+    <div class="clear"></div>
 </p>
 <% if (config.showEstimated) { %>
 <script type="text/javascript">
