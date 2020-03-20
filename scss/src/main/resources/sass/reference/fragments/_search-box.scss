@@ -14,7 +14,7 @@
     font-size: 2em;
     position: absolute;
     right: 5px;
-    top: 16%;
+    top: 0%;
   }
 }
 
@@ -39,7 +39,7 @@
     @include border-radius(5px);
 
     .scan-input::after {
-      top: 7%;
+      top: 0%;
     }
   }
 
