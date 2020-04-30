@@ -3,7 +3,7 @@
   padding: 10px;
 
   p {
-    margin-right: 20px;
+    margin-right: 10px;
     text-align: right;
 
     input[type=text], input[type=password] {
@@ -48,5 +48,29 @@
 @media (min-width: 992px){
   #login-form ul {
     font-size: 1.0em;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 910px){
+  #username,#password {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 910px) and (min-width: 810px){
+  #username,#password {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 810px) and (min-width: 710px){
+  #username,#password {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 710px) and (min-width: 670px){
+  #username,#password {
+    width: 279px;
   }
 }
