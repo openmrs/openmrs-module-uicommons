@@ -79,7 +79,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         return newField != null;
     };
 
-
+    // TODO ideally I think these api methods would be renamed based on function, not key and this would become "FieldHandler?"
     var api = {};
     api.handleUpKey = function() {
         return delegateIfNoSelectedFieldTo(questionsHandler.prevQuestion);
@@ -187,6 +187,7 @@ function QuestionsHandler(questionModels) {
     return api;
 }
 
+// the follow set of functions basically bind "click" functions to the sections, questions and fields
 var sectionsMouseHandlerInitializer = function(sections) {
     _.each(sections, function(section) {
         section.title.click( function(event) {
