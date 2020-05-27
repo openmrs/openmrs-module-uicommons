@@ -25,6 +25,7 @@ var Navigator = {isReady: false}
 
 
 // TODO figure out out to set up mocking to test this
+// TODO this really isn't just the "keyboard controller" anymore as it adds buttons and supports mouse clickers
 function KeyboardController(formElement) {
 
     var initFormModels = function(formEl) {
@@ -33,6 +34,7 @@ function KeyboardController(formElement) {
             formElement = $('div#content > form').first();
         }
         formElement.prepend('<ul id="formBreadcrumb" class="options"></ul>');
+        formElement.append('<div class="nav-buttons"><button id="prev-button" class="cancel" type="button">Previous</button><button id="next-button" class="confirm right" type="button">Next</button></div>');
         var breadcrumb = formElement.find('#formBreadcrumb').first();
 
         var sections = _.map(formElement.find('section'), function(s) {
@@ -46,13 +48,7 @@ function KeyboardController(formElement) {
         var fields = _.flatten(_.map(questions, function(q) { return q.fields; }), true);
         return [sections, questions, fields];
 
-    }
-
-    var initKeyboardHandlersChain = function(questions, fields) {
-        var questionsHandler = QuestionsKeyboardHandler(questions);
-        var fieldsHandler = FieldsKeyboardHandler(fields, questionsHandler);
-        return fieldsHandler;
-    }
+    };
 
     var initMouseHandlers = function(sections, questions, fields) {
         sectionsMouseHandlerInitializer(sections);
@@ -62,8 +58,11 @@ function KeyboardController(formElement) {
 
     var modelsList = initFormModels(formElement);
     var sections=modelsList[0], questions=modelsList[1], fields=modelsList[2];
+
     initMouseHandlers(sections, questions, fields);
-    var handlerChainRoot = initKeyboardHandlersChain(questions, fields);
+    var questionsHandler = QuestionsHandler(questions);
+    var handlerChainRoot = FieldsKeyboardHandler(fields, questionsHandler);
+
 
     handlerChainRoot.handleTabKey();
 
@@ -91,6 +90,14 @@ function KeyboardController(formElement) {
             default:
                 break;
         }
+    });
+
+    $('#prev-button').click(function() {
+      questionsHandler.prevQuestion();
+    });
+
+    $('#next-button').click(function() {
+      questionsHandler.nextQuestion();
     });
 
     // TODO we may want to remove this global variable as some point; not sure if it is still used in ref app somewhere

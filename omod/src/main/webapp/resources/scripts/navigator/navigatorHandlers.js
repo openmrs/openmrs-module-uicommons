@@ -44,7 +44,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                 if (field.onExit()) {   // call any exit handler, and only continue if it returns true
                     currentIndex = _.indexOf(fields, field);
                     var nextIndex = fieldIndexUpdater(currentIndex, fields);
-                    
+
                     //If we have reached the end of form, just cycle through fields on this section.
                     if (nextIndex == currentIndex && field.parentQuestion instanceof ConfirmationQuestionModel && field.parentQuestion.parentSection) {
                     	newField = field.parentQuestion.parentSection.questions[0].fields[0];
@@ -69,7 +69,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                 }
             } else {
                 if(showFirstFieldIfNoneIsActive) {
-                    questionsHandler.selectedQuestion() || questionsHandler.handleDownKey();
+                    questionsHandler.selectedQuestion() || questionsHandler.nextQuestion();
                     questionsHandler.selectedQuestion().fields[0].toggleSelection();
                     return true;
                 }
@@ -82,10 +82,10 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
 
     var api = {};
     api.handleUpKey = function() {
-        return delegateIfNoSelectedFieldTo(questionsHandler.handleUpKey);
+        return delegateIfNoSelectedFieldTo(questionsHandler.prevQuestion);
     };
     api.handleDownKey = function() {
-        return delegateIfNoSelectedFieldTo(questionsHandler.handleDownKey);
+        return delegateIfNoSelectedFieldTo(questionsHandler.nextQuestion);
     };
     api.handleTabKey = function() {
         var currentField = selectedModel(fields);
@@ -123,7 +123,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
     return api;
 }
 
-function QuestionsKeyboardHandler(questionModels) {
+function QuestionsHandler(questionModels) {
     var questions = questionModels;
 
     var api = {};
@@ -134,7 +134,7 @@ function QuestionsKeyboardHandler(questionModels) {
     api.selectedQuestion = function() {
         return selectedModel(questions);
     };
-    api.handleUpKey = function() {
+    api.prevQuestion = function() {
         var question = selectedModel(questions);
         if(question) {
             if (!question.onExit()) {   // run any exit handler, and don't proceed if it returns false
@@ -157,7 +157,7 @@ function QuestionsKeyboardHandler(questionModels) {
         }
         return false;
     };
-    api.handleDownKey = function() {
+    api.nextQuestion = function() {
         var question = selectedModel(questions);
         if(!question) {
             questions[0].toggleSelection();
