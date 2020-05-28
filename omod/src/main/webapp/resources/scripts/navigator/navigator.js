@@ -35,15 +35,15 @@ function KeyboardController(formElement) {
         }
 
         formElement.prepend('<ul id="formBreadcrumb" class="options"></ul>');
-        formElement.append('<div class="nav-buttons"><button id="prev-button" type="button" class="confirm"><icon class="fas fa-chevron-left"/></button><button id="next-button" class="confirm right" type="button"><icon class="fas fa-chevron-right"/></button></div>');
+        formElement.append('<div id="nav-buttons"><button id="prev-button" type="button" class="confirm" style="display:none"><icon class="fas fa-chevron-left"/></button><button id="next-button" class="confirm right" type="button"><icon class="fas fa-chevron-right"/></button></div>');
 
         var breadcrumb = formElement.find('#formBreadcrumb').first();
+        var navButtons = formElement.find('#nav-buttons').first();
 
         var sections = _.map(formElement.find('section'), function(s) {
             return new SectionModel(s, breadcrumb);
         });
 
-        var navButtons = formElement.find('.nav-buttons').first();
         var confirmationSection = new ConfirmationSectionModel($('#confirmation'), breadcrumb, _.clone(sections), formElement.hasClass('skip-confirmation-section'), navButtons);
         sections.push(confirmationSection);
 
@@ -53,19 +53,17 @@ function KeyboardController(formElement) {
 
     };
 
-    var initMouseHandlers = function(sections, questions, fields) {
-        sectionsMouseHandlerInitializer(sections);
-        questionsMouseHandlerInitializer(questions);
-        fieldsMouseHandlerInitializer(fields);
-    }
-
     var modelsList = initFormModels(formElement);
+
     var sections=modelsList[0], questions=modelsList[1], fields=modelsList[2];
+    var prevButton = formElement.find('#prev-button').first();
 
-    initMouseHandlers(sections, questions, fields);
-    var questionsHandler = QuestionsHandler(questions);
+    sectionsMouseHandlerInitializer(sections);
+    questionsMouseHandlerInitializer(questions);
+    fieldsMouseHandlerInitializer(fields);
+
+    var questionsHandler = QuestionsHandler(questions, prevButton);
     var fieldsHandler = FieldsKeyboardHandler(fields, questionsHandler);
-
 
     fieldsHandler.handleTabKey();
 

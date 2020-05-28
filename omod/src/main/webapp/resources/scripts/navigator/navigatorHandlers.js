@@ -123,7 +123,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
     return api;
 }
 
-function QuestionsHandler(questionModels) {
+function QuestionsHandler(questionModels, prevButton) {
     var questions = questionModels;
 
     var api = {};
@@ -144,7 +144,11 @@ function QuestionsHandler(questionModels) {
             if(idx > 0) {
                 var previousIdx = findPreviousEnabledElement(idx, questions);
 
-                if (idx != previousIdx) {
+                  if (idx != previousIdx) {
+                    // if there are no enabled elements before this one, hide previous button
+                    if (previousIdx == findPreviousEnabledElement(previousIdx, questions)) {
+                      prevButton.hide();
+                    }
                     question.toggleSelection();
                     questions[previousIdx].toggleSelection();
                     if(question.parentSection != questions[previousIdx].parentSection) {
@@ -173,6 +177,7 @@ function QuestionsHandler(questionModels) {
             var nextIdx = findNextEnabledElement(idx, questions);
 
             if (idx != nextIdx) {
+                prevButton.show();
                 question.toggleSelection();
                 questions[nextIdx].toggleSelection();
                 if(question.parentSection != questions[nextIdx].parentSection) {
@@ -308,18 +313,20 @@ var clickedFieldHandler = function(fields, field, event) {
     var clickedFieldIndex = _.indexOf(fields, field);
     var shouldSelectClickedField = true;
     if(clickedFieldIndex > currentFieldIndex) {
-        for(var i=currentFieldIndex; i<clickedFieldIndex; i++) {
+        for(var i=currentFieldIndex == -1 ? 0 : currentFieldIndex; i<clickedFieldIndex; i++) {
             shouldSelectClickedField = fields[i].isValid() && shouldSelectClickedField;
         }
     }
 
     // call exit handler if validation has passed
-    shouldSelectClickedField = shouldSelectClickedField && currentField.onExit();
+    if (currentField) {
+      shouldSelectClickedField = shouldSelectClickedField && currentField.onExit();
+    }
 
     if(!shouldSelectClickedField) {
-        currentField.select();
+        currentField && currentField.select();
     } else {
-        currentField.toggleSelection();
+        currentField && currentField.toggleSelection();
         field.toggleSelection();
     }
     event.preventDefault();
