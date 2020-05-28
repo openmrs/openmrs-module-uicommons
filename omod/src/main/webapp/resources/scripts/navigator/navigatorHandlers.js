@@ -146,7 +146,7 @@ function QuestionsHandler(questionModels, prevButton) {
                 var previousIdx = findPreviousEnabledElement(idx, questions);
 
                   if (idx != previousIdx) {
-                    // if there are no enabled elements before this one, hide previous butto
+                    // if there are no enabled elements before this one, hide previous button
                     if (previousIdx == findPreviousEnabledElement(previousIdx, questions)) {
                       prevButton.hide();
                     }
