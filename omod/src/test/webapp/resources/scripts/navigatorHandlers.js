@@ -234,11 +234,12 @@ describe("Tests for simple form navigation handlers", function() {
         });
 
         describe("Questions Keyboard handler", function() {
-            var firstQuestion, secondQuestion, thirdQuestion, questionsHandler;
+            var firstQuestion, secondQuestion, thirdQuestion, questionsHandler, prevButton;
             beforeEach(function() {
                 firstQuestion =  {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 secondQuestion =  {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 thirdQuestion =  {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
+                prevButton = jasmine.createSpyObj('prevButton', ['hide', 'show']);
             });
 
             it("should switch selection to next question within same section", function() {
@@ -249,7 +250,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
                 var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
@@ -270,7 +271,7 @@ describe("Tests for simple form navigation handlers", function() {
                 firstSection.questions = [firstQuestion]; secondSection.questions = [secondQuestion];
                 firstQuestion.parentSection = firstSection; secondQuestion.parentSection = secondSection;
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
                 var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
@@ -287,7 +288,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
                 var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).not.toHaveBeenCalled();
@@ -302,7 +303,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
                 var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
@@ -318,7 +319,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
                 var wasHandled = questionsHandler.prevQuestion();
 
                 expect(secondQuestion.onExit).toHaveBeenCalled();
@@ -333,7 +334,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection')
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
                 var wasHandled = questionsHandler.prevQuestion();
 
                 expect(secondQuestion.onExit).toHaveBeenCalled();
@@ -357,7 +358,7 @@ describe("Tests for simple form navigation handlers", function() {
                 firstQuestion.parentSection = firstSection;
                 secondQuestion.parentSection = secondSection;
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
                 var wasHandled = questionsHandler.prevQuestion();
 
                 expect(secondQuestion.onExit).toHaveBeenCalled();
@@ -377,7 +378,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
                 var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
@@ -396,7 +397,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
                 var wasHandled = questionsHandler.prevQuestion();
 
                 expect(thirdQuestion.onExit).toHaveBeenCalled();
@@ -415,7 +416,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
                 var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.isSelected).toBe(true);
@@ -433,7 +434,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion]);
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
                 var wasHandled = questionsHandler.prevQuestion();
 
                 expect(thirdQuestion.isSelected).toBe(true);

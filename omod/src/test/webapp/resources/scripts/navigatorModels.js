@@ -215,6 +215,7 @@ describe("Test for simple form models", function() {
         var firstField;
         var secondField;
         var element;
+        var prevButton;
 
         beforeEach(function() {
             questionModel = new QuestionModel();
