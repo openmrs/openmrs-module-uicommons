@@ -33,15 +33,18 @@ function KeyboardController(formElement) {
         if (!formElement) {
             formElement = $('div#content > form').first();
         }
+
         formElement.prepend('<ul id="formBreadcrumb" class="options"></ul>');
-        formElement.append('<div class="nav-buttons"><button id="prev-button" class="cancel" type="button">Previous</button><button id="next-button" class="confirm right" type="button">Next</button></div>');
+        formElement.append('<div class="nav-buttons"><button id="prev-button" type="button" class="confirm"><icon class="fas fa-chevron-left"/></button><button id="next-button" class="confirm right" type="button"><icon class="fas fa-chevron-right"/></button></div>');
+
         var breadcrumb = formElement.find('#formBreadcrumb').first();
 
         var sections = _.map(formElement.find('section'), function(s) {
             return new SectionModel(s, breadcrumb);
         });
 
-        var confirmationSection = new ConfirmationSectionModel($('#confirmation'), breadcrumb, _.clone(sections), formElement.hasClass('skip-confirmation-section'));
+        var navButtons = formElement.find('.nav-buttons').first();
+        var confirmationSection = new ConfirmationSectionModel($('#confirmation'), breadcrumb, _.clone(sections), formElement.hasClass('skip-confirmation-section'), navButtons);
         sections.push(confirmationSection);
 
         var questions = _.flatten( _.map(sections, function(s) { return s.questions; }), true);
@@ -61,32 +64,32 @@ function KeyboardController(formElement) {
 
     initMouseHandlers(sections, questions, fields);
     var questionsHandler = QuestionsHandler(questions);
-    var handlerChainRoot = FieldsKeyboardHandler(fields, questionsHandler);
+    var fieldsHandler = FieldsKeyboardHandler(fields, questionsHandler);
 
 
-    handlerChainRoot.handleTabKey();
+    fieldsHandler.handleTabKey();
 
     $('body').keydown(function(key) {
         switch(key.keyCode ? key.keyCode : key.which) {
             case 38:
-                handlerChainRoot.handleUpKey() && key.preventDefault();
+                fieldsHandler.handleUpKey() && key.preventDefault();
                 break;
             case 40:
-                handlerChainRoot.handleDownKey() && key.preventDefault();
+                fieldsHandler.handleDownKey() && key.preventDefault();
                 break;
             case 27:
-                handlerChainRoot.handleEscKey() && key.preventDefault();
+                fieldsHandler.handleEscKey() && key.preventDefault();
                 break;
             case 9:
                 if(key.shiftKey) {
-                    handlerChainRoot.handleShiftTabKey();
+                    fieldsHandler.handleShiftTabKey();
                 } else {
-                    handlerChainRoot.handleTabKey();
+                    fieldsHandler.handleTabKey();
                 }
                 key.preventDefault();
                 break;
             case 13:
-                handlerChainRoot.handleEnterKey() && key.preventDefault();
+                fieldsHandler.handleEnterKey() && key.preventDefault();
             default:
                 break;
         }
@@ -149,11 +152,11 @@ function KeyboardController(formElement) {
     // used to automatically step back and forward throughout the form; note that this just triggers the
     // appropriate underlying key, so therefore all required validation must pass before it it allowed to step forward
     api.stepBackward = function() {
-        handlerChainRoot.handleShiftTabKey();
+        fieldsHandler.handleShiftTabKey();
     }
 
     api.stepForward = function() {
-        handlerChainRoot.handleTabKey();
+        fieldsHandler.handleTabKey();
     }
 
 

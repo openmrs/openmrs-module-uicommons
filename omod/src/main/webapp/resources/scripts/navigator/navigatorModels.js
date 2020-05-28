@@ -582,10 +582,11 @@ SectionModel.prototype.firstInvalidQuestion = function() {
 }
 
 
-function ConfirmationSectionModel(elem, formMenuElem, regularSections, skipConfirmation) {
+function ConfirmationSectionModel(elem, formMenuElem, regularSections, skipConfirmation, navButtons) {
     SelectableModel.apply(this, [elem]);
     this.sections = regularSections;
     this.skipConfirmation = skipConfirmation ? skipConfirmation : false;
+    this.navButtons = navButtons;
 
     var title = this.element.find("span.title").first();
     var label = $('<span/>').html(title.text());
@@ -613,6 +614,7 @@ ConfirmationSectionModel.prototype.constructor = ConfirmationSectionModel;
 ConfirmationSectionModel.prototype.select = function() {
     SelectableModel.prototype.select.apply(this);
     this.title.addClass("doing");
+    this.navButtons.hide();
 
     if (!this.skipConfirmation) {
         // scan through the form and confirm that at least one of the fields has a value
@@ -675,6 +677,7 @@ ConfirmationSectionModel.prototype.select = function() {
 ConfirmationSectionModel.prototype.unselect = function() {
     SelectableModel.prototype.unselect.apply(this);
     this.title.removeClass("doing");
+    this.navButtons.show();
     this.dataCanvas.empty();
     _.each(this.questions, function(question) { question.unselect() });
 }
