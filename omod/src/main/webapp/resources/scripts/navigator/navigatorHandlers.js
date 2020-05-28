@@ -125,6 +125,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
 
 function QuestionsHandler(questionModels, prevButton) {
     var questions = questionModels;
+    var prevButton = prevButton;
 
     var api = {};
 
@@ -145,7 +146,7 @@ function QuestionsHandler(questionModels, prevButton) {
                 var previousIdx = findPreviousEnabledElement(idx, questions);
 
                   if (idx != previousIdx) {
-                    // if there are no enabled elements before this one, hide previous button
+                    // if there are no enabled elements before this one, hide previous butto
                     if (previousIdx == findPreviousEnabledElement(previousIdx, questions)) {
                       prevButton.hide();
                     }

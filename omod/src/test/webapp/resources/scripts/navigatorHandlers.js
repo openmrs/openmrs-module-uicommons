@@ -442,6 +442,64 @@ describe("Tests for simple form navigation handlers", function() {
                 expect(secondQuestion.toggleSelection).not.toHaveBeenCalled();
                 expect(wasHandled).toBe(true);
             });
+
+          it("should show previous button when jumping from first question to second question", function() {
+            firstQuestion.isSelected = true;
+            spyOn(firstQuestion, 'isValid').andReturn(true);
+            spyOn(firstQuestion, 'onExit').andReturn(true);
+            spyOn(secondQuestion, 'isDisabled').andReturn(false);
+            spyOn(firstQuestion, 'toggleSelection');
+            spyOn(secondQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            var wasHandled = questionsHandler.nextQuestion();
+            expect(prevButton.hide).not.toHaveBeenCalled();
+            expect(prevButton.show).toHaveBeenCalled();
+          });
+
+
+          it("should hide previous button when jumping from second question to first question", function() {
+            secondQuestion.isSelected = true;
+            spyOn(secondQuestion, 'isValid').andReturn(true);
+            spyOn(secondQuestion, 'onExit').andReturn(true);
+            spyOn(firstQuestion, 'isDisabled').andReturn(false);
+            spyOn(firstQuestion, 'toggleSelection');
+            spyOn(secondQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            var wasHandled = questionsHandler.prevQuestion();
+            expect(prevButton.hide).toHaveBeenCalled();
+            expect(prevButton.show).not.toHaveBeenCalled();
+          });
+
+          it("should not hide or show previous button when jumping from second question to third question", function() {
+            secondQuestion.isSelected = true;
+            spyOn(secondQuestion, 'isValid').andReturn(true);
+            spyOn(secondQuestion, 'onExit').andReturn(true);
+            spyOn(thirdQuestion, 'isDisabled').andReturn(false);
+            spyOn(thirdQuestion, 'toggleSelection');
+            spyOn(secondQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            var wasHandled = questionsHandler.nextQuestion();
+            expect(prevButton.hide).not.toHaveBeenCalled();
+            expect(prevButton.show).not.toHaveBeenCalled();
+          });
+
+          it("should not hide or show previous button when jumping from third question to second question", function() {
+            thirdQuestion.isSelected = true;
+            spyOn(thirdQuestion, 'isValid').andReturn(true);
+            spyOn(thirdQuestion, 'onExit').andReturn(true);
+            spyOn(secondQuestion, 'isDisabled').andReturn(false);
+            spyOn(secondQuestion, 'toggleSelection');
+            spyOn(thirdQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            var wasHandled = questionsHandler.prevQuestion();
+            expect(prevButton.hide).not.toHaveBeenCalled();
+            expect(prevButton.show).not.toHaveBeenCalled();
+          });
+
         });
     });
 
