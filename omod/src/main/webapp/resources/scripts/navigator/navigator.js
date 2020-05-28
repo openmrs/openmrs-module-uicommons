@@ -28,11 +28,11 @@ var Navigator = {isReady: false}
 // TODO this really isn't just the "keyboard controller" anymore as it adds buttons and supports mouse clickers
 function KeyboardController(formElement) {
 
-    var initFormModels = function(formEl) {
-        var formElement = formEl;
-        if (!formElement) {
-            formElement = $('div#content > form').first();
-        }
+    if (!formElement) {
+      formElement = $('div#content > form').first();
+    }
+
+    var initFormModels = function(formElement) {
 
         formElement.prepend('<ul id="formBreadcrumb" class="options"></ul>');
         formElement.append('<div id="nav-buttons"><button id="prev-button" type="button" class="confirm" style="display:none"><icon class="fas fa-chevron-left"/></button><button id="next-button" class="confirm right" type="button"><icon class="fas fa-chevron-right"/></button></div>');
