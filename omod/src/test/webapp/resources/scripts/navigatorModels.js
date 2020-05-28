@@ -587,10 +587,12 @@ describe("Test for simple form models", function() {
            confirmationSectionModel.toggleSelection();
            expect(confirmationSectionModel.element.addClass).toHaveBeenCalledWith('focused');
            expect(confirmationSectionModel.isSelected).toBe(true);
+           expect(navButtons.hide).toHaveBeenCalled();
 
            confirmationSectionModel.toggleSelection();
            expect(confirmationSectionModel.element.removeClass).toHaveBeenCalledWith('focused');
            expect(confirmationSectionModel.isSelected).toBe(false);
+           expect(navButtons.show).toHaveBeenCalled();
        });
     });
 })
