@@ -193,7 +193,7 @@ function QuestionsHandler(questionModels, prevButton) {
     return api;
 }
 
-// the follow set of functions basically bind "click" functions to the sections, questions and fields
+// the following functions bind "click" functions to the sections, questions and fields
 var sectionsMouseHandlerInitializer = function(sections) {
     _.each(sections, function(section) {
         section.title.click( function(event) {
