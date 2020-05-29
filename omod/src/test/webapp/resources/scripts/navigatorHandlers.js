@@ -481,7 +481,6 @@ describe("Tests for simple form navigation handlers", function() {
             spyOn(secondQuestion, 'toggleSelection');
 
             questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
-            var wasHandled = questionsHandler.nextQuestion();
             expect(prevButton.hide).not.toHaveBeenCalled();
             expect(prevButton.show).not.toHaveBeenCalled();
           });
@@ -495,7 +494,6 @@ describe("Tests for simple form navigation handlers", function() {
             spyOn(thirdQuestion, 'toggleSelection');
 
             questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
-            var wasHandled = questionsHandler.prevQuestion();
             expect(prevButton.hide).not.toHaveBeenCalled();
             expect(prevButton.show).not.toHaveBeenCalled();
           });
