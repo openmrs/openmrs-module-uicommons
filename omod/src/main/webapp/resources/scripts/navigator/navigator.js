@@ -35,7 +35,15 @@ function KeyboardController(formElement) {
     var initFormModels = function(formElement) {
 
         formElement.prepend('<ul id="formBreadcrumb" class="options"></ul>');
-        formElement.append('<div id="nav-buttons"><button id="prev-button" type="button" class="confirm" style="display:none"><icon class="fas fa-chevron-left"/></button><button id="next-button" class="confirm right" type="button"><icon class="fas fa-chevron-right"/></button></div>');
+        formElement.append(
+          '<div id="nav-buttons">'
+          + '<button id="prev-button" type="button" class="confirm" style="display:none">'
+          + '  <icon class="fas fa-chevron-left"/>'
+          + '</button>'
+          + '<button id="next-button" class="confirm right" type="button">'
+          + '  <icon class="fas fa-chevron-right"/>'
+          + '</button>'
+          + '</div>');
 
         var breadcrumb = formElement.find('#formBreadcrumb').first();
         var navButtons = formElement.find('#nav-buttons').first();
@@ -44,7 +52,11 @@ function KeyboardController(formElement) {
             return new SectionModel(s, breadcrumb);
         });
 
-        var confirmationSection = new ConfirmationSectionModel($('#confirmation'), breadcrumb, _.clone(sections), formElement.hasClass('skip-confirmation-section'), navButtons);
+        var confirmationSection = new ConfirmationSectionModel(
+          $('#confirmation'),
+          breadcrumb, _.clone(sections),
+          formElement.hasClass('skip-confirmation-section'),
+          navButtons);
         sections.push(confirmationSection);
 
         var questions = _.flatten( _.map(sections, function(s) { return s.questions; }), true);

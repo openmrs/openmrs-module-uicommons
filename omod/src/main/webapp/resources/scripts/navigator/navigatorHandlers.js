@@ -192,7 +192,7 @@ function QuestionsHandler(questionModels, prevButton) {
     return api;
 }
 
-// the follow set of functions basically bind "click" functions to the sections, questions and fields
+// the following functions bind "click" functions to the sections, questions and fields
 var sectionsMouseHandlerInitializer = function(sections) {
     _.each(sections, function(section) {
         section.title.click( function(event) {
@@ -313,7 +313,8 @@ var clickedFieldHandler = function(fields, field, event) {
     var clickedFieldIndex = _.indexOf(fields, field);
     var shouldSelectClickedField = true;
     if(clickedFieldIndex > currentFieldIndex) {
-        for(var i=currentFieldIndex == -1 ? 0 : currentFieldIndex; i<clickedFieldIndex; i++) {
+        var startIndex = currentFieldIndex == -1 ? 0 : currentFieldIndex;
+        for(var i=startIndex; i < clickedFieldIndex; i++) {
             shouldSelectClickedField = fields[i].isValid() && shouldSelectClickedField;
         }
     }
