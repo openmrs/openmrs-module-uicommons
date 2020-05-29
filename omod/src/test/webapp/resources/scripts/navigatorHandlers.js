@@ -1,7 +1,7 @@
 describe("Tests for simple form navigation handlers", function() {
 
     describe("Keyboard handlers", function() {
-        var fieldsKeyboardHandler, questionsKeyboardHandler;
+        var fieldsKeyboardHandler, questionsHandler;
 
         describe("Fields Keyboard handler", function() {
             var firstField, secondField, thirdField;
@@ -9,17 +9,17 @@ describe("Tests for simple form navigation handlers", function() {
                 firstField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', select: '', isDisabled: false, requireMouseExit: function() { return false } };
                 secondField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 thirdField = {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
-                questionsKeyboardHandler = jasmine.createSpyObj('questionsHandler',
-                        ['handleUpKey', 'handleDownKey', 'isAfterSelectedQuestion', 'selectedQuestion']);
-                fieldsKeyboardHandler = new FieldsKeyboardHandler([firstField, secondField, thirdField], questionsKeyboardHandler);
+                questionsHandler = jasmine.createSpyObj('questionsHandler',
+                        ['prevQuestion', 'nextQuestion', 'isAfterSelectedQuestion', 'selectedQuestion']);
+                fieldsKeyboardHandler = new FieldsKeyboardHandler([firstField, secondField, thirdField], questionsHandler);
             });
 
             it("should delegate up key handling if no selected field", function() {
-                questionsKeyboardHandler.handleUpKey.andReturn(true);
+                questionsHandler.prevQuestion.andReturn(true);
 
                 var wasHandled = fieldsKeyboardHandler.handleUpKey();
 
-                expect(questionsKeyboardHandler.handleUpKey).toHaveBeenCalled();
+                expect(questionsHandler.prevQuestion).toHaveBeenCalled();
                 expect(wasHandled).toBe(true);
             });
             it("should not handle up key if there is a selected field", function() {
@@ -32,11 +32,11 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should delegate down key handling if no selected field", function() {
                 firstField.isSelected = false; secondField.isSelected = false;
-                questionsKeyboardHandler.handleDownKey.andReturn(true);
+                questionsHandler.nextQuestion.andReturn(true);
 
                 var wasHandled = fieldsKeyboardHandler.handleDownKey();
 
-                expect(questionsKeyboardHandler.handleDownKey).toHaveBeenCalled();
+                expect(questionsHandler.nextQuestion).toHaveBeenCalled();
                 expect(wasHandled).toBe(true);
             });
             it("should not handle down key if there is a selected field", function() {
@@ -54,7 +54,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondField, 'toggleSelection');
                 spyOn(secondField, 'isDisabled').andReturn(false);
                 firstField.isSelected = true;
-                questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
+                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
@@ -76,8 +76,8 @@ describe("Tests for simple form navigation handlers", function() {
                 firstQuestion.isValid.andReturn(true);
                 var secondQuestion = jasmine.createSpyObj('secondQuestion', ['toggleSelection']);
                 secondQuestion.fields = [secondQuestion]; secondField.parentQuestion = secondQuestion;
-                questionsKeyboardHandler.selectedQuestion.andReturn(firstQuestion);
-                questionsKeyboardHandler.isAfterSelectedQuestion.andReturn(true);
+                questionsHandler.selectedQuestion.andReturn(firstQuestion);
+                questionsHandler.isAfterSelectedQuestion.andReturn(true);
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
                 expect(firstField.onExit).toHaveBeenCalled();
@@ -116,7 +116,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondField, 'toggleSelection');
                 spyOn(secondField, 'onExit').andReturn(true);
                 secondField.isSelected = true;
-                questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
+                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -128,7 +128,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondField, 'toggleSelection');
                 spyOn(secondField, 'onExit').andReturn(false);
                 secondField.isSelected = true;
-                questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
+                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -151,7 +151,7 @@ describe("Tests for simple form navigation handlers", function() {
                 secondQuestion.fields = [thirdField];
                 secondQuestion.isValid.andReturn(true);
                 thirdField.parentQuestion = secondQuestion;
-                questionsKeyboardHandler.selectedQuestion.andReturn(secondQuestion);
+                questionsHandler.selectedQuestion.andReturn(secondQuestion);
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -170,7 +170,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondField, 'isDisabled').andReturn(true);
                 spyOn(thirdField, 'isDisabled').andReturn(false);
                 firstField.isSelected = true;
-                questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
@@ -189,7 +189,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstField, 'isDisabled').andReturn(false);
                 spyOn(secondField, 'isDisabled').andReturn(true);
                 thirdField.isSelected = true;
-                questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -207,7 +207,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondField, 'isDisabled').andReturn(true);
                 spyOn(thirdField, 'isDisabled').andReturn(true);
                 firstField.isSelected = true;
-                questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
@@ -223,7 +223,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondField, 'isDisabled').andReturn(true);
                 spyOn(thirdField, 'isDisabled').andReturn(false);
                 thirdField.isSelected = true;
-                questionsKeyboardHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -234,11 +234,12 @@ describe("Tests for simple form navigation handlers", function() {
         });
 
         describe("Questions Keyboard handler", function() {
-            var firstQuestion, secondQuestion, thirdQuestion, questionsKeyboardHandler;
+            var firstQuestion, secondQuestion, thirdQuestion, questionsHandler, prevButton;
             beforeEach(function() {
                 firstQuestion =  {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 secondQuestion =  {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
                 thirdQuestion =  {isSelected: false, isValid: false, onExit: false, toggleSelection: '', isDisabled: false};
+                prevButton = jasmine.createSpyObj('prevButton', ['hide', 'show']);
             });
 
             it("should switch selection to next question within same section", function() {
@@ -249,8 +250,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleDownKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+                var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
                 expect(firstQuestion.toggleSelection).toHaveBeenCalled();
@@ -270,8 +271,8 @@ describe("Tests for simple form navigation handlers", function() {
                 firstSection.questions = [firstQuestion]; secondSection.questions = [secondQuestion];
                 firstQuestion.parentSection = firstSection; secondQuestion.parentSection = secondSection;
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleDownKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+                var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
                 expect(firstQuestion.toggleSelection).toHaveBeenCalled();
@@ -287,8 +288,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleDownKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+                var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).not.toHaveBeenCalled();
                 expect(firstQuestion.toggleSelection).not.toHaveBeenCalled();
@@ -302,8 +303,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleDownKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+                var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
                 expect(firstQuestion.toggleSelection).not.toHaveBeenCalled();
@@ -318,8 +319,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleUpKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+                var wasHandled = questionsHandler.prevQuestion();
 
                 expect(secondQuestion.onExit).toHaveBeenCalled();
                 expect(secondQuestion.toggleSelection).toHaveBeenCalled();
@@ -333,8 +334,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection')
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleUpKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+                var wasHandled = questionsHandler.prevQuestion();
 
                 expect(secondQuestion.onExit).toHaveBeenCalled();
                 expect(secondQuestion.toggleSelection).not.toHaveBeenCalled();
@@ -357,8 +358,8 @@ describe("Tests for simple form navigation handlers", function() {
                 firstQuestion.parentSection = firstSection;
                 secondQuestion.parentSection = secondSection;
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleUpKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+                var wasHandled = questionsHandler.prevQuestion();
 
                 expect(secondQuestion.onExit).toHaveBeenCalled();
                 expect(firstQuestion.toggleSelection).toHaveBeenCalled();
@@ -377,8 +378,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion, thirdQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleDownKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
+                var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.onExit).toHaveBeenCalled();
                 expect(firstQuestion.toggleSelection).toHaveBeenCalled();
@@ -396,8 +397,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion, thirdQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleUpKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
+                var wasHandled = questionsHandler.prevQuestion();
 
                 expect(thirdQuestion.onExit).toHaveBeenCalled();
                 expect(thirdQuestion.toggleSelection).toHaveBeenCalled();
@@ -415,8 +416,8 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion, thirdQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleDownKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
+                var wasHandled = questionsHandler.nextQuestion();
 
                 expect(firstQuestion.isSelected).toBe(true);
                 expect(secondQuestion.toggleSelection).not.toHaveBeenCalled();
@@ -433,14 +434,70 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
 
-                questionsKeyboardHandler = new QuestionsKeyboardHandler([firstQuestion, secondQuestion, thirdQuestion]);
-                var wasHandled = questionsKeyboardHandler.handleUpKey();
+                questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion, thirdQuestion], prevButton);
+                var wasHandled = questionsHandler.prevQuestion();
 
                 expect(thirdQuestion.isSelected).toBe(true);
                 expect(firstQuestion.toggleSelection).not.toHaveBeenCalled();
                 expect(secondQuestion.toggleSelection).not.toHaveBeenCalled();
                 expect(wasHandled).toBe(true);
             });
+
+          it("should show previous button when jumping from first question to second question", function() {
+            firstQuestion.isSelected = true;
+            spyOn(firstQuestion, 'isValid').andReturn(true);
+            spyOn(firstQuestion, 'onExit').andReturn(true);
+            spyOn(secondQuestion, 'isDisabled').andReturn(false);
+            spyOn(firstQuestion, 'toggleSelection');
+            spyOn(secondQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            var wasHandled = questionsHandler.nextQuestion();
+            expect(prevButton.hide).not.toHaveBeenCalled();
+            expect(prevButton.show).toHaveBeenCalled();
+          });
+
+
+          it("should hide previous button when jumping from second question to first question", function() {
+            secondQuestion.isSelected = true;
+            spyOn(secondQuestion, 'isValid').andReturn(true);
+            spyOn(secondQuestion, 'onExit').andReturn(true);
+            spyOn(firstQuestion, 'isDisabled').andReturn(false);
+            spyOn(firstQuestion, 'toggleSelection');
+            spyOn(secondQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            var wasHandled = questionsHandler.prevQuestion();
+            expect(prevButton.hide).toHaveBeenCalled();
+            expect(prevButton.show).not.toHaveBeenCalled();
+          });
+
+          it("should not hide or show previous button when jumping from second question to third question", function() {
+            secondQuestion.isSelected = true;
+            spyOn(secondQuestion, 'isValid').andReturn(true);
+            spyOn(secondQuestion, 'onExit').andReturn(true);
+            spyOn(thirdQuestion, 'isDisabled').andReturn(false);
+            spyOn(thirdQuestion, 'toggleSelection');
+            spyOn(secondQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            expect(prevButton.hide).not.toHaveBeenCalled();
+            expect(prevButton.show).not.toHaveBeenCalled();
+          });
+
+          it("should not hide or show previous button when jumping from third question to second question", function() {
+            thirdQuestion.isSelected = true;
+            spyOn(thirdQuestion, 'isValid').andReturn(true);
+            spyOn(thirdQuestion, 'onExit').andReturn(true);
+            spyOn(secondQuestion, 'isDisabled').andReturn(false);
+            spyOn(secondQuestion, 'toggleSelection');
+            spyOn(thirdQuestion, 'toggleSelection');
+
+            questionsHandler = new QuestionsHandler([firstQuestion, secondQuestion], prevButton);
+            expect(prevButton.hide).not.toHaveBeenCalled();
+            expect(prevButton.show).not.toHaveBeenCalled();
+          });
+
         });
     });
 

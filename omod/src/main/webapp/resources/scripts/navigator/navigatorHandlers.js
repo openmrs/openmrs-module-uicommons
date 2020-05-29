@@ -44,7 +44,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                 if (field.onExit()) {   // call any exit handler, and only continue if it returns true
                     currentIndex = _.indexOf(fields, field);
                     var nextIndex = fieldIndexUpdater(currentIndex, fields);
-                    
+
                     //If we have reached the end of form, just cycle through fields on this section.
                     if (nextIndex == currentIndex && field.parentQuestion instanceof ConfirmationQuestionModel && field.parentQuestion.parentSection) {
                     	newField = field.parentQuestion.parentSection.questions[0].fields[0];
@@ -69,7 +69,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                 }
             } else {
                 if(showFirstFieldIfNoneIsActive) {
-                    questionsHandler.selectedQuestion() || questionsHandler.handleDownKey();
+                    questionsHandler.selectedQuestion() || questionsHandler.nextQuestion();
                     questionsHandler.selectedQuestion().fields[0].toggleSelection();
                     return true;
                 }
@@ -79,13 +79,13 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
         return newField != null;
     };
 
-
+    // TODO ideally I think these api methods would be renamed based on function, not key and this would become "FieldHandler?"
     var api = {};
     api.handleUpKey = function() {
-        return delegateIfNoSelectedFieldTo(questionsHandler.handleUpKey);
+        return delegateIfNoSelectedFieldTo(questionsHandler.prevQuestion);
     };
     api.handleDownKey = function() {
-        return delegateIfNoSelectedFieldTo(questionsHandler.handleDownKey);
+        return delegateIfNoSelectedFieldTo(questionsHandler.nextQuestion);
     };
     api.handleTabKey = function() {
         var currentField = selectedModel(fields);
@@ -123,8 +123,9 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
     return api;
 }
 
-function QuestionsKeyboardHandler(questionModels) {
+function QuestionsHandler(questionModels, prevButton) {
     var questions = questionModels;
+    var prevButton = prevButton;
 
     var api = {};
 
@@ -134,7 +135,7 @@ function QuestionsKeyboardHandler(questionModels) {
     api.selectedQuestion = function() {
         return selectedModel(questions);
     };
-    api.handleUpKey = function() {
+    api.prevQuestion = function() {
         var question = selectedModel(questions);
         if(question) {
             if (!question.onExit()) {   // run any exit handler, and don't proceed if it returns false
@@ -143,8 +144,11 @@ function QuestionsKeyboardHandler(questionModels) {
             var idx = _.indexOf(questions, question);
             if(idx > 0) {
                 var previousIdx = findPreviousEnabledElement(idx, questions);
-
                 if (idx != previousIdx) {
+                    // if there are no enabled elements before this one, hide previous button
+                    if (previousIdx == findPreviousEnabledElement(previousIdx, questions)) {
+                      prevButton.hide();
+                    }
                     question.toggleSelection();
                     questions[previousIdx].toggleSelection();
                     if(question.parentSection != questions[previousIdx].parentSection) {
@@ -157,7 +161,7 @@ function QuestionsKeyboardHandler(questionModels) {
         }
         return false;
     };
-    api.handleDownKey = function() {
+    api.nextQuestion = function() {
         var question = selectedModel(questions);
         if(!question) {
             questions[0].toggleSelection();
@@ -173,6 +177,7 @@ function QuestionsKeyboardHandler(questionModels) {
             var nextIdx = findNextEnabledElement(idx, questions);
 
             if (idx != nextIdx) {
+                prevButton.show();
                 question.toggleSelection();
                 questions[nextIdx].toggleSelection();
                 if(question.parentSection != questions[nextIdx].parentSection) {
@@ -187,6 +192,7 @@ function QuestionsKeyboardHandler(questionModels) {
     return api;
 }
 
+// the following functions bind "click" functions to the sections, questions and fields
 var sectionsMouseHandlerInitializer = function(sections) {
     _.each(sections, function(section) {
         section.title.click( function(event) {
@@ -307,18 +313,21 @@ var clickedFieldHandler = function(fields, field, event) {
     var clickedFieldIndex = _.indexOf(fields, field);
     var shouldSelectClickedField = true;
     if(clickedFieldIndex > currentFieldIndex) {
-        for(var i=currentFieldIndex; i<clickedFieldIndex; i++) {
+        var startIndex = currentFieldIndex == -1 ? 0 : currentFieldIndex;
+        for(var i=startIndex; i < clickedFieldIndex; i++) {
             shouldSelectClickedField = fields[i].isValid() && shouldSelectClickedField;
         }
     }
 
     // call exit handler if validation has passed
-    shouldSelectClickedField = shouldSelectClickedField && currentField.onExit();
+    if (currentField) {
+      shouldSelectClickedField = shouldSelectClickedField && currentField.onExit();
+    }
 
     if(!shouldSelectClickedField) {
-        currentField.select();
+        currentField && currentField.select();
     } else {
-        currentField.toggleSelection();
+        currentField && currentField.toggleSelection();
         field.toggleSelection();
     }
     event.preventDefault();
