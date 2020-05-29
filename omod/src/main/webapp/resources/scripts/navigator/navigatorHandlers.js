@@ -314,7 +314,8 @@ var clickedFieldHandler = function(fields, field, event) {
     var clickedFieldIndex = _.indexOf(fields, field);
     var shouldSelectClickedField = true;
     if(clickedFieldIndex > currentFieldIndex) {
-        for(var i=currentFieldIndex == -1 ? 0 : currentFieldIndex; i<clickedFieldIndex; i++) {
+        var startIndex = currentFieldIndex == -1 ? 0 : currentFieldIndex;
+        for(var i=startIndex; i < clickedFieldIndex; i++) {
             shouldSelectClickedField = fields[i].isValid() && shouldSelectClickedField;
         }
     }
