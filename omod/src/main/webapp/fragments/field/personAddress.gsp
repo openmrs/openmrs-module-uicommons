@@ -2,8 +2,14 @@
     config.require("addressTemplate")
 
     def addressTemplate = config.addressTemplate;
-%>
 
+    def required = config.classes && config.classes.contains("required");
+%>
+<p>
+    <label for="${ config.id }-field">
+        ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
+    </label>
+</p>
 <% addressTemplate.lines.each { line -> %>
         <% line.eachWithIndex { token, tokenIndex -> %>
             <% if (token.isToken == addressTemplate.layoutToken) { %>
