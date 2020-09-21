@@ -159,10 +159,19 @@ FieldModel.prototype.value = function() {
         return $(this.container.attr('data-value-from')).val();
     }
 
+    // when there's a dropdown with one selected option
     var selectedOption = this.element.find('option:selected');
+
+    // somewhat kludgy state when this is a set of radio buttons... note that we look at the *container* because the element is set to just the *first* radio the set
+    var selectedRadio = this.container.find('input:radio:checked')
+
     if (selectedOption.length > 0) {
         return selectedOption.val(); // return the actual value
     }
+    else if (selectedRadio.length > 0) {
+        return selectedRadio.val();
+    }
+    // case of single radio button... I added the above code for a *set* of radio buttons, does this legacy single case exist?
     else if (this.element.attr('type') == 'radio') {
     	return this.element.is(':checked') ? this.element.val() : "";
     }
@@ -181,7 +190,7 @@ FieldModel.prototype.resetValue = function() {
     if (selectedOption.length > 0) {
         selectedOption.removeAttr('selected');
     }
-    // handle the case of radio set with a checked item
+    // TODO expand to handle the case of a *set* of radio buttons being a single field?
     else if (this.element.attr('type') == 'radio' && this.element.is(':checked')) {
         this.element.removeAttr('checked');
     }
@@ -204,6 +213,10 @@ FieldModel.prototype.displayValue = function() {
     var value;
 
     var selectedOption = this.element.find('option:selected');
+
+    // somewhat kludgy state when this is a set of radio buttons... note that we look at the *container* because the element is set to just the *first* radio the set
+    var selectedRadio = this.container.find('input:radio:checked')
+
     if (this.element.attr('data-display-value')) {
         value = this.element.attr('data-display-value');
     }
@@ -215,6 +228,15 @@ FieldModel.prototype.displayValue = function() {
             value = selectedOption.text(); // return the display text
         }
     }
+    else if (selectedRadio.length > 0) {
+      var label = $('label[for="' + selectedRadio.attr('id') + '"]');
+      if (label.length) {
+        value = label.first().html();
+      } else {
+        value = selectedRadio.val();
+      }
+    }
+    // case of single radio button... I added the above code for a *set* of radio buttons, does this legacy single case exist?
     else if (this.element.attr('type') == 'radio') {
         value = this.element.is(':checked') ? this.element.val() : " ";
     }
@@ -233,10 +255,12 @@ FieldModel.prototype.displayValue = function() {
             }
     	}
     	else {
-    		if (this.element.attr('data-display-when-unchecked'))
-    			value = this.element.attr('data-display-when-unchecked');
-    		else
-    			value = "";
+    		if (this.element.attr('data-display-when-unchecked')) {
+          value = this.element.attr('data-display-when-unchecked');
+        }
+    		else {
+          value = "";
+        }
     	}
     }
     else {
