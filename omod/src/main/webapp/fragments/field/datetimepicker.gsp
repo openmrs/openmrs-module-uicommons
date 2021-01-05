@@ -120,11 +120,11 @@
         format: "${datePickerFormat}",
 
         <% if (startDate) { %>
-            startDate: "${ startDate instanceof Date ? dateStringFormat.format(startDate) : startDate }",
+            startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
         <% } %>
 
         <% if (endDate) { %>
-            endDate: "${ endDate instanceof Date ? dateStringFormat.format(endDate) : endDate }",
+            endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
         <% } %>
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
