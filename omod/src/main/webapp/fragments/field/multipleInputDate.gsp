@@ -101,7 +101,7 @@
 
 <p id="${config.id}">
     <label for="${ config.id }-field">
-        ${ config.label } <% if (config.classes && config.classes.contains("required")) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
+        ${ config.label } <% if (config.classes && config.classes.contains("requiredTitle")) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
     ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
 
@@ -147,7 +147,7 @@
 	            left: true])}
 	<% } %>
 	
-    <div class="clear"/>
+    <div class="clear"></div>
 </p>
 <% if (config.showEstimated) { %>
 <script type="text/javascript">
