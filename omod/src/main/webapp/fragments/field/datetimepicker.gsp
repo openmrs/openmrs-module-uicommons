@@ -39,8 +39,13 @@
     def defaultDateString = ""
     def defaultDateISOFormatted = ""
     if (defaultDate) {
-        defaultDateString = dateStringFormat.format(defaultDate)
-        defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
+        if( ui.handleTimeZones() ) {
+            defaultDateString = ui.format(defaultDate)
+            defaultDateISOFormatted = ui.format(defaultDate)
+        }else{
+            defaultDateString = dateStringFormat.format(defaultDate)
+            defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
+        }
     }
 
     def startDate
@@ -120,11 +125,19 @@
         format: "${datePickerFormat}",
 
         <% if (startDate) { %>
-            startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
+            <% if (ui.handleTimeZones()) { %>
+                startDate: "${ startDate instanceof Date ? ui.format(startDate) : startDate }",
+            <% }else{ %>
+                startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
+            <% } %>
         <% } %>
 
         <% if (endDate) { %>
-            endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
+            <% if (ui.handleTimeZones()) { %>
+                endDate: "${ endDate instanceof Date ? ui.format(endDate) : endDate }",
+            <% }else{ %>
+                endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
+            <% } %>
         <% } %>
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
@@ -143,4 +156,17 @@
         });
         <% } %>
     <% } %>
+    //Convert to client timezone.
+    <% if (ui.handleTimeZones()) { %>
+        var dateOnUTC = jq("#${ config.id }-field").val();
+        if(dateOnUTC != ''){
+            jq("#${ config.id }-field").val(new Date(dateOnUTC))
+            moment.locale("${ ui.getLocale() }")
+            <%   def format = useTime ? "YYYY-MM-DD HH:mm:ss" : "YYYY-MM-DD"%>
+            <%   def formatDisplay = useTime ? "DD MMM YYYY HH:MM" : "DD MMM YYYY"%>
+            jq("#${ config.id }-display").val(moment(dateOnUTC).format("${formatDisplay}"));
+            jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
+        }
+    <% } %>
+
 </script>
