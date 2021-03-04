@@ -163,7 +163,7 @@
             jq("#${ config.id }-field").val(new Date(dateOnUTC))
             moment.locale("${ ui.getLocale() }")
             <%   def format = useTime ? "YYYY-MM-DD HH:mm:ss" : "YYYY-MM-DD"%>
-            <%   def formatDisplay = useTime ? "DD MMM YYYY HH:MM" : "DD MMM YYYY"%>
+            <%   def formatDisplay = useTime ? "DD MMM YYYY HH:mm" : "DD MMM YYYY"%>
             jq("#${ config.id }-display").val(moment(dateOnUTC).format("${formatDisplay}"));
             jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
         }
