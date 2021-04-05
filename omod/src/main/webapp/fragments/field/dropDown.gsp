@@ -53,21 +53,74 @@
     ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: config.formFieldName ]) }
 </p>
 
-<% if (config.dependency || required) { %>
 <script type="text/javascript">
+
     var viewModel = viewModel || {};
     viewModel.validations = viewModel.validations || [];
-
     viewModel.${ config.id } = ko.observable();
-    <% if (required) { %>
-    viewModel.validations.push(function() {
-        return jq('#${ config.id }-field').is(':disabled') || (viewModel.${ config.id }() ? true : false);
-    });
-    <% } else { %>
-    viewModel.validations.push(function() {
-        viewModel.${ config.id }();
-        return true;
-    });
+
+    <% if (config.dependency || required) { %>
+
+        <% if (required) { %>
+        viewModel.validations.push(function() {
+            return jq('#${ config.id }-field').is(':disabled') || (viewModel.${ config.id }() ? true : false);
+        });
+        <% } else { %>
+        viewModel.validations.push(function() {
+            viewModel.${ config.id }();
+            return true;
+        });
+        <% } %>
     <% } %>
+
+    <% if (config.autocomplete || true) { %>
+        (function(jq) {
+            let selectListElement = jq("#${ config.id }-field");
+
+            // Create a new jQuery autocomplete text box, use it to update select list, which is hidden
+            let options = [];
+            selectListElement.find('option').each(function () {
+                let val = jq(this).val();
+                if (val !== '') {
+                    options.push({'label': jq(this).html(), 'value': val})
+                }
+            });
+            let inputBox = jq('<input type="text" class="dropdown-field-textbox" autocomplete="do-not-fill" data-lpignore="true">');
+            inputBox.autocomplete({
+                source: options,
+                minLength: 0,
+                matchContains: true,
+                select: function (event, ui) {
+                    event.preventDefault();
+                    inputBox.val(ui.item.label);
+                    selectListElement.val(ui.item.value);
+                    selectListElement.change();
+                },
+                focus: function (event, ui) {
+                    event.preventDefault();
+                    inputBox.val(ui.item.label);
+                },
+            }).blur(function () {
+                let inputVal = inputBox.val();
+                let selectedOption = selectListElement.find("option:selected");
+                inputBox.val(selectedOption.html());
+                console.log("Got input of " + inputVal + " and selected option of " + selectedOption.html());
+                // TODO: We need to prevent this somehow.  Is there a way to validate here?
+            }).focus(function () {
+                jq(this).autocomplete('search', jq(this).val());
+            });
+            inputBox.insertAfter(selectListElement);
+            selectListElement.hide();
+        })(jQuery);
+    <% } %>
+
 </script>
-<% } %>
+
+<style>
+    #${ config.id }-field .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;   /* prevent horizontal scrollbar */
+        overflow-x: hidden; /* add padding to account for vertical scrollbar */
+        z-index:1000 !important;
+    }
+</style>
