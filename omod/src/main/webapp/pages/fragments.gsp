@@ -363,9 +363,28 @@
       </form>
       <div class="example">
           <div class="simple-form-ui">
-              <form id="htmlform" method="post" action="/mirebalais/emr/htmlform/enterHtmlForm/submit.action?successUrl=%2Fmirebalais%2Femr%2Fhtmlform%2FenterHtmlFormWithSimpleUi.page%3Ftiming%3DREAL_TIME%26htmlFormId%3D1%26patientId%3D15%26" onsubmit="submitHtmlForm(); return false;"><ul id="formBreadcrumb" class="options"><li class="doing"><span>Vitals</span><ul><li class="question-legend focused"><i class="icon-ok"></i><span>Height</span></li><li class="question-legend"><i class="icon-ok"></i><span>Weight</span></li><li class="question-legend"><i class="icon-ok"></i><span>(Calculated) BMI</span></li><li class="question-legend"><i class="icon-ok"></i><span>Temperature</span></li><li class="question-legend"><i class="icon-ok"></i><span>Heart Rate</span></li><li class="question-legend"><i class="icon-ok"></i><span>Respiratory Rate</span></li><li class="question-legend"><i class="icon-ok"></i><span>Blood Pressure</span></li><li class="question-legend"><i class="icon-ok"></i><span>O2 Sat</span></li></ul></li><li><span>Confirm</span></li></ul>
-                  <htmlform formencountertype="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formname="Vitals" formuuid="68728aa6-4985-11e2-8815-657001b58a90" formversion="1.0">
-                      <section class="section focused">
+              <form id="htmlform" method="post"
+                    action="/mirebalais/emr/htmlform/enterHtmlForm/submit.action?successUrl=%2Fmirebalais%2Femr%2Fhtmlform%2FenterHtmlFormWithSimpleUi.page%3Ftiming%3DREAL_TIME%26htmlFormId%3D1%26patientId%3D15%26"
+                    onsubmit="submitHtmlForm(); return false;">
+              <ul id="formBreadcrumb" class="options">
+                      <li class="doing">
+                          <span>Vitals</span>
+                          <ul>
+                              <li class="question-legend focused"><i class="icon-ok"></i><span>Height</span></li>
+                              <li class="question-legend"><i class="icon-ok"></i><span>Weight</span></li>
+                              <li class="question-legend"><i class="icon-ok"></i><span>(Calculated) BMI</span></li>
+                              <li class="question-legend"><i class="icon-ok"></i><span>Temperature</span></li>
+                              <li class="question-legend"><i class="icon-ok"></i><span>Heart Rate</span></li>
+                              <li class="question-legend"><i class="icon-ok"></i><span>Respiratory Rate</span></li>
+                              <li class="question-legend"><i class="icon-ok"></i><span>Blood Pressure</span></li>
+                              <li class="question-legend"><i class="icon-ok"></i><span>O2 Sat</span></li>
+                          </ul>
+                      </li>
+                      <li><span>Confirm</span></li>
+                  </ul>
+                  <htmlform formencountertype="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formname="Vitals"
+                            formuuid="68728aa6-4985-11e2-8815-657001b58a90" formversion="1.0">
+                  <section class="section focused">
                           <fieldset class="focused">
                               <h3>Height</h3>
                                   <p class="left">
@@ -379,7 +398,12 @@
                                       or
                                   </p>
                               <p class="left">
-                                  <span id="height_cm" class="obs-field"><input type="text" size="5" id="w10" name="w10" min="10.0" max="228.0" class="number numeric-range"><span class="append-to-value">cm</span> <span class="error field-error" style="display: none" id="w9"></span></span>
+                                  <span id="height_cm" class="obs-field">
+                                      <input type="text" size="5" id="w10" name="w10" min="10.0" max="228.0"
+                                             class="number numeric-range">
+                                      <span class="append-to-value">cm</span>
+                                      <span class="error field-error" style="display: none" id="w9"></span>
+                                  </span>
                               </p>
                           </fieldset>
                       </section>
