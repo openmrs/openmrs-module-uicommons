@@ -73,7 +73,7 @@
         <% } %>
     <% } %>
 
-    <% if (config.autocomplete || true) { %>
+    <% if (config.autocomplete) { %>
         (function(jq) {
             let selectListElement = jq("#${ config.id }-field");
 
