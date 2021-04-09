@@ -95,17 +95,17 @@
                     inputBox.val(ui.item.label);
                     selectListElement.val(ui.item.value);
                     selectListElement.change();
+                    console.log("selected " + ui.item.label);
                 },
                 focus: function (event, ui) {
                     event.preventDefault();
                     inputBox.val(ui.item.label);
                 },
             }).blur(function () {
-                let inputVal = inputBox.val();
-                let selectedOption = selectListElement.find("option:selected");
-                inputBox.val(selectedOption.html());
-                console.log("Got input of " + inputVal + " and selected option of " + selectedOption.html());
-                // TODO: We need to prevent this somehow.  Is there a way to validate here?
+                if (inputBox.val() !== selectListElement.find("option:selected").html()) {
+                    inputBox.val(null);
+                    selectListElement.val(null);
+                }
             }).focus(function () {
                 jq(this).autocomplete('search', jq(this).val());
             });
