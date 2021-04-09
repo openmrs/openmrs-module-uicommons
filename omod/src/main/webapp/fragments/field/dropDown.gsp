@@ -95,7 +95,6 @@
                     inputBox.val(ui.item.label);
                     selectListElement.val(ui.item.value);
                     selectListElement.change();
-                    console.log("selected " + ui.item.label);
                 },
                 focus: function (event, ui) {
                     event.preventDefault();
