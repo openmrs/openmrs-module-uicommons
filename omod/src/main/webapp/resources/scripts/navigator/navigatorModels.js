@@ -76,12 +76,8 @@ function FieldModel(elem, container, parentQuestion, messagesContainer) {
 
     if(classes) {
         _.each(classes.split(' '), function(klass) {
-            if (Validators[klass] && !this.validators.includes(Validators[klass])) {
-                this.validators.push(Validators[klass]);
-            }
-            if (ExitHandlers[klass] && !this.exitHandlers.includes(ExitHandlers[klass])) {
-                this.exitHandlers.push(ExitHandlers[klass]);
-            }
+            Validators[klass] && this.validators.push(Validators[klass]);
+            ExitHandlers[klass] && this.exitHandlers.push(ExitHandlers[klass]);
         }, this);
     }
 }
