@@ -31,15 +31,20 @@
     <% if (config.depends) { %> data-bind="visible: ${ config.depends.variable }() == '${ config.depends.value }'" <% } %>
     <% if (config.left) { %> class="left" <% } %>  >
 
-    <label for="${ config.id }-field">
+    <label for="${ config.id }-field${ config.autocomplete ? 'input' : '' }">
         ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
+
+    <% if (config.autocomplete) { %>
+        <input id="${ config.id }-field-input" type="text" class="dropdown-field-textbox" autocomplete="do-not-fill" data-lpignore="true">
+    <% } %>
 
     <select id="${ config.id }-field" name="${ config.formFieldName}"
             <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
             <% if (config.expanded || config.maximumSize) { %> size="${ [config?.maximumSize, config.options.size() + (config.hideEmptyLabel ? 0 : 1)].min() }" <% } %>
-            <% if (selectDataBind) { %> data-bind="${ selectDataBind }" <% } %> ${otherAttributes}>
-
+            <% if (selectDataBind) { %> data-bind="${ selectDataBind }" <% } %> ${otherAttributes}
+            <% if (config.autocomplete) { %> style="display: none;" <% } %>
+    >
         <% if(!config.hideEmptyLabel) { %>
             <option value="">${ ui.message(config.emptyOptionLabel ?: '&nbsp;') }</option>
         <% } %>
@@ -76,8 +81,6 @@
     <% if (config.autocomplete) { %>
         (function(jq) {
             let selectListElement = jq("#${ config.id }-field");
-
-            // Create a new jQuery autocomplete text box, use it to update select list, which is hidden
             let options = [];
             selectListElement.find('option').each(function () {
                 let val = jq(this).val();
@@ -85,7 +88,7 @@
                     options.push({'label': jq(this).html(), 'value': val})
                 }
             });
-            let inputBox = jq('<input type="text" class="dropdown-field-textbox" autocomplete="do-not-fill" data-lpignore="true">');
+            let inputBox = jq("#${ config.id }-field-input");
             inputBox.autocomplete({
                 source: options,
                 minLength: 0,
@@ -97,19 +100,24 @@
                     selectListElement.change();
                 },
                 focus: function (event, ui) {
-                    event.preventDefault();
-                    inputBox.val(ui.item.label);
-                },
+                    // Override jQuery's strange default behavior, which is to auto-populate
+                    // the input box with the select option *value* when focused with the arrow keys.
+                    // We want the select option label.
+                    console.log(event.which, ui.item.label);
+                    if (event.which === 38 || event.which === 40) {
+                        inputBox.val(ui.item.label);
+                    }
+                    return false;
+                }
             }).blur(function () {
-                if (inputBox.val() !== selectListElement.find("option:selected").html()) {
-                    inputBox.val(null);
+                if (inputBox.val() === "") {
                     selectListElement.val(null);
                 }
             }).focus(function () {
                 jq(this).autocomplete('search', jq(this).val());
             });
-            inputBox.insertAfter(selectListElement);
-            selectListElement.hide();
+            selectListElement.blur(function() { console.log("blurring select")});
+            selectListElement.focus(function() { this.blur(); inputBox.focus(); console.log("focused"); });
         })(jQuery);
     <% } %>
 

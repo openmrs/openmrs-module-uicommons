@@ -64,7 +64,8 @@ function FieldModel(elem, container, parentQuestion, messagesContainer) {
     this.container = container;
     this.parentQuestion = parentQuestion;
     this.messagesContainer = messagesContainer;
-    this.validators = [];this.exitHandlers = [];
+    this.validators = [];
+    this.exitHandlers = [];
     this.label = $('label[for="' + this.element.attr('id') + ' "], label[for="' + this.element.parent().attr('id') + '"]').text().trim();
 
     // you can specify validators directly on the element, or the parent p or fieldset
@@ -75,8 +76,12 @@ function FieldModel(elem, container, parentQuestion, messagesContainer) {
 
     if(classes) {
         _.each(classes.split(' '), function(klass) {
-            Validators[klass] && this.validators.push(Validators[klass]);
-            ExitHandlers[klass] && this.exitHandlers.push(ExitHandlers[klass]);
+            if (Validators[klass] && !this.validators.includes(Validators[klass])) {
+                this.validators.push(Validators[klass]);
+            }
+            if (ExitHandlers[klass] && !this.exitHandlers.includes(ExitHandlers[klass])) {
+                this.exitHandlers.push(ExitHandlers[klass]);
+            }
         }, this);
     }
 }
