@@ -44,6 +44,18 @@ RequiredFieldValidator.prototype.isValid = function(fieldValue) {
     return fieldValue != null && fieldValue.length > 0;
 }
 
+function SelectAutocompleteFieldValidator() {
+    this.messageIdentifier = "invalidSelectOption";
+}
+SelectAutocompleteFieldValidator.prototype = new FieldValidator();
+SelectAutocompleteFieldValidator.prototype.constructor = SelectAutocompleteFieldValidator;
+SelectAutocompleteFieldValidator.prototype.validate = function(field) {
+    const inputValue = field.value();
+    const selectValue = jq(field.container).find("option:selected").html();
+    if (inputValue && inputValue !== selectValue) {
+        return emrMessages[this.messageIdentifier];
+    }
+}
 
 function DateFieldValidator() {
     this.messageIdentifier = "dateField";
@@ -171,6 +183,7 @@ PhoneFieldValidator.prototype.isValid = function(fieldValue) {
 
 var Validators = {
     required: new RequiredFieldValidator(),
+    "dropdown-field-textbox": new SelectAutocompleteFieldValidator(),
     date: new DateFieldValidator(),
     integer: new IntegerFieldValidator(),
     number: new NumberFieldValidator(),
