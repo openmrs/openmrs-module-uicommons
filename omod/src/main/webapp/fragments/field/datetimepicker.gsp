@@ -39,10 +39,15 @@
     def defaultDateString = ""
     def defaultDateISOFormatted = ""
     if (defaultDate) {
-        if( ui.handleTimeZones() ) {
-            defaultDateString = ui.format(defaultDate)
-            defaultDateISOFormatted = ui.format(defaultDate)
-        }else{
+        if( ui.convertTimezones() ) {
+            if(useTime){
+                defaultDateString = ui.format(defaultDate)
+                defaultDateISOFormatted = ui.format(defaultDate)
+            } else {
+                defaultDateString = ui.formatDateWithClientTimezone(defaultDate)
+                defaultDateISOFormatted = ui.formatDateWithClientTimezone(defaultDate)
+            }
+        } else {
             defaultDateString = dateStringFormat.format(defaultDate)
             defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
         }
@@ -125,17 +130,17 @@
         format: "${datePickerFormat}",
 
         <% if (startDate) { %>
-            <% if (ui.handleTimeZones()) { %>
+            <% if (ui.convertTimezones()) { %>
                 startDate: "${ startDate instanceof Date ? ui.format(startDate) : startDate }",
-            <% }else{ %>
+            <% } else { %>
                 startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
             <% } %>
         <% } %>
 
         <% if (endDate) { %>
-            <% if (ui.handleTimeZones()) { %>
+            <% if (ui.convertTimezones()) { %>
                 endDate: "${ endDate instanceof Date ? ui.format(endDate) : endDate }",
-            <% }else{ %>
+            <% } else { %>
                 endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
             <% } %>
         <% } %>
@@ -155,18 +160,6 @@
             return viewModel.${ config.id }() ? true : false;
         });
         <% } %>
-    <% } %>
-    //Convert to client timezone.
-    <% if (ui.handleTimeZones()) { %>
-        var dateOnUTC = jq("#${ config.id }-field").val();
-        if(dateOnUTC != ''){
-            jq("#${ config.id }-field").val(new Date(dateOnUTC))
-            moment.locale("${ ui.getLocale() }")
-            <%   def format = useTime ? "YYYY-MM-DD HH:mm:ss" : "YYYY-MM-DD"%>
-            <%   def formatDisplay = useTime ? "DD MMM YYYY HH:MM" : "DD MMM YYYY"%>
-            jq("#${ config.id }-display").val(moment(dateOnUTC).format("${formatDisplay}"));
-            jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
-        }
     <% } %>
 
 </script>
