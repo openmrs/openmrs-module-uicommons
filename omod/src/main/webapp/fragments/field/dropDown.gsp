@@ -119,12 +119,3 @@
     <% } %>
 
 </script>
-
-<style>
-    #${ config.id }-field .ui-autocomplete {
-        max-height: 300px;
-        overflow-y: auto;   /* prevent horizontal scrollbar */
-        overflow-x: hidden; /* add padding to account for vertical scrollbar */
-        z-index:1000 !important;
-    }
-</style>
