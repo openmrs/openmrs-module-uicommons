@@ -31,7 +31,7 @@
     <% if (config.depends) { %> data-bind="visible: ${ config.depends.variable }() == '${ config.depends.value }'" <% } %>
     <% if (config.left) { %> class="left" <% } %>  >
 
-    <label for="${ config.id }-field${ config.autocomplete ? 'input' : '' }">
+    <label for="${ config.id }-field${ config.autocomplete ? '-input' : '' }">
         ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
 
@@ -101,9 +101,8 @@
                 },
                 focus: function (event, ui) {
                     // Override jQuery's strange default behavior, which is to auto-populate
-                    // the input box with the select option *value* when focused with the arrow keys.
+                    // the input box with the select option value when focused with the arrow keys.
                     // We want the select option label.
-                    console.log(event.which, ui.item.label);
                     if (event.which === 38 || event.which === 40) {
                         inputBox.val(ui.item.label);
                     }
@@ -116,8 +115,6 @@
             }).focus(function () {
                 jq(this).autocomplete('search', jq(this).val());
             });
-            selectListElement.blur(function() { console.log("blurring select")});
-            selectListElement.focus(function() { this.blur(); inputBox.focus(); console.log("focused"); });
         })(jQuery);
     <% } %>
 
