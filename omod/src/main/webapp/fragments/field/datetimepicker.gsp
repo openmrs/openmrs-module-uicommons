@@ -39,8 +39,18 @@
     def defaultDateString = ""
     def defaultDateISOFormatted = ""
     if (defaultDate) {
-        defaultDateString = dateStringFormat.format(defaultDate)
-        defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
+        if( ui.convertTimezones() ) {
+            if(useTime){
+                defaultDateString = ui.format(defaultDate)
+                defaultDateISOFormatted = ui.format(defaultDate)
+            } else {
+                defaultDateString = ui.formatDateWithClientTimezone(defaultDate)
+                defaultDateISOFormatted = ui.formatDateWithClientTimezone(defaultDate)
+            }
+        } else {
+            defaultDateString = dateStringFormat.format(defaultDate)
+            defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
+        }
     }
 
     def startDate
@@ -120,11 +130,19 @@
         format: "${datePickerFormat}",
 
         <% if (startDate) { %>
-            startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
+            <% if (ui.convertTimezones()) { %>
+                startDate: "${ startDate instanceof Date ? ui.format(startDate) : startDate }",
+            <% } else { %>
+                startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
+            <% } %>
         <% } %>
 
         <% if (endDate) { %>
-            endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
+            <% if (ui.convertTimezones()) { %>
+                endDate: "${ endDate instanceof Date ? ui.format(endDate) : endDate }",
+            <% } else { %>
+                endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
+            <% } %>
         <% } %>
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
@@ -143,4 +161,5 @@
         });
         <% } %>
     <% } %>
+
 </script>
