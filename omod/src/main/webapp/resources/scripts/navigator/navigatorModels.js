@@ -690,7 +690,7 @@ ConfirmationSectionModel.prototype.select = function() {
                     // question title is label, all fields on single line
                     else {
                         summaryDiv.append("<p><span class='title'>" + question.title().text() + ": </span>"
-                            + $("<div>").text((question.valueAsText && !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--")).html() + "</p>");
+                            + (question.valueAsText && !/^\s*$/.test(question.valueAsText) ? question.valueAsText : "--") + "</p>");
 
                     }
                 }
