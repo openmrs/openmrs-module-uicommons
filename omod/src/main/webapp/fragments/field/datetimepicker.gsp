@@ -39,14 +39,9 @@
     def defaultDateString = ""
     def defaultDateISOFormatted = ""
     if (defaultDate) {
-        if( ui.convertTimezones() ) {
-            if(useTime){
+        if( ui.convertTimezones() && useTime) {
                 defaultDateString = ui.format(defaultDate)
-                defaultDateISOFormatted = ui.format(defaultDate)
-            } else {
-                defaultDateString = ui.formatDateWithClientTimezone(defaultDate)
-                defaultDateISOFormatted = ui.formatDateWithClientTimezone(defaultDate)
-            }
+                defaultDateISOFormatted = ui.dateToISOString(defaultDate)
         } else {
             defaultDateString = dateStringFormat.format(defaultDate)
             defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
@@ -162,4 +157,14 @@
         <% } %>
     <% } %>
 
+    //Convert to client timezone.
+    <% if (ui.convertTimezones() && useTime) { %>
+    var dateOnUTC = jq("#${ config.id }-field").val();
+    if(dateOnUTC != '') {
+        jq("#${ config.id }-field").val(new Date(dateOnUTC))
+        moment.locale("${ ui.getLocale() }")
+        <%   def format = "YYYY-MM-DD HH:mm:ss" %>
+        jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
+    }
+    <% } %>
 </script>
