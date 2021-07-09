@@ -1,4 +1,4 @@
-angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchService', 'ui.bootstrap' ])
+angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchService', 'ui.bootstrap', 'ngSanitize' ])
 
     .directive('codedOrFreeTextAnswer', ['ConceptSearchService', function(ConceptSearchService) {
 
@@ -15,7 +15,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                 conceptClasses: '@',
                 selection: '@' // default behavior is "ConceptName", but specify "Concept" if you won't be keeping the specific chosen name
             },
-            controller: function($scope) {
+            controller: function($scope, $sanitize) {
                 var conceptOnly = $scope.selection === "Concept";
 
                 $scope.inputId = ($scope.id ? $scope.id : 'coded-or-free-text-answer-' + Math.floor(Math.random() * 10000)) + '-input';
@@ -82,7 +82,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                         return result.concept.display;
                     }
                     else {
-                        return '"' + result.word + '"';
+                        return '"' + $sanitize(result.word) + '"';
                     }
                 }
 
