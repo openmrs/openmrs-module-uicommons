@@ -92,6 +92,10 @@
     if(!datePickerLinkFormat){
         datePickerLinkFormat = useTime ? "yyyy-mm-dd hh:ii:ss" : "yyyy-mm-dd"
     }
+
+    // see: "Advanced" section  of https://www.malot.fr/bootstrap-datetimepicker/demo.php for how this is supported
+    // (basically, the datepicker has built-in support for reset based around added an element with the "icon-remove" class)
+    def clearButton = config.clearButton
 %>
 
 <span id="${config.id}"
@@ -101,7 +105,12 @@
     </label>
     <span id="${ config.id }-wrapper" class="date">
         <input type="text" id="${ config.id }-display" value="${ defaultDateString }" size="${config.size}" readonly <% if (config.classes) { %>class="date${(useTime) ? ' use-time': ''} ${ config.classes.join(' ')}" <% } %> <% if ( config.ngModel ) { %>ng-model="${config.ngModel}" <% } %> />
-        <span class="add-on"><i class="icon-calendar small"></i></span>
+        <span class="add-on">
+            <i class="icon-calendar small"></i>
+            <% if (clearButton) { %>
+                <i class="icon-remove small"></i>
+            <% } %>
+        </span>
     </span>
     <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }" value="${ defaultDateISOFormatted }"
         <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
