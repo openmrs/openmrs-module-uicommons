@@ -25,7 +25,7 @@ angular.module('uicommons.widget.coded-or-free-text-answer', [ 'conceptSearchSer
                     if (term.slice(0, 1) === '"') {
                         term = term.slice(1);
                     }
-                    if (term.slice(term.length - 1, 1) === '"') {
+                    if (term.slice(term.length-1, term.length) === '"') {
                         term = term.slice(0, term.length - 1);
                     }
                     var extraParams = { };
