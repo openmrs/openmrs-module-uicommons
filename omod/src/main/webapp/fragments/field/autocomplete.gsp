@@ -58,7 +58,7 @@
                         if (data.length == 0){
                             data.push({
                                patientId: 0,
-                               label: '${ ui.message("emr.patient.notFound")}'
+                               label: '${ ui.message("coreapps.patient.notFound")}'
                             });
                         }
                         response(data);

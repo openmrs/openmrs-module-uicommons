@@ -101,7 +101,7 @@
 <span id="${config.id}"
     <% if (config.depends) { %> data-bind="visible: ${ config.depends.variable }() == '${ config.depends.value }'" <% } %> >
     <label for="${ config.id }-display">
-        ${ ui.message(config.label) } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
+        ${ ui.message(config.label) } <% if (required) { %><span>(${ ui.message("coreapps.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
     <span id="${ config.id }-wrapper" class="date">
         <input type="text" id="${ config.id }-display" value="${ defaultDateString }" size="${config.size}" readonly <% if (config.classes) { %>class="date${(useTime) ? ' use-time': ''} ${ config.classes.join(' ')}" <% } %> <% if ( config.ngModel ) { %>ng-model="${config.ngModel}" <% } %> />

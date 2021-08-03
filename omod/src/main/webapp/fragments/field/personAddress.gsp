@@ -7,7 +7,7 @@
 %>
 <p>
     <label for="${ config.id }-field">
-        ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
+        ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("coreapps.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
 </p>
 <% addressTemplate.lines.each { line -> %>

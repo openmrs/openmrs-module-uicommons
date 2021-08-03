@@ -32,7 +32,7 @@
     <% if (config.left) { %> class="left" <% } %>  >
 
     <label for="${ config.id }-field${ config.autocomplete ? '-input' : '' }">
-        ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %>
+        ${ ui.message(config.label) ?: '' } <% if (required) { %><span>(${ ui.message("coreapps.formValidation.messages.requiredField.label") })</span><% } %>
     </label>
 
     <% if (config.autocomplete) { %>

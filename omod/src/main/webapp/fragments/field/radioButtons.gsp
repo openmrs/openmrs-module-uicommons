@@ -14,7 +14,7 @@
 
 
 <label>${ config.label }
-    <% if (required) { %><span>(${ ui.message("emr.formValidation.messages.requiredField.label") })</span><% } %></label>
+    <% if (required) { %><span>(${ ui.message("coreapps.formValidation.messages.requiredField.label") })</span><% } %></label>
 
 <% config.options.eachWithIndex { it, idx ->
     def checked = it.checked || it.value == config.initialValue %>
