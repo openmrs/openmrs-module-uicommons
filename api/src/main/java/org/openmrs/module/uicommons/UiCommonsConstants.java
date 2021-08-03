@@ -19,10 +19,10 @@ package org.openmrs.module.uicommons;
  */
 public class UiCommonsConstants {
 
-    public static final String SESSION_ATTRIBUTE_ERROR_MESSAGE = "coreapps.errorMessage";
+    public static final String SESSION_ATTRIBUTE_ERROR_MESSAGE = "emr.errorMessage";
 
-    public static final String SESSION_ATTRIBUTE_INFO_MESSAGE = "coreapps.infoMessage";
+    public static final String SESSION_ATTRIBUTE_INFO_MESSAGE = "emr.infoMessage";
 
-    public static final String SESSION_ATTRIBUTE_TOAST_MESSAGE = "coreapps.toastMessage";
+    public static final String SESSION_ATTRIBUTE_TOAST_MESSAGE = "emr.toastMessage";
 
 }
