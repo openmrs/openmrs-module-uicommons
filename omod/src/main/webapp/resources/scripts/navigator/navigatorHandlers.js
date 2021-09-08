@@ -70,7 +70,7 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
             } else {
                 if(showFirstFieldIfNoneIsActive) {
                     questionsHandler.selectedQuestion() || questionsHandler.nextQuestion();
-                    if (questionsHandler.selectedQuestion() != null) {
+                    if (questionsHandler.selectedQuestion() && questionsHandler.selectedQuestion().fields) {
                         questionsHandler.selectedQuestion().fields[0].toggleSelection();
                     }
                     return true;
