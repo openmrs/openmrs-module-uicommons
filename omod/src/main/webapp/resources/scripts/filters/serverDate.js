@@ -10,7 +10,7 @@ angular.module('uicommons.filters').
      * time zone. This is better accomplished using a function like
      * [Date.prototype.toLocaleString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
      */
-    filter('serverDate', ['$filter', 'locale', function($filter) {
+    filter('serverDate', ['$filter', function($filter) {
         return function(isoString, format) {
             console.warn("Use of the `serverDate` filter is likely to cause problems. Please consider using the `toLocaleString`, `toLocaleDateString`, or `toLocaleTimeString` filter instead. See Date.prototype.toLocaleString: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString");
             if (!isoString) {
@@ -19,7 +19,7 @@ angular.module('uicommons.filters').
             if (isoString.length > 23) {
                 isoString = isoString.substring(0, 23);
             }
-            return $filter('date')(isoString, format || "dd-MMMM-yyyy H:mm");
+            return $filter('date')(isoString, format || "dd-MMM-yyyy H:mm");
         }
     }])
 
