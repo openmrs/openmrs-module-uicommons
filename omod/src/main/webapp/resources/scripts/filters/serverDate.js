@@ -12,7 +12,7 @@ angular.module('uicommons.filters').
      */
     filter('serverDate', ['$filter', 'locale', function($filter) {
         return function(isoString, format) {
-            console.warn("Use of the `serverDate` filter is likely to cause problems. Please consider using the `toLocaleString` or `toLocaleDateString` filter instead. See Date.prototype.toLocaleString: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString");
+            console.warn("Use of the `serverDate` filter is likely to cause problems. Please consider using the `toLocaleString`, `toLocaleDateString`, or `toLocaleTimeString` filter instead. See Date.prototype.toLocaleString: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString");
             if (!isoString) {
                 return null;
             }
