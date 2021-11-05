@@ -10,16 +10,34 @@ angular.module('uicommons.filters').
      * time zone. This is better accomplished using a function like
      * [Date.prototype.toLocaleString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
      */
-    filter('serverDate', ['$filter', function($filter) {
+    filter('serverDate', ['$filter', 'locale', function($filter) {
         return function(isoString, format) {
-            console.warn("Use of the `serverDate` filter is likely to cause problems. Please consider using Date.prototype.toLocaleString instead: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString");
+            console.warn("Use of the `serverDate` filter is likely to cause problems. Please consider using the `toLocaleString` or `toLocaleDateString` filter instead. See Date.prototype.toLocaleString: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString");
             if (!isoString) {
                 return null;
             }
             if (isoString.length > 23) {
                 isoString = isoString.substring(0, 23);
             }
-            return $filter('date')(isoString, format || "dd-MMM-yyyy H:mm");
+            return $filter('date')(isoString, format || "dd-MMMM-yyyy H:mm");
+        }
+    }])
+
+    .filter('toLocaleString', ['locale', function(locale) {
+        return function(date, options) {
+            return new Date(date).toLocaleString(locale, options);
+        }
+    }])
+
+    .filter('toLocaleDateString', ['locale', function(locale) {
+        return function(date, options) {
+            return new Date(date).toLocaleDateString(locale, options);
+        }
+    }])
+
+    .filter('toLocaleTimeString', ['locale', function(locale) {
+        return function(date, options) {
+            return new Date(date).toLocaleTimeString(locale, options);
         }
     }])
 
