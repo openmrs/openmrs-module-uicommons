@@ -437,6 +437,8 @@ var emr = (function($) {
 })(jQuery);
 
 var jq = jQuery;
+var $j = jQuery;  // jq is our preferred, but add this for backwards compatibility
+
 _.templateSettings = {
     interpolate : /{{=(.+?)}}/g ,
     escape : /{{-(.+?)}}/g ,
