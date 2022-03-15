@@ -87,8 +87,9 @@
         minuteStep = 5
     }
     if(!datePickerFormat){
-        datePickerFormat = useTime ? "dd M yyyy hh:ii" : "dd M yyyy"
+        datePickerFormat = useTime ? "dd M yyyy HH:mm" :"dd M yyyy"
     }
+
     if(!datePickerLinkFormat){
         datePickerLinkFormat = useTime ? "yyyy-mm-dd hh:ii:ss" : "yyyy-mm-dd"
     }
