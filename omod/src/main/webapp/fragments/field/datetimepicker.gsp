@@ -21,7 +21,7 @@
     def stringDateFormat = config.stringDateFormat
     def isoDateFormat = config.isoDateFormat
     if (!stringDateFormat){
-        stringDateFormat = useTime ? "dd MMM yyyy HH:mm" : "dd MMM yyyy"
+        stringDateFormat = useTime ? "dd MMM yyyy HH:mm:ss" : "dd MMM yyyy"
     }
     if(!isoDateFormat){
         isoDateFormat = useTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd"
@@ -87,7 +87,7 @@
         minuteStep = 5
     }
     if(!datePickerFormat){
-        datePickerFormat = useTime ? "dd M yyyy HH:mm" :"dd M yyyy"
+        datePickerFormat = useTime ? "dd M yyyy hh:ii:ss" :"dd M yyyy"
     }
 
     if(!datePickerLinkFormat){
@@ -169,12 +169,15 @@
 
     //Convert to client timezone.
     <% if (ui.convertTimezones() && useTime) { %>
-    var dateOnUTC = jq("#${ config.id }-field").val();
-    if(dateOnUTC != '') {
-        jq("#${ config.id }-field").val(new Date(dateOnUTC))
-        moment.locale("${ ui.getLocale() }")
-        <%   def format = "YYYY-MM-DD HH:mm:ss" %>
-        jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
-    }
+
+    jQuery("#${ config.id }-wrapper").datetimepicker().on('show hide', function(e) {
+        var dateOnUTC = jq("#${ config.id }-field").val();
+        if (dateOnUTC != '') {
+            jq("#${ config.id }-field").val(new Date(dateOnUTC))
+            moment.locale("${ ui.getLocale() }")
+            <%   def format = "YYYY-MM-DDTHH:mm:ss.sssZ" %>
+            jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
+        }
+    })
     <% } %>
 </script>
