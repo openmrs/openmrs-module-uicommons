@@ -3,8 +3,20 @@
     config.require("contextModel")
 %>
 
+<%
+    if (config.extension.type == 'link') {
+        if (config.extension.url.startsWith("http"))  {
+            path = config.extension.url
+            target = "_blank"
+        } else {
+            path = config.extension.url(contextPath, config.contextModel, config.contextModel?.returnUrl)
+            target = "_self"
+        }
+    }
+%>
+
 <% if (config.extension.type == 'link' || config.extension.type == 'script') { %>
-    <a href="${ config.extension.url(contextPath, config.contextModel, config.contextModel?.returnUrl) }"
+    <a href="${path}" target=${target}
         <% if (config.extension?.extensionParams?.linkId) { %> id="${ ui.escapeAttribute( config.extension.extensionParams.linkId) }" <% } %> >
         <% if (config.extension.icon) { %> <i class="${ config.extension.icon }"></i> <% } %>
         <% if (config.extension.label) { %> ${ ui.message(config.extension.label) } <% } %>
