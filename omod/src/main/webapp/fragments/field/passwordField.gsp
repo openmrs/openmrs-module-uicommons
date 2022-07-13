@@ -15,7 +15,7 @@
 
 <p <% if (config.left) { %> class="left" <% } %> >
     <label for="${ config.id }-field">
-        ${ config.label } <% if (config.classes && config.classes.contains("required")) { %>
+        ${ config.label } <% if (config.classes && config.classes.join(' ').contains("required")) { %>
         <span>(${ ui.message("uicommons.requiredField.label") })</span> <% } %>
     </label>
     <input type="password" id="${ config.id }-field" name="${ config.formFieldName }" autocomplete="off"
