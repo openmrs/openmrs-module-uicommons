@@ -3,7 +3,7 @@
 
     def addressTemplate = config.addressTemplate;
 
-    def required = config.classes && config.classes.contains("required");
+    def required = config.classes && config.classes.join(' ').contains("required");
 %>
 <p>
     <label for="${ config.id }-field">

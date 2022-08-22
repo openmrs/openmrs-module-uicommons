@@ -7,7 +7,7 @@
 
     config.require("id", "label", "formFieldName", "useTime")
 
-    def required = config.classes && config.classes.contains("required")
+    def required = config.classes && config.classes.join(' ').contains("required")
 
     def dateStringFormat
     def dateISOFormatted
