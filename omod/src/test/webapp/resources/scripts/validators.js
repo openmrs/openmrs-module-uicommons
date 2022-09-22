@@ -19,31 +19,31 @@ describe("Test for form validators", function() {
             field = jasmine.createSpyObj("field", ['value']);
         });
         it("should allow an empty string", function() {
-            field.value.andReturn("");
+            field.value.and.returnValue("");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe(null);
         });
         it("should not allow whitespaces", function() {
-            field.value.andReturn(" ");
+            field.value.and.returnValue(" ");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe('integerFieldMessage');
         });
         it("should validate an integer", function() {
-            field.value.andReturn("7");
+            field.value.and.returnValue("7");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe(null);
         });
         it("should not validate a float", function() {
-            field.value.andReturn("7.5");
+            field.value.and.returnValue("7.5");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe('integerFieldMessage');
         });
         it("should not validate text", function() {
-            field.value.andReturn("something");
+            field.value.and.returnValue("something");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe('integerFieldMessage');
@@ -56,19 +56,19 @@ describe("Test for form validators", function() {
             field = jasmine.createSpyObj("field", ['value']);
         });
         it("should validate an integer", function() {
-            field.value.andReturn("7");
+            field.value.and.returnValue("7");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe(null);
         });
         it("should validate a float", function() {
-            field.value.andReturn("-7.5");
+            field.value.and.returnValue("-7.5");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe(null);
         });
         it("should not validate text", function() {
-            field.value.andReturn("something");
+            field.value.and.returnValue("something");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe('numberFieldMessage');
@@ -143,13 +143,13 @@ describe("Test for form validators", function() {
         });
 
         it("should validate non empty field", function() {
-            field.value.andReturn("something");
+            field.value.and.returnValue("something");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe(null);
         });
         it("should not validate empty field", function() {
-            field.value.andReturn("");
+            field.value.and.returnValue("");
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe('requiredFieldMessage');
@@ -162,34 +162,34 @@ describe("Test for form validators", function() {
             });
 
             it("should validate correct date", function() {
-                field.value.andReturn("30-10-2010");
+                field.value.and.returnValue("30-10-2010");
 
                 var validationMessage = validator.validate(field);
                 expect(validationMessage).toBe(null);
             });
             it("should not validate incorrect date", function() {
-                field.value.andReturn("32-13-2010");
+                field.value.and.returnValue("32-13-2010");
 
                 var validationMessage = validator.validate(field);
                 expect(validationMessage).toBe('dateFieldMessage');
             });
             it("should not validate a non date", function() {
-                field.value.andReturn("nondate");
+                field.value.and.returnValue("nondate");
 
                 var validationMessage = validator.validate(field);
                 expect(validationMessage).toBe('dateFieldMessage');
             });
             it("should allow 29th for february for a leap year", function() {
-                field.value.andReturn("29-02-2012");
+                field.value.and.returnValue("29-02-2012");
                 expect(validator.validate(field)).toBe(null);
             });
             it("should allow 31st for a month with 31 days", function() {
-                field.value.andReturn("31-08-2012");
+                field.value.and.returnValue("31-08-2012");
                 expect(validator.validate(field)).toBe(null);
             });
             it("should reject 31 for months with less than 31 days", function() {
                 var invalidDate = "31-04-2011";
-                field.value.andReturn(invalidDate);
+                field.value.and.returnValue(invalidDate);
                 var expectedErrorMessage = 'selectedMonthHas30DaysMessage';
 
                 var validationMessage = validator.validate(field);
@@ -209,7 +209,7 @@ describe("Test for form validators", function() {
             });
             it("should reject dates beyond 28th for february for a non leap year", function() {
                 var invalidDate = "29-02-2010";
-                field.value.andReturn(invalidDate);
+                field.value.and.returnValue(invalidDate);
                 var febErrorMessage = 'februaryDaysOutOfRangeMessage';
 
                 var validationMessage = validator.validate(field);
@@ -224,9 +224,7 @@ describe("Test for form validators", function() {
                 expect(validationMessage).toBe(febErrorMessage);
             });
             it("should reject future date", function() {
-                //set the year in the future by 1
-                var currentDate = new Date(new Date().getFullYear()+1, 10, 01);
-                var invalidDate = $.datepicker.formatDate('dd-mm-yy', currentDate);
+                var invalidDate = "01-01-2100";  // will start to fail in year 2100, for whoever finds this, hello from 2022
 
                 var validationMessage = validator.validateInternal(invalidDate, false, true);
                 expect(validationMessage).toBe('dateInFutureMessage');

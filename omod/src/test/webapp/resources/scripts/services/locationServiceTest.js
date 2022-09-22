@@ -8,7 +8,7 @@ describe('LocationService tests', function() {
 
     // create mock Location resource
     var mockLocation = jasmine.createSpyObj('Location', ['query']);
-    mockLocation.query.andCallFake(function() {
+    mockLocation.query.and.callFake(function() {
 
         deferred = q.defer();
 

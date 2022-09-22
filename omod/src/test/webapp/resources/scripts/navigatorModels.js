@@ -28,8 +28,8 @@ describe("Test for simple form models", function() {
         it("should state the field is valid", function() {
             var firstValidator = jasmine.createSpyObj('firstValidator', ['validate']);
             var secondValidator = jasmine.createSpyObj('secondValidator', ['validate']);
-            firstValidator.validate.andReturn(null);
-            secondValidator.validate.andReturn(null);
+            firstValidator.validate.and.returnValue(null);
+            secondValidator.validate.and.returnValue(null);
 
             var fieldModel = new FieldModel();
             fieldModel.messagesContainer = jasmine.createSpyObj('messagesContainer', ['empty']);
@@ -46,8 +46,8 @@ describe("Test for simple form models", function() {
         it("should state the field is invalid", function() {
             var firstValidator = jasmine.createSpyObj('firstValidator', ['validate']);
             var secondValidator = jasmine.createSpyObj('secondValidator', ['validate']);
-            firstValidator.validate.andReturn('Invalid field');
-            secondValidator.validate.andReturn(null);
+            firstValidator.validate.and.returnValue('Invalid field');
+            secondValidator.validate.and.returnValue(null);
 
             var fieldModel = new FieldModel();
             fieldModel.isDisabled = function() { return false; }
@@ -69,8 +69,8 @@ describe("Test for simple form models", function() {
         it("should call all exit handlers and return true", function() {
             var firstExitHandler = jasmine.createSpyObj('firstExitHandler', ['handleExit']);
             var secondExitHandler = jasmine.createSpyObj('secondExitHandler', ['handleExit']);
-            firstExitHandler.handleExit.andReturn(true);
-            secondExitHandler.handleExit.andReturn(true);
+            firstExitHandler.handleExit.and.returnValue(true);
+            secondExitHandler.handleExit.and.returnValue(true);
 
             var fieldModel = new FieldModel();
             fieldModel.exitHandlers = [firstExitHandler, secondExitHandler];
@@ -85,8 +85,8 @@ describe("Test for simple form models", function() {
         it("should call all exit handlers and return false if any handler returns false", function() {
             var firstExitHandler = jasmine.createSpyObj('firstExitHandler', ['handleExit']);
             var secondExitHandler = jasmine.createSpyObj('secondExitHandler', ['handleExit']);
-            firstExitHandler.handleExit.andReturn(true);
-            secondExitHandler.handleExit.andReturn(false);
+            firstExitHandler.handleExit.and.returnValue(true);
+            secondExitHandler.handleExit.and.returnValue(false);
 
             var fieldModel = new FieldModel();
             fieldModel.exitHandlers = [firstExitHandler, secondExitHandler];
@@ -175,7 +175,7 @@ describe("Test for simple form models", function() {
             var fieldModel = new FieldModel();
             var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'attr','is', 'find', 'val' ]);
             fieldModel.element = element;
-            element.find = jasmine.createSpy('find() spy').andReturn([]);
+            element.find = jasmine.createSpy('find() spy').and.returnValue([]);
 
             fieldModel.resetValue();
             expect(element.val).toHaveBeenCalledWith("");
@@ -188,7 +188,7 @@ describe("Test for simple form models", function() {
 
             var selectedOption = jasmine.createSpyObj('selectedOption', ['removeAttr', 'length']);
             selectedOption.length = 1;
-            element.find = jasmine.createSpy('find() spy').andReturn(selectedOption);
+            element.find = jasmine.createSpy('find() spy').and.returnValue(selectedOption);
 
             fieldModel.resetValue();
             expect(element.find).toHaveBeenCalledWith("option:selected");
@@ -199,9 +199,9 @@ describe("Test for simple form models", function() {
             var fieldModel = new FieldModel();
             var element = jasmine.createSpyObj('element', ['removeAttr', 'removeClass', 'show', 'attr','is', 'find', 'val' ]);
             fieldModel.element = element;
-            element.find = jasmine.createSpy('find() spy').andReturn([]);
-            element.attr = jasmine.createSpy('attr() spy').andReturn('radio');
-            element.is = jasmine.createSpy('is() spy').andReturn(true);
+            element.find = jasmine.createSpy('find() spy').and.returnValue([]);
+            element.attr = jasmine.createSpy('attr() spy').and.returnValue('radio');
+            element.is = jasmine.createSpy('is() spy').and.returnValue(true);
 
             fieldModel.resetValue();
             expect(element.removeAttr).toHaveBeenCalledWith("checked");
@@ -250,8 +250,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question has done if first field has value", function() {
-            firstField.displayValue.andReturn("1");
-            secondField.displayValue.andReturn("");
+            firstField.displayValue.and.returnValue("1");
+            secondField.displayValue.and.returnValue("");
 
             // select the question
             questionModel.toggleSelection();
@@ -262,8 +262,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question has done if second field has value", function() {
-            firstField.displayValue.andReturn("");
-            secondField.displayValue.andReturn("1");
+            firstField.displayValue.and.returnValue("");
+            secondField.displayValue.and.returnValue("1");
 
             // select the question
             questionModel.toggleSelection();
@@ -274,8 +274,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question has done if both fields have value", function() {
-            firstField.displayValue.andReturn("1");
-            secondField.displayValue.andReturn("1");
+            firstField.displayValue.and.returnValue("1");
+            secondField.displayValue.and.returnValue("1");
 
             // select the question
             questionModel.toggleSelection();
@@ -286,8 +286,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should not mark question has done if neither fields have value", function() {
-            firstField.displayValue.andReturn("");
-            secondField.displayValue.andReturn("");
+            firstField.displayValue.and.returnValue("");
+            secondField.displayValue.and.returnValue("");
             questionModel.fields = [firstField, secondField];
 
             // select the question
@@ -299,9 +299,9 @@ describe("Test for simple form models", function() {
         });
 
         it("should not mark question as done if expected field does not have value", function() {
-            firstField.displayValue.andReturn("1");
-            secondField.element.hasClass.andReturn('true');
-            secondField.displayValue.andReturn("");
+            firstField.displayValue.and.returnValue("1");
+            secondField.element.hasClass.and.returnValue('true');
+            secondField.displayValue.and.returnValue("");
 
             // select the question
             questionModel.toggleSelection();
@@ -313,9 +313,9 @@ describe("Test for simple form models", function() {
         });
 
         it("should mark question as done if expected field has value", function() {
-            firstField.displayValue.andReturn("");
-            secondField.element.hasClass.andReturn('true');
-            secondField.displayValue.andReturn("1");
+            firstField.displayValue.and.returnValue("");
+            secondField.element.hasClass.and.returnValue('true');
+            secondField.displayValue.and.returnValue("1");
 
             // select the question
             questionModel.toggleSelection();
@@ -367,8 +367,8 @@ describe("Test for simple form models", function() {
         it("should state the question is valid", function() {
             var firstField = jasmine.createSpyObj('firstField', ['isValid']);
             var secondField = jasmine.createSpyObj('firstField', ['isValid']);
-            firstField.isValid.andReturn(true);
-            secondField.isValid.andReturn(true);
+            firstField.isValid.and.returnValue(true);
+            secondField.isValid.and.returnValue(true);
 
             var questionModel = new QuestionModel();
             questionModel.fields = [firstField, secondField];
@@ -383,8 +383,8 @@ describe("Test for simple form models", function() {
         it("should state the question is invalid", function() {
             var firstField = jasmine.createSpyObj('firstField', ['isValid']);
             var secondField = jasmine.createSpyObj('firstField', ['isValid']);
-            firstField.isValid.andReturn(false);
-            secondField.isValid.andReturn(true);
+            firstField.isValid.and.returnValue(false);
+            secondField.isValid.and.returnValue(true);
 
             var questionModel = new QuestionModel();
             questionModel.fields = [firstField, secondField];
@@ -399,8 +399,8 @@ describe("Test for simple form models", function() {
         it("should call exit handlers for question and return true if all handlers return true", function() {
             var firstField = jasmine.createSpyObj('firstField', ['onExit']);
             var secondField = jasmine.createSpyObj('firstField', ['onExit']);
-            firstField.onExit.andReturn(true);
-            secondField.onExit.andReturn(true);
+            firstField.onExit.and.returnValue(true);
+            secondField.onExit.and.returnValue(true);
 
             var questionModel = new QuestionModel();
             questionModel.fields = [firstField, secondField];
@@ -415,8 +415,8 @@ describe("Test for simple form models", function() {
         it("should call exit handlers for question and return false if any handler returns false", function() {
             var firstField = jasmine.createSpyObj('firstField', ['onExit']);
             var secondField = jasmine.createSpyObj('firstField', ['onExit']);
-            firstField.onExit.andReturn(true);
-            secondField.onExit.andReturn(false);
+            firstField.onExit.and.returnValue(true);
+            secondField.onExit.and.returnValue(false);
 
             var questionModel = new QuestionModel();
             questionModel.fields = [firstField, secondField];
@@ -470,8 +470,8 @@ describe("Test for simple form models", function() {
        });
 
         it("should state the section is valid", function() {
-            firstQuestion.isValid.andReturn(true);
-            secondQuestion.isValid.andReturn(true);
+            firstQuestion.isValid.and.returnValue(true);
+            secondQuestion.isValid.and.returnValue(true);
 
             var isValid = sectionModel.isValid();
 
@@ -492,8 +492,8 @@ describe("Test for simple form models", function() {
         });
 
         it("should state the section is not valid", function() {
-            firstQuestion.isValid.andReturn(true);
-            secondQuestion.isValid.andReturn(false);
+            firstQuestion.isValid.and.returnValue(true);
+            secondQuestion.isValid.and.returnValue(false);
 
             var isValid = sectionModel.isValid();
 
@@ -504,8 +504,8 @@ describe("Test for simple form models", function() {
         });
 
         it(" should call exit handlers for question and return true if all handlers return true", function() {
-            firstQuestion.onExit.andReturn(true);
-            secondQuestion.onExit.andReturn(true);
+            firstQuestion.onExit.and.returnValue(true);
+            secondQuestion.onExit.and.returnValue(true);
 
             var onExit = sectionModel.onExit();
 
@@ -516,8 +516,8 @@ describe("Test for simple form models", function() {
         });
 
         it(" should call exit handlers for question and return false if any handler returns false", function() {
-            firstQuestion.onExit.andReturn(true);
-            secondQuestion.onExit.andReturn(false);
+            firstQuestion.onExit.and.returnValue(true);
+            secondQuestion.onExit.and.returnValue(false);
 
             var onExit = sectionModel.onExit();
 
