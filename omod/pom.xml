@@ -241,6 +241,34 @@
                 </plugins>
             </build>
         </profile>
+		<!-- when using Puppeteer to fire up Chrome for Karma tests in Docker, we need to run Chrome in
+    no sandbox mode since Docker by default runs as root; this can be unsafe, so we don't want to do it
+    by default, and therefore provide this special profile for building via docker
+    see package.json, karma.config.js, and: https://www.howtogeek.com/devops/how-to-run-puppeteer-and-headless-chrome-in-a-docker-container -->
+		<profile>
+			<id>docker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>1.11.3</version>
+						<executions>
+							<execution>
+								<id>npm run test</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<phase>test</phase>
+								<configuration>
+									<arguments>run test-docker</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
     </profiles>
 
 </project>

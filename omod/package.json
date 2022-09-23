@@ -3,7 +3,8 @@
   "version": "${project.version}",
   "scripts": {
     "build": "sass src/main/webapp/resources/styles/:target/src/main/webapp/resources/styles ../scss/src/main/resources/sass/:src/main/webapp/resources/styles -Inode_modules/compass-mixins/lib",
-    "test": "karma start karma.config.js"
+    "test": "karma start karma.config.js --browsers ChromeHeadless",
+    "test-docker": "karma start karma.config.js --browsers ChromeHeadlessDocker"
   },
   "dependencies": {
     "compass-mixins": "^0.12.11",

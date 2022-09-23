@@ -3,6 +3,17 @@ process.env.CHROME_BIN = require('puppeteer').executablePath()
 module.exports = function(config) {
     var karmaConfig = {
         browsers: ['ChromeHeadless'],
+        customLaunchers: {
+            ChromeHeadlessDocker: {
+                base: 'ChromeHeadless',
+                flags: [
+                    "--disable-gpu",
+                    "--disable-dev-shm-usage",
+                    "--disable-setuid-sandbox",
+                    "--no-sandbox",
+                ]
+            }
+        },
         files: [
             { pattern: 'src/main/webapp/resources/scripts/jquery-1.12.4.min.js'},
             { pattern: 'src/main/webapp/resources/scripts/angular.min.js'},
