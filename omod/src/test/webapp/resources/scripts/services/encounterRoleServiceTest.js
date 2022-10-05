@@ -8,7 +8,7 @@ describe('EncounterRoleService tests', function() {
 
     // create mock EncounterRole resource
     var mockEncounterRole = jasmine.createSpyObj('EncounterRole', ['query']);
-    mockEncounterRole.query.andCallFake(function() {
+    mockEncounterRole.query.and.callFake(function() {
 
         deferred = q.defer();
 
@@ -28,4 +28,9 @@ describe('EncounterRoleService tests', function() {
         encounterRoleService = _EncounterRoleService_;
         q = $q;
     }));
+
+    it('should call EncounterRole resource with query value', function() {
+        encounterRoleService.getEncounterRoles({ 'q': 'abc' });
+        expect(mockEncounterRole.query).toHaveBeenCalledWith({ 'q': 'abc' });
+    });
 });

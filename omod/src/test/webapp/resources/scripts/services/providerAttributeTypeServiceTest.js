@@ -8,7 +8,7 @@ describe('ProviderAttributeTypeService tests', function() {
 
     // create mock ProviderAttributeType resource
     var mockProviderAttributeType = jasmine.createSpyObj('ProviderAttributeType', ['query']);
-    mockProviderAttributeType.query.andCallFake(function() {
+    mockProviderAttributeType.query.and.callFake(function() {
 
         deferred = q.defer();
 
@@ -28,4 +28,10 @@ describe('ProviderAttributeTypeService tests', function() {
     	providerAttributeTypeService = _ProviderAttributeTypeService_;
         q = $q;
     }));
+
+    it('should call ProviderAttributeType resource with query value', function() {
+        providerAttributeTypeService.getProviderAttributeTypes({ 'q': 'abc' });
+        expect(mockProviderAttributeType.query).toHaveBeenCalledWith({ 'q': 'abc' });
+    });
+
 });

@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>uicommons</artifactId>
-	<version>2.17.0-SNAPSHOT</version>
+	<version>2.23.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>UI Commons Module</name>
 	<description>UI Common Library that has common JS/CSS/HTML/templates/fragments etc.</description>
@@ -36,7 +37,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<openMRSVersion>1.12.0</openMRSVersion>
-		<uiframeworkVersion>3.8</uiframeworkVersion>
+		<uiframeworkVersion>3.21.0-SNAPSHOT</uiframeworkVersion>
     </properties>
 
 	<dependencyManagement>
@@ -104,14 +105,6 @@
             <type>pom</type>
         </dependency>
 
-         <dependency>
-            <groupId>rubygems</groupId>
-            <artifactId>sass</artifactId>
-            <version>3.2.10</version>
-            <type>gem</type>
-             <scope>provided</scope>
-        </dependency>
-
          <!-- OpenMRS Modules -->
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
@@ -152,22 +145,6 @@
                   		<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
 					</configuration>
 				</plugin>
-                		<plugin>
-                    			<groupId>org.jasig.maven</groupId>
-                    			<artifactId>sass-maven-plugin</artifactId>
-                    			<version>1.1.1</version>
-                    			<configuration>
-                        			<sassSourceDirectory>${basedir}/src/main/webapp</sassSourceDirectory>
-                        			<outputDirectory>${basedir}/src/main/webapp/resources/styles</outputDirectory>
-                        			<baseOutputDirectory>${basedir}/src/main/webapp/resources/styles</baseOutputDirectory>
-                        			<skin>scss</skin>
-                    			</configuration>
-                		</plugin>
-                		<plugin>
-                    			<groupId>de.saumya.mojo</groupId>
-                    			<artifactId>gem-maven-plugin</artifactId>
-                    			<version>1.0.0-rc4</version>
-                		</plugin>
 				<plugin>
 					<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
 					<artifactId>maven-java-formatter-plugin</artifactId>
@@ -194,11 +171,7 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
-		</repository>
-		<repository>
-	           <id>rubygems-releases</id>
-	           <url>http://rubygems-proxy.torquebox.org/releases</url>
+			<url>https://mavenrepo.openmrs.org/public</url>
 		</repository>
 	</repositories>
 
@@ -206,7 +179,7 @@
 		<pluginRepository>
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+			<url>https://mavenrepo.openmrs.org/public</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -217,12 +190,12 @@
         <repository>
             <id>openmrs-repo-modules</id>
             <name>Modules</name>
-            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+            <url>https://mavenrepo.openmrs.org/modules</url>
         </repository>
         <snapshotRepository>
             <id>openmrs-repo-snapshots</id>
             <name>OpenMRS Snapshots</name>
-            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+            <url>https://mavenrepo.openmrs.org/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>

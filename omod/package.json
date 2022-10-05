@@ -1,0 +1,20 @@
+{
+  "name": "${project.artifactId}",
+  "version": "${project.version}",
+  "scripts": {
+    "build": "sass src/main/webapp/resources/styles/:target/src/main/webapp/resources/styles ../scss/src/main/resources/sass/:src/main/webapp/resources/styles -Inode_modules/compass-mixins/lib",
+    "test": "karma start karma.config.js --browsers ChromeHeadless",
+    "test-docker": "karma start karma.config.js --browsers ChromeHeadlessDocker"
+  },
+  "dependencies": {
+    "compass-mixins": "^0.12.11",
+    "sass": "^1.51.0"
+  },
+  "devDependencies": {
+    "karma": "^6.4.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "puppeteer": "^18.0.2"
+  }
+}

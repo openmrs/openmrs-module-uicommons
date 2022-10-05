@@ -9,7 +9,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.successMessage("some success message");
 
@@ -22,7 +22,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.errorMessage("some error message");
 
@@ -35,7 +35,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.successAlert("some success message");
 
@@ -48,7 +48,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.errorAlert("some error message");
 
@@ -63,7 +63,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.successMessage("success.message.code");
 
@@ -78,7 +78,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.errorMessage("error.message.code");
 
@@ -93,7 +93,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.alertMessage("alert.message.code");
 
@@ -109,7 +109,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.successAlert("success.message.code");
 
@@ -124,7 +124,7 @@ describe("Tests of emr functions", function() {
         var jqueryWithSpy = jq();
         emr.setJqObject(jqueryWithSpy);
 
-        spyOn(jqueryWithSpy,'toastmessage').andCallThrough();  // call through just to make sure the underlying plugin doesn't throw an error
+        spyOn(jqueryWithSpy,'toastmessage').and.callThrough();  // call through just to make sure the underlying plugin doesn't throw an error
 
         emr.errorAlert("error.message.code");
 

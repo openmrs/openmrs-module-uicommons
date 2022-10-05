@@ -8,7 +8,7 @@ describe('ProviderService tests', function() {
 
     // create mock Provider resource
     var mockProvider = jasmine.createSpyObj('Provider', ['query']);
-    mockProvider.query.andCallFake(function() {
+    mockProvider.query.and.callFake(function() {
 
         deferred = q.defer();
 

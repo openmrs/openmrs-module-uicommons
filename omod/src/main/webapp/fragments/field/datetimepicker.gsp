@@ -7,7 +7,7 @@
 
     config.require("id", "label", "formFieldName", "useTime")
 
-    def required = config.classes && config.classes.contains("required")
+    def required = config.classes && config.classes.join(' ').contains("required")
 
     def dateStringFormat
     def dateISOFormatted
@@ -39,8 +39,13 @@
     def defaultDateString = ""
     def defaultDateISOFormatted = ""
     if (defaultDate) {
-        defaultDateString = dateStringFormat.format(defaultDate)
-        defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
+        if( ui.convertTimezones() && useTime) {
+                defaultDateString = ui.format(defaultDate)
+                defaultDateISOFormatted = ui.dateToISOString(defaultDate)
+        } else {
+            defaultDateString = dateStringFormat.format(defaultDate)
+            defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
+        }
     }
 
     def startDate
@@ -51,7 +56,7 @@
         if (startDate instanceof String) {
             try {
             	// parses date strings like (new Date().toString())
-            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", java.util.Locale.ENGLISH)
+            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy", java.util.Locale.ENGLISH)
                 startDate = fallbackDateStringFormat.parse(startDate)
             } catch(Exception e) {
             	// pass
@@ -67,7 +72,7 @@
         if (endDate instanceof String) {
             try {
             	// parses date strings like (new Date().toString())
-            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd hh:mm:ss Z yyyy", java.util.Locale.ENGLISH)
+            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy", java.util.Locale.ENGLISH)
                 endDate = fallbackDateStringFormat.parse(endDate)
             } catch(Exception e) {
             	// pass
@@ -82,11 +87,16 @@
         minuteStep = 5
     }
     if(!datePickerFormat){
-        datePickerFormat = useTime ? "dd M yyyy hh:ii" : "dd M yyyy"
+        datePickerFormat = useTime ? "dd M yyyy HH:mm" :"dd M yyyy"
     }
+
     if(!datePickerLinkFormat){
         datePickerLinkFormat = useTime ? "yyyy-mm-dd hh:ii:ss" : "yyyy-mm-dd"
     }
+
+    // see: "Advanced" section  of https://www.malot.fr/bootstrap-datetimepicker/demo.php for how this is supported
+    // (basically, the datepicker has built-in support for reset based around added an element with the "icon-remove" class)
+    def clearButton = config.clearButton
 %>
 
 <span id="${config.id}"
@@ -96,7 +106,12 @@
     </label>
     <span id="${ config.id }-wrapper" class="date">
         <input type="text" id="${ config.id }-display" value="${ defaultDateString }" size="${config.size}" readonly <% if (config.classes) { %>class="date${(useTime) ? ' use-time': ''} ${ config.classes.join(' ')}" <% } %> <% if ( config.ngModel ) { %>ng-model="${config.ngModel}" <% } %> />
-        <span class="add-on"><i class="icon-calendar small"></i></span>
+        <span class="add-on">
+            <i class="icon-calendar small"></i>
+            <% if (clearButton) { %>
+                <i class="icon-remove small"></i>
+            <% } %>
+        </span>
     </span>
     <input type="hidden" id="${ config.id }-field" name="${ config.formFieldName }" value="${ defaultDateISOFormatted }"
         <% if (config.classes) { %> class="${ config.classes.join(' ') }" <% } %>
@@ -120,11 +135,19 @@
         format: "${datePickerFormat}",
 
         <% if (startDate) { %>
-            startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
+            <% if (ui.convertTimezones()) { %>
+                startDate: "${ startDate instanceof Date ? ui.format(startDate) : startDate }",
+            <% } else { %>
+                startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
+            <% } %>
         <% } %>
 
         <% if (endDate) { %>
-            endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
+            <% if (ui.convertTimezones()) { %>
+                endDate: "${ endDate instanceof Date ? ui.format(endDate) : endDate }",
+            <% } else { %>
+                endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
+            <% } %>
         <% } %>
 
         language: "${ org.openmrs.api.context.Context.getLocale() }",
@@ -142,5 +165,16 @@
             return viewModel.${ config.id }() ? true : false;
         });
         <% } %>
+    <% } %>
+
+    //Convert to client timezone.
+    <% if (ui.convertTimezones() && useTime) { %>
+    var dateOnUTC = jq("#${ config.id }-field").val();
+    if(dateOnUTC != '') {
+        jq("#${ config.id }-field").val(new Date(dateOnUTC))
+        moment.locale("${ ui.getLocale() }")
+        <%   def format = "YYYY-MM-DD HH:mm:ss" %>
+        jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
+    }
     <% } %>
 </script>

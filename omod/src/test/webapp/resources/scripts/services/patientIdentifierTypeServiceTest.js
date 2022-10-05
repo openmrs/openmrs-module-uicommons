@@ -8,7 +8,7 @@ describe('PatientIdentifierTypeService tests', function() {
 
     // create mock PatientIdentifierType resource
     var mockPatientIdentifierType = jasmine.createSpyObj('PatientIdentifierType', ['query']);
-    mockPatientIdentifierType.query.andCallFake(function() {
+    mockPatientIdentifierType.query.and.callFake(function() {
 
         deferred = q.defer();
 
@@ -28,4 +28,9 @@ describe('PatientIdentifierTypeService tests', function() {
     	patientIdentifierTypeService = _PatientIdentifierTypeService_;
         q = $q;
     }));
+
+    it('should call PatientIdentifierType resource with query value', function() {
+        patientIdentifierTypeService.getPatientIdentifierTypes({ 'q': 'abc' });
+        expect(mockPatientIdentifierType.query).toHaveBeenCalledWith({ 'q': 'abc' });
+    });
 });
