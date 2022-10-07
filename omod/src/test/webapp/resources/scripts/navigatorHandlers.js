@@ -542,12 +542,13 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(firstSection, 'isValid').and.returnValue(false);
                 spyOn(firstSection, 'onExit').and.returnValue(true);
                 spyOn(firstSection, 'toggleSelection');
-                spyOn(firstSection, 'firstInvalidQuestion');
                 spyOn(question, 'toggleSelection');
-                spyOn(question, 'firstInvalidField');
+                spyOn(firstSection, 'firstInvalidQuestion').and.returnValue(question);
+                spyOn(question, 'firstInvalidField').and.returnValue(field);
+                spyOn(field, 'isValid').and.returnValue(false);
                 spyOn(field, 'toggleSelection');
                 spyOn(field, 'select');
-                spyOn(field, 'isValid');
+
                 firstSection.isSelected = true;
                 firstSection.questions = [question];
 
