@@ -506,12 +506,12 @@ describe("Tests for simple form navigation handlers", function() {
         describe("Section mouse handlers", function() {
             var sectionsMouseHandler, firstSection, secondSection, thirdSection, question, field, event, sections;
             beforeEach(function() {
-                firstSection = {isSelected: false, toggleSelection: '', isValid: '', onExit:'', title: $('<li></li>')};
+                firstSection = {isSelected: false, toggleSelection: '', isValid: '', firstInvalidQuestion: '', onExit:'', title: $('<li></li>')};
                 secondSection = {isSelected: false, toggleSelection: '', isValid: '', onExit:'', title: $('<li></li>'), firstInvalidQuestion: ''};
                 thirdSection = {isSelected: false, toggleSelection: '', isValid: '', title: $('<li></li>')};
                 event = {stopPropagation: ''};
 
-                field = {isSelected: true, toggleSelection: '', select: ''};
+                field = {isSelected: true, toggleSelection: '', select: '', isValid: ''};
                 question = {fields: [field], toggleSelection: '', isSelected: true, firstInvalidField: ''};
 
                 sections = [firstSection, secondSection, thirdSection];
@@ -541,15 +541,21 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(event, 'stopPropagation');
                 spyOn(firstSection, 'isValid').and.returnValue(false);
                 spyOn(firstSection, 'onExit').and.returnValue(true);
+                spyOn(firstSection, 'toggleSelection');
+                spyOn(firstSection, 'firstInvalidQuestion');
+                spyOn(question, 'toggleSelection');
+                spyOn(question, 'firstInvalidField');
+                spyOn(field, 'toggleSelection');
                 spyOn(field, 'select');
+                spyOn(field, 'isValid');
                 firstSection.isSelected = true;
                 firstSection.questions = [question];
 
                 clickedSectionHandler(sections, secondSection, event);
 
-                expect(firstSection.onExit).not.toHaveBeenCalled();
+                expect(firstSection.onExit).toHaveBeenCalled();
                 expect(event.stopPropagation).toHaveBeenCalled();
-                expect(field.select).toHaveBeenCalled();
+                expect(field.select).not.toHaveBeenCalled();
             });
             it("should not switch selection to section ahead if exit handler returns false", function() {
                 spyOn(event, 'stopPropagation');
@@ -577,6 +583,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(question, 'toggleSelection');
                 spyOn(question, 'firstInvalidField').and.returnValue(field);
                 spyOn(field, 'toggleSelection');
+                spyOn(field, 'isValid');
                 firstSection.isSelected = true;
                 secondSection.questions = [question];
                 question.fields = [field];
