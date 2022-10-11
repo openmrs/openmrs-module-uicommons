@@ -218,7 +218,7 @@ var clickedSectionHandler = function(sections, section, event) {
         for(var i=currentSectionIndex; i<clickedSectionIndex; i++) {
             shouldSelectClickedSection = sections[i].isValid() && shouldSelectClickedSection;
             if (!shouldSelectClickedSection) {
-                if (i > currentSectionIndex) {
+                if ((i >= currentSectionIndex) ) {
                     goToSectionInstead = sections[i];
                 }
                 break;
@@ -241,6 +241,7 @@ var clickedSectionHandler = function(sections, section, event) {
             var goToField = goToQuestion.firstInvalidField() || goToQuestion.fields[0];
             goToQuestion.toggleSelection();
             goToField.toggleSelection();
+            goToField.isValid();
         } else {
             var selectedQuestion = selectedModel(currentSection.questions);
             var selectedField = selectedModel(selectedQuestion.fields);
