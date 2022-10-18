@@ -671,7 +671,7 @@ describe("Tests for simple form navigation handlers", function() {
            var firstQuestion, secondQuestion, thirdQuestion, field, event, questions;
             beforeEach(function() {
                 firstQuestion = {isSelected: false, toggleSelection: '', isValid: '', onExit: '', questionLi: $('<li></li>'), select: ''};
-                secondQuestion = {isSelected: false, toggleSelection: '', isValid: '', onExit: '', questionLi: $('<li></li>')};
+                secondQuestion = {isSelected: false, toggleSelection: '', isValid: '', firstInvalidField: '', onExit: '', questionLi: $('<li></li>')};
                 thirdQuestion = {isSelected: false, toggleSelection: '', questionLi: $('<li></li>')};
                 event = {stopPropagation: ''};
 
@@ -699,8 +699,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to question ahead if current question is not valid", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstQuestion, 'isValid').and.returnValue(false)
-                spyOn(firstQuestion, 'onExit').and.returnValue(true);;
+                spyOn(firstQuestion, 'isValid').and.returnValue(false);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
                 spyOn(field, 'select');
                 firstQuestion.isSelected = true;
                 field.isSelected = true;
@@ -716,7 +716,10 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(event, 'stopPropagation');
                 spyOn(firstQuestion, 'isValid').and.returnValue(true);
                 spyOn(firstQuestion, 'onExit').and.returnValue(true);
+                spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'isValid').and.returnValue(false);
+                spyOn(secondQuestion, 'toggleSelection');
+                spyOn(secondQuestion, 'firstInvalidField');
                 spyOn(field, 'select');
                 firstQuestion.isSelected=true;
                 field.isSelected = true;

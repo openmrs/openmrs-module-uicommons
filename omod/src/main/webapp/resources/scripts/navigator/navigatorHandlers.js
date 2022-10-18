@@ -274,8 +274,12 @@ var clickedQuestionHandler = function(questions, question, event) {
     var currentQuestionIndex = _.indexOf(questions, currentQuestion);
     var clickedQuestionIndex = _.indexOf(questions, question);
     var shouldSelectClickedQuestion = true;
+    var firstInvalidQuestion = null;
     if(clickedQuestionIndex > currentQuestionIndex) {
         for(var i=currentQuestionIndex; i<clickedQuestionIndex; i++) {
+            if ( !questions[i].isValid() ) {
+              firstInvalidQuestion = questions[i];
+            }
             shouldSelectClickedQuestion = questions[i].isValid() && shouldSelectClickedQuestion;
         }
     }
@@ -284,8 +288,23 @@ var clickedQuestionHandler = function(questions, question, event) {
     shouldSelectClickedQuestion = shouldSelectClickedQuestion && currentQuestion.onExit();
 
     if(!shouldSelectClickedQuestion) {
-        var selectedField = selectedModel(currentQuestion.fields);
-        selectedField && selectedField.select();
+        if ( !currentQuestion.isValid() ) {
+          // stay on the current question if it is invalid
+          var selectedField = selectedModel(currentQuestion.fields);
+          selectedField && selectedField.select();
+        } else if ( firstInvalidQuestion != null ){
+            // navigate forward to the first invalid question
+          currentQuestion.toggleSelection();
+          firstInvalidQuestion.toggleSelection();
+          // firstInvalidQuestion.fields[0].toggleSelection();
+          var goToField = firstInvalidQuestion.firstInvalidField() || firstInvalidQuestion.fields[0];
+          goToField.toggleSelection();
+          goToField.isValid();
+          if(currentQuestion.parentSection != firstInvalidQuestion.parentSection) {
+            currentQuestion.parentSection.toggleSelection();
+            firstInvalidQuestion.parentSection.toggleSelection();
+          }
+        }
     } else {
         currentQuestion.toggleSelection();
         question.toggleSelection();
