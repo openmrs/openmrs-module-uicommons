@@ -668,7 +668,7 @@ describe("Tests for simple form navigation handlers", function() {
         });
 
         describe("Question mouse handlers", function() {
-           var firstQuestion, secondQuestion, thirdQuestion, field, event, questions;
+           var firstQuestion, secondQuestion, thirdQuestion, field, secondField, event, questions;
             beforeEach(function() {
                 firstQuestion = {isSelected: false, toggleSelection: '', isValid: '', onExit: '', questionLi: $('<li></li>'), select: ''};
                 secondQuestion = {isSelected: false, toggleSelection: '', isValid: '', firstInvalidField: '', onExit: '', questionLi: $('<li></li>')};
@@ -676,6 +676,7 @@ describe("Tests for simple form navigation handlers", function() {
                 event = {stopPropagation: ''};
 
                 field = {isSelected: false, toggleSelection: '', select: ''};
+                secondField = { isSelected: false, toggleSelection: '', select: '', isValid: false };
 
                 questions = [firstQuestion, secondQuestion, thirdQuestion];
             });
@@ -712,7 +713,7 @@ describe("Tests for simple form navigation handlers", function() {
                 expect(event.stopPropagation).toHaveBeenCalled();
                 expect(field.select).toHaveBeenCalled();
             });
-            it("should not switch selection to question ahead if question in between is not valid", function() {
+            it("should not switch selection to question ahead but should switch to invalid question in between", function() {
                 spyOn(event, 'stopPropagation');
                 spyOn(firstQuestion, 'isValid').and.returnValue(true);
                 spyOn(firstQuestion, 'onExit').and.returnValue(true);
@@ -724,12 +725,15 @@ describe("Tests for simple form navigation handlers", function() {
                 firstQuestion.isSelected=true;
                 field.isSelected = true;
                 firstQuestion.fields = [field];
+                spyOn(secondField, 'select');
+                spyOn(secondField, 'toggleSelection');
+                spyOn(secondField, 'isValid').and.returnValue(false);
+                secondQuestion.fields = [ secondField ];
 
                 clickedQuestionHandler(questions, thirdQuestion, event);
 
                 expect(firstQuestion.onExit).not.toHaveBeenCalled();
                 expect(event.stopPropagation).toHaveBeenCalled();
-                expect(field.select).toHaveBeenCalled();
             });
             it("should switch selection to question ahead but not call exit handler on in-between method", function() {
                 spyOn(event, 'stopPropagation');
@@ -784,7 +788,7 @@ describe("Tests for simple form navigation handlers", function() {
                 clickedQuestionHandler(questions, secondQuestion, event);
 
                 expect(event.stopPropagation).toHaveBeenCalled();
-                expect(field.select).toHaveBeenCalled();
+
             });
 
             it("should not switch selection to question behind if exit handler returns false", function() {

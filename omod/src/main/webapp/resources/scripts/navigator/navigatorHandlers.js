@@ -296,7 +296,6 @@ var clickedQuestionHandler = function(questions, question, event) {
             // navigate forward to the first invalid question
           currentQuestion.toggleSelection();
           firstInvalidQuestion.toggleSelection();
-          // firstInvalidQuestion.fields[0].toggleSelection();
           var goToField = firstInvalidQuestion.firstInvalidField() || firstInvalidQuestion.fields[0];
           goToField.toggleSelection();
           goToField.isValid();
