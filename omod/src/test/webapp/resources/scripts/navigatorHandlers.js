@@ -732,7 +732,7 @@ describe("Tests for simple form navigation handlers", function() {
 
                 clickedQuestionHandler(questions, thirdQuestion, event);
 
-                expect(firstQuestion.onExit).not.toHaveBeenCalled();
+                expect(firstQuestion.onExit).toHaveBeenCalled();
                 expect(event.stopPropagation).toHaveBeenCalled();
             });
             it("should switch selection to question ahead but not call exit handler on in-between method", function() {
@@ -788,7 +788,7 @@ describe("Tests for simple form navigation handlers", function() {
                 clickedQuestionHandler(questions, secondQuestion, event);
 
                 expect(event.stopPropagation).toHaveBeenCalled();
-
+                expect(field.select).toHaveBeenCalled();
             });
 
             it("should not switch selection to question behind if exit handler returns false", function() {

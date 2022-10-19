@@ -288,7 +288,7 @@ var clickedQuestionHandler = function(questions, question, event) {
     shouldSelectClickedQuestion = shouldSelectClickedQuestion && currentQuestion.onExit();
 
     if(!shouldSelectClickedQuestion) {
-        if ( !currentQuestion.isValid() ) {
+        if ( !currentQuestion.isValid() || !currentQuestion.onExit()) {
           // stay on the current question if it is invalid
           var selectedField = selectedModel(currentQuestion.fields);
           selectedField && selectedField.select();
