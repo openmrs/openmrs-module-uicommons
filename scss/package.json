@@ -1,0 +1,11 @@
+{
+  "name": "${project.artifactId}",
+  "version": "${project.version}",
+  "scripts": {
+    "build": "sass src/main/resources/sass/ -Inode_modules/compass-mixins/lib"
+  },
+  "dependencies": {
+    "compass-mixins": "^0.12.11",
+    "sass": "^1.51.0"
+  }
+}

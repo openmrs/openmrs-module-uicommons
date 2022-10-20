@@ -8,7 +8,7 @@ describe('RelationshipService tests', function() {
 
     // create mock Relationship resource
     var mockRelationship = jasmine.createSpyObj('Relationship', ['query']);
-    mockRelationship.query.andCallFake(function() {
+    mockRelationship.query.and.callFake(function() {
 
         deferred = q.defer();
 

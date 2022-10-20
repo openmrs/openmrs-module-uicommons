@@ -15,7 +15,7 @@ describe("Tests for simple form navigation handlers", function() {
             });
 
             it("should delegate up key handling if no selected field", function() {
-                questionsHandler.prevQuestion.andReturn(true);
+                questionsHandler.prevQuestion.and.returnValue(true);
 
                 var wasHandled = fieldsKeyboardHandler.handleUpKey();
 
@@ -32,7 +32,7 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should delegate down key handling if no selected field", function() {
                 firstField.isSelected = false; secondField.isSelected = false;
-                questionsHandler.nextQuestion.andReturn(true);
+                questionsHandler.nextQuestion.and.returnValue(true);
 
                 var wasHandled = fieldsKeyboardHandler.handleDownKey();
 
@@ -48,13 +48,13 @@ describe("Tests for simple form navigation handlers", function() {
             });
 
             it("should switch selection to next field within same question", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(true);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(true);
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
-                spyOn(secondField, 'isDisabled').andReturn(false);
+                spyOn(secondField, 'isDisabled').and.returnValue(false);
                 firstField.isSelected = true;
-                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
+                questionsHandler.selectedQuestion.and.returnValue({fields: [firstField, secondField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
@@ -64,20 +64,20 @@ describe("Tests for simple form navigation handlers", function() {
             });
 
             it("should switch selection to next field within different question", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(true);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(true);
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
-                spyOn(secondField, 'isDisabled').andReturn(false);
+                spyOn(secondField, 'isDisabled').and.returnValue(false);
                 firstField.isSelected = true;
 
                 var firstQuestion = jasmine.createSpyObj('firstQuestion', ['toggleSelection', 'isValid']);
                 firstQuestion.fields = [firstQuestion]; firstField.parentQuestion = firstQuestion;
-                firstQuestion.isValid.andReturn(true);
+                firstQuestion.isValid.and.returnValue(true);
                 var secondQuestion = jasmine.createSpyObj('secondQuestion', ['toggleSelection']);
                 secondQuestion.fields = [secondQuestion]; secondField.parentQuestion = secondQuestion;
-                questionsHandler.selectedQuestion.andReturn(firstQuestion);
-                questionsHandler.isAfterSelectedQuestion.andReturn(true);
+                questionsHandler.selectedQuestion.and.returnValue(firstQuestion);
+                questionsHandler.isAfterSelectedQuestion.and.returnValue(true);
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
                 expect(firstField.onExit).toHaveBeenCalled();
@@ -88,7 +88,7 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to next field if current field is invalid", function() {
                 firstField.isSelected = true;
-                spyOn(firstField, 'isValid').andReturn(false);
+                spyOn(firstField, 'isValid').and.returnValue(false);
                 spyOn(firstField, 'onExit');
                 spyOn(firstField, 'select');
 
@@ -100,8 +100,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to next field if exit handler returns false", function() {
                 firstField.isSelected = true;
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(false);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(false);
                 spyOn(firstField, 'select');
 
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
@@ -112,11 +112,11 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should switch selection to previous field within same question", function() {
                 spyOn(firstField, 'toggleSelection');
-                spyOn(firstField, 'isDisabled').andReturn(false);
+                spyOn(firstField, 'isDisabled').and.returnValue(false);
                 spyOn(secondField, 'toggleSelection');
-                spyOn(secondField, 'onExit').andReturn(true);
+                spyOn(secondField, 'onExit').and.returnValue(true);
                 secondField.isSelected = true;
-                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
+                questionsHandler.selectedQuestion.and.returnValue({fields: [firstField, secondField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -126,9 +126,9 @@ describe("Tests for simple form navigation handlers", function() {
             it("should not switch selection to previous field within same question if exit handler returns false", function() {
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
-                spyOn(secondField, 'onExit').andReturn(false);
+                spyOn(secondField, 'onExit').and.returnValue(false);
                 secondField.isSelected = true;
-                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField]});
+                questionsHandler.selectedQuestion.and.returnValue({fields: [firstField, secondField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -138,9 +138,9 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should switch selection to next field within different question", function() {
                 spyOn(secondField, 'toggleSelection');
-                spyOn(secondField, 'isDisabled').andReturn(false);
+                spyOn(secondField, 'isDisabled').and.returnValue(false);
                 spyOn(thirdField, 'toggleSelection');
-                spyOn(thirdField, 'onExit').andReturn(true);
+                spyOn(thirdField, 'onExit').and.returnValue(true);
                 thirdField.isSelected = true;
 
                 var firstQuestion = jasmine.createSpyObj('firstQuestion', ['toggleSelection']);
@@ -149,9 +149,9 @@ describe("Tests for simple form navigation handlers", function() {
                 secondField.parentQuestion = firstQuestion;
                 var secondQuestion = jasmine.createSpyObj('secondQuestion', ['toggleSelection', 'isValid']);
                 secondQuestion.fields = [thirdField];
-                secondQuestion.isValid.andReturn(true);
+                secondQuestion.isValid.and.returnValue(true);
                 thirdField.parentQuestion = secondQuestion;
-                questionsHandler.selectedQuestion.andReturn(secondQuestion);
+                questionsHandler.selectedQuestion.and.returnValue(secondQuestion);
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -162,15 +162,15 @@ describe("Tests for simple form navigation handlers", function() {
             });
 
             it("should skip disabled field when navigating forward", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(true);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(true);
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
                 spyOn(thirdField, 'toggleSelection');
-                spyOn(secondField, 'isDisabled').andReturn(true);
-                spyOn(thirdField, 'isDisabled').andReturn(false);
+                spyOn(secondField, 'isDisabled').and.returnValue(true);
+                spyOn(thirdField, 'isDisabled').and.returnValue(false);
                 firstField.isSelected = true;
-                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.and.returnValue({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
@@ -181,15 +181,15 @@ describe("Tests for simple form navigation handlers", function() {
             });
 
             it("should skip disabled field when navigating backwards", function() {
-                spyOn(thirdField, 'isValid').andReturn(true);
-                spyOn(thirdField, 'onExit').andReturn(true);
+                spyOn(thirdField, 'isValid').and.returnValue(true);
+                spyOn(thirdField, 'onExit').and.returnValue(true);
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
                 spyOn(thirdField, 'toggleSelection');
-                spyOn(firstField, 'isDisabled').andReturn(false);
-                spyOn(secondField, 'isDisabled').andReturn(true);
+                spyOn(firstField, 'isDisabled').and.returnValue(false);
+                spyOn(secondField, 'isDisabled').and.returnValue(true);
                 thirdField.isSelected = true;
-                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.and.returnValue({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
@@ -200,35 +200,35 @@ describe("Tests for simple form navigation handlers", function() {
             });
 
             it("should not advance if all following fields are disabled", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(true);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(true);
                 spyOn(firstField, "toggleSelection");
-                spyOn(firstField, 'isDisabled').andReturn(false);
-                spyOn(secondField, 'isDisabled').andReturn(true);
-                spyOn(thirdField, 'isDisabled').andReturn(true);
+                spyOn(firstField, 'isDisabled').and.returnValue(false);
+                spyOn(secondField, 'isDisabled').and.returnValue(true);
+                spyOn(thirdField, 'isDisabled').and.returnValue(true);
                 firstField.isSelected = true;
-                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.and.returnValue({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleTabKey();
 
                 expect(firstField.isSelected).toBe(true);
-                expect(firstField.toggleSelection.callCount).toBe(2);   // ideally this would be called 0 times, instead of being toggled off and back on
+                expect(firstField.toggleSelection.calls.count()).toBe(2);   // ideally this would be called 0 times, instead of being toggled off and back on
             });
 
             it("should not move back if all following fields are disabled", function() {
-                spyOn(thirdField, 'isValid').andReturn(true);
-                spyOn(thirdField, 'onExit').andReturn(true);
+                spyOn(thirdField, 'isValid').and.returnValue(true);
+                spyOn(thirdField, 'onExit').and.returnValue(true);
                 spyOn(thirdField, "toggleSelection");
-                spyOn(firstField, 'isDisabled').andReturn(true);
-                spyOn(secondField, 'isDisabled').andReturn(true);
-                spyOn(thirdField, 'isDisabled').andReturn(false);
+                spyOn(firstField, 'isDisabled').and.returnValue(true);
+                spyOn(secondField, 'isDisabled').and.returnValue(true);
+                spyOn(thirdField, 'isDisabled').and.returnValue(false);
                 thirdField.isSelected = true;
-                questionsHandler.selectedQuestion.andReturn({fields: [firstField, secondField, thirdField]});
+                questionsHandler.selectedQuestion.and.returnValue({fields: [firstField, secondField, thirdField]});
 
                 var wasHandled = fieldsKeyboardHandler.handleShiftTabKey();
 
                 expect(thirdField.isSelected).toBe(true);
-                expect(thirdField.toggleSelection.callCount).toBe(2);   // ideally this would be called 0 times, instead of being toggled off and back on
+                expect(thirdField.toggleSelection.calls.count()).toBe(2);   // ideally this would be called 0 times, instead of being toggled off and back on
             });
 
         });
@@ -244,9 +244,9 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should switch selection to next question within same section", function() {
                 firstQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
-                spyOn(secondQuestion, 'isDisabled').andReturn(false);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
+                spyOn(secondQuestion, 'isDisabled').and.returnValue(false);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
@@ -260,9 +260,9 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should switch selection to next question within different section", function() {
                 firstQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
-                spyOn(secondQuestion, 'isDisabled').andReturn(false);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
+                spyOn(secondQuestion, 'isDisabled').and.returnValue(false);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
@@ -283,8 +283,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to next question if question is not valid", function() {
                 firstQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isValid').andReturn(false);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
+                spyOn(firstQuestion, 'isValid').and.returnValue(false);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
@@ -298,8 +298,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to next question if exit handler returns false", function() {
                 firstQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(false);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(false);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
@@ -313,9 +313,9 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should switch selection to previous question within same section", function() {
                 secondQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isDisabled').andReturn(false);
-                spyOn(secondQuestion, 'isValid').andReturn(true);
-                spyOn(secondQuestion, 'onExit').andReturn(true);
+                spyOn(firstQuestion, 'isDisabled').and.returnValue(false);
+                spyOn(secondQuestion, 'isValid').and.returnValue(true);
+                spyOn(secondQuestion, 'onExit').and.returnValue(true);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
 
@@ -329,8 +329,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to previous question if exit handler returns false", function() {
                 secondQuestion.isSelected = true;
-                spyOn(secondQuestion, 'isValid').andReturn(true);
-                spyOn(secondQuestion, 'onExit').andReturn(false);
+                spyOn(secondQuestion, 'isValid').and.returnValue(true);
+                spyOn(secondQuestion, 'onExit').and.returnValue(false);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection')
 
@@ -344,9 +344,9 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should switch selection to previous question within different section", function() {
                 secondQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isDisabled').andReturn(false);
-                spyOn(secondQuestion, 'isValid').andReturn(true);
-                spyOn(secondQuestion, 'onExit').andReturn(true);
+                spyOn(firstQuestion, 'isDisabled').and.returnValue(false);
+                spyOn(secondQuestion, 'isValid').and.returnValue(true);
+                spyOn(secondQuestion, 'onExit').and.returnValue(true);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection')
 
@@ -370,10 +370,10 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should skip disabled question when navigating forward", function() {
                 firstQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
-                spyOn(secondQuestion, 'isDisabled').andReturn(true);
-                spyOn(thirdQuestion, 'isDisabled').andReturn(false);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
+                spyOn(secondQuestion, 'isDisabled').and.returnValue(true);
+                spyOn(thirdQuestion, 'isDisabled').and.returnValue(false);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
@@ -389,10 +389,10 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should skip disabled question when navigating backwards", function() {
                 thirdQuestion.isSelected = true;
-                spyOn(thirdQuestion, 'isValid').andReturn(true);
-                spyOn(thirdQuestion, 'onExit').andReturn(true);
-                spyOn(secondQuestion, 'isDisabled').andReturn(true);
-                spyOn(firstQuestion, 'isDisabled').andReturn(false);
+                spyOn(thirdQuestion, 'isValid').and.returnValue(true);
+                spyOn(thirdQuestion, 'onExit').and.returnValue(true);
+                spyOn(secondQuestion, 'isDisabled').and.returnValue(true);
+                spyOn(firstQuestion, 'isDisabled').and.returnValue(false);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
@@ -408,10 +408,10 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should stay on current question if no further enabled questions", function() {
                 firstQuestion.isSelected = true;
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
-                spyOn(secondQuestion, 'isDisabled').andReturn(true);
-                spyOn(thirdQuestion, 'isDisabled').andReturn(true);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
+                spyOn(secondQuestion, 'isDisabled').and.returnValue(true);
+                spyOn(thirdQuestion, 'isDisabled').and.returnValue(true);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
@@ -426,10 +426,10 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should stay on current question if no prior enabled questions", function() {
                 thirdQuestion.isSelected = true;
-                spyOn(thirdQuestion, 'isValid').andReturn(true);
-                spyOn(thirdQuestion, 'onExit').andReturn(true);
-                spyOn(firstQuestion, 'isDisabled').andReturn(true);
-                spyOn(secondQuestion, 'isDisabled').andReturn(true);
+                spyOn(thirdQuestion, 'isValid').and.returnValue(true);
+                spyOn(thirdQuestion, 'onExit').and.returnValue(true);
+                spyOn(firstQuestion, 'isDisabled').and.returnValue(true);
+                spyOn(secondQuestion, 'isDisabled').and.returnValue(true);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(thirdQuestion, 'toggleSelection');
@@ -445,9 +445,9 @@ describe("Tests for simple form navigation handlers", function() {
 
           it("should show previous button when jumping from first question to second question", function() {
             firstQuestion.isSelected = true;
-            spyOn(firstQuestion, 'isValid').andReturn(true);
-            spyOn(firstQuestion, 'onExit').andReturn(true);
-            spyOn(secondQuestion, 'isDisabled').andReturn(false);
+            spyOn(firstQuestion, 'isValid').and.returnValue(true);
+            spyOn(firstQuestion, 'onExit').and.returnValue(true);
+            spyOn(secondQuestion, 'isDisabled').and.returnValue(false);
             spyOn(firstQuestion, 'toggleSelection');
             spyOn(secondQuestion, 'toggleSelection');
 
@@ -460,9 +460,9 @@ describe("Tests for simple form navigation handlers", function() {
 
           it("should hide previous button when jumping from second question to first question", function() {
             secondQuestion.isSelected = true;
-            spyOn(secondQuestion, 'isValid').andReturn(true);
-            spyOn(secondQuestion, 'onExit').andReturn(true);
-            spyOn(firstQuestion, 'isDisabled').andReturn(false);
+            spyOn(secondQuestion, 'isValid').and.returnValue(true);
+            spyOn(secondQuestion, 'onExit').and.returnValue(true);
+            spyOn(firstQuestion, 'isDisabled').and.returnValue(false);
             spyOn(firstQuestion, 'toggleSelection');
             spyOn(secondQuestion, 'toggleSelection');
 
@@ -474,9 +474,9 @@ describe("Tests for simple form navigation handlers", function() {
 
           it("should not hide or show previous button when jumping from second question to third question", function() {
             secondQuestion.isSelected = true;
-            spyOn(secondQuestion, 'isValid').andReturn(true);
-            spyOn(secondQuestion, 'onExit').andReturn(true);
-            spyOn(thirdQuestion, 'isDisabled').andReturn(false);
+            spyOn(secondQuestion, 'isValid').and.returnValue(true);
+            spyOn(secondQuestion, 'onExit').and.returnValue(true);
+            spyOn(thirdQuestion, 'isDisabled').and.returnValue(false);
             spyOn(thirdQuestion, 'toggleSelection');
             spyOn(secondQuestion, 'toggleSelection');
 
@@ -487,9 +487,9 @@ describe("Tests for simple form navigation handlers", function() {
 
           it("should not hide or show previous button when jumping from third question to second question", function() {
             thirdQuestion.isSelected = true;
-            spyOn(thirdQuestion, 'isValid').andReturn(true);
-            spyOn(thirdQuestion, 'onExit').andReturn(true);
-            spyOn(secondQuestion, 'isDisabled').andReturn(false);
+            spyOn(thirdQuestion, 'isValid').and.returnValue(true);
+            spyOn(thirdQuestion, 'onExit').and.returnValue(true);
+            spyOn(secondQuestion, 'isDisabled').and.returnValue(false);
             spyOn(secondQuestion, 'toggleSelection');
             spyOn(thirdQuestion, 'toggleSelection');
 
@@ -506,12 +506,12 @@ describe("Tests for simple form navigation handlers", function() {
         describe("Section mouse handlers", function() {
             var sectionsMouseHandler, firstSection, secondSection, thirdSection, question, field, event, sections;
             beforeEach(function() {
-                firstSection = {isSelected: false, toggleSelection: '', isValid: '', onExit:'', title: $('<li></li>')};
+                firstSection = {isSelected: false, toggleSelection: '', isValid: '', firstInvalidQuestion: '', onExit:'', title: $('<li></li>')};
                 secondSection = {isSelected: false, toggleSelection: '', isValid: '', onExit:'', title: $('<li></li>'), firstInvalidQuestion: ''};
                 thirdSection = {isSelected: false, toggleSelection: '', isValid: '', title: $('<li></li>')};
                 event = {stopPropagation: ''};
 
-                field = {isSelected: true, toggleSelection: '', select: ''};
+                field = {isSelected: true, toggleSelection: '', select: '', isValid: ''};
                 question = {fields: [field], toggleSelection: '', isSelected: true, firstInvalidField: ''};
 
                 sections = [firstSection, secondSection, thirdSection];
@@ -519,8 +519,8 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should switch selection to section ahead if current section is valid", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstSection, 'isValid').andReturn(true);
-                spyOn(firstSection, 'onExit').andReturn(true);
+                spyOn(firstSection, 'isValid').and.returnValue(true);
+                spyOn(firstSection, 'onExit').and.returnValue(true);
                 spyOn(firstSection, 'toggleSelection');
                 spyOn(secondSection, 'toggleSelection');
                 spyOn(question, 'toggleSelection');
@@ -539,22 +539,29 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to section ahead if current section is not valid", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstSection, 'isValid').andReturn(false);
-                spyOn(firstSection, 'onExit').andReturn(true);
+                spyOn(firstSection, 'isValid').and.returnValue(false);
+                spyOn(firstSection, 'onExit').and.returnValue(true);
+                spyOn(firstSection, 'toggleSelection');
+                spyOn(question, 'toggleSelection');
+                spyOn(firstSection, 'firstInvalidQuestion').and.returnValue(question);
+                spyOn(question, 'firstInvalidField').and.returnValue(field);
+                spyOn(field, 'isValid').and.returnValue(false);
+                spyOn(field, 'toggleSelection');
                 spyOn(field, 'select');
+
                 firstSection.isSelected = true;
                 firstSection.questions = [question];
 
                 clickedSectionHandler(sections, secondSection, event);
 
-                expect(firstSection.onExit).not.toHaveBeenCalled();
+                expect(firstSection.onExit).toHaveBeenCalled();
                 expect(event.stopPropagation).toHaveBeenCalled();
-                expect(field.select).toHaveBeenCalled();
+                expect(field.select).not.toHaveBeenCalled();
             });
             it("should not switch selection to section ahead if exit handler returns false", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstSection, 'isValid').andReturn(true);
-                spyOn(firstSection, 'onExit').andReturn(false);
+                spyOn(firstSection, 'isValid').and.returnValue(true);
+                spyOn(firstSection, 'onExit').and.returnValue(false);
                 spyOn(field, 'select');
                 firstSection.isSelected = true;
                 firstSection.questions = [question];
@@ -567,16 +574,17 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not go past an invalid section when trying to select a section ahead", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstSection, 'isValid').andReturn(true);
-                spyOn(firstSection, 'onExit').andReturn(true);
+                spyOn(firstSection, 'isValid').and.returnValue(true);
+                spyOn(firstSection, 'onExit').and.returnValue(true);
                 spyOn(firstSection, 'toggleSelection');
-                spyOn(secondSection, 'isValid').andReturn(false);
+                spyOn(secondSection, 'isValid').and.returnValue(false);
                 spyOn(secondSection, 'onExit');
                 spyOn(secondSection, 'toggleSelection');
-                spyOn(secondSection, 'firstInvalidQuestion').andReturn(question);
+                spyOn(secondSection, 'firstInvalidQuestion').and.returnValue(question);
                 spyOn(question, 'toggleSelection');
-                spyOn(question, 'firstInvalidField').andReturn(field);
+                spyOn(question, 'firstInvalidField').and.returnValue(field);
                 spyOn(field, 'toggleSelection');
+                spyOn(field, 'isValid');
                 firstSection.isSelected = true;
                 secondSection.questions = [question];
                 question.fields = [field];
@@ -597,9 +605,9 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(thirdSection, 'toggleSelection');
                 spyOn(question, 'toggleSelection');
                 spyOn(field, 'toggleSelection');
-                spyOn(firstSection, 'isValid').andReturn(true);
-                spyOn(firstSection, 'onExit').andReturn(true);
-                spyOn(secondSection, 'isValid').andReturn(true);
+                spyOn(firstSection, 'isValid').and.returnValue(true);
+                spyOn(firstSection, 'onExit').and.returnValue(true);
+                spyOn(secondSection, 'isValid').and.returnValue(true);
                 spyOn(secondSection, 'onExit');
                 spyOn(field, 'select');
                 firstSection.isSelected = true;
@@ -620,7 +628,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(event, 'stopPropagation');
                 spyOn(firstSection, 'toggleSelection');
                 spyOn(secondSection, 'toggleSelection');
-                spyOn(secondSection, 'onExit').andReturn(true);
+                spyOn(secondSection, 'onExit').and.returnValue(true);
                 spyOn(question, 'toggleSelection');
                 spyOn(field, 'toggleSelection');
                 secondSection.isSelected = true;
@@ -639,7 +647,7 @@ describe("Tests for simple form navigation handlers", function() {
                 spyOn(event, 'stopPropagation');
                 spyOn(firstSection, 'toggleSelection');
                 spyOn(secondSection, 'toggleSelection');
-                spyOn(secondSection, 'onExit').andReturn(false);
+                spyOn(secondSection, 'onExit').and.returnValue(false);
                 spyOn(question, 'toggleSelection');
                 spyOn(field, 'toggleSelection');
                 spyOn(field, 'select');
@@ -674,8 +682,8 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should switch selection to question ahead if current question is valid", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(field, 'toggleSelection');
@@ -691,8 +699,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to question ahead if current question is not valid", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstQuestion, 'isValid').andReturn(false)
-                spyOn(firstQuestion, 'onExit').andReturn(true);;
+                spyOn(firstQuestion, 'isValid').and.returnValue(false)
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);;
                 spyOn(field, 'select');
                 firstQuestion.isSelected = true;
                 field.isSelected = true;
@@ -706,9 +714,9 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to question ahead if question in between is not valid", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
-                spyOn(secondQuestion, 'isValid').andReturn(false);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
+                spyOn(secondQuestion, 'isValid').and.returnValue(false);
                 spyOn(field, 'select');
                 firstQuestion.isSelected=true;
                 field.isSelected = true;
@@ -722,9 +730,9 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should switch selection to question ahead but not call exit handler on in-between method", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstQuestion, 'isValid').andReturn(true);
-                spyOn(firstQuestion, 'onExit').andReturn(true);
-                spyOn(secondQuestion, 'isValid').andReturn(true);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true);
+                spyOn(firstQuestion, 'onExit').and.returnValue(true);
+                spyOn(secondQuestion, 'isValid').and.returnValue(true);
                 spyOn(secondQuestion, 'onExit')
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
@@ -746,8 +754,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should switch selection to question behind", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(secondQuestion, 'isValid').andReturn(true);
-                spyOn(secondQuestion, 'onExit').andReturn(true);
+                spyOn(secondQuestion, 'isValid').and.returnValue(true);
+                spyOn(secondQuestion, 'onExit').and.returnValue(true);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(field, 'toggleSelection');
@@ -763,8 +771,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
             it("should not switch selection to question ahead if exit handler returns false", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(firstQuestion, 'isValid').andReturn(true)
-                spyOn(firstQuestion, 'onExit').andReturn(false);
+                spyOn(firstQuestion, 'isValid').and.returnValue(true)
+                spyOn(firstQuestion, 'onExit').and.returnValue(false);
                 spyOn(field, 'select');
                 firstQuestion.isSelected = true;
                 field.isSelected = true;
@@ -778,8 +786,8 @@ describe("Tests for simple form navigation handlers", function() {
 
             it("should not switch selection to question behind if exit handler returns false", function() {
                 spyOn(event, 'stopPropagation');
-                spyOn(secondQuestion, 'isValid').andReturn(true);
-                spyOn(secondQuestion, 'onExit').andReturn(false);
+                spyOn(secondQuestion, 'isValid').and.returnValue(true);
+                spyOn(secondQuestion, 'onExit').and.returnValue(false);
                 spyOn(firstQuestion, 'toggleSelection');
                 spyOn(secondQuestion, 'toggleSelection');
                 spyOn(field, 'toggleSelection');
@@ -807,8 +815,8 @@ describe("Tests for simple form navigation handlers", function() {
             });
 
             it("should switch selection to field ahead if current field is valid", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(true);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(true);
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
                 spyOn(event, 'preventDefault');
@@ -822,8 +830,8 @@ describe("Tests for simple form navigation handlers", function() {
                 expect(event.preventDefault).toHaveBeenCalled();
             });
             it("should not switch selection to field ahead if current field is not valid", function() {
-                spyOn(firstField, 'isValid').andReturn(false);
-                spyOn(firstField, 'onExit').andReturn(true);
+                spyOn(firstField, 'isValid').and.returnValue(false);
+                spyOn(firstField, 'onExit').and.returnValue(true);
                 spyOn(firstField, 'select');
                 spyOn(event, 'preventDefault');
                 firstField.isSelected=true;
@@ -835,9 +843,9 @@ describe("Tests for simple form navigation handlers", function() {
                 expect(event.preventDefault).toHaveBeenCalled();
             });
             it("should not switch selection to field ahead if field in between is not valid", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(true)
-                spyOn(secondField, 'isValid').andReturn(false);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(true)
+                spyOn(secondField, 'isValid').and.returnValue(false);
                 spyOn(firstField, 'select');
                 spyOn(event, 'preventDefault');
                 firstField.isSelected=true;
@@ -849,9 +857,9 @@ describe("Tests for simple form navigation handlers", function() {
                 expect(event.preventDefault).toHaveBeenCalled();
             });
             it("should not switch selection to field ahead if exit handler returns false", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(false)
-                spyOn(secondField, 'isValid').andReturn(true);;
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(false)
+                spyOn(secondField, 'isValid').and.returnValue(true);;
                 spyOn(firstField, 'select');
                 spyOn(event, 'preventDefault');
                 firstField.isSelected=true;
@@ -863,10 +871,10 @@ describe("Tests for simple form navigation handlers", function() {
                 expect(event.preventDefault).toHaveBeenCalled();
             });
             it("should switch selection to field ahead but not call in-between exit handler", function() {
-                spyOn(firstField, 'isValid').andReturn(true);
-                spyOn(firstField, 'onExit').andReturn(true);
-                spyOn(secondField, 'isValid').andReturn(true);
-                spyOn(secondField, 'onExit').andReturn(true);
+                spyOn(firstField, 'isValid').and.returnValue(true);
+                spyOn(firstField, 'onExit').and.returnValue(true);
+                spyOn(secondField, 'isValid').and.returnValue(true);
+                spyOn(secondField, 'onExit').and.returnValue(true);
                 spyOn(firstField, 'select');
                 spyOn(firstField, 'toggleSelection');
                 spyOn(thirdField, 'toggleSelection');
@@ -884,7 +892,7 @@ describe("Tests for simple form navigation handlers", function() {
             it("should switch selection to field behind", function() {
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
-                spyOn(secondField, 'onExit').andReturn(true)
+                spyOn(secondField, 'onExit').and.returnValue(true)
                 spyOn(event, 'preventDefault');
                 secondField.isSelected=true;
 
@@ -898,7 +906,7 @@ describe("Tests for simple form navigation handlers", function() {
             it("should not switch selection to field behind if exit handler returns false", function() {
                 spyOn(firstField, 'toggleSelection');
                 spyOn(secondField, 'toggleSelection');
-                spyOn(secondField, 'onExit').andReturn(false);
+                spyOn(secondField, 'onExit').and.returnValue(false);
                 spyOn(event, 'preventDefault');
                 spyOn(secondField, 'select');
                 secondField.isSelected=true;

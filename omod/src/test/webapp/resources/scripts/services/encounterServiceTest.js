@@ -8,7 +8,7 @@ describe('EncounterService tests', function() {
 
     // create mock Encounter resource
     var mockEncounter = jasmine.createSpyObj('Encounter', ['query']);
-    mockEncounter.query.andCallFake(function() {
+    mockEncounter.query.and.callFake(function() {
 
         deferred = q.defer();
 

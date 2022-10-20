@@ -66,12 +66,12 @@ nb-configuration.xml
 *~
 #############
 
-### Rubygems build directories ###
-omod/.rubygems
-omod/.rubygems-provided
-####################
-
 phantomjsdriver.log
 
-## CSS ##
+## SASS / CSS ##
 *.css
+*.css.map
+scss/node
+scss/node_modules
+omod/node
+omod/node_modules

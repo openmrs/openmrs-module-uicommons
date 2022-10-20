@@ -8,7 +8,7 @@ describe('ConceptSearchService tests', function() {
 
     // create mock ConceptSearch resource
     var mock = jasmine.createSpyObj('ConceptSearch', ['query']);
-    mock.query.andCallFake(function() {
+    mock.query.and.callFake(function() {
 
         deferred = q.defer();
 
