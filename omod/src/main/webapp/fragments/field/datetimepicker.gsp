@@ -38,12 +38,9 @@
         startDate = config.startDate
         if (startDate instanceof String) {
             try {
-                if(startDate.split("-").length == 1){
-                    startDate = extendedDateStringFormat.parse(startDate)
-                }else {
-                    startDate = shortDateStringFormat.parse(startDate)
-                }
+                startDate = extendedDateStringFormat.parse(startDate)
             } catch(Exception dateWithoutTimeException) {
+                startDate = shortDateStringFormat.parse(startDate)
             }
         }
     }
@@ -54,12 +51,9 @@
         endDate = config.endDate
         if (endDate instanceof String) {
             try {
-                if(endDate.split("-").length == 1){
-                    endDate = extendedDateStringFormat.parse(endDate)
-                }else {
-                    endDate = shortDateStringFormat.parse(endDate)
-                }
+                endDate = extendedDateStringFormat.parse(endDate)
             } catch(Exception dateWithoutTimeException) {
+                endDate = shortDateStringFormat.parse(endDate)
             }
         }
     }
@@ -152,6 +146,18 @@
                 jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
             }
         })
+    <% } else if (convertTimezones) { %>
+    jQuery("#${ config.id }-wrapper").datetimepicker().on('show hide', function(e) {
+        var dateOnUTC = jq("#${ config.id }-field").val();
+        if (dateOnUTC != '') {
+            jq("#${ config.id }-field").val(new Date(dateOnUTC))
+            moment.locale("${ ui.getLocale() }")
+            <%   def displayFormat = "DD MMM YYYY" %>
+            <%   def inputFormat = "YYYY-MM-DDTHH:mm:ss.sssZ" %>
+            jq("#${ config.id }-display").val(moment(dateOnUTC).format("${displayFormat}"));
+            jq("#${ config.id }-field").val(moment(dateOnUTC).format("${inputFormat}"))
+        }
+    })
     <% } else {  %>
         jQuery("#${ config.id }-wrapper").datetimepicker().on('show hide', function(e) {
             var dateOnUTC = jq("#${ config.id }-field").val();
