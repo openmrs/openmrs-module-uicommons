@@ -410,7 +410,7 @@ QuestionModel.prototype.unselect = function() {
     })
 
     // mark the question as done if at least one of the fields has a value, and all the expected fields have a value
-    anyFieldHasValue && !expectedFieldMissingValue ? this.questionLi.addClass("done") :
+    anyFieldHasValue && !expectedFieldMissingValue && this.isValid() ? this.questionLi.addClass("done") :
           this.questionLi.removeClass("done");
 
 }
