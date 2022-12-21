@@ -219,13 +219,14 @@ describe("Test for simple form models", function() {
 
         beforeEach(function() {
             questionModel = new QuestionModel();
-            firstField = jasmine.createSpyObj('firstField', ['unselect', 'resetErrorMessages', 'value', 'displayValue', 'enable', 'disable', 'hide', 'show']);
+            firstField = jasmine.createSpyObj('firstField', ['unselect', 'resetErrorMessages', 'value', 'displayValue', 'enable', 'disable', 'hide', 'show', 'isValid']);
             secondField = jasmine.createSpyObj('secondField', ['unselect', 'resetErrorMessages', 'value', 'displayValue', 'enable', 'disable', 'hide', 'show']);
             firstField.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);
             secondField.element  = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'hasClass']);
             questionModel.fields = [firstField, secondField];
             element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'triggerHandler', 'attr', 'removeAttr', 'hide', 'show']);
             questionModel.element = element;
+            spyOn(questionModel, 'isValid').and.returnValue(true);
             spyOn(questionModel.questionLi, 'addClass');
             spyOn(questionModel.questionLi, 'removeClass');
             spyOn(questionModel.questionLi, 'show');
