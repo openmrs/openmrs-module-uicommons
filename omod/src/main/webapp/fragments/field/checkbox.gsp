@@ -5,7 +5,7 @@
 
 <p class="left">
 	<label for="${ config.id }-field">${ config.label }</label>
-    <input type="checkbox" id="${ config.id }-field" name="${ config.formFieldName }" <% if (config.checked) { %>checked='checked'<% } %> <% if (config.value) { %>value="${ config.value }"<% } %> 
+    <input type="checkbox" id="${ config.id }-field" name="${ config.formFieldName }" <% if (config.checked  || (config.initialValue && config.value && config.initialValue == config.value)) { %>checked='checked'<% } %> <% if (config.value) { %>value="${ config.value }"<% } %>
     <% config.dataAttributes.each { %>
     	data-${ it.key } = "${ ui.escapeAttribute(it.value) }"
     <% } %>
