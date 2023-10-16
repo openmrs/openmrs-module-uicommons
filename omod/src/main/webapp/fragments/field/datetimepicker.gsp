@@ -8,45 +8,28 @@
     config.require("id", "label", "formFieldName", "useTime")
 
     def required = config.classes && config.classes.join(' ').contains("required")
+    def useTime = config.useTime instanceof String ? Boolean.parseBoolean(config.useTime) : false
+    def convertTimezones = ui.convertTimezones()
 
-    def dateStringFormat
-    def dateISOFormatted
-    def fallbackDateStringFormat
-    def useTime = config.useTime
-
-    if (useTime instanceof String) {
-        useTime = Boolean.parseBoolean(useTime)
-    }
-
-    def stringDateFormat = config.stringDateFormat
-    def isoDateFormat = config.isoDateFormat
-    if (!stringDateFormat){
-        stringDateFormat = useTime ? "dd MMM yyyy HH:mm" : "dd MMM yyyy"
-    }
-    if(!isoDateFormat){
-        isoDateFormat = useTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd"
-    }
-    dateStringFormat = new java.text.SimpleDateFormat(stringDateFormat, org.openmrs.api.context.Context.getLocale())
-    dateISOFormatted = new java.text.SimpleDateFormat(isoDateFormat)
-
-    def defaultDate
-    if (config.defaultToday) {
-        defaultDate = new Date()
-    } else {
-        defaultDate = config.defaultDate
-    }
+    def stringDateFormat = config.stringDateFormat ?: (useTime ? "dd MMM yyyy hh:mm" : "dd MMM yyyy")
+    def isoDateFormat = config.isoDateFormat ?: (useTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd")
+    def dateStringFormat = new java.text.SimpleDateFormat(stringDateFormat, org.openmrs.api.context.Context.getLocale())
+    def dateISOFormatted = new java.text.SimpleDateFormat(isoDateFormat)
 
     def defaultDateString = ""
     def defaultDateISOFormatted = ""
-    if (defaultDate) {
-        if( ui.convertTimezones() && useTime) {
-                defaultDateString = ui.format(defaultDate)
-                defaultDateISOFormatted = ui.dateToISOString(defaultDate)
-        } else {
-            defaultDateString = dateStringFormat.format(defaultDate)
-            defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
-        }
+    def defaultDate = config.defaultToday ? new Date() : config.defaultDate
+
+    if (defaultDate && convertTimezones) {
+        defaultDateString = ui.format(defaultDate)
+        defaultDateISOFormatted = ui.dateToISOString(defaultDate)
+    } else if (defaultDate) {
+        defaultDateString = dateStringFormat.format(defaultDate)
+        defaultDateISOFormatted = dateISOFormatted.format(defaultDate)
     }
+
+    def extendedDateStringFormat = new java.text.SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy", org.openmrs.api.context.Context.getLocale())
+    def shortDateStringFormat = new java.text.SimpleDateFormat("dd-MM-yyyy", org.openmrs.api.context.Context.getLocale())
 
     def startDate
     if (config.startToday) {
@@ -55,15 +38,12 @@
         startDate = config.startDate
         if (startDate instanceof String) {
             try {
-            	// parses date strings like (new Date().toString())
-            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy", java.util.Locale.ENGLISH)
-                startDate = fallbackDateStringFormat.parse(startDate)
-            } catch(Exception e) {
-            	// pass
+                startDate = extendedDateStringFormat.parse(startDate)
+            } catch(Exception dateWithoutTimeException) {
+                startDate = shortDateStringFormat.parse(startDate)
             }
         }
     }
-
     def endDate
     if (config.endToday) {
         endDate = defaultDateString
@@ -71,28 +51,16 @@
         endDate = config.endDate
         if (endDate instanceof String) {
             try {
-            	// parses date strings like (new Date().toString())
-            	fallbackDateStringFormat = new java.text.SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy", java.util.Locale.ENGLISH)
-                endDate = fallbackDateStringFormat.parse(endDate)
-            } catch(Exception e) {
-            	// pass
+                endDate = extendedDateStringFormat.parse(endDate)
+            } catch(Exception dateWithoutTimeException) {
+                endDate = shortDateStringFormat.parse(endDate)
             }
         }
     }
 
-    def minuteStep = config.minuteStep
-    def datePickerFormat = config.datePickerFormat
-    def datePickerLinkFormat = config.datePickerLinkFormat
-    if(!minuteStep){
-        minuteStep = 5
-    }
-    if(!datePickerFormat){
-        datePickerFormat = useTime ? "dd M yyyy HH:mm" :"dd M yyyy"
-    }
-
-    if(!datePickerLinkFormat){
-        datePickerLinkFormat = useTime ? "yyyy-mm-dd hh:ii:ss" : "yyyy-mm-dd"
-    }
+    def minuteStep = config.minuteStep?: 5
+    def datePickerFormat = config.datePickerFormat ?:  "dd M yyyy hh:ii:ss"
+    def datePickerLinkFormat = config.datePickerLinkFormat ?: (useTime ? "yyyy-mm-dd hh:ii:ss" : "yyyy-mm-dd")
 
     // see: "Advanced" section  of https://www.malot.fr/bootstrap-datetimepicker/demo.php for how this is supported
     // (basically, the datepicker has built-in support for reset based around added an element with the "icon-remove" class)
@@ -135,7 +103,7 @@
         format: "${datePickerFormat}",
 
         <% if (startDate) { %>
-            <% if (ui.convertTimezones()) { %>
+            <% if (convertTimezones) { %>
                 startDate: "${ startDate instanceof Date ? ui.format(startDate) : startDate }",
             <% } else { %>
                 startDate: "${ startDate instanceof Date ? dateISOFormatted.format(startDate) : startDate }",
@@ -143,7 +111,7 @@
         <% } %>
 
         <% if (endDate) { %>
-            <% if (ui.convertTimezones()) { %>
+            <% if (convertTimezones) { %>
                 endDate: "${ endDate instanceof Date ? ui.format(endDate) : endDate }",
             <% } else { %>
                 endDate: "${ endDate instanceof Date ? dateISOFormatted.format(endDate) : endDate }",
@@ -172,13 +140,38 @@
     });
 
     //Convert to client timezone.
-    <% if (ui.convertTimezones() && useTime) { %>
-    var dateOnUTC = jq("#${ config.id }-field").val();
-    if(dateOnUTC != '') {
-        jq("#${ config.id }-field").val(new Date(dateOnUTC))
-        moment.locale("${ ui.getLocale() }")
-        <%   def format = "YYYY-MM-DD HH:mm:ss" %>
-        jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
-    }
+    <% if (convertTimezones && useTime) { %>
+        jQuery("#${ config.id }-wrapper").datetimepicker().on('show hide', function(e) {
+            var dateOnUTC = jq("#${ config.id }-field").val();
+            if (dateOnUTC != '') {
+                jq("#${ config.id }-field").val(new Date(dateOnUTC))
+                moment.locale("${ ui.getLocale() }")
+                <%   def format = "YYYY-MM-DDTHH:mm:ss.sssZ" %>
+                jq("#${ config.id }-field").val(moment(dateOnUTC).format("${format}"));
+            }
+        })
+    <% } else if (convertTimezones) { %>
+    jQuery("#${ config.id }-wrapper").datetimepicker().on('show hide', function(e) {
+        var dateOnUTC = jq("#${ config.id }-field").val();
+        if (dateOnUTC != '') {
+            jq("#${ config.id }-field").val(new Date(dateOnUTC))
+            moment.locale("${ ui.getLocale() }")
+            <%   def displayFormat = "DD MMM YYYY" %>
+            <%   def inputFormat = "YYYY-MM-DDTHH:mm:ss.sssZ" %>
+            jq("#${ config.id }-display").val(moment(dateOnUTC).format("${displayFormat}"));
+            jq("#${ config.id }-field").val(moment(dateOnUTC).format("${inputFormat}"))
+        }
+    })
+    <% } else {  %>
+        jQuery("#${ config.id }-wrapper").datetimepicker().on('show hide', function(e) {
+            var dateOnUTC = jq("#${ config.id }-field").val();
+            if (dateOnUTC != '') {
+                jq("#${ config.id }-field").val(new Date(dateOnUTC))
+                <%   def displayFormat = "DD MMM YYYY" %>
+                <%   def inputFormat = "YYYY-MM-DD HH:mm:ss" %>
+                jq("#${ config.id }-display").val(moment(dateOnUTC).format("${displayFormat}"));
+                jq("#${ config.id }-field").val(moment(dateOnUTC).format("${inputFormat}"))
+            }
+        })
     <% } %>
 </script>
