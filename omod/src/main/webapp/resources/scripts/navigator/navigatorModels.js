@@ -232,7 +232,7 @@ FieldModel.prototype.displayValue = function() {
     else if (selectedRadio.length > 0) {
       var label = $('label[for="' + selectedRadio.attr('id') + '"]');
       if (label.length) {
-        value = label.first().html();
+        value = label.first().text();
       } else {
         value = selectedRadio.val();
       }
@@ -249,7 +249,7 @@ FieldModel.prototype.displayValue = function() {
     		else {
                 var label = $('label[for="' + this.element.attr('id') + '"]');
                 if (label.length) {
-                    value = label.first().html();
+                    value = label.first().text();
                 } else {
                     value = this.element.attr('value');
                 }
@@ -269,11 +269,11 @@ FieldModel.prototype.displayValue = function() {
     }
 
     // Fix issues w/reflected XSS by sanitizing value (issue: RA-452)
-    value = $("<div>").text(value).html();
+    value = $("<div>").text(value).text();
 
     if (value) {
         // see if there are units to append
-        var append = _.map(this.element.parent().find(".append-to-value, .units").first(), function(item) { return $(item).html() }).join(" ");
+        var append = _.map(this.element.parent().find(".append-to-value, .units").first(), function(item) { return $(item).text() }).join(" ");
         return value + (append ? " <span class='after-value'>" + append + "</span>" : "");
     } else {
         return "";
