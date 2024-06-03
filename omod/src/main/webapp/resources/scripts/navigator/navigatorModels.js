@@ -269,7 +269,7 @@ FieldModel.prototype.displayValue = function() {
     }
 
     // Fix issues w/reflected XSS by sanitizing value (issue: RA-452)
-    value = $("<div>").text(value).text();
+    value = $("<div>").text(value).html();
 
     if (value) {
         // see if there are units to append
