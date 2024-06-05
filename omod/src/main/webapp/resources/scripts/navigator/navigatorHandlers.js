@@ -281,6 +281,10 @@ var clickedQuestionHandler = function(questions, question, event) {
               firstInvalidQuestion = questions[i];
             }
             shouldSelectClickedQuestion = questions[i].isValid() && shouldSelectClickedQuestion;
+            if (!shouldSelectClickedQuestion && firstInvalidQuestion) {
+                // no point on checking if other questions are invalid, need to navigate back to the first invalid question
+                break;
+            }
         }
     }
 
