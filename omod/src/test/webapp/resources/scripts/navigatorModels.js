@@ -574,9 +574,8 @@ describe("Test for simple form models", function() {
     describe("Unit tests for ConfirmationSectionModel", function() {
        it("should select and unselect the confirmation section",function() {
            var menuElement = jasmine.createSpyObj('menu', ['append']);
-           var navButtons = jasmine.createSpyObj('navButtons', ['hide','show']);
            var confirmationQuestionModel = jasmine.createSpyObj('confirmationQuestion', ['confirm', 'cancel']);
-           var confirmationSectionModel = new ConfirmationSectionModel( confirmationQuestionModel, menuElement, null, null, navButtons);
+           var confirmationSectionModel = new ConfirmationSectionModel( confirmationQuestionModel, menuElement, null, null);
            confirmationSectionModel.element = jasmine.createSpyObj('element', ['addClass', 'removeClass', 'triggerHandler']);
            confirmationSectionModel.element.find = function () {  // stub out the find method to simply remove an empty jq call
                return jq();
@@ -588,12 +587,10 @@ describe("Test for simple form models", function() {
            confirmationSectionModel.toggleSelection();
            expect(confirmationSectionModel.element.addClass).toHaveBeenCalledWith('focused');
            expect(confirmationSectionModel.isSelected).toBe(true);
-           expect(navButtons.hide).toHaveBeenCalled();
 
            confirmationSectionModel.toggleSelection();
            expect(confirmationSectionModel.element.removeClass).toHaveBeenCalledWith('focused');
            expect(confirmationSectionModel.isSelected).toBe(false);
-           expect(navButtons.show).toHaveBeenCalled();
        });
     });
 })
