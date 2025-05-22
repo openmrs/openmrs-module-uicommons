@@ -24,16 +24,8 @@ jobs:
           distribution: 'corretto'
           cache: maven
           
-      - name: Install Google Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget gnupg
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-
-      
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v1
         
       - name: Build with Maven
-        run: mvn clean install --file pom.xml
+        run: mvn clean install --file pom.xml -Pdocker
