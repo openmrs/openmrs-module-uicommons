@@ -1,0 +1,31 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [8]
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'corretto'
+          cache: maven
+          
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v1
+        
+      - name: Build with Maven
+        run: mvn clean install --file pom.xml -Pdocker
