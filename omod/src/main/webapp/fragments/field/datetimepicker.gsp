@@ -168,7 +168,9 @@
     <% } %>
 
     jQuery("#${ config.id }-wrapper .icon-remove").click(function(event) {
-        jQuery("#${ config.id } input").val("");
+        if (jQuery("#${ config.id } input").val() !== "") {
+            jQuery("#${ config.id } input").val("").change();
+        }
     });
 
     //Convert to client timezone.
