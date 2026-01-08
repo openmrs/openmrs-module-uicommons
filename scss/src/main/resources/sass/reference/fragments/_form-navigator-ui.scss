@@ -171,7 +171,7 @@ form#retrospectiveCheckin {
 // we don't display the next/previous button on Bootstrap lg or xl sizes
 @media (min-width: 992px) {   // 992px is set to Bootstrap "lg" size
   #nav-buttons {
-    display: none;
+    display: none !important;
   }
 }
 
