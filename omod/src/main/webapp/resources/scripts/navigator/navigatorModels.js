@@ -607,10 +607,11 @@ SectionModel.prototype.firstInvalidQuestion = function() {
 }
 
 
-function ConfirmationSectionModel(elem, formMenuElem, regularSections, skipConfirmation, navButtons) {
+function ConfirmationSectionModel(elem, formMenuElem, regularSections, skipConfirmation, allowEmptyForm, navButtons) {
     SelectableModel.apply(this, [elem]);
     this.sections = regularSections;
     this.skipConfirmation = skipConfirmation ? skipConfirmation : false;
+    this.allowEmptyForm = allowEmptyForm ? allowEmptyForm : false;
     this.navButtons = navButtons;
 
     var title = this.element.find("span.title").first();
@@ -643,7 +644,6 @@ ConfirmationSectionModel.prototype.select = function() {
 
     if (!this.skipConfirmation) {
         // scan through the form and confirm that at least one of the fields has a value
-        // TODO: move all this out into a separate validator at some point? is the assumption that all forms must have data true?
         // TODO: makes sure this works for radio buttons and checkboxes (once we add them)
         var hasData = _.some(this.sections, function (section) {
             return _.some(section.questions, function (question) {
@@ -653,7 +653,7 @@ ConfirmationSectionModel.prototype.select = function() {
             })
         })
 
-        if (!hasData) {
+        if (!hasData && !this.allowEmptyForm) {
             this.questions[0].confirm.disable();
             this.element.find(".error").show();
         }

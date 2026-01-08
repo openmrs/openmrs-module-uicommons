@@ -53,10 +53,11 @@ function KeyboardController(formElement) {
         });
 
         var confirmationSection = new ConfirmationSectionModel(
-          $('#confirmation'),
-          breadcrumb, _.clone(sections),
-          formElement.hasClass('skip-confirmation-section'),
-          navButtons);
+            $('#confirmation'),
+            breadcrumb, _.clone(sections),
+formElement.hasClass('skip-confirmation-section') || formElement.find('htmlform').hasClass('skip-confirmation-section'),
+formElement.hasClass('allow-empty-form') || formElement.find('htmlform').hasClass('allow-empty-form'),
+            navButtons);
         sections.push(confirmationSection);
 
         var questions = _.flatten( _.map(sections, function(s) { return s.questions; }), true);
