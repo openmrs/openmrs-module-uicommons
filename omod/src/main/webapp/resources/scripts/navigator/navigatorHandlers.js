@@ -69,10 +69,11 @@ function FieldsKeyboardHandler(fieldModels, questionsHandler) {
                 }
             } else {
                 if(showFirstFieldIfNoneIsActive) {
-                    questionsHandler.selectedQuestion() || questionsHandler.nextQuestion();
-                    if (questionsHandler.selectedQuestion() && questionsHandler.selectedQuestion().fields && questionsHandler.selectedQuestion().fields.length > 0) {
-                      questionsHandler.selectedQuestion().fields[0].toggleSelection();
+                    // the assumption here is that there is *at least* one field on the form, which should always be the case if there is a confirmation page
+                    while(!questionsHandler.selectedQuestion() || !questionsHandler.selectedQuestion().fields || questionsHandler.selectedQuestion().fields.length === 0) {
+                        questionsHandler.nextQuestion();
                     }
+                    questionsHandler.selectedQuestion().fields[0].toggleSelection();
                     return true;
                 }
             }

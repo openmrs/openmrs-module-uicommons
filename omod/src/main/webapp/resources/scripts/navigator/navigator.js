@@ -78,6 +78,7 @@ formElement.hasClass('allow-empty-form') || formElement.find('htmlform').hasClas
     var questionsHandler = QuestionsHandler(questions, prevButton);
     var fieldsHandler = FieldsKeyboardHandler(fields, questionsHandler);
 
+    // go to the first field by triggering a tab
     fieldsHandler.handleTabKey();
 
     $('body').keydown(function(key) {
