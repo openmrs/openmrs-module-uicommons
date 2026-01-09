@@ -331,10 +331,10 @@ Release to Maven:
       force-clean-build: 'false'
       description: Checkout default repository
   - checkout:
-      repository: Git
+      repository: Release scripts
       path: release-scripts
       force-clean-build: 'false'
-      description: Checkout default repository
+      description: Checkout release scripts repository
   - script:
       interpreter: SHELL
       scripts:
