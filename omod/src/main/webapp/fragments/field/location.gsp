@@ -3,6 +3,16 @@
     config.require("formFieldName")
     // config supports withTag
 
+    def hasAncestor(ancestor, child) {
+        if (child == ancestor) {
+            return true
+        }
+        if (child.parentLocation == null) {
+            return false
+        }
+        return hasAncestor(ancestor, child.parentLocation)
+    }
+
     def options;
     def tagList = [];
     if (config.withTag) {
@@ -17,6 +27,11 @@
     } else {
         options = context.locationService.allLocations
     }
+
+    if (config.withAncestor) {
+        options = options?.findAll { hasAncestor(config.withAncestor, it) }
+    }
+
     options = options.collect {
         def selected = (it == config.initialValue);
         [ label: ui.format(it), value: it.id, selected: selected ]
