@@ -9,7 +9,8 @@ describe("Test for form validators", function() {
         selectedMonthHas30Days: 'selectedMonthHas30DaysMessage',
         februaryDaysOutOfRange: 'februaryDaysOutOfRangeMessage',
         dateInFuture: 'dateInFutureMessage',
-        requiredDateOrEstimatedDateField: 'requiredDateOrEstimatedDateFieldMessage'
+        requiredDateOrEstimatedDateField: 'requiredDateOrEstimatedDateFieldMessage',
+        invalid: 'invalidMessage'
     };
     var validator, field;
 
@@ -133,6 +134,39 @@ describe("Test for form validators", function() {
 
             var validationMessage = validator.validate(field);
             expect(validationMessage).toBe('numericRangeHigh 0');
+        });
+    });
+
+    describe("Regex fields", function() {
+        beforeEach(function() {
+            validator = new RegexFieldValidator();
+            field = jasmine.createSpyObj("field", ['value']);
+            field.element = $('<input type="text" regex="^[0-9]{12}$"/>');
+        });
+
+        it("should validate a value matching the regex", function() {
+            field.value.and.returnValue("123456789012");
+
+            var validationMessage = validator.validate(field);
+            expect(validationMessage).toBe(null);
+        });
+        it("should not validate a value not matching the regex", function() {
+            field.value.and.returnValue("12345");
+
+            var validationMessage = validator.validate(field);
+            expect(validationMessage).toBe('invalidMessage');
+        });
+        it("should allow an empty string, so that a regex does not make a field required", function() {
+            field.value.and.returnValue("");
+
+            var validationMessage = validator.validate(field);
+            expect(validationMessage).toBe(null);
+        });
+        it("should allow whitespace only, so that a regex does not make a field required", function() {
+            field.value.and.returnValue("   ");
+
+            var validationMessage = validator.validate(field);
+            expect(validationMessage).toBe(null);
         });
     });
 

@@ -162,8 +162,13 @@ function RegexFieldValidator(){
 RegexFieldValidator.prototype = new FieldValidator();
 RegexFieldValidator.prototype.constructor = RegexFieldValidator;
 RegexFieldValidator.prototype.validate = function(field) {
+    var value = field.value();
+    // a blank value is not a format violation; requiredness is enforced by the "required" validator
+    if (!value || $.trim(value).length == 0) {
+        return null;
+    }
     var regex = field.element.attr('regex');
-    if(!new RegExp(regex).test(field.value()))
+    if(!new RegExp(regex).test(value))
         return emrMessages[this.messageIdentifier];
     return null;
 }
